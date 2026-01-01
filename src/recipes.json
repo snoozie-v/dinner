@@ -1,80 +1,287 @@
 [
+{
+  "id": "shrimp-tacos-001",               
+  "name": "Shrimp Tacos",
+  "description": "Quick weeknight shrimp tacos with fresh slaw and lime crema.",
+  "author": "Your Name / Adapted from XYZ",
+  "sourceUrl": "https://example.com/recipe",    
+  "createdAt": "2025-12-15",
+  "updatedAt": "2025-12-20",
+
+  "tags": ["mexican", "seafood", "quick", "taco-night", "high-protein"],
+  "cuisine": "Mexican",
+  "mealTypes": ["dinner", "lunch"],
+  "dietary": ["gluten-free", "dairy-optional"], 
+  "allergiesToAvoid": ["shellfish"],            
+
+
+  "prepTime": "PT15M",                         
+  "cookTime": "PT10M",
+  "totalTime": "PT25M",
+  "difficulty": "easy",                       
+
+
+  "servings": {
+    "default": 4,
+    "unit": "tacos"                            
+  },
+
+
+  "ingredients": [
     {
-        "name": "Neapolitan Pizza Margharita w/ arugula salad" 
+      "name": "shrimp",
+      "quantity": 1.5,
+      "unit": "lb",                               
+      "preparation": "peeled and deveined",       
+      "category": "protein/seafood",              
+      "optional": false
     },
     {
-        "name": "Spaghetti"
+      "name": "cabbage",
+      "quantity": 0.5,
+      "unit": "head",
+      "preparation": "shredded",
+      "category": "produce",
+      "optional": false
     },
     {
-        "name": "Grillled Cheese & Veggie Jumble"
+      "name": "corn tortillas",
+      "quantity": 12,
+      "unit": "count",
+      "category": "bakery",
+      "optional": false
     },
     {
-        "name": "Stuffed Peppers"
-      },
-    {
-      "name": "Fajita Roll up"
+      "name": "lime",
+      "quantity": 2,
+      "unit": "count",
+      "category": "produce",
+      "optional": false
     },
     {
-      "name": "Ravioli"
-    },
-    {
-      "name": "Chili"
-    },
-    {
-      "name": "Frozen Pizza"
-    },
-    {
-      "name": "Lasagna"
-    },
-    {
-      "name": "Fish & Chips"
-    },
-    {
-      "name": "Zucchini Parmesan"
-    },
-    {
-      "name": "Beef Tacos"
-    },
-    {
-      "name": "Stir Fry"
-    },
-    {
-      "name": "Burgers and Fries"
-    },
-    {
-      "name": "KeBobs"
-    },
-    {
-      "name": "Meatballs, mashed potatoes and green beans"
-    },
-    {
-      "name": "Roy's Roast"
-    },
-    {
-      "name": "Veggie Lasagna"
-    },
-    {
-      "name": "Hobo Stew"
-    },
-    {
-      "name": "Bread Bowl and Soup"
-    },
-    {
-      "name": "Steaks, Carrots and Fried Potatoes"
-    },
-    {
-      "name": "Fajitas"
-    },
-    {
-      "name": "Meatloaf"
-    },
-    {
-      "name": "Chicken Sandwich and Salad"
-    },
-    {
-      "name": "Beef Bowls"
+      "name": "sour cream",
+      "quantity": 0.5,
+      "unit": "cup",
+      "category": "dairy",
+      "optional": true
     }
+  ],
 
 
+  "instructions": [
+    {
+      "section": "Prep",                            
+      "steps": [
+        "Peel and devein the shrimp if not already done.",
+        "Shred the cabbage thinly.",
+        "Juice the limes and set aside."
+      ]
+    },
+    {
+      "section": "Cook",
+      "steps": [
+        "Heat oil in a skillet over medium-high heat.",
+        "Cook shrimp 2-3 minutes per side until pink and opaque.",
+        "Warm tortillas in the same pan or microwave."
+      ]
+    },
+    {
+      "section": "Assemble",
+      "steps": [
+        "Build tacos: tortilla → shrimp → cabbage → lime crema → any extras.",
+        "Serve immediately with extra lime wedges."
+      ]
+    }
+  ],
 
+
+  "nutrition": {                                   
+    "calories": 420,
+    "protein_g": 32,
+    "carbs_g": 38,
+    "fat_g": 14,
+    "fiber_g": 5,
+    "source": "estimated / MyFitnessPal"
+  },
+  "costEstimate": {                                
+    "total": 12.50,
+    "currency": "USD",
+    "perServing": 3.13
+  },
+  "equipment": ["large skillet", "cutting board", "sharp knife"],
+  "notes": "Can be made ahead: prep slaw & crema day before. Great for meal prep lunches.",
+  "imageUrl": "https://example.com/shrimp-tacos.jpg",
+  "videoUrl": "https://youtube.com/...",           
+  "rating": 4.7,                                   
+  "timesUsed": 8                                   
+} ,
+
+{
+  "id": "spaghetti-bolognese-001",
+  "name": "Spaghetti Bolognese",
+  "description": "Hearty, classic spaghetti with a rich ground beef and tomato meat sauce – perfect for cozy family dinners.",
+  "author": "Adapted from classic home-style recipes",
+  "sourceUrl": "https://www.recipetineats.com/spaghetti-bolognese/",
+  "createdAt": "2026-01-01",
+  "updatedAt": "2026-01-01",
+
+  "tags": ["italian", "pasta", "comfort-food", "family-dinner", "one-pot-ish"],
+  "cuisine": "Italian",
+  "mealTypes": ["dinner"],
+  "dietary": ["dairy-optional"], 
+  "allergiesToAvoid": [],            
+
+  "prepTime": "PT15M",                         
+  "cookTime": "PT30M",
+  "totalTime": "PT45M",
+  "difficulty": "easy-medium",                       
+
+  "servings": {
+    "default": 5,
+    "unit": "servings"                            
+  },
+
+  "ingredients": [
+    {
+      "name": "ground beef",
+      "quantity": 1,
+      "unit": "lb",
+      "preparation": "lean or regular",
+      "category": "protein/meat",
+      "optional": false
+    },
+    {
+      "name": "onion",
+      "quantity": 1,
+      "unit": "medium",
+      "preparation": "finely chopped",
+      "category": "produce",
+      "optional": false
+    },
+    {
+      "name": "garlic",
+      "quantity": 3,
+      "unit": "cloves",
+      "preparation": "minced",
+      "category": "produce",
+      "optional": false
+    },
+    {
+      "name": "carrot",
+      "quantity": 1,
+      "unit": "medium",
+      "preparation": "finely diced",
+      "category": "produce",
+      "optional": false
+    },
+    {
+      "name": "crushed tomatoes",
+      "quantity": 28,
+      "unit": "oz",
+      "preparation": "canned",
+      "category": "canned goods",
+      "optional": false
+    },
+    {
+      "name": "tomato paste",
+      "quantity": 3,
+      "unit": "tbsp",
+      "preparation": "",
+      "category": "canned goods",
+      "optional": false
+    },
+    {
+      "name": "dry spaghetti",
+      "quantity": 14,
+      "unit": "oz",
+      "preparation": "",
+      "category": "pasta/grains",
+      "optional": false
+    },
+    {
+      "name": "olive oil",
+      "quantity": 2,
+      "unit": "tbsp",
+      "preparation": "",
+      "category": "pantry",
+      "optional": false
+    },
+    {
+      "name": "dried oregano",
+      "quantity": 1,
+      "unit": "tsp",
+      "preparation": "",
+      "category": "pantry",
+      "optional": false
+    },
+    {
+      "name": "red wine",
+      "quantity": 0.5,
+      "unit": "cup",
+      "preparation": "optional – substitute beef broth if preferred",
+      "category": "pantry",
+      "optional": true
+    },
+    {
+      "name": "Parmesan cheese",
+      "quantity": null,
+      "unit": "",
+      "preparation": "freshly grated, for serving",
+      "category": "dairy",
+      "optional": true
+    }
+  ],
+
+  "instructions": [
+    {
+      "section": "Prep",
+      "steps": [
+        "Finely chop the onion, carrot, and mince the garlic.",
+        "Open cans and measure spices."
+      ]
+    },
+    {
+      "section": "Make the sauce",
+      "steps": [
+        "Heat olive oil in a large pot or deep skillet over medium-high heat.",
+        "Add onion and carrot; cook 4–5 minutes until softened.",
+        "Add garlic and cook 1 minute until fragrant.",
+        "Add ground beef, break it up, and cook until browned (about 6–8 minutes). Drain excess fat if needed.",
+        "Stir in tomato paste and oregano; cook 1–2 minutes.",
+        "Pour in red wine (if using) and let it bubble for 1 minute to reduce.",
+        "Add crushed tomatoes, a pinch of salt & pepper. Bring to a simmer, then reduce heat to low.",
+        "Simmer uncovered 20–30 minutes, stirring occasionally, until thickened. Taste and adjust seasoning."
+      ]
+    },
+    {
+      "section": "Cook pasta & serve",
+      "steps": [
+        "While sauce simmers, bring a large pot of salted water to a boil.",
+        "Cook spaghetti according to package instructions until al dente; reserve ½ cup pasta water, then drain.",
+        "Toss pasta with a splash of reserved water and a bit of sauce if desired.",
+        "Serve sauce over spaghetti, topped with grated Parmesan."
+      ]
+    }
+  ],
+
+  "nutrition": {                                   
+    "calories": 580,
+    "protein_g": 35,
+    "carbs_g": 65,
+    "fat_g": 18,
+    "fiber_g": 6,
+    "source": "estimated"
+  },
+  "costEstimate": {                                
+    "total": 14.00,
+    "currency": "USD",
+    "perServing": 2.80
+  },
+  "equipment": ["large pot or Dutch oven", "large pot for pasta", "wooden spoon", "colander"],
+  "notes": "Tastes even better the next day. Freezes well – portion sauce separately from pasta. For quicker version, simmer only 15 minutes; for richer flavor, simmer up to 1–2 hours on low.",
+  "imageUrl": "https://example.com/spaghetti-bolognese.jpg",
+  "videoUrl": null,           
+  "rating": 4.8,                                   
+  "timesUsed": 0                                    
+}
 ]
