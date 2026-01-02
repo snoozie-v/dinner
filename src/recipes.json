@@ -3,10 +3,10 @@
   "id": "shrimp-tacos-001",               
   "name": "Shrimp Tacos",
   "description": "Quick weeknight shrimp tacos with fresh slaw and lime crema.",
-  "author": "Your Name / Adapted from XYZ",
-  "sourceUrl": "https://example.com/recipe",    
-  "createdAt": "2025-12-15",
-  "updatedAt": "2025-12-20",
+  "author": "Chris",
+  "sourceUrl": "",    
+  "createdAt": "2026-1-1",
+  "updatedAt": "2026-1-1",
 
   "tags": ["mexican", "seafood", "quick", "taco-night", "high-protein"],
   "cuisine": "Mexican",
@@ -14,18 +14,15 @@
   "dietary": ["gluten-free", "dairy-optional"], 
   "allergiesToAvoid": ["shellfish"],            
 
-
   "prepTime": "PT15M",                         
   "cookTime": "PT10M",
   "totalTime": "PT25M",
   "difficulty": "easy",                       
 
-
   "servings": {
     "default": 4,
     "unit": "tacos"                            
   },
-
 
   "ingredients": [
     {
@@ -113,9 +110,205 @@
   "imageUrl": "https://example.com/shrimp-tacos.jpg",
   "videoUrl": "https://youtube.com/...",           
   "rating": 4.7,                                   
-  "timesUsed": 8                                   
+  "timesUsed": 0                                  
 } ,
+{
+  "id": "meatloaf-roasted-potatoes-001",
+  "name": "Meatloaf with Roasted Potatoes",
+  "description": "Classic juicy meatloaf with a sweet-tangy glaze, served with crispy herb-roasted potatoes – ultimate comfort food for family dinners.",
+  "author": "Adapted from traditional American home recipes",
+  "sourceUrl": "https://www.allrecipes.com/recipe/219171/classic-meatloaf/",
+  "createdAt": "2026-01-01",
+  "updatedAt": "2026-01-01",
 
+  "tags": ["american", "comfort-food", "family-dinner", "sheet-pan", "hearty"],
+  "cuisine": "American",
+  "mealTypes": ["dinner"],
+  "dietary": ["dairy-optional"], 
+  "allergiesToAvoid": [],            
+
+  "prepTime": "PT20M",                         
+  "cookTime": "PT60M",
+  "totalTime": "PT1H20M",
+  "difficulty": "easy-medium",                       
+
+  "servings": {
+    "default": 6,
+    "unit": "servings"                            
+  },
+
+  "ingredients": [
+    {
+      "name": "ground beef",
+      "quantity": 1.5,
+      "unit": "lb",
+      "preparation": "80/20 or leaner",
+      "category": "protein/meat",
+      "optional": false
+    },
+    {
+      "name": "onion",
+      "quantity": 1,
+      "unit": "medium",
+      "preparation": "finely chopped",
+      "category": "produce",
+      "optional": false
+    },
+    {
+      "name": "garlic",
+      "quantity": 2,
+      "unit": "cloves",
+      "preparation": "minced",
+      "category": "produce",
+      "optional": false
+    },
+    {
+      "name": "breadcrumbs",
+      "quantity": 0.75,
+      "unit": "cup",
+      "preparation": "plain or panko",
+      "category": "pantry",
+      "optional": false
+    },
+    {
+      "name": "milk",
+      "quantity": 0.5,
+      "unit": "cup",
+      "preparation": "",
+      "category": "dairy",
+      "optional": false
+    },
+    {
+      "name": "egg",
+      "quantity": 1,
+      "unit": "large",
+      "preparation": "",
+      "category": "dairy",
+      "optional": false
+    },
+    {
+      "name": "Worcestershire sauce",
+      "quantity": 1,
+      "unit": "tbsp",
+      "preparation": "",
+      "category": "pantry",
+      "optional": false
+    },
+    {
+      "name": "ketchup",
+      "quantity": 0.5,
+      "unit": "cup",
+      "preparation": "divided (for meatloaf + glaze)",
+      "category": "pantry",
+      "optional": false
+    },
+    {
+      "name": "brown sugar",
+      "quantity": 2,
+      "unit": "tbsp",
+      "preparation": "for glaze",
+      "category": "pantry",
+      "optional": false
+    },
+    {
+      "name": "yellow mustard",
+      "quantity": 1,
+      "unit": "tbsp",
+      "preparation": "for glaze",
+      "category": "pantry",
+      "optional": false
+    },
+    {
+      "name": "potatoes",
+      "quantity": 2,
+      "unit": "lb",
+      "preparation": "Yukon Gold or red, cut into 1-inch chunks",
+      "category": "produce",
+      "optional": false
+    },
+    {
+      "name": "olive oil",
+      "quantity": 2,
+      "unit": "tbsp",
+      "preparation": "for potatoes",
+      "category": "pantry",
+      "optional": false
+    },
+    {
+      "name": "dried rosemary",
+      "quantity": 1,
+      "unit": "tsp",
+      "preparation": "",
+      "category": "pantry",
+      "optional": true
+    },
+    {
+      "name": "salt",
+      "quantity": null,
+      "unit": "",
+      "preparation": "to taste",
+      "category": "pantry",
+      "optional": false
+    },
+    {
+      "name": "black pepper",
+      "quantity": null,
+      "unit": "",
+      "preparation": "to taste",
+      "category": "pantry",
+      "optional": false
+    }
+  ],
+
+  "instructions": [
+    {
+      "section": "Prep",
+      "steps": [
+        "Preheat oven to 375°F (190°C). Line a large sheet pan with foil or parchment for easy cleanup.",
+        "In a small bowl, mix glaze: 1/3 cup ketchup, brown sugar, and mustard; set aside.",
+        "In a large bowl, soak breadcrumbs in milk for 5 minutes.",
+        "Add ground beef, onion, garlic, egg, Worcestershire, 2 tbsp ketchup, salt, and pepper. Mix gently until just combined (don't overmix)."
+      ]
+    },
+    {
+      "section": "Shape & Roast",
+      "steps": [
+        "Form meat mixture into a loaf shape (about 9x5 inches) in the center of the sheet pan.",
+        "Toss potato chunks with olive oil, rosemary (if using), salt, and pepper. Spread potatoes around the meatloaf (not touching it too much to avoid excess grease).",
+        "Bake for 40 minutes."
+      ]
+    },
+    {
+      "section": "Glaze & Finish",
+      "steps": [
+        "Brush glaze generously over the top and sides of the meatloaf.",
+        "Increase oven to 400°F (200°C) if needed for crispier potatoes; continue baking 15–25 minutes more, until meatloaf reaches 160°F internally and potatoes are golden and tender.",
+        "Let meatloaf rest 10 minutes before slicing. Serve with roasted potatoes (and optional green beans or gravy)."
+      ]
+    }
+  ],
+
+  "nutrition": {                                   
+    "calories": 520,
+    "protein_g": 32,
+    "carbs_g": 42,
+    "fat_g": 24,
+    "fiber_g": 4,
+    "source": "estimated"
+  },
+  "costEstimate": {                                
+    "total": 15.00,
+    "currency": "USD",
+    "perServing": 2.50
+  },
+  "equipment": ["large sheet pan", "mixing bowl", "measuring cups/spoons", "meat thermometer", "knife & cutting board"],
+  "notes": "For extra flavor, add 1/2 tsp dried thyme or paprika to potatoes. Use leaner beef (85/15) to reduce grease on potatoes. Leftovers make great sandwiches. Can bake meatloaf separately if preferred.",
+  "imageUrl": "https://example.com/meatloaf-roasted-potatoes.jpg",
+  "videoUrl": null,           
+  "rating": 4.6,                                   
+  "timesUsed": 0                                    
+}
+,
 {
   "id": "spaghetti-bolognese-001",
   "name": "Spaghetti Bolognese",
