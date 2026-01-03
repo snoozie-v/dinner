@@ -4,18 +4,15 @@ import React from 'react';
 const ShoppingList = ({ plan, shoppingList, updateShoppingAdjustment, toggleHaveItem, toggleOrdered, copyNeededItems }) => {
   if (plan.length === 0) return null;
 
+  const previewText = shoppingList
+    .filter((item) => item.neededQty > 0 && !item.ordered)
+    .map((item) => `- ${item.displayNeeded} ${item.unit} ${item.name}${item.preparation ? ` (${item.preparation})` : ''}`)
+    .join('\n') || 'No items needed.';
+
   return (
     <section>
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-semibold text-gray-800">Shopping List</h2>
-        <button
-          onClick={copyNeededItems}
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition text-sm"
-        >
-          Copy Needed Items
-        </button>
-      </div>
-      <div className="bg-white rounded-xl shadow-md border p-6">
+      <h2 className="text-2xl font-semibold text-gray-800 mb-6">Ingredient List</h2> {/* Updated heading for clarity */}
+      <div className="bg-white rounded-xl shadow-md border p-6 mb-6">
         {shoppingList.length === 0 ? (
           <p className="text-gray-500">No ingredients found in selected recipes.</p>
         ) : (
@@ -66,6 +63,21 @@ const ShoppingList = ({ plan, shoppingList, updateShoppingAdjustment, toggleHave
             ))}
           </div>
         )}
+      </div>
+      {/* Preview section with moved button */}
+      <div className="mt-6">
+        <div className="flex justify-between items-center mb-2">
+          <h3 className="text-lg font-medium text-gray-800">Shopping List Preview</h3>
+          <button
+            onClick={copyNeededItems}
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition text-sm"
+          >
+            Copy Needed Items
+          </button>
+        </div>
+        <pre className="bg-gray-100 p-4 rounded overflow-auto text-sm whitespace-pre-wrap">
+          {previewText}
+        </pre>
       </div>
     </section>
   );
