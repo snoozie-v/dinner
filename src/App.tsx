@@ -1,5 +1,6 @@
 // src/App.tsx
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
+import { arrayMove } from '@dnd-kit/sortable';
 import defaultRecipes from './recipes.json';
 import type { Recipe, PlanItem, ShoppingItem, ShoppingAdjustments, ShoppingOrders, ActiveTab } from './types';
 
@@ -288,6 +289,24 @@ function App() {
     assignRecipeToDay(dayIndex, recipe);
   };
 
+  const handleReorderDays = useCallback((activeId: string, overId: string): void => {
+    setPlan((prevPlan) => {
+      const oldIndex = prevPlan.findIndex((item) => item.id === activeId);
+      const newIndex = prevPlan.findIndex((item) => item.id === overId);
+
+      if (oldIndex === -1 || newIndex === -1) return prevPlan;
+
+      // Reorder the array
+      const reordered = arrayMove(prevPlan, oldIndex, newIndex);
+
+      // Reassign day numbers based on new positions
+      return reordered.map((item, index) => ({
+        ...item,
+        day: index + 1,
+      }));
+    });
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
@@ -343,6 +362,7 @@ function App() {
               plan={plan}
               setSelectedDayForPicker={setSelectedDayForPicker}
               updateServings={updateServings}
+              onReorderDays={handleReorderDays}
             />
 
             <ShoppingList
