@@ -1,6 +1,19 @@
-import React from 'react';
+// src/components/Controls.tsx
+import type { ChangeEvent } from 'react';
 
-const Controls = ({ days, setDays, generateRandomPlan, initManualPlan }) => { // Updated prop
+interface ControlsProps {
+  days: number;
+  setDays: (days: number) => void;
+  generateRandomPlan: () => void;
+  initManualPlan: () => void;
+  clearAllData: () => void;
+}
+
+const Controls = ({ days, setDays, generateRandomPlan, initManualPlan, clearAllData }: ControlsProps) => {
+  const handleDaysChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setDays(Math.max(1, Number(e.target.value) || 1));
+  };
+
   return (
     <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-6 mb-10 bg-white p-6 rounded-xl shadow-sm border">
       <div className="flex items-center gap-3">
@@ -10,7 +23,7 @@ const Controls = ({ days, setDays, generateRandomPlan, initManualPlan }) => { //
           min="1"
           max="30"
           value={days}
-          onChange={(e) => setDays(Math.max(1, Number(e.target.value) || 1))}
+          onChange={handleDaysChange}
           className="w-20 border border-gray-300 rounded-lg px-3 py-2 text-center focus:ring-2 focus:ring-blue-500"
         />
         <span className="text-gray-700 font-medium">days</span>
@@ -24,10 +37,17 @@ const Controls = ({ days, setDays, generateRandomPlan, initManualPlan }) => { //
       </button>
 
       <button
-        onClick={initManualPlan} // Updated
+        onClick={initManualPlan}
         className="bg-green-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-green-700 transition shadow-sm"
       >
         Start Manual Plan
+      </button>
+
+      <button
+        onClick={clearAllData}
+        className="bg-gray-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-600 transition shadow-sm"
+      >
+        Clear Data
       </button>
     </div>
   );

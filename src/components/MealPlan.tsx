@@ -1,7 +1,14 @@
-import React from 'react';
+// src/components/MealPlan.tsx
+import type { PlanItem as PlanItemType } from '../types';
 import PlanItem from './PlanItem';
 
-const MealPlan = ({ plan, setSelectedDayForPicker, updateServings }) => {
+interface MealPlanProps {
+  plan: PlanItemType[];
+  setSelectedDayForPicker: (day: number | null) => void;
+  updateServings: (planItemId: string, multiplier: number) => void;
+}
+
+const MealPlan = ({ plan, setSelectedDayForPicker, updateServings }: MealPlanProps) => {
   return (
     <section className="mb-12">
       <h2 className="text-2xl font-semibold text-gray-800 mb-6">Your Meal Plan</h2>

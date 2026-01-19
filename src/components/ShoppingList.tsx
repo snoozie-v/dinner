@@ -1,7 +1,24 @@
-// src/components/ShoppingList.jsx
-import React from 'react';
+// src/components/ShoppingList.tsx
+import type { ChangeEvent } from 'react';
+import type { PlanItem, ShoppingItem } from '../types';
 
-const ShoppingList = ({ plan, shoppingList, updateShoppingAdjustment, toggleHaveItem, toggleOrdered, copyNeededItems }) => {
+interface ShoppingListProps {
+  plan: PlanItem[];
+  shoppingList: ShoppingItem[];
+  updateShoppingAdjustment: (key: string, haveQty: string | number) => void;
+  toggleHaveItem: (key: string, totalQty: number) => void;
+  toggleOrdered: (key: string) => void;
+  copyNeededItems: () => void;
+}
+
+const ShoppingList = ({
+  plan,
+  shoppingList,
+  updateShoppingAdjustment,
+  toggleHaveItem,
+  toggleOrdered,
+  copyNeededItems
+}: ShoppingListProps) => {
   if (plan.length === 0) return null;
 
   const previewText = shoppingList
@@ -9,9 +26,13 @@ const ShoppingList = ({ plan, shoppingList, updateShoppingAdjustment, toggleHave
     .map((item) => `- ${item.displayNeeded} ${item.unit} ${item.name}${item.preparation ? ` (${item.preparation})` : ''}`)
     .join('\n') || 'No items needed.';
 
+  const handleHaveQtyChange = (key: string) => (e: ChangeEvent<HTMLInputElement>) => {
+    updateShoppingAdjustment(key, e.target.value);
+  };
+
   return (
     <section>
-      <h2 className="text-2xl font-semibold text-gray-800 mb-6">Ingredient List</h2> {/* Updated heading for clarity */}
+      <h2 className="text-2xl font-semibold text-gray-800 mb-6">Ingredient List</h2>
       <div className="bg-white rounded-xl shadow-md border p-6 mb-6">
         {shoppingList.length === 0 ? (
           <p className="text-gray-500">No ingredients found in selected recipes.</p>
@@ -43,7 +64,7 @@ const ShoppingList = ({ plan, shoppingList, updateShoppingAdjustment, toggleHave
                     min="0"
                     max={item.totalQty}
                     value={item.haveQty}
-                    onChange={(e) => updateShoppingAdjustment(item.key, e.target.value)}
+                    onChange={handleHaveQtyChange(item.key)}
                     className="w-20 border border-gray-300 rounded px-2 py-1 text-sm"
                   />
                   <button
@@ -64,7 +85,6 @@ const ShoppingList = ({ plan, shoppingList, updateShoppingAdjustment, toggleHave
           </div>
         )}
       </div>
-      {/* Preview section with moved button */}
       <div className="mt-6">
         <div className="flex justify-between items-center mb-2">
           <h3 className="text-lg font-medium text-gray-800">Shopping List Preview</h3>

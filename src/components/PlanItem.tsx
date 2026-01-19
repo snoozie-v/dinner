@@ -1,14 +1,18 @@
-// src/components/PlanItem.jsx
-import React, { useState } from 'react'; // Add useState
+// src/components/PlanItem.tsx
+import { useState } from 'react';
+import type { PlanItem as PlanItemType } from '../types';
 
-const PlanItem = ({ planItem, setSelectedDayForPicker, updateServings }) => {
+interface PlanItemProps {
+  planItem: PlanItemType;
+  setSelectedDayForPicker: (day: number | null) => void;
+  updateServings: (planItemId: string, multiplier: number) => void;
+}
+
+const PlanItem = ({ planItem, setSelectedDayForPicker, updateServings }: PlanItemProps) => {
   const { recipe, servingsMultiplier = 1, day, id } = planItem;
-  const [isExpanded, setIsExpanded] = useState(false); // New: Collapse state
-
-  const effectiveServings = Math.round((recipe?.servings?.default || 4) * servingsMultiplier);
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   if (!recipe) {
-    // Placeholder UI
     return (
       <div className="bg-white rounded-xl shadow-md border overflow-hidden">
         <div className="p-5 border-b bg-gray-50 flex justify-between items-center">
@@ -41,7 +45,7 @@ const PlanItem = ({ planItem, setSelectedDayForPicker, updateServings }) => {
               onClick={() => setIsExpanded(!isExpanded)}
               className="text-gray-600 hover:text-gray-900 transition"
             >
-              {isExpanded ? '▲' : '▼'} {/* Simple arrow icon */}
+              {isExpanded ? '▲' : '▼'}
             </button>
           </div>
 
@@ -86,12 +90,11 @@ const PlanItem = ({ planItem, setSelectedDayForPicker, updateServings }) => {
         </div>
       </div>
 
-      {isExpanded && ( // New: Conditional render for details
+      {isExpanded && (
         <div className="p-5 grid md:grid-cols-2 gap-8">
-          {/* Ingredients */}
           <div>
             <h4 className="font-medium text-gray-800 mb-3">Ingredients</h4>
-            {recipe?.ingredients?.length > 0 ? (
+            {recipe?.ingredients && recipe.ingredients.length > 0 ? (
               <ul className="space-y-2 text-gray-700">
                 {recipe.ingredients.map((ing, idx) => (
                   <li key={idx} className="flex justify-between">
@@ -110,10 +113,9 @@ const PlanItem = ({ planItem, setSelectedDayForPicker, updateServings }) => {
             )}
           </div>
 
-          {/* Instructions */}
           <div>
             <h4 className="font-medium text-gray-800 mb-3">Instructions</h4>
-            {recipe?.instructions?.length > 0 ? (
+            {recipe?.instructions && recipe.instructions.length > 0 ? (
               <div className="space-y-5">
                 {recipe.instructions.map((section, sIdx) => (
                   <div key={sIdx}>

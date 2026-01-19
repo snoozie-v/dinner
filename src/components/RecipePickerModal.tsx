@@ -1,7 +1,28 @@
-import React from 'react';
+// src/components/RecipePickerModal.tsx
+import type { Recipe } from '../types';
 
-const RecipePickerModal = ({ selectedDayForPicker, setSelectedDayForPicker, searchTerm, filteredRecipes, recipes, assignRecipeToDay }) => {
+interface RecipePickerModalProps {
+  selectedDayForPicker: number | null;
+  setSelectedDayForPicker: (day: number | null) => void;
+  searchTerm: string;
+  filteredRecipes: Recipe[];
+  recipes: Recipe[];
+  assignRecipeToDay: (dayIndex: number, recipe: Recipe | null) => void;
+  isCustomRecipe: (recipe: Recipe | null | undefined) => boolean;
+}
+
+const RecipePickerModal = ({
+  selectedDayForPicker,
+  setSelectedDayForPicker,
+  searchTerm,
+  filteredRecipes,
+  recipes,
+  assignRecipeToDay,
+  isCustomRecipe
+}: RecipePickerModalProps) => {
   if (selectedDayForPicker === null) return null;
+
+  const displayRecipes = searchTerm.trim() ? filteredRecipes : recipes;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
@@ -20,15 +41,19 @@ const RecipePickerModal = ({ selectedDayForPicker, setSelectedDayForPicker, sear
 
         <div className="p-5 overflow-y-auto flex-1">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {(searchTerm.trim() ? filteredRecipes : recipes).map((recipe) => (
+            {displayRecipes.map((recipe) => (
               <div
                 key={recipe.id || recipe.name || Math.random().toString(36)}
-                className="border border-gray-200 rounded-lg p-4 hover:border-blue-400 hover:shadow-md cursor-pointer transition-all duration-150 bg-white"
+                className="border border-gray-200 rounded-lg p-4 hover:border-blue-400 hover:shadow-md cursor-pointer transition-all duration-150 bg-white relative"
                 onClick={() => {
-                  console.log("Picker clicked → assigning:", recipe?.name); // temporary debug
                   assignRecipeToDay(selectedDayForPicker, recipe);
                 }}
               >
+                {isCustomRecipe(recipe) && (
+                  <span className="absolute top-2 right-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                    Custom
+                  </span>
+                )}
                 <h4 className="font-semibold text-gray-900 mb-1.5 truncate">
                   {recipe.name || "Unnamed recipe"}
                 </h4>
@@ -38,12 +63,12 @@ const RecipePickerModal = ({ selectedDayForPicker, setSelectedDayForPicker, sear
                 </div>
                 <div className="text-xs text-gray-500 line-clamp-2">
                   {recipe.ingredients?.slice(0, 3).map((i) => i?.name || '?').join(', ') || 'No ingredients listed'}
-                  {recipe.ingredients?.length > 3 ? ' …' : ''}
+                  {(recipe.ingredients?.length ?? 0) > 3 ? ' …' : ''}
                 </div>
               </div>
             ))}
 
-            {(searchTerm.trim() ? filteredRecipes : recipes).length === 0 && (
+            {displayRecipes.length === 0 && (
               <div className="col-span-full text-center py-10 text-gray-500">
                 No recipes match your search term "{searchTerm.trim()}"
               </div>

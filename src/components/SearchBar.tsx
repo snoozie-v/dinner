@@ -1,7 +1,28 @@
-// src/components/SearchBar.jsx
-import React from 'react';
+// src/components/SearchBar.tsx
+import type { ChangeEvent } from 'react';
+import type { Recipe } from '../types';
 
-const SearchBar = ({ searchTerm, setSearchTerm, filteredRecipes, onAssign, days }) => { // Add onAssign and days props
+interface SearchBarProps {
+  searchTerm: string;
+  setSearchTerm: (term: string) => void;
+  filteredRecipes: Recipe[];
+  onAssign: (recipe: Recipe, dayIndex: number) => void;
+  days: number;
+}
+
+const SearchBar = ({ searchTerm, setSearchTerm, filteredRecipes, onAssign, days }: SearchBarProps) => {
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleAssignChange = (recipe: Recipe) => (e: ChangeEvent<HTMLSelectElement>) => {
+    const dayIndex = parseInt(e.target.value);
+    if (!isNaN(dayIndex)) {
+      onAssign(recipe, dayIndex);
+      e.target.value = '';
+    }
+  };
+
   return (
     <div className="mb-10 bg-white p-6 rounded-xl shadow-sm border">
       <h3 className="text-xl font-semibold mb-4 text-gray-800">
@@ -10,7 +31,7 @@ const SearchBar = ({ searchTerm, setSearchTerm, filteredRecipes, onAssign, days 
       <input
         type="text"
         value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        onChange={handleSearchChange}
         placeholder="e.g. chicken, rice, tomato, tofu..."
         className="w-full max-w-md border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500"
       />
@@ -25,7 +46,7 @@ const SearchBar = ({ searchTerm, setSearchTerm, filteredRecipes, onAssign, days 
         <div className="mt-6 max-h-96 overflow-y-auto">
           <h4 className="text-lg font-medium mb-3 text-gray-700">Matching Recipes</h4>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredRecipes.map((recipe) => ( // Removed slice for simplicity; add back if needed
+            {filteredRecipes.map((recipe) => (
               <div
                 key={recipe.id || recipe.name}
                 className="border rounded-lg p-4 hover:shadow-md cursor-pointer transition hover:border-green-400 bg-gray-50"
@@ -37,16 +58,10 @@ const SearchBar = ({ searchTerm, setSearchTerm, filteredRecipes, onAssign, days 
                 <p className="text-xs text-gray-500 mt-1 line-clamp-1">
                   Ingredients: {recipe.ingredients?.map(i => i.name).join(', ') || 'None listed'}
                 </p>
-                {/* New: Dropdown for direct assignment */}
                 <select
-                  onChange={(e) => {
-                    const dayIndex = parseInt(e.target.value);
-                    if (!isNaN(dayIndex)) {
-                      onAssign(recipe, dayIndex);
-                      e.target.value = ''; // Reset dropdown
-                    }
-                  }}
+                  onChange={handleAssignChange(recipe)}
                   className="mt-2 w-full border rounded px-2 py-1 text-sm bg-white"
+                  defaultValue=""
                 >
                   <option value="">Assign to Day...</option>
                   {Array.from({ length: days }, (_, i) => i + 1).map((d) => (
