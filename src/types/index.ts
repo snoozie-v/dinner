@@ -90,6 +90,7 @@ export interface ShoppingItem {
   neededQty: number;
   displayNeeded: string | number;
   displayTotal: string | number;
+  isPantryStaple?: boolean;
 }
 
 export interface ShoppingAdjustment {
@@ -120,4 +121,26 @@ export interface RecipeOperationResult {
 export interface DifficultyOption {
   value: string;
   label: string;
+}
+
+// Pantry Staples - items user always has on hand
+export interface PantryStaple {
+  name: string;
+  unit: string;
+  key: string; // matches shopping list key format: "name|unit"
+}
+
+// Meal Plan Templates
+export interface MealPlanTemplate {
+  id: string;
+  name: string;
+  createdAt: string;
+  days: number;
+  recipes: (string | null)[]; // array of recipe IDs, null for empty days
+}
+
+// User preferences for quick access
+export interface UserPreferences {
+  favoriteRecipeIds: string[];
+  recentRecipeIds: string[]; // most recent first, max 10
 }

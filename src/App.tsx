@@ -2,7 +2,7 @@
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import { arrayMove } from '@dnd-kit/sortable';
 import defaultRecipes from './recipes.json';
-import type { Recipe, PlanItem, ShoppingItem, ShoppingAdjustments, ActiveTab } from './types';
+import type { Recipe, PlanItem, ShoppingItem, ShoppingAdjustments, ActiveTab, PantryStaple, MealPlanTemplate, UserPreferences } from './types';
 
 import Controls from './components/Controls';
 import SearchBar from './components/SearchBar';
@@ -10,6 +10,9 @@ import RecipePickerModal from './components/RecipePickerModal';
 import MealPlan from './components/MealPlan';
 import ShoppingList from './components/ShoppingList';
 import ManageRecipes from './components/recipes/ManageRecipes';
+import QuickRecipes from './components/QuickRecipes';
+import PantryModal from './components/PantryModal';
+import TemplateModal from './components/TemplateModal';
 
 import { useRecipes } from './hooks/useRecipes';
 
@@ -18,6 +21,9 @@ const STORAGE_KEYS = {
   DAYS: 'dinner-planner-days',
   PLAN: 'dinner-planner-plan',
   SHOPPING_ADJUSTMENTS: 'dinner-planner-shopping-adjustments',
+  PANTRY_STAPLES: 'dinner-planner-pantry-staples',
+  TEMPLATES: 'dinner-planner-templates',
+  USER_PREFS: 'dinner-planner-user-prefs',
 } as const;
 
 // Helper to safely parse JSON from localStorage
@@ -38,6 +44,25 @@ function App() {
   const [shoppingAdjustments, setShoppingAdjustments] = useState<ShoppingAdjustments>(() =>
     getStoredValue(STORAGE_KEYS.SHOPPING_ADJUSTMENTS, {})
   );
+
+  // Pantry staples - items user always has on hand
+  const [pantryStaples, setPantryStaples] = useState<PantryStaple[]>(() =>
+    getStoredValue(STORAGE_KEYS.PANTRY_STAPLES, [])
+  );
+
+  // Meal plan templates
+  const [templates, setTemplates] = useState<MealPlanTemplate[]>(() =>
+    getStoredValue(STORAGE_KEYS.TEMPLATES, [])
+  );
+
+  // User preferences (favorites, recent)
+  const [userPrefs, setUserPrefs] = useState<UserPreferences>(() =>
+    getStoredValue(STORAGE_KEYS.USER_PREFS, { favoriteRecipeIds: [], recentRecipeIds: [] })
+  );
+
+  // Modal states
+  const [showPantryModal, setShowPantryModal] = useState(false);
+  const [showTemplateModal, setShowTemplateModal] = useState(false);
 
   // Tab state: 'planner' or 'recipes'
   const [activeTab, setActiveTab] = useState<ActiveTab>('planner');
@@ -107,6 +132,103 @@ function App() {
     localStorage.setItem(STORAGE_KEYS.SHOPPING_ADJUSTMENTS, JSON.stringify(shoppingAdjustments));
   }, [shoppingAdjustments]);
 
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.PANTRY_STAPLES, JSON.stringify(pantryStaples));
+  }, [pantryStaples]);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.TEMPLATES, JSON.stringify(templates));
+  }, [templates]);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.USER_PREFS, JSON.stringify(userPrefs));
+  }, [userPrefs]);
+
+  // Pantry staple handlers
+  const addPantryStaple = (name: string, unit: string): void => {
+    const key = `${name.toLowerCase()}|${unit.toLowerCase()}`;
+    if (!pantryStaples.some(s => s.key === key)) {
+      setPantryStaples(prev => [...prev, { name, unit, key }]);
+    }
+  };
+
+  const removePantryStaple = (key: string): void => {
+    setPantryStaples(prev => prev.filter(s => s.key !== key));
+  };
+
+  // Template handlers
+  const saveTemplate = (name: string): void => {
+    const template: MealPlanTemplate = {
+      id: `template-${Date.now().toString(36)}`,
+      name,
+      createdAt: new Date().toISOString(),
+      days: plan.length,
+      recipes: plan.map(p => p.recipe?.id || null),
+    };
+    setTemplates(prev => [...prev, template]);
+  };
+
+  const loadTemplate = (template: MealPlanTemplate): void => {
+    const newPlan: PlanItem[] = template.recipes.map((recipeId, index) => {
+      const recipe = recipeId ? allRecipes.find(r => r.id === recipeId) || null : null;
+      return {
+        day: index + 1,
+        id: `day-${index + 1}-${recipeId || 'placeholder'}`,
+        recipe: recipe ? { ...recipe } : null,
+        servingsMultiplier: 1,
+      };
+    });
+    setDays(template.days);
+    setPlan(newPlan);
+    setShoppingAdjustments({});
+    setShowTemplateModal(false);
+  };
+
+  const deleteTemplate = (templateId: string): void => {
+    setTemplates(prev => prev.filter(t => t.id !== templateId));
+  };
+
+  // Favorites handlers
+  const toggleFavorite = (recipeId: string): void => {
+    setUserPrefs(prev => {
+      const isFavorite = prev.favoriteRecipeIds.includes(recipeId);
+      return {
+        ...prev,
+        favoriteRecipeIds: isFavorite
+          ? prev.favoriteRecipeIds.filter(id => id !== recipeId)
+          : [...prev.favoriteRecipeIds, recipeId],
+      };
+    });
+  };
+
+  const isFavorite = (recipeId: string): boolean => {
+    return userPrefs.favoriteRecipeIds.includes(recipeId);
+  };
+
+  // Track recent recipe usage
+  const addToRecent = (recipeId: string): void => {
+    setUserPrefs(prev => {
+      const filtered = prev.recentRecipeIds.filter(id => id !== recipeId);
+      return {
+        ...prev,
+        recentRecipeIds: [recipeId, ...filtered].slice(0, 10),
+      };
+    });
+  };
+
+  // Get favorite and recent recipes
+  const favoriteRecipes = useMemo(() => {
+    return userPrefs.favoriteRecipeIds
+      .map(id => allRecipes.find(r => r.id === id))
+      .filter((r): r is Recipe => r !== undefined);
+  }, [userPrefs.favoriteRecipeIds, allRecipes]);
+
+  const recentRecipes = useMemo(() => {
+    return userPrefs.recentRecipeIds
+      .map(id => allRecipes.find(r => r.id === id))
+      .filter((r): r is Recipe => r !== undefined);
+  }, [userPrefs.recentRecipeIds, allRecipes]);
+
   const generateRandomPlan = (): void => {
     const newPlan: PlanItem[] = [];
     for (let i = 0; i < days; i++) {
@@ -142,6 +264,11 @@ function App() {
   };
 
   const assignRecipeToDay = (dayIndex: number, newRecipe: Recipe | null): void => {
+    // Track recent recipe usage
+    if (newRecipe?.id) {
+      addToRecent(newRecipe.id);
+    }
+
     setPlan((prevPlan) => {
       const updated = prevPlan.map((item) => ({ ...item }));
 
@@ -235,6 +362,9 @@ function App() {
       });
     });
 
+    // Create a set of pantry staple keys for quick lookup
+    const pantryKeys = new Set(pantryStaples.map(s => s.key));
+
     return Array.from(map.values())
       .sort((a, b) => {
         if (a.category !== b.category) return a.category.localeCompare(b.category);
@@ -242,17 +372,21 @@ function App() {
       })
       .map((item) => {
         const adj = shoppingAdjustments[item.key] || { haveQty: 0 };
-        const neededQty = Math.max(0, item.totalQty - adj.haveQty);
+        // Auto-mark pantry staples as "have"
+        const isPantryStaple = pantryKeys.has(item.key);
+        const haveQty = isPantryStaple ? item.totalQty : adj.haveQty;
+        const neededQty = Math.max(0, item.totalQty - haveQty);
         return {
           ...item,
-          haveQty: adj.haveQty,
+          haveQty,
           ordered: false,
           neededQty,
           displayNeeded: neededQty % 1 === 0 ? neededQty : neededQty.toFixed(1),
           displayTotal: item.totalQty % 1 === 0 ? item.totalQty : item.totalQty.toFixed(1),
+          isPantryStaple,
         };
       });
-  }, [plan, shoppingAdjustments]);
+  }, [plan, shoppingAdjustments, pantryStaples]);
 
   const toggleHaveItem = (key: string, totalQty: number): void => {
     setShoppingAdjustments((prev) => {
@@ -339,6 +473,18 @@ function App() {
               generateRandomPlan={generateRandomPlan}
               initManualPlan={initManualPlan}
               clearAllData={clearAllData}
+              onOpenTemplates={() => setShowTemplateModal(true)}
+              onOpenPantry={() => setShowPantryModal(true)}
+              hasTemplates={templates.length > 0}
+            />
+
+            <QuickRecipes
+              favoriteRecipes={favoriteRecipes}
+              recentRecipes={recentRecipes}
+              onAssign={handleAssign}
+              onToggleFavorite={toggleFavorite}
+              isFavorite={isFavorite}
+              days={days}
             />
 
             <SearchBar
@@ -347,6 +493,8 @@ function App() {
               filteredRecipes={filteredRecipes}
               onAssign={handleAssign}
               days={days}
+              onToggleFavorite={toggleFavorite}
+              isFavorite={isFavorite}
             />
 
             <MealPlan
@@ -360,6 +508,7 @@ function App() {
               plan={plan}
               shoppingList={shoppingListMemo}
               toggleHaveItem={toggleHaveItem}
+              onOpenPantry={() => setShowPantryModal(true)}
             />
 
             <RecipePickerModal
@@ -370,6 +519,26 @@ function App() {
               recipes={allRecipes}
               assignRecipeToDay={assignRecipeToDay}
               isCustomRecipe={isCustomRecipe}
+              onToggleFavorite={toggleFavorite}
+              isFavorite={isFavorite}
+            />
+
+            <PantryModal
+              isOpen={showPantryModal}
+              onClose={() => setShowPantryModal(false)}
+              pantryStaples={pantryStaples}
+              onAddStaple={addPantryStaple}
+              onRemoveStaple={removePantryStaple}
+            />
+
+            <TemplateModal
+              isOpen={showTemplateModal}
+              onClose={() => setShowTemplateModal(false)}
+              templates={templates}
+              onSaveTemplate={saveTemplate}
+              onLoadTemplate={loadTemplate}
+              onDeleteTemplate={deleteTemplate}
+              currentPlanHasRecipes={plan.some(p => p.recipe !== null)}
             />
           </>
         ) : (

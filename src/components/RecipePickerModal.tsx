@@ -9,6 +9,8 @@ interface RecipePickerModalProps {
   recipes: Recipe[];
   assignRecipeToDay: (dayIndex: number, recipe: Recipe | null) => void;
   isCustomRecipe: (recipe: Recipe | null | undefined) => boolean;
+  onToggleFavorite: (recipeId: string) => void;
+  isFavorite: (recipeId: string) => boolean;
 }
 
 const RecipePickerModal = ({
@@ -18,7 +20,9 @@ const RecipePickerModal = ({
   filteredRecipes,
   recipes,
   assignRecipeToDay,
-  isCustomRecipe
+  isCustomRecipe,
+  onToggleFavorite,
+  isFavorite,
 }: RecipePickerModalProps) => {
   if (selectedDayForPicker === null) return null;
 
@@ -49,12 +53,26 @@ const RecipePickerModal = ({
                   assignRecipeToDay(selectedDayForPicker, recipe);
                 }}
               >
-                {isCustomRecipe(recipe) && (
-                  <span className="absolute top-2 right-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
-                    Custom
-                  </span>
-                )}
-                <h4 className="font-semibold text-gray-900 mb-1.5 truncate">
+                <div className="absolute top-2 right-2 flex items-center gap-1.5">
+                  {isCustomRecipe(recipe) && (
+                    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                      Custom
+                    </span>
+                  )}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onToggleFavorite(recipe.id);
+                    }}
+                    className={`text-lg leading-none ${
+                      isFavorite(recipe.id) ? 'text-yellow-500' : 'text-gray-300 hover:text-yellow-400'
+                    }`}
+                    title={isFavorite(recipe.id) ? 'Remove from favorites' : 'Add to favorites'}
+                  >
+                    ★
+                  </button>
+                </div>
+                <h4 className="font-semibold text-gray-900 mb-1.5 truncate pr-16">
                   {recipe.name || "Unnamed recipe"}
                 </h4>
                 <div className="text-sm text-gray-600 mb-2.5">

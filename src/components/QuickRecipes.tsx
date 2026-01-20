@@ -1,0 +1,117 @@
+// src/components/QuickRecipes.tsx
+import { useState } from 'react';
+import type { ChangeEvent } from 'react';
+import type { Recipe } from '../types';
+
+interface QuickRecipesProps {
+  favoriteRecipes: Recipe[];
+  recentRecipes: Recipe[];
+  onAssign: (recipe: Recipe, dayIndex: number) => void;
+  onToggleFavorite: (recipeId: string) => void;
+  isFavorite: (recipeId: string) => boolean;
+  days: number;
+}
+
+const QuickRecipes = ({
+  favoriteRecipes,
+  recentRecipes,
+  onAssign,
+  onToggleFavorite,
+  isFavorite,
+  days,
+}: QuickRecipesProps) => {
+  const [activeSection, setActiveSection] = useState<'favorites' | 'recent'>('favorites');
+
+  const recipes = activeSection === 'favorites' ? favoriteRecipes : recentRecipes;
+
+  const handleAssignChange = (recipe: Recipe) => (e: ChangeEvent<HTMLSelectElement>) => {
+    const dayIndex = parseInt(e.target.value);
+    if (!isNaN(dayIndex)) {
+      onAssign(recipe, dayIndex);
+      e.target.value = '';
+    }
+  };
+
+  if (favoriteRecipes.length === 0 && recentRecipes.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="mb-6 bg-white p-4 rounded-xl shadow-sm border">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-lg font-semibold text-gray-800">Quick Add</h3>
+        <div className="flex gap-2">
+          <button
+            onClick={() => setActiveSection('favorites')}
+            className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors ${
+              activeSection === 'favorites'
+                ? 'bg-yellow-100 text-yellow-800'
+                : 'text-gray-600 hover:bg-gray-100'
+            }`}
+          >
+            <span className="mr-1">★</span>
+            Favorites ({favoriteRecipes.length})
+          </button>
+          <button
+            onClick={() => setActiveSection('recent')}
+            className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors ${
+              activeSection === 'recent'
+                ? 'bg-blue-100 text-blue-800'
+                : 'text-gray-600 hover:bg-gray-100'
+            }`}
+          >
+            <span className="mr-1">↻</span>
+            Recent ({recentRecipes.length})
+          </button>
+        </div>
+      </div>
+
+      {recipes.length === 0 ? (
+        <p className="text-sm text-gray-500 text-center py-4">
+          {activeSection === 'favorites'
+            ? 'No favorites yet. Star recipes to add them here!'
+            : 'No recently used recipes yet.'}
+        </p>
+      ) : (
+        <div className="flex gap-3 overflow-x-auto pb-2">
+          {recipes.map((recipe) => (
+            <div
+              key={recipe.id}
+              className="flex-shrink-0 w-48 border rounded-lg p-3 bg-gray-50 hover:shadow-md transition-shadow"
+            >
+              <div className="flex items-start justify-between mb-1">
+                <h4 className="font-medium text-gray-900 text-sm truncate flex-1">
+                  {recipe.name}
+                </h4>
+                <button
+                  onClick={() => onToggleFavorite(recipe.id)}
+                  className={`ml-1 flex-shrink-0 ${
+                    isFavorite(recipe.id) ? 'text-yellow-500' : 'text-gray-300 hover:text-yellow-400'
+                  }`}
+                  title={isFavorite(recipe.id) ? 'Remove from favorites' : 'Add to favorites'}
+                >
+                  ★
+                </button>
+              </div>
+              <p className="text-xs text-gray-500 mb-2">
+                {recipe.totalTime?.replace('PT', '').replace('M', ' min') || '—'}
+              </p>
+              <select
+                onChange={handleAssignChange(recipe)}
+                className="w-full border rounded px-2 py-1 text-xs bg-white"
+                defaultValue=""
+              >
+                <option value="">Add to day...</option>
+                {Array.from({ length: days }, (_, i) => i + 1).map((d) => (
+                  <option key={d} value={d - 1}>Day {d}</option>
+                ))}
+              </select>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default QuickRecipes;

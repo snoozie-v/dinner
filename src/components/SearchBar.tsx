@@ -8,9 +8,19 @@ interface SearchBarProps {
   filteredRecipes: Recipe[];
   onAssign: (recipe: Recipe, dayIndex: number) => void;
   days: number;
+  onToggleFavorite: (recipeId: string) => void;
+  isFavorite: (recipeId: string) => boolean;
 }
 
-const SearchBar = ({ searchTerm, setSearchTerm, filteredRecipes, onAssign, days }: SearchBarProps) => {
+const SearchBar = ({
+  searchTerm,
+  setSearchTerm,
+  filteredRecipes,
+  onAssign,
+  days,
+  onToggleFavorite,
+  isFavorite,
+}: SearchBarProps) => {
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
@@ -24,7 +34,7 @@ const SearchBar = ({ searchTerm, setSearchTerm, filteredRecipes, onAssign, days 
   };
 
   return (
-    <div className="mb-10 bg-white p-6 rounded-xl shadow-sm border">
+    <div className="mb-6 bg-white p-6 rounded-xl shadow-sm border">
       <h3 className="text-xl font-semibold mb-2 text-gray-800">
         Search Recipes
       </h3>
@@ -45,16 +55,27 @@ const SearchBar = ({ searchTerm, setSearchTerm, filteredRecipes, onAssign, days 
         </div>
       )}
 
-      {filteredRecipes.length > 0 && (
+      {filteredRecipes.length > 0 && searchTerm.trim() && (
         <div className="mt-6 max-h-96 overflow-y-auto">
           <h4 className="text-lg font-medium mb-3 text-gray-700">Matching Recipes</h4>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredRecipes.map((recipe) => (
               <div
                 key={recipe.id || recipe.name}
-                className="border rounded-lg p-4 hover:shadow-md cursor-pointer transition hover:border-green-400 bg-gray-50"
+                className="border rounded-lg p-4 hover:shadow-md transition hover:border-green-400 bg-gray-50"
               >
-                <h5 className="font-semibold mb-1 truncate">{recipe.name}</h5>
+                <div className="flex items-start justify-between mb-1">
+                  <h5 className="font-semibold truncate flex-1">{recipe.name}</h5>
+                  <button
+                    onClick={() => onToggleFavorite(recipe.id)}
+                    className={`ml-2 flex-shrink-0 text-lg ${
+                      isFavorite(recipe.id) ? 'text-yellow-500' : 'text-gray-300 hover:text-yellow-400'
+                    }`}
+                    title={isFavorite(recipe.id) ? 'Remove from favorites' : 'Add to favorites'}
+                  >
+                    ★
+                  </button>
+                </div>
                 <p className="text-sm text-gray-600">
                   {recipe.servings?.default || '?'} servings • {recipe.totalTime?.replace('PT', '').replace('M', ' min') || '—'}
                   {recipe.cuisine && ` • ${recipe.cuisine}`}

@@ -6,6 +6,7 @@ interface ShoppingListProps {
   plan: PlanItem[];
   shoppingList: ShoppingItem[];
   toggleHaveItem: (key: string, totalQty: number) => void;
+  onOpenPantry: () => void;
 }
 
 // Category display names and order for shopping flow (roughly store layout)
@@ -55,6 +56,7 @@ const ShoppingList = ({
   plan,
   shoppingList,
   toggleHaveItem,
+  onOpenPantry,
 }: ShoppingListProps) => {
   const [hideCompleted, setHideCompleted] = useState(false);
 
@@ -84,8 +86,9 @@ const ShoppingList = ({
   const stats = useMemo(() => {
     const total = shoppingList.length;
     const completed = shoppingList.filter(item => item.haveQty >= item.totalQty).length;
+    const pantryCount = shoppingList.filter(item => item.isPantryStaple).length;
     const needed = total - completed;
-    return { total, completed, needed };
+    return { total, completed, needed, pantryCount };
   }, [shoppingList]);
 
   // Generate copy text grouped by category
@@ -125,9 +128,12 @@ const ShoppingList = ({
           <p className="text-sm text-gray-500 mt-1">
             {stats.needed} item{stats.needed !== 1 ? 's' : ''} to get
             {stats.completed > 0 && ` • ${stats.completed} collected`}
+            {stats.pantryCount > 0 && (
+              <span className="text-green-600"> • {stats.pantryCount} from pantry</span>
+            )}
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-wrap">
           <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
             <input
               type="checkbox"
@@ -137,6 +143,15 @@ const ShoppingList = ({
             />
             Hide collected
           </label>
+          <button
+            onClick={onOpenPantry}
+            className="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm hover:bg-gray-100 rounded-lg transition flex items-center gap-1.5"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            </svg>
+            Pantry
+          </button>
           <button
             onClick={handleCopy}
             className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm font-medium flex items-center gap-2"
@@ -205,6 +220,11 @@ const ShoppingList = ({
                             {item.preparation && (
                               <span className="text-sm text-gray-500">
                                 ({item.preparation})
+                              </span>
+                            )}
+                            {item.isPantryStaple && (
+                              <span className="text-xs px-1.5 py-0.5 bg-green-100 text-green-700 rounded">
+                                pantry
                               </span>
                             )}
                           </div>
