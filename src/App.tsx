@@ -2,7 +2,7 @@
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import { arrayMove } from '@dnd-kit/sortable';
 import defaultRecipes from './recipes.json';
-import type { Recipe, PlanItem, ShoppingItem, ShoppingAdjustments, ShoppingOrders, ActiveTab } from './types';
+import type { Recipe, PlanItem, ShoppingItem, ShoppingAdjustments, ActiveTab } from './types';
 
 import Controls from './components/Controls';
 import SearchBar from './components/SearchBar';
@@ -18,7 +18,6 @@ const STORAGE_KEYS = {
   DAYS: 'dinner-planner-days',
   PLAN: 'dinner-planner-plan',
   SHOPPING_ADJUSTMENTS: 'dinner-planner-shopping-adjustments',
-  SHOPPING_ORDERS: 'dinner-planner-shopping-orders',
 } as const;
 
 // Helper to safely parse JSON from localStorage
@@ -38,9 +37,6 @@ function App() {
   const [selectedDayForPicker, setSelectedDayForPicker] = useState<number | null>(null);
   const [shoppingAdjustments, setShoppingAdjustments] = useState<ShoppingAdjustments>(() =>
     getStoredValue(STORAGE_KEYS.SHOPPING_ADJUSTMENTS, {})
-  );
-  const [shoppingOrders, setShoppingOrders] = useState<ShoppingOrders>(() =>
-    getStoredValue(STORAGE_KEYS.SHOPPING_ORDERS, {})
   );
 
   // Tab state: 'planner' or 'recipes'
@@ -111,10 +107,6 @@ function App() {
     localStorage.setItem(STORAGE_KEYS.SHOPPING_ADJUSTMENTS, JSON.stringify(shoppingAdjustments));
   }, [shoppingAdjustments]);
 
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.SHOPPING_ORDERS, JSON.stringify(shoppingOrders));
-  }, [shoppingOrders]);
-
   const generateRandomPlan = (): void => {
     const newPlan: PlanItem[] = [];
     for (let i = 0; i < days; i++) {
@@ -131,7 +123,6 @@ function App() {
     setSearchTerm('');
     setSelectedDayForPicker(null);
     setShoppingAdjustments({});
-    setShoppingOrders({});
   };
 
   const initManualPlan = (): void => {
@@ -148,7 +139,6 @@ function App() {
     setSearchTerm('');
     setSelectedDayForPicker(null);
     setShoppingAdjustments({});
-    setShoppingOrders({});
   };
 
   const assignRecipeToDay = (dayIndex: number, newRecipe: Recipe | null): void => {
@@ -252,25 +242,17 @@ function App() {
       })
       .map((item) => {
         const adj = shoppingAdjustments[item.key] || { haveQty: 0 };
-        const order = shoppingOrders[item.key] || { ordered: false };
         const neededQty = Math.max(0, item.totalQty - adj.haveQty);
         return {
           ...item,
           haveQty: adj.haveQty,
-          ordered: order.ordered,
+          ordered: false,
           neededQty,
           displayNeeded: neededQty % 1 === 0 ? neededQty : neededQty.toFixed(1),
           displayTotal: item.totalQty % 1 === 0 ? item.totalQty : item.totalQty.toFixed(1),
         };
       });
-  }, [plan, shoppingAdjustments, shoppingOrders]);
-
-  const updateShoppingAdjustment = (key: string, haveQty: string | number): void => {
-    setShoppingAdjustments((prev) => ({
-      ...prev,
-      [key]: { haveQty: parseFloat(String(haveQty)) || 0 },
-    }));
-  };
+  }, [plan, shoppingAdjustments]);
 
   const toggleHaveItem = (key: string, totalQty: number): void => {
     setShoppingAdjustments((prev) => {
@@ -283,34 +265,12 @@ function App() {
     });
   };
 
-  const toggleOrdered = (key: string): void => {
-    setShoppingOrders((prev) => {
-      const current = prev[key] || { ordered: false };
-      return {
-        ...prev,
-        [key]: { ordered: !current.ordered },
-      };
-    });
-  };
-
-  const copyNeededItems = (): void => {
-    const needed = shoppingListMemo
-      .filter((item) => item.neededQty > 0 && !item.ordered)
-      .map((item) => `- ${item.displayNeeded} ${item.unit} ${item.name}${item.preparation ? ` (${item.preparation})` : ''}`)
-      .join('\n');
-
-    navigator.clipboard.writeText(needed)
-      .then(() => alert('Needed items copied to clipboard!'))
-      .catch(() => alert('Failed to copy. Please try manually.'));
-  };
-
   const clearAllData = (): void => {
     if (window.confirm('Clear all saved data? This will reset your meal plan and shopping list.')) {
       Object.values(STORAGE_KEYS).forEach((key) => localStorage.removeItem(key));
       setDays(3);
       setPlan([]);
       setShoppingAdjustments({});
-      setShoppingOrders({});
       setSearchTerm('');
       setSelectedDayForPicker(null);
     }
@@ -399,10 +359,7 @@ function App() {
             <ShoppingList
               plan={plan}
               shoppingList={shoppingListMemo}
-              updateShoppingAdjustment={updateShoppingAdjustment}
               toggleHaveItem={toggleHaveItem}
-              toggleOrdered={toggleOrdered}
-              copyNeededItems={copyNeededItems}
             />
 
             <RecipePickerModal
