@@ -60,11 +60,42 @@ function App() {
     if (!searchTerm.trim()) return allRecipes;
 
     const term = searchTerm.toLowerCase().trim();
-    return allRecipes.filter((recipe) =>
-      recipe?.ingredients?.some((ing) =>
-        ing?.name?.toLowerCase().includes(term)
-      )
-    );
+    return allRecipes.filter((recipe) => {
+      // Search recipe name
+      if (recipe.name?.toLowerCase().includes(term)) return true;
+
+      // Search description
+      if (recipe.description?.toLowerCase().includes(term)) return true;
+
+      // Search author
+      if (recipe.author?.toLowerCase().includes(term)) return true;
+
+      // Search cuisine
+      if (recipe.cuisine?.toLowerCase().includes(term)) return true;
+
+      // Search difficulty
+      if (recipe.difficulty?.toLowerCase().includes(term)) return true;
+
+      // Search tags
+      if (recipe.tags?.some(tag => tag.toLowerCase().includes(term))) return true;
+
+      // Search meal types
+      if (recipe.mealTypes?.some(type => type.toLowerCase().includes(term))) return true;
+
+      // Search dietary options
+      if (recipe.dietary?.some(diet => diet.toLowerCase().includes(term))) return true;
+
+      // Search allergens
+      if (recipe.allergiesToAvoid?.some(allergen => allergen.toLowerCase().includes(term))) return true;
+
+      // Search equipment
+      if (recipe.equipment?.some(equip => equip.toLowerCase().includes(term))) return true;
+
+      // Search ingredient names
+      if (recipe.ingredients?.some(ing => ing?.name?.toLowerCase().includes(term))) return true;
+
+      return false;
+    });
   }, [searchTerm, allRecipes]);
 
   // Persist state to localStorage
@@ -311,7 +342,7 @@ function App() {
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-4xl font-bold text-gray-800 text-center mb-6">
-          Weekly Dinner Planner
+          Meal Plan & Shopping List
         </h1>
 
         {/* Tab Navigation */}

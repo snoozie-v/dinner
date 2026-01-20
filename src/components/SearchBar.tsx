@@ -25,20 +25,23 @@ const SearchBar = ({ searchTerm, setSearchTerm, filteredRecipes, onAssign, days 
 
   return (
     <div className="mb-10 bg-white p-6 rounded-xl shadow-sm border">
-      <h3 className="text-xl font-semibold mb-4 text-gray-800">
-        Find Recipes by Ingredient
+      <h3 className="text-xl font-semibold mb-2 text-gray-800">
+        Search Recipes
       </h3>
+      <p className="text-sm text-gray-500 mb-4">
+        Search by name, ingredient, cuisine, tags, dietary options, and more
+      </p>
       <input
         type="text"
         value={searchTerm}
         onChange={handleSearchChange}
-        placeholder="e.g. chicken, rice, tomato, tofu..."
+        placeholder="e.g. chicken, italian, vegetarian, quick..."
         className="w-full max-w-md border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500"
       />
 
       {searchTerm.trim() && (
         <div className="mt-3 text-sm text-gray-600">
-          Found {filteredRecipes.length} recipes containing "{searchTerm.trim()}"
+          Found {filteredRecipes.length} recipe{filteredRecipes.length !== 1 ? 's' : ''} matching "{searchTerm.trim()}"
         </div>
       )}
 
@@ -54,9 +57,22 @@ const SearchBar = ({ searchTerm, setSearchTerm, filteredRecipes, onAssign, days 
                 <h5 className="font-semibold mb-1 truncate">{recipe.name}</h5>
                 <p className="text-sm text-gray-600">
                   {recipe.servings?.default || '?'} servings • {recipe.totalTime?.replace('PT', '').replace('M', ' min') || '—'}
+                  {recipe.cuisine && ` • ${recipe.cuisine}`}
                 </p>
+                {recipe.tags && recipe.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-1 mt-1">
+                    {recipe.tags.slice(0, 3).map((tag, idx) => (
+                      <span key={idx} className="text-xs px-1.5 py-0.5 bg-blue-100 text-blue-700 rounded">
+                        {tag}
+                      </span>
+                    ))}
+                    {recipe.tags.length > 3 && (
+                      <span className="text-xs text-gray-400">+{recipe.tags.length - 3}</span>
+                    )}
+                  </div>
+                )}
                 <p className="text-xs text-gray-500 mt-1 line-clamp-1">
-                  Ingredients: {recipe.ingredients?.map(i => i.name).join(', ') || 'None listed'}
+                  {recipe.ingredients?.map(i => i.name).join(', ') || 'No ingredients listed'}
                 </p>
                 <select
                   onChange={handleAssignChange(recipe)}
