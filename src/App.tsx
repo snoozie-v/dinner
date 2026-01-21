@@ -15,6 +15,7 @@ import PantryModal from './components/PantryModal';
 import TemplateModal from './components/TemplateModal';
 import UndoToast, { type UndoAction } from './components/UndoToast';
 import BottomNav from './components/BottomNav';
+import OnboardingModal from './components/OnboardingModal';
 
 import { useRecipes } from './hooks/useRecipes';
 
@@ -27,6 +28,7 @@ const STORAGE_KEYS = {
   TEMPLATES: 'dinner-planner-templates',
   USER_PREFS: 'dinner-planner-user-prefs',
   THEME: 'dinner-planner-theme',
+  ONBOARDING_SEEN: 'dinner-planner-onboarding-seen',
 } as const;
 
 type Theme = 'light' | 'dark' | 'system';
@@ -75,6 +77,12 @@ function App() {
   // Theme state
   const [theme, setTheme] = useState<Theme>(() => getStoredValue(STORAGE_KEYS.THEME, 'system'));
 
+  // Onboarding state - show for new users
+  const [showOnboarding, setShowOnboarding] = useState<boolean>(() => {
+    const seen = localStorage.getItem(STORAGE_KEYS.ONBOARDING_SEEN);
+    return !seen; // Show if not seen before
+  });
+
   // Apply dark mode class to <html>
   useEffect(() => {
     const applyTheme = (isDark: boolean) => {
@@ -105,6 +113,17 @@ function App() {
 
   // Check if currently showing dark mode
   const isDarkMode = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+  // Handle onboarding completion
+  const handleOnboardingComplete = () => {
+    localStorage.setItem(STORAGE_KEYS.ONBOARDING_SEEN, 'true');
+    setShowOnboarding(false);
+  };
+
+  // Show onboarding again (for Help button)
+  const handleShowOnboarding = () => {
+    setShowOnboarding(true);
+  };
 
   // Undo state
   const [undoAction, setUndoAction] = useState<UndoAction | null>(null);
@@ -559,9 +578,20 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-6 sm:py-8 px-4 sm:px-6 lg:px-8 mobile-bottom-padding">
       <div className="max-w-6xl mx-auto">
-        {/* Header with theme toggle */}
+        {/* Header with theme toggle and help button */}
         <div className="flex items-center justify-between mb-4 sm:mb-6">
-          <div className="flex-1" />
+          <div className="flex-1 flex justify-start">
+            <button
+              onClick={handleShowOnboarding}
+              className="p-3 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors touch-manipulation"
+              aria-label="Show tutorial"
+              title="Show tutorial"
+            >
+              <svg className="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </button>
+          </div>
           <h1 className="text-2xl sm:text-4xl font-bold text-gray-800 dark:text-gray-100 text-center">
             {activeTab === 'shop' ? 'Shopping List' : activeTab === 'recipes' ? 'Recipes' : 'Meal Planner'}
           </h1>
@@ -735,6 +765,12 @@ function App() {
 
       {/* Undo Toast */}
       <UndoToast action={undoAction} onDismiss={dismissUndo} />
+
+      {/* Onboarding Modal */}
+      <OnboardingModal
+        isOpen={showOnboarding}
+        onComplete={handleOnboardingComplete}
+      />
     </div>
   );
 }
