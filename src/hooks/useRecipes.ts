@@ -28,6 +28,7 @@ export interface UseRecipesReturn {
   addRecipe: (recipeData: Partial<Recipe>) => RecipeOperationResult;
   updateRecipe: (recipeId: string, updates: Partial<Recipe>) => RecipeOperationResult;
   deleteRecipe: (recipeId: string) => RecipeOperationResult;
+  restoreRecipe: (recipe: Recipe) => void;
   duplicateRecipe: (recipeId: string) => RecipeOperationResult;
   getRecipeById: (recipeId: string) => Recipe | null;
   isCustomRecipe: (recipe: Recipe | null | undefined) => boolean;
@@ -121,8 +122,15 @@ export const useRecipes = (defaultRecipes: Recipe[] = []): UseRecipesReturn => {
     }
 
     setCustomRecipes(prev => prev.filter(r => r.id !== recipeId));
-    return { success: true };
+    return { success: true, recipe }; // Return deleted recipe for undo
   }, [customRecipes]);
+
+  /**
+   * Restore a previously deleted recipe (for undo)
+   */
+  const restoreRecipe = useCallback((recipe: Recipe): void => {
+    setCustomRecipes(prev => [...prev, recipe]);
+  }, []);
 
   /**
    * Duplicate a recipe (creates a custom copy)
@@ -160,6 +168,7 @@ export const useRecipes = (defaultRecipes: Recipe[] = []): UseRecipesReturn => {
     addRecipe,
     updateRecipe,
     deleteRecipe,
+    restoreRecipe,
     duplicateRecipe,
     getRecipeById,
     isCustomRecipe

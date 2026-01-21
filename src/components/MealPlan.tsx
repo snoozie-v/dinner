@@ -25,9 +25,10 @@ interface MealPlanProps {
   setSelectedDayForPicker: (day: number | null) => void;
   updateServings: (planItemId: string, multiplier: number) => void;
   onReorderDays: (activeId: string, overId: string) => void;
+  onRemoveRecipe: (dayIndex: number) => void;
 }
 
-const MealPlan = ({ plan, setSelectedDayForPicker, updateServings, onReorderDays }: MealPlanProps) => {
+const MealPlan = ({ plan, setSelectedDayForPicker, updateServings, onReorderDays, onRemoveRecipe }: MealPlanProps) => {
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -82,6 +83,7 @@ const MealPlan = ({ plan, setSelectedDayForPicker, updateServings, onReorderDays
                   planItem={planItem}
                   setSelectedDayForPicker={setSelectedDayForPicker}
                   updateServings={updateServings}
+                  onRemoveRecipe={onRemoveRecipe}
                 />
               ))}
             </div>

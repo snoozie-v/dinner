@@ -134,30 +134,30 @@ const ShoppingList = ({
             )}
           </p>
         </div>
-        <div className="flex items-center gap-3 flex-wrap">
-          <label className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 cursor-pointer">
+        <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+          <label className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 cursor-pointer px-3 py-2.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition touch-manipulation min-h-[44px]">
             <input
               type="checkbox"
               checked={hideCompleted}
               onChange={(e) => setHideCompleted(e.target.checked)}
-              className="w-4 h-4 text-blue-600 rounded border-gray-300 dark:border-gray-600 focus:ring-blue-500"
+              className="w-5 h-5 text-blue-600 rounded border-gray-300 dark:border-gray-600 focus:ring-blue-500"
             />
             Hide collected
           </label>
           <button
             onClick={onOpenPantry}
-            className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition flex items-center gap-1.5"
+            className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 px-4 py-2.5 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 active:bg-gray-200 dark:active:bg-gray-600 rounded-lg transition flex items-center gap-2 touch-manipulation min-h-[44px]"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
             </svg>
             Pantry
           </button>
           <button
             onClick={handleCopy}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm font-medium flex items-center gap-2"
+            className="bg-blue-600 text-white px-4 py-2.5 rounded-lg hover:bg-blue-700 active:bg-blue-800 transition text-sm font-medium flex items-center gap-2 touch-manipulation min-h-[44px]"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
             </svg>
             Copy List
@@ -198,21 +198,21 @@ const ShoppingList = ({
                           isCompleted={isCompleted}
                         >
                           <div
-                            className={`flex items-center gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${
+                            className={`flex items-center gap-3 px-4 py-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${
                               isCompleted ? 'bg-green-50 dark:bg-green-900/20' : ''
                             }`}
                           >
                             <button
                               onClick={() => toggleHaveItem(item.key, item.totalQty)}
-                              className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${
+                              className={`flex-shrink-0 w-8 h-8 rounded-full border-2 flex items-center justify-center transition-colors touch-manipulation ${
                                 isCompleted
                                   ? 'bg-green-500 border-green-500 text-white'
-                                  : 'border-gray-300 dark:border-gray-600 hover:border-green-400'
+                                  : 'border-gray-300 dark:border-gray-600 hover:border-green-400 active:border-green-500'
                               }`}
                               aria-label={isCompleted ? 'Mark as needed' : 'Mark as collected'}
                             >
                               {isCompleted && (
-                                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                                 </svg>
                               )}

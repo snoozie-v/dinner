@@ -6,22 +6,23 @@ interface PlanItemProps {
   planItem: PlanItemType;
   setSelectedDayForPicker: (day: number | null) => void;
   updateServings: (planItemId: string, multiplier: number) => void;
+  onRemoveRecipe: (dayIndex: number) => void;
 }
 
-const PlanItem = ({ planItem, setSelectedDayForPicker, updateServings }: PlanItemProps) => {
+const PlanItem = ({ planItem, setSelectedDayForPicker, updateServings, onRemoveRecipe }: PlanItemProps) => {
   const { recipe, servingsMultiplier = 1, day, id } = planItem;
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   if (!recipe) {
     return (
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border dark:border-gray-700 overflow-hidden">
-        <div className="p-5 border-b dark:border-gray-700 bg-gray-50 dark:bg-gray-700 flex justify-between items-center">
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
+        <div className="p-4 sm:p-5 border-b dark:border-gray-700 bg-gray-50 dark:bg-gray-700 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+          <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-gray-100">
             Day {day}: No Recipe Selected
           </h3>
           <button
             onClick={() => setSelectedDayForPicker(day - 1)}
-            className="px-4 py-2 bg-indigo-50 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-800 text-sm font-medium transition"
+            className="w-full sm:w-auto px-5 py-3 bg-indigo-50 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-800 active:bg-indigo-200 dark:active:bg-indigo-700 text-sm font-medium transition touch-manipulation min-h-[44px]"
           >
             Select Recipe
           </button>
@@ -35,43 +36,56 @@ const PlanItem = ({ planItem, setSelectedDayForPicker, updateServings }: PlanIte
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border dark:border-gray-700 overflow-hidden">
-      <div className="p-5 border-b dark:border-gray-700 bg-gray-50 dark:bg-gray-700">
-        <div className="flex justify-between items-start flex-wrap gap-4">
+      <div className="p-4 sm:p-5 border-b dark:border-gray-700 bg-gray-50 dark:bg-gray-700">
+        <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
           <div className="flex items-center gap-3 w-full sm:w-auto">
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
+            <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-gray-100 flex-1">
               Day {day}: {recipe?.name || 'Recipe missing'}
             </h3>
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition"
+              className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg transition touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
             >
               {isExpanded ? '▲' : '▼'}
             </button>
           </div>
 
-          <div className="flex items-center gap-5 flex-wrap">
-            <button
-              onClick={() => setSelectedDayForPicker(day - 1)}
-              className="px-4 py-2 bg-indigo-50 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-800 text-sm font-medium transition"
-            >
-              Change Recipe
-            </button>
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setSelectedDayForPicker(day - 1)}
+                className="flex-1 sm:flex-none px-4 py-3 bg-indigo-50 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-800 active:bg-indigo-200 dark:active:bg-indigo-700 text-sm font-medium transition touch-manipulation min-h-[44px]"
+              >
+                Change Recipe
+              </button>
+              <button
+                onClick={() => onRemoveRecipe(day - 1)}
+                className="p-3 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 active:bg-red-100 dark:active:bg-red-900/50 rounded-lg transition touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
+                title="Remove recipe"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </button>
+            </div>
 
             <div className="flex items-center gap-2">
-              <span className="text-sm text-gray-600 dark:text-gray-400">Servings:</span>
-              {[0.5, 1, 1.5, 2].map((m) => (
-                <button
-                  key={m}
-                  onClick={() => updateServings(id, m)}
-                  className={`px-3 py-1.5 text-sm rounded-md border transition ${
-                    servingsMultiplier === m
-                      ? 'bg-blue-600 text-white border-blue-600'
-                      : 'border-gray-300 dark:border-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600'
-                  }`}
-                >
-                  ×{m}
-                </button>
-              ))}
+              <span className="text-sm text-gray-600 dark:text-gray-400 whitespace-nowrap">Servings:</span>
+              <div className="flex gap-1">
+                {[0.5, 1, 1.5, 2].map((m) => (
+                  <button
+                    key={m}
+                    onClick={() => updateServings(id, m)}
+                    className={`px-3 py-2.5 text-sm rounded-md border transition touch-manipulation min-w-[44px] min-h-[44px] ${
+                      servingsMultiplier === m
+                        ? 'bg-blue-600 text-white border-blue-600'
+                        : 'border-gray-300 dark:border-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 active:bg-gray-200 dark:active:bg-gray-500'
+                    }`}
+                  >
+                    ×{m}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>

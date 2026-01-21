@@ -4,13 +4,12 @@ import type { ChangeEvent } from 'react';
 import type { Recipe, RecipeOperationResult, FilterType } from '../../types';
 import RecipeList from './RecipeList';
 import RecipeFormModal from './RecipeFormModal';
-import DeleteConfirmModal from './DeleteConfirmModal';
 
 interface ManageRecipesProps {
   recipes: Recipe[];
   onAddRecipe: (recipeData: Partial<Recipe>) => RecipeOperationResult;
   onUpdateRecipe: (recipeId: string, updates: Partial<Recipe>) => RecipeOperationResult;
-  onDeleteRecipe: (recipeId: string) => RecipeOperationResult;
+  onDeleteRecipe: (recipeId: string) => { success: boolean; errors?: string[] };
   onDuplicateRecipe: (recipeId: string) => RecipeOperationResult;
   isCustomRecipe: (recipe: Recipe | null | undefined) => boolean;
 }
@@ -27,7 +26,6 @@ const ManageRecipes = ({
   const [filterType, setFilterType] = useState<FilterType>('all');
   const [showFormModal, setShowFormModal] = useState<boolean>(false);
   const [editingRecipe, setEditingRecipe] = useState<Recipe | null>(null);
-  const [deleteTarget, setDeleteTarget] = useState<Recipe | null>(null);
 
   const filteredRecipes = useMemo<Recipe[]>(() => {
     let filtered = recipes;
@@ -63,7 +61,8 @@ const ManageRecipes = ({
   };
 
   const handleDelete = (recipe: Recipe): void => {
-    setDeleteTarget(recipe);
+    // Delete directly - undo toast provides recovery option
+    onDeleteRecipe(recipe.id);
   };
 
   const handleDuplicate = (recipe: Recipe): void => {
@@ -90,17 +89,6 @@ const ManageRecipes = ({
   const handleFormClose = (): void => {
     setShowFormModal(false);
     setEditingRecipe(null);
-  };
-
-  const handleDeleteConfirm = (): void => {
-    if (deleteTarget) {
-      onDeleteRecipe(deleteTarget.id);
-      setDeleteTarget(null);
-    }
-  };
-
-  const handleDeleteCancel = (): void => {
-    setDeleteTarget(null);
   };
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -248,14 +236,6 @@ const ManageRecipes = ({
           recipe={editingRecipe}
           onSubmit={handleFormSubmit}
           onClose={handleFormClose}
-        />
-      )}
-
-      {deleteTarget && (
-        <DeleteConfirmModal
-          recipe={deleteTarget}
-          onConfirm={handleDeleteConfirm}
-          onCancel={handleDeleteCancel}
         />
       )}
     </div>

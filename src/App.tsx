@@ -13,6 +13,8 @@ import ManageRecipes from './components/recipes/ManageRecipes';
 import QuickRecipes from './components/QuickRecipes';
 import PantryModal from './components/PantryModal';
 import TemplateModal from './components/TemplateModal';
+import UndoToast, { type UndoAction } from './components/UndoToast';
+import BottomNav from './components/BottomNav';
 
 import { useRecipes } from './hooks/useRecipes';
 
@@ -104,12 +106,16 @@ function App() {
   // Check if currently showing dark mode
   const isDarkMode = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
+  // Undo state
+  const [undoAction, setUndoAction] = useState<UndoAction | null>(null);
+
   // Recipe CRUD operations
   const {
     allRecipes,
     addRecipe,
     updateRecipe,
     deleteRecipe,
+    restoreRecipe,
     duplicateRecipe,
     isCustomRecipe
   } = useRecipes(defaultRecipes as Recipe[]);
@@ -181,6 +187,11 @@ function App() {
     localStorage.setItem(STORAGE_KEYS.USER_PREFS, JSON.stringify(userPrefs));
   }, [userPrefs]);
 
+  // Dismiss undo action
+  const dismissUndo = useCallback(() => {
+    setUndoAction(null);
+  }, []);
+
   // Pantry staple handlers
   const addPantryStaple = (name: string, unit: string): void => {
     const key = `${name.toLowerCase()}|${unit.toLowerCase()}`;
@@ -190,7 +201,19 @@ function App() {
   };
 
   const removePantryStaple = (key: string): void => {
+    const staple = pantryStaples.find(s => s.key === key);
+    if (!staple) return;
+
     setPantryStaples(prev => prev.filter(s => s.key !== key));
+
+    // Show undo toast
+    setUndoAction({
+      id: `pantry-${Date.now()}`,
+      message: `Removed "${staple.name}" from pantry`,
+      onUndo: () => {
+        setPantryStaples(prev => [...prev, staple]);
+      },
+    });
   };
 
   // Template handlers
@@ -222,7 +245,19 @@ function App() {
   };
 
   const deleteTemplate = (templateId: string): void => {
+    const template = templates.find(t => t.id === templateId);
+    if (!template) return;
+
     setTemplates(prev => prev.filter(t => t.id !== templateId));
+
+    // Show undo toast
+    setUndoAction({
+      id: `template-${Date.now()}`,
+      message: `Deleted template "${template.name}"`,
+      onUndo: () => {
+        setTemplates(prev => [...prev, template]);
+      },
+    });
   };
 
   // Favorites handlers
@@ -451,6 +486,55 @@ function App() {
     assignRecipeToDay(dayIndex, recipe);
   };
 
+  // Remove recipe from meal plan with undo
+  const removeMealPlanRecipe = (dayIndex: number): void => {
+    const planItem = plan.find(p => p.day === dayIndex + 1);
+    if (!planItem?.recipe) return;
+
+    const removedRecipe = planItem.recipe;
+    const removedMultiplier = planItem.servingsMultiplier;
+
+    // Clear the recipe
+    assignRecipeToDay(dayIndex, null);
+
+    // Show undo toast
+    setUndoAction({
+      id: `plan-${Date.now()}`,
+      message: `Removed "${removedRecipe.name}" from Day ${dayIndex + 1}`,
+      onUndo: () => {
+        setPlan(prev => prev.map(item => {
+          if (item.day === dayIndex + 1) {
+            return {
+              ...item,
+              recipe: removedRecipe,
+              servingsMultiplier: removedMultiplier,
+              id: `day-${dayIndex + 1}-${removedRecipe.id}`,
+            };
+          }
+          return item;
+        }));
+      },
+    });
+  };
+
+  // Delete recipe with undo (wrapper for ManageRecipes)
+  const deleteRecipeWithUndo = (recipeId: string): { success: boolean; errors?: string[] } => {
+    const result = deleteRecipe(recipeId);
+
+    if (result.success && result.recipe) {
+      const deletedRecipe = result.recipe;
+      setUndoAction({
+        id: `recipe-${Date.now()}`,
+        message: `Deleted "${deletedRecipe.name}"`,
+        onUndo: () => {
+          restoreRecipe(deletedRecipe);
+        },
+      });
+    }
+
+    return result;
+  };
+
   const handleReorderDays = useCallback((activeId: string, overId: string): void => {
     setPlan((prevPlan) => {
       const oldIndex = prevPlan.findIndex((item) => item.id === activeId);
@@ -469,19 +553,22 @@ function App() {
     });
   }, []);
 
+  // Calculate shopping items needed count for badge
+  const shoppingNeededCount = shoppingListMemo.filter(item => item.haveQty < item.totalQty).length;
+
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-6 sm:py-8 px-4 sm:px-6 lg:px-8 mobile-bottom-padding">
       <div className="max-w-6xl mx-auto">
         {/* Header with theme toggle */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-4 sm:mb-6">
           <div className="flex-1" />
-          <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-100 text-center">
-            Meal Plan & Shopping List
+          <h1 className="text-2xl sm:text-4xl font-bold text-gray-800 dark:text-gray-100 text-center">
+            {activeTab === 'shop' ? 'Shopping List' : activeTab === 'recipes' ? 'Recipes' : 'Meal Planner'}
           </h1>
           <div className="flex-1 flex justify-end">
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+              className="p-3 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors touch-manipulation"
               aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
             >
               {isDarkMode ? (
@@ -497,13 +584,13 @@ function App() {
           </div>
         </div>
 
-        {/* Tab Navigation */}
-        <div className="flex justify-center mb-8">
+        {/* Tab Navigation - Hidden on mobile, shown on desktop */}
+        <div className="hidden sm:flex justify-center mb-8">
           <div className="inline-flex rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-1 shadow-sm">
             <button
               onClick={() => setActiveTab('planner')}
               className={`px-6 py-2.5 rounded-md text-sm font-medium transition-colors ${
-                activeTab === 'planner'
+                activeTab === 'planner' || activeTab === 'shop'
                   ? 'bg-blue-600 text-white shadow-sm'
                   : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700'
               }`}
@@ -523,7 +610,8 @@ function App() {
           </div>
         </div>
 
-        {activeTab === 'planner' ? (
+        {/* Planner Tab Content */}
+        {activeTab === 'planner' && (
           <>
             <Controls
               days={days}
@@ -560,14 +648,18 @@ function App() {
               setSelectedDayForPicker={setSelectedDayForPicker}
               updateServings={updateServings}
               onReorderDays={handleReorderDays}
+              onRemoveRecipe={removeMealPlanRecipe}
             />
 
-            <ShoppingList
-              plan={plan}
-              shoppingList={shoppingListMemo}
-              toggleHaveItem={toggleHaveItem}
-              onOpenPantry={() => setShowPantryModal(true)}
-            />
+            {/* Shopping list shown on desktop in planner tab */}
+            <div className="hidden sm:block">
+              <ShoppingList
+                plan={plan}
+                shoppingList={shoppingListMemo}
+                toggleHaveItem={toggleHaveItem}
+                onOpenPantry={() => setShowPantryModal(true)}
+              />
+            </div>
 
             <RecipePickerModal
               selectedDayForPicker={selectedDayForPicker}
@@ -599,17 +691,50 @@ function App() {
               currentPlanHasRecipes={plan.some(p => p.recipe !== null)}
             />
           </>
-        ) : (
+        )}
+
+        {/* Shop Tab Content - Mobile only separate view */}
+        {activeTab === 'shop' && (
+          <>
+            <ShoppingList
+              plan={plan}
+              shoppingList={shoppingListMemo}
+              toggleHaveItem={toggleHaveItem}
+              onOpenPantry={() => setShowPantryModal(true)}
+            />
+
+            <PantryModal
+              isOpen={showPantryModal}
+              onClose={() => setShowPantryModal(false)}
+              pantryStaples={pantryStaples}
+              onAddStaple={addPantryStaple}
+              onRemoveStaple={removePantryStaple}
+            />
+          </>
+        )}
+
+        {/* Recipes Tab Content */}
+        {activeTab === 'recipes' && (
           <ManageRecipes
             recipes={allRecipes}
             onAddRecipe={addRecipe}
             onUpdateRecipe={updateRecipe}
-            onDeleteRecipe={deleteRecipe}
+            onDeleteRecipe={deleteRecipeWithUndo}
             onDuplicateRecipe={duplicateRecipe}
             isCustomRecipe={isCustomRecipe}
           />
         )}
       </div>
+
+      {/* Bottom Navigation - Mobile only */}
+      <BottomNav
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        shoppingCount={shoppingNeededCount}
+      />
+
+      {/* Undo Toast */}
+      <UndoToast action={undoAction} onDismiss={dismissUndo} />
     </div>
   );
 }

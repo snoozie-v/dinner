@@ -8,9 +8,10 @@ interface SortablePlanItemProps {
   planItem: PlanItemType;
   setSelectedDayForPicker: (day: number | null) => void;
   updateServings: (planItemId: string, multiplier: number) => void;
+  onRemoveRecipe: (dayIndex: number) => void;
 }
 
-const SortablePlanItem = ({ planItem, setSelectedDayForPicker, updateServings }: SortablePlanItemProps) => {
+const SortablePlanItem = ({ planItem, setSelectedDayForPicker, updateServings, onRemoveRecipe }: SortablePlanItemProps) => {
   const {
     attributes,
     listeners,
@@ -56,6 +57,7 @@ const SortablePlanItem = ({ planItem, setSelectedDayForPicker, updateServings }:
           planItem={planItem}
           setSelectedDayForPicker={setSelectedDayForPicker}
           updateServings={updateServings}
+          onRemoveRecipe={onRemoveRecipe}
         />
       </div>
     </div>

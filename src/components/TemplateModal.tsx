@@ -43,9 +43,7 @@ const TemplateModal = ({
   };
 
   const handleDelete = (template: MealPlanTemplate) => {
-    if (window.confirm(`Delete template "${template.name}"?`)) {
-      onDeleteTemplate(template.id);
-    }
+    onDeleteTemplate(template.id);
   };
 
   const formatDate = (dateStr: string) => {

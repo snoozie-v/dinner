@@ -104,7 +104,7 @@ export interface ShoppingOrder {
 export type ShoppingAdjustments = Record<string, ShoppingAdjustment>;
 export type ShoppingOrders = Record<string, ShoppingOrder>;
 
-export type ActiveTab = 'planner' | 'recipes';
+export type ActiveTab = 'planner' | 'shop' | 'recipes';
 export type FilterType = 'all' | 'custom' | 'default';
 
 export interface RecipeValidationResult {

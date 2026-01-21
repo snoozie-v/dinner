@@ -12,6 +12,18 @@ html.dark body {
   background-color: #1f2937;
 }
 
+/* Safe area support for iOS devices with notch/home indicator */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+/* Mobile bottom padding when bottom nav is visible */
+@media (max-width: 639px) {
+  .mobile-bottom-padding {
+    padding-bottom: 80px; /* Height of bottom nav + some buffer */
+  }
+}
+
 
 /* 
 :root {
