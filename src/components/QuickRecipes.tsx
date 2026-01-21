@@ -37,16 +37,16 @@ const QuickRecipes = ({
   }
 
   return (
-    <div className="mb-6 bg-white p-4 rounded-xl shadow-sm border">
+    <div className="mb-6 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border dark:border-gray-700">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-gray-800">Quick Add</h3>
+        <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Quick Add</h3>
         <div className="flex gap-2">
           <button
             onClick={() => setActiveSection('favorites')}
             className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors ${
               activeSection === 'favorites'
-                ? 'bg-yellow-100 text-yellow-800'
-                : 'text-gray-600 hover:bg-gray-100'
+                ? 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200'
+                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
             }`}
           >
             <span className="mr-1">★</span>
@@ -56,8 +56,8 @@ const QuickRecipes = ({
             onClick={() => setActiveSection('recent')}
             className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors ${
               activeSection === 'recent'
-                ? 'bg-blue-100 text-blue-800'
-                : 'text-gray-600 hover:bg-gray-100'
+                ? 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200'
+                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
             }`}
           >
             <span className="mr-1">↻</span>
@@ -67,7 +67,7 @@ const QuickRecipes = ({
       </div>
 
       {recipes.length === 0 ? (
-        <p className="text-sm text-gray-500 text-center py-4">
+        <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-4">
           {activeSection === 'favorites'
             ? 'No favorites yet. Star recipes to add them here!'
             : 'No recently used recipes yet.'}
@@ -77,28 +77,28 @@ const QuickRecipes = ({
           {recipes.map((recipe) => (
             <div
               key={recipe.id}
-              className="flex-shrink-0 w-48 border rounded-lg p-3 bg-gray-50 hover:shadow-md transition-shadow"
+              className="flex-shrink-0 w-48 border dark:border-gray-600 rounded-lg p-3 bg-gray-50 dark:bg-gray-700 hover:shadow-md transition-shadow"
             >
               <div className="flex items-start justify-between mb-1">
-                <h4 className="font-medium text-gray-900 text-sm truncate flex-1">
+                <h4 className="font-medium text-gray-900 dark:text-gray-100 text-sm truncate flex-1">
                   {recipe.name}
                 </h4>
                 <button
                   onClick={() => onToggleFavorite(recipe.id)}
                   className={`ml-1 flex-shrink-0 ${
-                    isFavorite(recipe.id) ? 'text-yellow-500' : 'text-gray-300 hover:text-yellow-400'
+                    isFavorite(recipe.id) ? 'text-yellow-500' : 'text-gray-300 dark:text-gray-500 hover:text-yellow-400'
                   }`}
                   title={isFavorite(recipe.id) ? 'Remove from favorites' : 'Add to favorites'}
                 >
                   ★
                 </button>
               </div>
-              <p className="text-xs text-gray-500 mb-2">
+              <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
                 {recipe.totalTime?.replace('PT', '').replace('M', ' min') || '—'}
               </p>
               <select
                 onChange={handleAssignChange(recipe)}
-                className="w-full border rounded px-2 py-1 text-xs bg-white"
+                className="w-full border dark:border-gray-600 rounded px-2 py-1 text-xs bg-white dark:bg-gray-600 dark:text-gray-100"
                 defaultValue=""
               >
                 <option value="">Add to day...</option>

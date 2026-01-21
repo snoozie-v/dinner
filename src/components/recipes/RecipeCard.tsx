@@ -35,14 +35,14 @@ const RecipeCard = ({
   const totalSteps = recipe.instructions?.reduce((acc, section) => acc + (section.steps?.length || 0), 0) || 0;
 
   return (
-    <div className="relative bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+    <div className="relative bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden">
       <div className="absolute top-3 left-3 z-10">
         {isCustom ? (
-          <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+          <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-300">
             Custom
           </span>
         ) : (
-          <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-600">
+          <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400">
             Default
           </span>
         )}
@@ -51,7 +51,7 @@ const RecipeCard = ({
       <div className="absolute top-3 right-3 z-10">
         <button
           onClick={handleMenuToggle}
-          className="p-1.5 rounded-full bg-white bg-opacity-90 hover:bg-opacity-100 shadow-sm text-gray-600 hover:text-gray-900 transition-colors"
+          className="p-1.5 rounded-full bg-white dark:bg-gray-700 bg-opacity-90 hover:bg-opacity-100 shadow-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
         >
           <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
             <circle cx="12" cy="6" r="1.5" />
@@ -66,12 +66,12 @@ const RecipeCard = ({
               className="fixed inset-0 z-10"
               onClick={() => setShowMenu(false)}
             />
-            <div className="absolute right-0 mt-1 w-40 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-20">
+            <div className="absolute right-0 mt-1 w-40 bg-white dark:bg-gray-700 rounded-lg shadow-lg border border-gray-200 dark:border-gray-600 py-1 z-20">
               {isCustom ? (
                 <>
                   <button
                     onClick={handleAction(onEdit)}
-                    className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center"
+                    className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 flex items-center"
                   >
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -80,17 +80,17 @@ const RecipeCard = ({
                   </button>
                   <button
                     onClick={handleAction(onDuplicate)}
-                    className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center"
+                    className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 flex items-center"
                   >
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                     </svg>
                     Duplicate
                   </button>
-                  <hr className="my-1 border-gray-200" />
+                  <hr className="my-1 border-gray-200 dark:border-gray-600" />
                   <button
                     onClick={handleAction(onDelete)}
-                    className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center"
+                    className="w-full px-4 py-2 text-left text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 flex items-center"
                   >
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -102,14 +102,14 @@ const RecipeCard = ({
                 <>
                   <button
                     onClick={handleAction(onDuplicate)}
-                    className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center"
+                    className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 flex items-center"
                   >
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                     </svg>
                     Duplicate to Edit
                   </button>
-                  <div className="px-4 py-2 text-xs text-gray-500 bg-gray-50">
+                  <div className="px-4 py-2 text-xs text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-600">
                     Default recipes are read-only
                   </div>
                 </>
@@ -120,17 +120,17 @@ const RecipeCard = ({
       </div>
 
       <div className="p-4 pt-12">
-        <h3 className="font-semibold text-gray-900 mb-1.5 truncate text-lg">
+        <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1.5 truncate text-lg">
           {recipe.name || 'Unnamed Recipe'}
         </h3>
 
         {recipe.description && (
-          <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+          <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
             {recipe.description}
           </p>
         )}
 
-        <div className="flex flex-wrap gap-2 mb-3 text-sm text-gray-600">
+        <div className="flex flex-wrap gap-2 mb-3 text-sm text-gray-600 dark:text-gray-400">
           {recipe.servings?.default && (
             <span className="inline-flex items-center">
               <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -162,21 +162,21 @@ const RecipeCard = ({
             {recipe.tags.slice(0, 3).map((tag, idx) => (
               <span
                 key={idx}
-                className="inline-block px-2 py-0.5 bg-blue-50 text-blue-700 text-xs rounded"
+                className="inline-block px-2 py-0.5 bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-300 text-xs rounded"
               >
                 {tag}
               </span>
             ))}
             {recipe.tags.length > 3 && (
-              <span className="inline-block px-2 py-0.5 text-gray-500 text-xs">
+              <span className="inline-block px-2 py-0.5 text-gray-500 dark:text-gray-400 text-xs">
                 +{recipe.tags.length - 3}
               </span>
             )}
           </div>
         )}
 
-        <div className="mt-3 pt-3 border-t border-gray-100">
-          <p className="text-xs text-gray-500">
+        <div className="mt-3 pt-3 border-t border-gray-100 dark:border-gray-700">
+          <p className="text-xs text-gray-500 dark:text-gray-400">
             {recipe.ingredients?.length || 0} ingredients
             {totalSteps > 0 && ` • ${totalSteps} steps`}
           </p>

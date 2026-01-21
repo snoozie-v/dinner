@@ -114,8 +114,8 @@ const ManageRecipes = ({
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">Recipe Library</h2>
-          <p className="text-sm text-gray-600 mt-1">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Recipe Library</h2>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
             {recipes.length} recipes ({defaultCount} default, {customCount} custom)
           </p>
         </div>
@@ -137,7 +137,7 @@ const ManageRecipes = ({
             placeholder="Search recipes by name, ingredient, tag..."
             value={searchTerm}
             onChange={handleSearchChange}
-            className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full pl-10 pr-4 py-2.5 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
           <svg
             className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
@@ -155,7 +155,7 @@ const ManageRecipes = ({
           {searchTerm && (
             <button
               onClick={() => setSearchTerm('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -164,33 +164,33 @@ const ManageRecipes = ({
           )}
         </div>
 
-        <div className="flex rounded-lg border border-gray-300 bg-white overflow-hidden">
+        <div className="flex rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 overflow-hidden">
           <button
             onClick={() => setFilterType('all')}
             className={`px-4 py-2.5 text-sm font-medium transition-colors ${
               filterType === 'all'
-                ? 'bg-gray-100 text-gray-900'
-                : 'text-gray-600 hover:bg-gray-50'
+                ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100'
+                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
             }`}
           >
             All
           </button>
           <button
             onClick={() => setFilterType('default')}
-            className={`px-4 py-2.5 text-sm font-medium border-l border-gray-300 transition-colors ${
+            className={`px-4 py-2.5 text-sm font-medium border-l border-gray-300 dark:border-gray-600 transition-colors ${
               filterType === 'default'
-                ? 'bg-gray-100 text-gray-900'
-                : 'text-gray-600 hover:bg-gray-50'
+                ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100'
+                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
             }`}
           >
             Default
           </button>
           <button
             onClick={() => setFilterType('custom')}
-            className={`px-4 py-2.5 text-sm font-medium border-l border-gray-300 transition-colors ${
+            className={`px-4 py-2.5 text-sm font-medium border-l border-gray-300 dark:border-gray-600 transition-colors ${
               filterType === 'custom'
-                ? 'bg-gray-100 text-gray-900'
-                : 'text-gray-600 hover:bg-gray-50'
+                ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100'
+                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
             }`}
           >
             Custom
@@ -221,8 +221,8 @@ const ManageRecipes = ({
               d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
             />
           </svg>
-          <h3 className="mt-2 text-sm font-medium text-gray-900">No recipes found</h3>
-          <p className="mt-1 text-sm text-gray-500">
+          <h3 className="mt-2 text-sm font-medium text-gray-900 dark:text-gray-100">No recipes found</h3>
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
             {searchTerm
               ? `No recipes match "${searchTerm}"`
               : filterType === 'custom'
@@ -232,7 +232,7 @@ const ManageRecipes = ({
           {!searchTerm && filterType === 'custom' && (
             <button
               onClick={handleAddNew}
-              className="mt-4 inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-700"
+              className="mt-4 inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
             >
               <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />

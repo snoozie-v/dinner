@@ -1,6 +1,7 @@
 // src/components/ShoppingList.tsx
 import { useState, useMemo } from 'react';
 import type { PlanItem, ShoppingItem } from '../types';
+import SwipeableShoppingItem from './SwipeableShoppingItem';
 
 interface ShoppingListProps {
   plan: PlanItem[];
@@ -124,28 +125,28 @@ const ShoppingList = ({
     <section>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
-          <h2 className="text-2xl font-semibold text-gray-800">Shopping List</h2>
-          <p className="text-sm text-gray-500 mt-1">
+          <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">Shopping List</h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
             {stats.needed} item{stats.needed !== 1 ? 's' : ''} to get
             {stats.completed > 0 && ` • ${stats.completed} collected`}
             {stats.pantryCount > 0 && (
-              <span className="text-green-600"> • {stats.pantryCount} from pantry</span>
+              <span className="text-green-600 dark:text-green-400"> • {stats.pantryCount} from pantry</span>
             )}
           </p>
         </div>
         <div className="flex items-center gap-3 flex-wrap">
-          <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
+          <label className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 cursor-pointer">
             <input
               type="checkbox"
               checked={hideCompleted}
               onChange={(e) => setHideCompleted(e.target.checked)}
-              className="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+              className="w-4 h-4 text-blue-600 rounded border-gray-300 dark:border-gray-600 focus:ring-blue-500"
             />
             Hide collected
           </label>
           <button
             onClick={onOpenPantry}
-            className="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm hover:bg-gray-100 rounded-lg transition flex items-center gap-1.5"
+            className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition flex items-center gap-1.5"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
@@ -165,8 +166,8 @@ const ShoppingList = ({
       </div>
 
       {shoppingList.length === 0 ? (
-        <div className="bg-white rounded-xl shadow-sm border p-8 text-center">
-          <p className="text-gray-500">No ingredients in your meal plan yet.</p>
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-8 text-center">
+          <p className="text-gray-500 dark:text-gray-400">No ingredients in your meal plan yet.</p>
         </div>
       ) : (
         <div className="space-y-6">
@@ -180,58 +181,64 @@ const ShoppingList = ({
             const categoryCompleted = items.filter(item => item.haveQty >= item.totalQty).length;
 
             return (
-              <div key={category} className="bg-white rounded-xl shadow-sm border overflow-hidden">
-                <div className="px-4 py-3 bg-gray-50 border-b flex items-center justify-between">
-                  <h3 className="font-semibold text-gray-800">{label}</h3>
-                  <span className="text-xs text-gray-500">
+              <div key={category} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 overflow-hidden">
+                <div className="px-4 py-3 bg-gray-50 dark:bg-gray-700 border-b dark:border-gray-600 flex items-center justify-between">
+                  <h3 className="font-semibold text-gray-800 dark:text-gray-100">{label}</h3>
+                  <span className="text-xs text-gray-500 dark:text-gray-400">
                     {categoryCompleted}/{items.length} collected
                   </span>
                 </div>
-                <ul className="divide-y divide-gray-100">
+                <ul className="divide-y divide-gray-100 dark:divide-gray-700">
                   {visibleItems.map((item) => {
                     const isCompleted = item.haveQty >= item.totalQty;
                     return (
-                      <li
-                        key={item.key}
-                        className={`flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors ${
-                          isCompleted ? 'bg-green-50' : ''
-                        }`}
-                      >
-                        <button
-                          onClick={() => toggleHaveItem(item.key, item.totalQty)}
-                          className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${
-                            isCompleted
-                              ? 'bg-green-500 border-green-500 text-white'
-                              : 'border-gray-300 hover:border-green-400'
-                          }`}
-                          aria-label={isCompleted ? 'Mark as needed' : 'Mark as collected'}
+                      <li key={item.key}>
+                        <SwipeableShoppingItem
+                          onSwipeComplete={() => toggleHaveItem(item.key, item.totalQty)}
+                          isCompleted={isCompleted}
                         >
-                          {isCompleted && (
-                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                            </svg>
-                          )}
-                        </button>
-                        <div className={`flex-1 min-w-0 ${isCompleted ? 'opacity-60' : ''}`}>
-                          <div className="flex items-baseline gap-2">
-                            <span className={`font-medium text-gray-900 ${isCompleted ? 'line-through' : ''}`}>
-                              {item.name}
-                            </span>
-                            {item.preparation && (
-                              <span className="text-sm text-gray-500">
-                                ({item.preparation})
-                              </span>
-                            )}
-                            {item.isPantryStaple && (
-                              <span className="text-xs px-1.5 py-0.5 bg-green-100 text-green-700 rounded">
-                                pantry
-                              </span>
-                            )}
+                          <div
+                            className={`flex items-center gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${
+                              isCompleted ? 'bg-green-50 dark:bg-green-900/20' : ''
+                            }`}
+                          >
+                            <button
+                              onClick={() => toggleHaveItem(item.key, item.totalQty)}
+                              className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${
+                                isCompleted
+                                  ? 'bg-green-500 border-green-500 text-white'
+                                  : 'border-gray-300 dark:border-gray-600 hover:border-green-400'
+                              }`}
+                              aria-label={isCompleted ? 'Mark as needed' : 'Mark as collected'}
+                            >
+                              {isCompleted && (
+                                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                </svg>
+                              )}
+                            </button>
+                            <div className={`flex-1 min-w-0 ${isCompleted ? 'opacity-60' : ''}`}>
+                              <div className="flex items-baseline gap-2 flex-wrap">
+                                <span className={`font-medium text-gray-900 dark:text-gray-100 ${isCompleted ? 'line-through' : ''}`}>
+                                  {item.name}
+                                </span>
+                                {item.preparation && (
+                                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                                    ({item.preparation})
+                                  </span>
+                                )}
+                                {item.isPantryStaple && (
+                                  <span className="text-xs px-1.5 py-0.5 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded">
+                                    pantry
+                                  </span>
+                                )}
+                              </div>
+                              <div className="text-sm text-gray-500 dark:text-gray-400">
+                                {formatQuantity(item.totalQty, item.unit)}
+                              </div>
+                            </div>
                           </div>
-                          <div className="text-sm text-gray-500">
-                            {formatQuantity(item.totalQty, item.unit)}
-                          </div>
-                        </div>
+                        </SwipeableShoppingItem>
                       </li>
                     );
                   })}
@@ -244,12 +251,12 @@ const ShoppingList = ({
 
       {/* Progress bar */}
       {stats.total > 0 && (
-        <div className="mt-6 bg-white rounded-xl shadow-sm border p-4">
-          <div className="flex items-center justify-between text-sm text-gray-600 mb-2">
+        <div className="mt-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-4">
+          <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-400 mb-2">
             <span>Shopping progress</span>
             <span>{Math.round((stats.completed / stats.total) * 100)}%</span>
           </div>
-          <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+          <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
             <div
               className="h-full bg-green-500 transition-all duration-300"
               style={{ width: `${(stats.completed / stats.total) * 100}%` }}

@@ -57,15 +57,15 @@ const PantryModal = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-xl shadow-2xl max-w-lg w-full max-h-[90vh] flex flex-col overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center bg-gray-50">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-lg w-full max-h-[90vh] flex flex-col overflow-hidden">
+        <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-700">
           <div>
-            <h2 className="text-xl font-bold text-gray-900">Pantry Staples</h2>
-            <p className="text-sm text-gray-500">Items you always have on hand</p>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Pantry Staples</h2>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Items you always have on hand</p>
           </div>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 transition-colors"
+            className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -76,7 +76,7 @@ const PantryModal = ({
         <div className="flex-1 overflow-y-auto p-6">
           {/* Add new staple */}
           <form onSubmit={handleSubmit} className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Add Custom Staple
             </label>
             <div className="flex gap-2">
@@ -85,14 +85,14 @@ const PantryModal = ({
                 value={newName}
                 onChange={(e) => setNewName(e.target.value)}
                 placeholder="Item name"
-                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
               <input
                 type="text"
                 value={newUnit}
                 onChange={(e) => setNewUnit(e.target.value)}
                 placeholder="Unit"
-                className="w-24 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-24 px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
               <button
                 type="submit"
@@ -105,7 +105,7 @@ const PantryModal = ({
 
           {/* Quick add suggestions */}
           <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Quick Add Common Items
             </label>
             <div className="flex flex-wrap gap-2">
@@ -113,7 +113,7 @@ const PantryModal = ({
                 <button
                   key={`${staple.name}|${staple.unit}`}
                   onClick={() => handleAddSuggestion(staple.name, staple.unit)}
-                  className="px-3 py-1.5 text-sm bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-colors"
+                  className="px-3 py-1.5 text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
                 >
                   + {staple.name}
                 </button>
@@ -123,11 +123,11 @@ const PantryModal = ({
 
           {/* Current staples */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Your Pantry Staples ({pantryStaples.length})
             </label>
             {pantryStaples.length === 0 ? (
-              <p className="text-sm text-gray-500 text-center py-4 bg-gray-50 rounded-lg">
+              <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
                 No pantry staples added yet. Items added here will be automatically marked as "collected" in your shopping list.
               </p>
             ) : (
@@ -135,11 +135,11 @@ const PantryModal = ({
                 {pantryStaples.map((staple) => (
                   <div
                     key={staple.key}
-                    className="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-100"
+                    className="flex items-center justify-between p-3 bg-green-50 dark:bg-green-900/30 rounded-lg border border-green-100 dark:border-green-800"
                   >
                     <div>
-                      <span className="font-medium text-gray-900">{staple.name}</span>
-                      <span className="text-sm text-gray-500 ml-2">({staple.unit})</span>
+                      <span className="font-medium text-gray-900 dark:text-gray-100">{staple.name}</span>
+                      <span className="text-sm text-gray-500 dark:text-gray-400 ml-2">({staple.unit})</span>
                     </div>
                     <button
                       onClick={() => onRemoveStaple(staple.key)}
@@ -154,10 +154,10 @@ const PantryModal = ({
           </div>
         </div>
 
-        <div className="px-6 py-4 border-t border-gray-200 bg-gray-50">
+        <div className="px-6 py-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700">
           <button
             onClick={onClose}
-            className="w-full px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors font-medium"
+            className="w-full px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors font-medium"
           >
             Done
           </button>

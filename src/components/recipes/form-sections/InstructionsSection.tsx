@@ -55,8 +55,8 @@ const InstructionsSection = ({ data, onChange }: FormSectionProps) => {
   return (
     <div className="space-y-5">
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Instructions</h3>
-        <p className="text-sm text-gray-600 mb-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Instructions</h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
           Organize your recipe instructions into sections (e.g., Prep, Cook, Assembly). Each section can have multiple steps.
         </p>
       </div>
@@ -66,16 +66,16 @@ const InstructionsSection = ({ data, onChange }: FormSectionProps) => {
         {instructions.map((section, sectionIndex) => (
           <div
             key={sectionIndex}
-            className="border border-gray-200 rounded-lg overflow-hidden"
+            className="border border-gray-200 dark:border-gray-600 rounded-lg overflow-hidden"
           >
             {/* Section Header */}
-            <div className="bg-gray-50 px-4 py-3 flex items-center justify-between">
+            <div className="bg-gray-50 dark:bg-gray-700 px-4 py-3 flex items-center justify-between">
               <input
                 type="text"
                 value={section.section || ''}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => updateSectionName(sectionIndex, e.target.value)}
                 placeholder="Section name (e.g., Prep, Cook)"
-                className="flex-1 px-3 py-1.5 bg-white border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm font-medium"
+                className="flex-1 px-3 py-1.5 bg-white dark:bg-gray-600 border border-gray-300 dark:border-gray-500 dark:text-gray-100 dark:placeholder-gray-400 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm font-medium"
               />
               <button
                 type="button"
@@ -90,7 +90,7 @@ const InstructionsSection = ({ data, onChange }: FormSectionProps) => {
             <div className="p-4 space-y-3">
               {section.steps.map((step, stepIndex) => (
                 <div key={stepIndex} className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-xs font-medium flex items-center justify-center mt-2">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 text-xs font-medium flex items-center justify-center mt-2">
                     {stepIndex + 1}
                   </span>
                   <textarea
@@ -98,7 +98,7 @@ const InstructionsSection = ({ data, onChange }: FormSectionProps) => {
                     onChange={(e: ChangeEvent<HTMLTextAreaElement>) => updateStep(sectionIndex, stepIndex, e.target.value)}
                     placeholder="Enter step instructions..."
                     rows={2}
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm resize-none"
+                    className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm resize-none"
                   />
                   <button
                     type="button"
@@ -115,7 +115,7 @@ const InstructionsSection = ({ data, onChange }: FormSectionProps) => {
               <button
                 type="button"
                 onClick={() => addStep(sectionIndex)}
-                className="w-full py-2 text-sm text-blue-600 hover:text-blue-700 flex items-center justify-center"
+                className="w-full py-2 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center justify-center"
               >
                 <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -131,7 +131,7 @@ const InstructionsSection = ({ data, onChange }: FormSectionProps) => {
       <button
         type="button"
         onClick={addSection}
-        className="w-full py-3 border-2 border-dashed border-gray-300 rounded-lg text-gray-600 hover:border-blue-400 hover:text-blue-600 transition-colors flex items-center justify-center"
+        className="w-full py-3 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg text-gray-600 dark:text-gray-400 hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center justify-center"
       >
         <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -140,7 +140,7 @@ const InstructionsSection = ({ data, onChange }: FormSectionProps) => {
       </button>
 
       {instructions.length === 0 && (
-        <p className="text-center text-sm text-gray-500 py-4">
+        <p className="text-center text-sm text-gray-500 dark:text-gray-400 py-4">
           No instruction sections added yet. Click the button above to add your first section.
         </p>
       )}

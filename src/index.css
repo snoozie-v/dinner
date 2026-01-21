@@ -1,4 +1,16 @@
-@import "tailwindcss"
+@import "tailwindcss";
+
+/* Dark mode variant for Tailwind v4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Base dark mode styles */
+html.dark {
+  color-scheme: dark;
+}
+
+html.dark body {
+  background-color: #1f2937;
+}
 
 
 /* 

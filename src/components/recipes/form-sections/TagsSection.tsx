@@ -70,15 +70,15 @@ const TagsSection = ({ data, onChange }: FormSectionProps) => {
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Tags & Categories</h3>
-        <p className="text-sm text-gray-600 mb-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Tags & Categories</h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
           Add tags and categorize your recipe to make it easier to find later.
         </p>
       </div>
 
       {/* Custom Tags */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
           Tags
         </label>
         <div className="flex gap-2 mb-2">
@@ -88,12 +88,12 @@ const TagsSection = ({ data, onChange }: FormSectionProps) => {
             onChange={(e: ChangeEvent<HTMLInputElement>) => setTagInput(e.target.value)}
             onKeyDown={handleTagKeyDown}
             placeholder="Add a tag and press Enter"
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
           <button
             type="button"
             onClick={addTag}
-            className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+            className="px-4 py-2 bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-500 transition-colors"
           >
             Add
           </button>
@@ -103,13 +103,13 @@ const TagsSection = ({ data, onChange }: FormSectionProps) => {
             {tags.map(tag => (
               <span
                 key={tag}
-                className="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full"
+                className="inline-flex items-center px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm rounded-full"
               >
                 {tag}
                 <button
                   type="button"
                   onClick={() => removeTag(tag)}
-                  className="ml-2 text-blue-600 hover:text-blue-800"
+                  className="ml-2 text-blue-600 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-100"
                 >
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
@@ -123,7 +123,7 @@ const TagsSection = ({ data, onChange }: FormSectionProps) => {
 
       {/* Cuisine */}
       <div>
-        <label htmlFor="cuisine" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="cuisine" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
           Cuisine
         </label>
         <input
@@ -132,13 +132,13 @@ const TagsSection = ({ data, onChange }: FormSectionProps) => {
           value={data.cuisine || ''}
           onChange={handleCuisineChange}
           placeholder="e.g., Italian, Mexican, Thai"
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         />
       </div>
 
       {/* Meal Types */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
           Meal Types
         </label>
         <div className="flex flex-wrap gap-2">
@@ -150,7 +150,7 @@ const TagsSection = ({ data, onChange }: FormSectionProps) => {
               className={`px-3 py-1.5 rounded-full text-sm capitalize transition-colors ${
                 mealTypes.includes(type)
                   ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  : 'bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-500'
               }`}
             >
               {type}
@@ -161,7 +161,7 @@ const TagsSection = ({ data, onChange }: FormSectionProps) => {
 
       {/* Dietary */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
           Dietary Options
         </label>
         <div className="flex flex-wrap gap-2">
@@ -173,7 +173,7 @@ const TagsSection = ({ data, onChange }: FormSectionProps) => {
               className={`px-3 py-1.5 rounded-full text-sm capitalize transition-colors ${
                 dietary.includes(option)
                   ? 'bg-green-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  : 'bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-500'
               }`}
             >
               {option}
@@ -184,10 +184,10 @@ const TagsSection = ({ data, onChange }: FormSectionProps) => {
 
       {/* Allergens */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
           Contains Allergens
         </label>
-        <p className="text-xs text-gray-500 mb-2">
+        <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
           Select any allergens present in this recipe
         </p>
         <div className="flex flex-wrap gap-2">
@@ -199,7 +199,7 @@ const TagsSection = ({ data, onChange }: FormSectionProps) => {
               className={`px-3 py-1.5 rounded-full text-sm capitalize transition-colors ${
                 allergens.includes(allergen)
                   ? 'bg-red-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  : 'bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-500'
               }`}
             >
               {allergen}

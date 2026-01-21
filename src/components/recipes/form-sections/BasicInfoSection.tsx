@@ -11,15 +11,15 @@ const BasicInfoSection = ({ data, onChange }: FormSectionProps) => {
   return (
     <div className="space-y-5">
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Basic Information</h3>
-        <p className="text-sm text-gray-600 mb-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Basic Information</h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
           Enter the essential details about your recipe. Only the name is required.
         </p>
       </div>
 
       {/* Recipe Name */}
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
           Recipe Name <span className="text-red-500">*</span>
         </label>
         <input
@@ -28,13 +28,13 @@ const BasicInfoSection = ({ data, onChange }: FormSectionProps) => {
           value={data.name || ''}
           onChange={handleChange('name')}
           placeholder="e.g., Grandma's Chicken Pot Pie"
-          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         />
       </div>
 
       {/* Description */}
       <div>
-        <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
           Description
         </label>
         <textarea
@@ -43,13 +43,13 @@ const BasicInfoSection = ({ data, onChange }: FormSectionProps) => {
           onChange={handleChange('description')}
           placeholder="A brief description of your recipe..."
           rows={3}
-          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
+          className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
         />
       </div>
 
       {/* Author */}
       <div>
-        <label htmlFor="author" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="author" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
           Author / Source
         </label>
         <input
@@ -58,13 +58,13 @@ const BasicInfoSection = ({ data, onChange }: FormSectionProps) => {
           value={data.author || ''}
           onChange={handleChange('author')}
           placeholder="e.g., Family recipe, Adapted from Food Network"
-          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         />
       </div>
 
       {/* Source URL */}
       <div>
-        <label htmlFor="sourceUrl" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="sourceUrl" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
           Source URL
         </label>
         <input
@@ -73,9 +73,9 @@ const BasicInfoSection = ({ data, onChange }: FormSectionProps) => {
           value={data.sourceUrl || ''}
           onChange={handleChange('sourceUrl')}
           placeholder="https://example.com/recipe"
-          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         />
-        <p className="mt-1 text-xs text-gray-500">Link to the original recipe if applicable</p>
+        <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">Link to the original recipe if applicable</p>
       </div>
     </div>
   );

@@ -34,8 +34,8 @@ const TimingSection = ({ data, onChange }: FormSectionProps) => {
   return (
     <div className="space-y-5">
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Timing & Difficulty</h3>
-        <p className="text-sm text-gray-600 mb-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Timing & Difficulty</h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
           Set the preparation and cooking times, difficulty level, and serving information.
         </p>
       </div>
@@ -43,7 +43,7 @@ const TimingSection = ({ data, onChange }: FormSectionProps) => {
       {/* Time Fields */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div>
-          <label htmlFor="prepTime" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="prepTime" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Prep Time (minutes)
           </label>
           <input
@@ -53,12 +53,12 @@ const TimingSection = ({ data, onChange }: FormSectionProps) => {
             value={parseDurationToMinutes(data.prepTime) || ''}
             onChange={handleTimeChange('prepTime')}
             placeholder="15"
-            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
 
         <div>
-          <label htmlFor="cookTime" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="cookTime" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Cook Time (minutes)
           </label>
           <input
@@ -68,12 +68,12 @@ const TimingSection = ({ data, onChange }: FormSectionProps) => {
             value={parseDurationToMinutes(data.cookTime) || ''}
             onChange={handleTimeChange('cookTime')}
             placeholder="30"
-            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
 
         <div>
-          <label htmlFor="totalTime" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="totalTime" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Total Time (minutes)
           </label>
           <input
@@ -83,22 +83,22 @@ const TimingSection = ({ data, onChange }: FormSectionProps) => {
             value={parseDurationToMinutes(data.totalTime) || ''}
             onChange={handleTimeChange('totalTime')}
             placeholder="45"
-            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
-          <p className="mt-1 text-xs text-gray-500">Total may include rest time</p>
+          <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">Total may include rest time</p>
         </div>
       </div>
 
       {/* Difficulty */}
       <div>
-        <label htmlFor="difficulty" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="difficulty" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
           Difficulty Level
         </label>
         <select
           id="difficulty"
           value={data.difficulty || 'easy'}
           onChange={handleDifficultyChange}
-          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         >
           {DIFFICULTY_OPTIONS.map(option => (
             <option key={option.value} value={option.value}>
@@ -111,7 +111,7 @@ const TimingSection = ({ data, onChange }: FormSectionProps) => {
       {/* Servings */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="servingsDefault" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="servingsDefault" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Number of Servings
           </label>
           <input
@@ -121,12 +121,12 @@ const TimingSection = ({ data, onChange }: FormSectionProps) => {
             value={data.servings?.default || ''}
             onChange={handleServingsChange('default')}
             placeholder="4"
-            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
 
         <div>
-          <label htmlFor="servingsUnit" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="servingsUnit" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Serving Unit
           </label>
           <input
@@ -135,7 +135,7 @@ const TimingSection = ({ data, onChange }: FormSectionProps) => {
             value={data.servings?.unit || ''}
             onChange={handleServingsChange('unit')}
             placeholder="servings, portions, tacos, etc."
-            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
       </div>

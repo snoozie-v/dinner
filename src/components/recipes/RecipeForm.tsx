@@ -80,7 +80,7 @@ const RecipeForm = ({ initialData, onSubmit, onCancel }: RecipeFormProps) => {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="px-6 py-4 border-b border-gray-200 bg-white">
+      <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
         <div className="flex items-center justify-between">
           {STEPS.map((step, index) => (
             <Fragment key={step.id}>
@@ -94,7 +94,7 @@ const RecipeForm = ({ initialData, onSubmit, onCancel }: RecipeFormProps) => {
                       ? 'bg-green-500 text-white'
                       : index === currentStep
                       ? 'bg-blue-600 text-white'
-                      : 'bg-gray-200 text-gray-600'
+                      : 'bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300'
                   }`}
                 >
                   {index < currentStep ? (
@@ -107,7 +107,7 @@ const RecipeForm = ({ initialData, onSubmit, onCancel }: RecipeFormProps) => {
                 </div>
                 <span
                   className={`ml-2 text-sm font-medium hidden sm:inline ${
-                    index === currentStep ? 'text-blue-600' : 'text-gray-500'
+                    index === currentStep ? 'text-blue-600 dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'
                   }`}
                 >
                   {step.label}
@@ -116,7 +116,7 @@ const RecipeForm = ({ initialData, onSubmit, onCancel }: RecipeFormProps) => {
               {index < STEPS.length - 1 && (
                 <div
                   className={`flex-1 h-0.5 mx-2 ${
-                    index < currentStep ? 'bg-green-500' : 'bg-gray-200'
+                    index < currentStep ? 'bg-green-500' : 'bg-gray-200 dark:bg-gray-600'
                   }`}
                 />
               )}
@@ -127,9 +127,9 @@ const RecipeForm = ({ initialData, onSubmit, onCancel }: RecipeFormProps) => {
 
       <div className="flex-1 overflow-y-auto p-6">
         {errors.length > 0 && (
-          <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-            <h4 className="text-sm font-medium text-red-800 mb-2">Please fix the following errors:</h4>
-            <ul className="list-disc list-inside text-sm text-red-700">
+          <div className="mb-4 p-4 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg">
+            <h4 className="text-sm font-medium text-red-800 dark:text-red-300 mb-2">Please fix the following errors:</h4>
+            <ul className="list-disc list-inside text-sm text-red-700 dark:text-red-400">
               {errors.map((error, idx) => (
                 <li key={idx}>{error}</li>
               ))}
@@ -143,13 +143,13 @@ const RecipeForm = ({ initialData, onSubmit, onCancel }: RecipeFormProps) => {
         />
       </div>
 
-      <div className="px-6 py-4 border-t border-gray-200 bg-gray-50 flex justify-between">
+      <div className="px-6 py-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700 flex justify-between">
         <div>
           {currentStep > 0 && (
             <button
               type="button"
               onClick={handlePrev}
-              className="px-4 py-2 text-gray-700 font-medium hover:text-gray-900 transition-colors"
+              className="px-4 py-2 text-gray-700 dark:text-gray-300 font-medium hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
             >
               Back
             </button>
@@ -160,7 +160,7 @@ const RecipeForm = ({ initialData, onSubmit, onCancel }: RecipeFormProps) => {
           <button
             type="button"
             onClick={onCancel}
-            className="px-4 py-2 text-gray-600 font-medium hover:text-gray-800 transition-colors"
+            className="px-4 py-2 text-gray-600 dark:text-gray-400 font-medium hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
           >
             Cancel
           </button>

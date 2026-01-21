@@ -50,17 +50,17 @@ const MealPlan = ({ plan, setSelectedDayForPicker, updateServings, onReorderDays
   return (
     <section className="mb-12">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-semibold text-gray-800">Your Meal Plan</h2>
+        <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">Your Meal Plan</h2>
         {plan.length > 0 && (
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-500 dark:text-gray-400">
             Drag the handle to reorder days
           </p>
         )}
       </div>
 
       {plan.length === 0 ? (
-        <div className="text-center py-12 bg-white rounded-xl shadow-sm border">
-          <p className="text-gray-500 text-lg">
+        <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700">
+          <p className="text-gray-500 dark:text-gray-400 text-lg">
             Generate a random plan or pick recipes manually to get started!
           </p>
         </div>

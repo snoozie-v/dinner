@@ -26,8 +26,8 @@ const IngredientsSection = ({ data, onChange }: FormSectionProps) => {
   return (
     <div className="space-y-5">
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Ingredients</h3>
-        <p className="text-sm text-gray-600 mb-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Ingredients</h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
           Add all the ingredients needed for this recipe. Include quantities, units, and any preparation notes.
         </p>
       </div>
@@ -37,10 +37,10 @@ const IngredientsSection = ({ data, onChange }: FormSectionProps) => {
         {ingredients.map((ingredient, index) => (
           <div
             key={index}
-            className="p-4 border border-gray-200 rounded-lg bg-gray-50"
+            className="p-4 border border-gray-200 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700"
           >
             <div className="flex justify-between items-start mb-3">
-              <span className="text-sm font-medium text-gray-700">
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 Ingredient {index + 1}
               </span>
               <button
@@ -55,7 +55,7 @@ const IngredientsSection = ({ data, onChange }: FormSectionProps) => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
               {/* Ingredient Name */}
               <div className="sm:col-span-2">
-                <label className="block text-xs font-medium text-gray-600 mb-1">
+                <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
                   Name <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -63,13 +63,13 @@ const IngredientsSection = ({ data, onChange }: FormSectionProps) => {
                   value={ingredient.name || ''}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => updateIngredient(index, 'name', e.target.value)}
                   placeholder="e.g., chicken breast"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-600 dark:text-gray-100 dark:placeholder-gray-400 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
                 />
               </div>
 
               {/* Quantity */}
               <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">
+                <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
                   Quantity
                 </label>
                 <input
@@ -79,13 +79,13 @@ const IngredientsSection = ({ data, onChange }: FormSectionProps) => {
                   value={ingredient.quantity ?? ''}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => updateIngredient(index, 'quantity', e.target.value ? parseFloat(e.target.value) : null)}
                   placeholder="2"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-600 dark:text-gray-100 dark:placeholder-gray-400 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
                 />
               </div>
 
               {/* Unit */}
               <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">
+                <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
                   Unit
                 </label>
                 <input
@@ -93,13 +93,13 @@ const IngredientsSection = ({ data, onChange }: FormSectionProps) => {
                   value={ingredient.unit || ''}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => updateIngredient(index, 'unit', e.target.value)}
                   placeholder="lb, cup, etc."
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-600 dark:text-gray-100 dark:placeholder-gray-400 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
                 />
               </div>
 
               {/* Preparation */}
               <div className="sm:col-span-2">
-                <label className="block text-xs font-medium text-gray-600 mb-1">
+                <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
                   Preparation
                 </label>
                 <input
@@ -107,19 +107,19 @@ const IngredientsSection = ({ data, onChange }: FormSectionProps) => {
                   value={ingredient.preparation || ''}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => updateIngredient(index, 'preparation', e.target.value)}
                   placeholder="e.g., diced, melted"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-600 dark:text-gray-100 dark:placeholder-gray-400 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
                 />
               </div>
 
               {/* Category */}
               <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">
+                <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
                   Category
                 </label>
                 <select
                   value={ingredient.category || 'other'}
                   onChange={(e: ChangeEvent<HTMLSelectElement>) => updateIngredient(index, 'category', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-600 dark:text-gray-100 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
                 >
                   {INGREDIENT_CATEGORIES.map(cat => (
                     <option key={cat} value={cat}>{cat}</option>
@@ -134,9 +134,9 @@ const IngredientsSection = ({ data, onChange }: FormSectionProps) => {
                     type="checkbox"
                     checked={ingredient.optional || false}
                     onChange={(e: ChangeEvent<HTMLInputElement>) => updateIngredient(index, 'optional', e.target.checked)}
-                    className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                    className="w-4 h-4 text-blue-600 border-gray-300 dark:border-gray-600 rounded focus:ring-blue-500"
                   />
-                  <span className="ml-2 text-sm text-gray-600">Optional</span>
+                  <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">Optional</span>
                 </label>
               </div>
             </div>
@@ -148,7 +148,7 @@ const IngredientsSection = ({ data, onChange }: FormSectionProps) => {
       <button
         type="button"
         onClick={addIngredient}
-        className="w-full py-3 border-2 border-dashed border-gray-300 rounded-lg text-gray-600 hover:border-blue-400 hover:text-blue-600 transition-colors flex items-center justify-center"
+        className="w-full py-3 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg text-gray-600 dark:text-gray-400 hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center justify-center"
       >
         <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -157,7 +157,7 @@ const IngredientsSection = ({ data, onChange }: FormSectionProps) => {
       </button>
 
       {ingredients.length === 0 && (
-        <p className="text-center text-sm text-gray-500 py-4">
+        <p className="text-center text-sm text-gray-500 dark:text-gray-400 py-4">
           No ingredients added yet. Click the button above to add your first ingredient.
         </p>
       )}

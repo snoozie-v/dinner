@@ -32,7 +32,7 @@ const SortablePlanItem = ({ planItem, setSelectedDayForPicker, updateServings }:
       <div
         {...attributes}
         {...listeners}
-        className="absolute left-0 top-0 bottom-0 w-10 flex items-center justify-center cursor-grab active:cursor-grabbing z-10 bg-gray-100 rounded-l-xl border-r border-gray-200 hover:bg-gray-200 transition-colors"
+        className="absolute left-0 top-0 bottom-0 w-10 flex items-center justify-center cursor-grab active:cursor-grabbing z-10 bg-gray-100 dark:bg-gray-700 rounded-l-xl border-r border-gray-200 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
         title="Drag to reorder"
       >
         <svg

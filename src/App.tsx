@@ -24,7 +24,10 @@ const STORAGE_KEYS = {
   PANTRY_STAPLES: 'dinner-planner-pantry-staples',
   TEMPLATES: 'dinner-planner-templates',
   USER_PREFS: 'dinner-planner-user-prefs',
+  THEME: 'dinner-planner-theme',
 } as const;
+
+type Theme = 'light' | 'dark' | 'system';
 
 // Helper to safely parse JSON from localStorage
 function getStoredValue<T>(key: string, defaultValue: T): T {
@@ -66,6 +69,40 @@ function App() {
 
   // Tab state: 'planner' or 'recipes'
   const [activeTab, setActiveTab] = useState<ActiveTab>('planner');
+
+  // Theme state
+  const [theme, setTheme] = useState<Theme>(() => getStoredValue(STORAGE_KEYS.THEME, 'system'));
+
+  // Apply dark mode class to <html>
+  useEffect(() => {
+    const applyTheme = (isDark: boolean) => {
+      document.documentElement.classList.toggle('dark', isDark);
+    };
+
+    if (theme === 'system') {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      applyTheme(mediaQuery.matches);
+
+      const handler = (e: MediaQueryListEvent) => applyTheme(e.matches);
+      mediaQuery.addEventListener('change', handler);
+      return () => mediaQuery.removeEventListener('change', handler);
+    } else {
+      applyTheme(theme === 'dark');
+    }
+  }, [theme]);
+
+  // Persist theme to localStorage
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.THEME, JSON.stringify(theme));
+  }, [theme]);
+
+  // Toggle between light and dark (skipping system for simplicity)
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+  };
+
+  // Check if currently showing dark mode
+  const isDarkMode = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
   // Recipe CRUD operations
   const {
@@ -433,21 +470,42 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold text-gray-800 text-center mb-6">
-          Meal Plan & Shopping List
-        </h1>
+        {/* Header with theme toggle */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex-1" />
+          <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-100 text-center">
+            Meal Plan & Shopping List
+          </h1>
+          <div className="flex-1 flex justify-end">
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+              aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
+              {isDarkMode ? (
+                <svg className="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5 text-gray-700" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                </svg>
+              )}
+            </button>
+          </div>
+        </div>
 
         {/* Tab Navigation */}
         <div className="flex justify-center mb-8">
-          <div className="inline-flex rounded-lg border border-gray-200 bg-white p-1 shadow-sm">
+          <div className="inline-flex rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-1 shadow-sm">
             <button
               onClick={() => setActiveTab('planner')}
               className={`px-6 py-2.5 rounded-md text-sm font-medium transition-colors ${
                 activeTab === 'planner'
                   ? 'bg-blue-600 text-white shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                  : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700'
               }`}
             >
               Meal Planner
@@ -457,7 +515,7 @@ function App() {
               className={`px-6 py-2.5 rounded-md text-sm font-medium transition-colors ${
                 activeTab === 'recipes'
                   ? 'bg-blue-600 text-white shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                  : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700'
               }`}
             >
               Manage Recipes

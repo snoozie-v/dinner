@@ -27,20 +27,20 @@ const Controls = ({
   };
 
   return (
-    <div className="mb-6 bg-white p-6 rounded-xl shadow-sm border">
+    <div className="mb-6 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border dark:border-gray-700">
       {/* Main controls row */}
       <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 mb-4">
         <div className="flex items-center gap-3">
-          <label className="text-gray-700 font-medium">Plan for</label>
+          <label className="text-gray-700 dark:text-gray-300 font-medium">Plan for</label>
           <input
             type="number"
             min="1"
             max="30"
             value={days}
             onChange={handleDaysChange}
-            className="w-20 border border-gray-300 rounded-lg px-3 py-2 text-center focus:ring-2 focus:ring-blue-500"
+            className="w-20 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-lg px-3 py-2 text-center focus:ring-2 focus:ring-blue-500"
           />
-          <span className="text-gray-700 font-medium">days</span>
+          <span className="text-gray-700 dark:text-gray-300 font-medium">days</span>
         </div>
 
         <button
@@ -71,10 +71,10 @@ const Controls = ({
       </div>
 
       {/* Secondary controls row */}
-      <div className="flex flex-wrap items-center justify-center gap-3 pt-4 border-t border-gray-100">
+      <div className="flex flex-wrap items-center justify-center gap-3 pt-4 border-t border-gray-100 dark:border-gray-700">
         <button
           onClick={onOpenTemplates}
-          className="text-gray-600 hover:text-gray-900 px-3 py-1.5 text-sm hover:bg-gray-100 rounded-lg transition flex items-center gap-1.5"
+          className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 px-3 py-1.5 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition flex items-center gap-1.5"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -82,11 +82,11 @@ const Controls = ({
           {hasTemplates ? 'Manage Templates' : 'Save as Template'}
         </button>
 
-        <span className="text-gray-300">|</span>
+        <span className="text-gray-300 dark:text-gray-600">|</span>
 
         <button
           onClick={onOpenPantry}
-          className="text-gray-600 hover:text-gray-900 px-3 py-1.5 text-sm hover:bg-gray-100 rounded-lg transition flex items-center gap-1.5"
+          className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 px-3 py-1.5 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition flex items-center gap-1.5"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
@@ -94,11 +94,11 @@ const Controls = ({
           Pantry Staples
         </button>
 
-        <span className="text-gray-300">|</span>
+        <span className="text-gray-300 dark:text-gray-600">|</span>
 
         <button
           onClick={clearAllData}
-          className="text-red-600 hover:text-red-700 px-3 py-1.5 text-sm hover:bg-red-50 rounded-lg transition"
+          className="text-red-600 hover:text-red-700 px-3 py-1.5 text-sm hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition"
         >
           Clear All Data
         </button>
