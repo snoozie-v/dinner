@@ -17,6 +17,7 @@ import UndoToast, { type UndoAction } from './components/UndoToast';
 import BottomNav from './components/BottomNav';
 import OnboardingModal from './components/OnboardingModal';
 import PrivacyPolicyModal from './components/PrivacyPolicyModal';
+import PullToRefresh from './components/PullToRefresh';
 
 import { useRecipes } from './hooks/useRecipes';
 
@@ -87,6 +88,9 @@ function App() {
   // Privacy policy modal state
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
 
+  // Pull-to-refresh feedback
+  const [refreshMessage, setRefreshMessage] = useState<string | null>(null);
+
   // Apply dark mode class to <html>
   useEffect(() => {
     const applyTheme = (isDark: boolean) => {
@@ -128,6 +132,29 @@ function App() {
   const handleShowOnboarding = () => {
     setShowOnboarding(true);
   };
+
+  // Handle pull-to-refresh
+  const handlePullRefresh = useCallback(async () => {
+    // Simulate a brief refresh action
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    // Show feedback based on current tab
+    let message = '';
+    if (activeTab === 'planner') {
+      message = 'Meal plan is up to date!';
+    } else if (activeTab === 'shop') {
+      message = 'Shopping list refreshed!';
+    } else if (activeTab === 'recipes') {
+      message = 'Recipes are up to date!';
+    }
+
+    setRefreshMessage(message);
+
+    // Clear message after 2 seconds
+    setTimeout(() => {
+      setRefreshMessage(null);
+    }, 2000);
+  }, [activeTab]);
 
   // Undo state
   const [undoAction, setUndoAction] = useState<UndoAction | null>(null);
@@ -580,8 +607,15 @@ function App() {
   const shoppingNeededCount = shoppingListMemo.filter(item => item.haveQty < item.totalQty).length;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-6 sm:py-8 px-4 sm:px-6 lg:px-8 mobile-bottom-padding">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <PullToRefresh
+        onRefresh={handlePullRefresh}
+        pullText="Pull to refresh"
+        releaseText="Release to refresh"
+        refreshingText="Refreshing..."
+      >
+        <div className="py-6 sm:py-8 px-4 sm:px-6 lg:px-8 mobile-bottom-padding">
+          <div className="max-w-6xl mx-auto">
         {/* Header with theme toggle and help button */}
         <div className="flex items-center justify-between mb-4 sm:mb-6">
           <div className="flex-1 flex justify-start">
@@ -781,7 +815,21 @@ function App() {
             </span>
           </div>
         </footer>
-      </div>
+          </div>
+        </div>
+      </PullToRefresh>
+
+      {/* Refresh Message Toast */}
+      {refreshMessage && (
+        <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 animate-fade-in">
+          <div className="bg-green-600 text-white px-4 py-2.5 rounded-lg shadow-lg flex items-center gap-2">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            <span className="text-sm font-medium">{refreshMessage}</span>
+          </div>
+        </div>
+      )}
 
       {/* Bottom Navigation - Mobile only */}
       <BottomNav
