@@ -16,6 +16,7 @@ import TemplateModal from './components/TemplateModal';
 import UndoToast, { type UndoAction } from './components/UndoToast';
 import BottomNav from './components/BottomNav';
 import OnboardingModal from './components/OnboardingModal';
+import PrivacyPolicyModal from './components/PrivacyPolicyModal';
 
 import { useRecipes } from './hooks/useRecipes';
 
@@ -82,6 +83,9 @@ function App() {
     const seen = localStorage.getItem(STORAGE_KEYS.ONBOARDING_SEEN);
     return !seen; // Show if not seen before
   });
+
+  // Privacy policy modal state
+  const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
 
   // Apply dark mode class to <html>
   useEffect(() => {
@@ -754,6 +758,29 @@ function App() {
             isCustomRecipe={isCustomRecipe}
           />
         )}
+
+        {/* Footer */}
+        <footer className="mt-12 pt-6 border-t border-gray-200 dark:border-gray-700">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 text-sm text-gray-500 dark:text-gray-400">
+            <button
+              onClick={() => setShowPrivacyPolicy(true)}
+              className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors touch-manipulation py-2"
+            >
+              Privacy Policy
+            </button>
+            <span className="hidden sm:inline">•</span>
+            <button
+              onClick={handleShowOnboarding}
+              className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors touch-manipulation py-2"
+            >
+              App Tutorial
+            </button>
+            <span className="hidden sm:inline">•</span>
+            <span className="text-gray-400 dark:text-gray-500">
+              Meal Planner v1.0
+            </span>
+          </div>
+        </footer>
       </div>
 
       {/* Bottom Navigation - Mobile only */}
@@ -770,6 +797,12 @@ function App() {
       <OnboardingModal
         isOpen={showOnboarding}
         onComplete={handleOnboardingComplete}
+      />
+
+      {/* Privacy Policy Modal */}
+      <PrivacyPolicyModal
+        isOpen={showPrivacyPolicy}
+        onClose={() => setShowPrivacyPolicy(false)}
       />
     </div>
   );
