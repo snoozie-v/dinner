@@ -4,6 +4,8 @@ import type { ChangeEvent } from 'react';
 import type { Recipe, RecipeOperationResult, FilterType } from '../../types';
 import RecipeList from './RecipeList';
 import RecipeFormModal from './RecipeFormModal';
+import ImportUrlModal from './ImportUrlModal';
+import { parseRecipeFromUrl } from '../../utils/recipeParser';
 
 interface ManageRecipesProps {
   recipes: Recipe[];
@@ -26,6 +28,7 @@ const ManageRecipes = ({
   const [filterType, setFilterType] = useState<FilterType>('all');
   const [showFormModal, setShowFormModal] = useState<boolean>(false);
   const [editingRecipe, setEditingRecipe] = useState<Recipe | null>(null);
+  const [showImportModal, setShowImportModal] = useState<boolean>(false);
 
   const filteredRecipes = useMemo<Recipe[]>(() => {
     let filtered = recipes;
@@ -71,7 +74,8 @@ const ManageRecipes = ({
 
   const handleFormSubmit = (recipeData: Partial<Recipe>): string[] | null => {
     let result: RecipeOperationResult;
-    if (editingRecipe) {
+    // Check if we're editing an existing recipe (has ID) or creating a new one (no ID, like imports)
+    if (editingRecipe?.id) {
       result = onUpdateRecipe(editingRecipe.id, recipeData);
     } else {
       result = onAddRecipe(recipeData);
@@ -95,6 +99,25 @@ const ManageRecipes = ({
     setSearchTerm(e.target.value);
   };
 
+  const handleImportClick = (): void => {
+    setShowImportModal(true);
+  };
+
+  const handleUrlImport = async (url: string): Promise<void> => {
+    const result = await parseRecipeFromUrl(url);
+    if (result.success && result.recipe) {
+      setEditingRecipe(result.recipe as Recipe);
+      setShowImportModal(false);
+      setShowFormModal(true);
+    } else {
+      throw new Error(result.errors?.join(', ') || 'Import failed');
+    }
+  };
+
+  const handleImportClose = (): void => {
+    setShowImportModal(false);
+  };
+
   const customCount = recipes.filter(r => isCustomRecipe(r)).length;
   const defaultCount = recipes.filter(r => !isCustomRecipe(r)).length;
 
@@ -107,15 +130,28 @@ const ManageRecipes = ({
             {recipes.length} recipes ({defaultCount} default, {customCount} custom)
           </p>
         </div>
-        <button
-          onClick={handleAddNew}
-          className="inline-flex items-center px-4 py-2.5 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
-        >
-          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-          </svg>
-          Add Recipe
-        </button>
+        <div className="flex gap-3">
+          {import.meta.env.VITE_PROXY_URL && (
+            <button
+              onClick={handleImportClick}
+              className="inline-flex items-center px-4 py-2.5 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-sm"
+            >
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+              </svg>
+              Import from URL
+            </button>
+          )}
+          <button
+            onClick={handleAddNew}
+            className="inline-flex items-center px-4 py-2.5 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
+          >
+            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+            </svg>
+            Add Recipe
+          </button>
+        </div>
       </div>
 
       <div className="flex flex-col sm:flex-row gap-3">
@@ -236,6 +272,13 @@ const ManageRecipes = ({
           recipe={editingRecipe}
           onSubmit={handleFormSubmit}
           onClose={handleFormClose}
+        />
+      )}
+
+      {showImportModal && (
+        <ImportUrlModal
+          onImport={handleUrlImport}
+          onClose={handleImportClose}
         />
       )}
     </div>
