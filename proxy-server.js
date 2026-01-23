@@ -3,7 +3,8 @@ import express from 'express';
 import cors from 'cors';
 
 const app = express();
-const PORT = process.env.PROXY_PORT || 3001;
+// Use PORT for production (Render/Railway), PROXY_PORT for local dev, or default to 3001
+const PORT = process.env.PORT || process.env.PROXY_PORT || 3001;
 
 // Enable CORS for local development
 app.use(cors({
