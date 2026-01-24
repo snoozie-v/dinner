@@ -893,7 +893,7 @@ function App() {
             </button>
             <span className="hidden sm:inline">•</span>
             <button
-              onClick={handleShowOnboarding}
+              onClick={() => handleShowOnboarding(0)}
               className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors touch-manipulation py-2"
             >
               App Tutorial
