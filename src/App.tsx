@@ -31,6 +31,7 @@ const STORAGE_KEYS = {
   USER_PREFS: 'dinner-planner-user-prefs',
   THEME: 'dinner-planner-theme',
   ONBOARDING_SEEN: 'dinner-planner-onboarding-seen',
+  ACTIVE_TAB: 'dinner-planner-active-tab',
 } as const;
 
 type Theme = 'light' | 'dark' | 'system';
@@ -73,8 +74,10 @@ function App() {
   const [showPantryModal, setShowPantryModal] = useState(false);
   const [showTemplateModal, setShowTemplateModal] = useState(false);
 
-  // Tab state: 'planner' or 'recipes'
-  const [activeTab, setActiveTab] = useState<ActiveTab>('planner');
+  // Tab state: 'planner' or 'recipes' - persisted to localStorage
+  const [activeTab, setActiveTab] = useState<ActiveTab>(() =>
+    getStoredValue(STORAGE_KEYS.ACTIVE_TAB, 'planner')
+  );
 
   // Theme state
   const [theme, setTheme] = useState<Theme>(() => getStoredValue(STORAGE_KEYS.THEME, 'system'));
@@ -115,6 +118,11 @@ function App() {
   useEffect(() => {
     localStorage.setItem(STORAGE_KEYS.THEME, JSON.stringify(theme));
   }, [theme]);
+
+  // Persist activeTab to localStorage
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.ACTIVE_TAB, JSON.stringify(activeTab));
+  }, [activeTab]);
 
   // Toggle between light and dark (skipping system for simplicity)
   const toggleTheme = () => {
