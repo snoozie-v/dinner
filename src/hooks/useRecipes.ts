@@ -32,6 +32,7 @@ export interface UseRecipesReturn {
   duplicateRecipe: (recipeId: string) => RecipeOperationResult;
   getRecipeById: (recipeId: string) => Recipe | null;
   isCustomRecipe: (recipe: Recipe | null | undefined) => boolean;
+  importRecipes: (recipes: Recipe[], mode: 'overwrite' | 'merge') => void;
 }
 
 /**
@@ -162,6 +163,23 @@ export const useRecipes = (defaultRecipes: Recipe[] = []): UseRecipesReturn => {
     return allRecipes.find(r => r.id === recipeId) || null;
   }, [allRecipes]);
 
+  /**
+   * Import recipes from backup
+   */
+  const importRecipes = useCallback((recipes: Recipe[], mode: 'overwrite' | 'merge'): void => {
+    if (mode === 'overwrite') {
+      // Replace all custom recipes
+      setCustomRecipes(recipes.filter(r => r.isCustom));
+    } else {
+      // Merge: add only recipes with IDs that don't exist
+      setCustomRecipes(prev => {
+        const existingIds = new Set(prev.map(r => r.id));
+        const newRecipes = recipes.filter(r => r.isCustom && !existingIds.has(r.id));
+        return [...prev, ...newRecipes];
+      });
+    }
+  }, []);
+
   return {
     customRecipes,
     allRecipes,
@@ -171,7 +189,8 @@ export const useRecipes = (defaultRecipes: Recipe[] = []): UseRecipesReturn => {
     restoreRecipe,
     duplicateRecipe,
     getRecipeById,
-    isCustomRecipe
+    isCustomRecipe,
+    importRecipes
   };
 };
 

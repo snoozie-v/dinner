@@ -19,6 +19,7 @@ import OnboardingModal from './components/OnboardingModal';
 import PrivacyPolicyModal from './components/PrivacyPolicyModal';
 import PullToRefresh from './components/PullToRefresh';
 import RecipeDetailModal from './components/recipes/RecipeDetailModal';
+import DataSettingsModal from './components/DataSettingsModal';
 
 import { useRecipes } from './hooks/useRecipes';
 
@@ -94,6 +95,9 @@ function App() {
 
   // Privacy policy modal state
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
+
+  // Data settings modal state
+  const [showDataSettings, setShowDataSettings] = useState(false);
 
   // Pull-to-refresh feedback
   const [refreshMessage, setRefreshMessage] = useState<string | null>(null);
@@ -176,13 +180,15 @@ function App() {
 
   // Recipe CRUD operations
   const {
+    customRecipes,
     allRecipes,
     addRecipe,
     updateRecipe,
     deleteRecipe,
     restoreRecipe,
     duplicateRecipe,
-    isCustomRecipe
+    isCustomRecipe,
+    importRecipes
   } = useRecipes(defaultRecipes as Recipe[]);
 
   const filteredRecipes = useMemo<Recipe[]>(() => {
@@ -350,6 +356,78 @@ function App() {
   const handleCloseViewRecipe = (): void => {
     setViewingRecipe(null);
   };
+
+  // Handle data import from backup file
+  const handleImportData = useCallback((data: {
+    version: number;
+    exportedAt: string;
+    data: {
+      customRecipes?: Recipe[];
+      days?: number;
+      plan?: PlanItem[];
+      shoppingAdjustments?: ShoppingAdjustments;
+      pantryStaples?: PantryStaple[];
+      templates?: MealPlanTemplate[];
+      userPrefs?: UserPreferences;
+      theme?: string;
+    };
+  }, mode: 'overwrite' | 'merge') => {
+    const importedData = data.data;
+
+    if (mode === 'overwrite') {
+      // Replace everything
+      if (importedData.customRecipes) {
+        importRecipes(importedData.customRecipes, 'overwrite');
+      }
+      if (importedData.days !== undefined) {
+        setDays(importedData.days);
+      }
+      if (importedData.plan) {
+        setPlan(importedData.plan);
+      }
+      if (importedData.shoppingAdjustments) {
+        setShoppingAdjustments(importedData.shoppingAdjustments);
+      }
+      if (importedData.pantryStaples) {
+        setPantryStaples(importedData.pantryStaples);
+      }
+      if (importedData.templates) {
+        setTemplates(importedData.templates);
+      }
+      if (importedData.userPrefs) {
+        setUserPrefs(importedData.userPrefs);
+      }
+      if (importedData.theme) {
+        setTheme(importedData.theme as Theme);
+      }
+    } else {
+      // Merge mode - add new items, keep existing
+      if (importedData.customRecipes) {
+        importRecipes(importedData.customRecipes, 'merge');
+      }
+      if (importedData.pantryStaples) {
+        setPantryStaples(prev => {
+          const existingKeys = new Set(prev.map(s => s.key));
+          const newStaples = importedData.pantryStaples!.filter(s => !existingKeys.has(s.key));
+          return [...prev, ...newStaples];
+        });
+      }
+      if (importedData.templates) {
+        setTemplates(prev => {
+          const existingIds = new Set(prev.map(t => t.id));
+          const newTemplates = importedData.templates!.filter(t => !existingIds.has(t.id));
+          return [...prev, ...newTemplates];
+        });
+      }
+      if (importedData.userPrefs) {
+        setUserPrefs(prev => ({
+          favoriteRecipeIds: [...new Set([...prev.favoriteRecipeIds, ...(importedData.userPrefs?.favoriteRecipeIds || [])])],
+          recentRecipeIds: prev.recentRecipeIds, // Keep current recent list
+        }));
+      }
+      // Don't merge days, plan, shoppingAdjustments, or theme in merge mode
+    }
+  }, [importRecipes]);
 
   // Track recent recipe usage
   const addToRecent = (recipeId: string): void => {
@@ -757,23 +835,49 @@ function App() {
           <div className="inline-flex rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-1 shadow-sm">
             <button
               onClick={() => setActiveTab('planner')}
-              className={`px-6 py-2.5 rounded-md text-sm font-medium transition-colors ${
-                activeTab === 'planner' || activeTab === 'shop'
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-medium transition-colors ${
+                activeTab === 'planner'
                   ? 'bg-blue-600 text-white shadow-sm'
                   : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700'
               }`}
             >
-              Meal Planner
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              Plan
+            </button>
+            <button
+              onClick={() => setActiveTab('shop')}
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-medium transition-colors relative ${
+                activeTab === 'shop'
+                  ? 'bg-blue-600 text-white shadow-sm'
+                  : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700'
+              }`}
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              Shop
+              {shoppingNeededCount > 0 && (
+                <span className={`min-w-[20px] h-5 flex items-center justify-center text-xs font-bold rounded-full px-1.5 ${
+                  activeTab === 'shop' ? 'bg-white text-blue-600' : 'bg-red-500 text-white'
+                }`}>
+                  {shoppingNeededCount > 99 ? '99+' : shoppingNeededCount}
+                </span>
+              )}
             </button>
             <button
               onClick={() => setActiveTab('recipes')}
-              className={`px-6 py-2.5 rounded-md text-sm font-medium transition-colors ${
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-medium transition-colors ${
                 activeTab === 'recipes'
                   ? 'bg-blue-600 text-white shadow-sm'
                   : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700'
               }`}
             >
-              Manage Recipes
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+              Recipes
             </button>
           </div>
         </div>
@@ -821,16 +925,6 @@ function App() {
               onRemoveRecipe={removeMealPlanRecipe}
             />
 
-            {/* Shopping list shown on desktop in planner tab */}
-            <div className="hidden sm:block">
-              <ShoppingList
-                plan={plan}
-                shoppingList={shoppingListMemo}
-                toggleHaveItem={toggleHaveItem}
-                onOpenPantry={() => setShowPantryModal(true)}
-              />
-            </div>
-
             <RecipePickerModal
               selectedDayForPicker={selectedDayForPicker}
               setSelectedDayForPicker={setSelectedDayForPicker}
@@ -864,7 +958,7 @@ function App() {
           </>
         )}
 
-        {/* Shop Tab Content - Mobile only separate view */}
+        {/* Shop Tab Content */}
         {activeTab === 'shop' && (
           <>
             <ShoppingList
@@ -911,6 +1005,13 @@ function App() {
               className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors touch-manipulation py-2"
             >
               App Tutorial
+            </button>
+            <span className="hidden sm:inline">•</span>
+            <button
+              onClick={() => setShowDataSettings(true)}
+              className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors touch-manipulation py-2"
+            >
+              Backup & Restore
             </button>
             <span className="hidden sm:inline">•</span>
             <span className="text-gray-400 dark:text-gray-500">
@@ -962,6 +1063,21 @@ function App() {
         recipe={viewingRecipe}
         onClose={handleCloseViewRecipe}
         isCustomRecipe={isCustomRecipe}
+      />
+
+      {/* Data Settings Modal - Export/Import */}
+      <DataSettingsModal
+        isOpen={showDataSettings}
+        onClose={() => setShowDataSettings(false)}
+        customRecipes={customRecipes}
+        days={days}
+        plan={plan}
+        shoppingAdjustments={shoppingAdjustments}
+        pantryStaples={pantryStaples}
+        templates={templates}
+        userPrefs={userPrefs}
+        theme={theme}
+        onImportData={handleImportData}
       />
     </div>
   );

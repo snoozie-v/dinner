@@ -264,6 +264,7 @@ const ShoppingList = ({
           </div>
         </div>
       )}
+
     </section>
   );
 };
