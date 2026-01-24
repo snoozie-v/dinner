@@ -10,6 +10,7 @@ interface SearchBarProps {
   days: number;
   onToggleFavorite: (recipeId: string) => void;
   isFavorite: (recipeId: string) => boolean;
+  onViewRecipe?: (recipe: Recipe) => void;
 }
 
 const SearchBar = ({
@@ -20,6 +21,7 @@ const SearchBar = ({
   days,
   onToggleFavorite,
   isFavorite,
+  onViewRecipe,
 }: SearchBarProps) => {
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
@@ -65,16 +67,32 @@ const SearchBar = ({
                 className="border dark:border-gray-600 rounded-lg p-4 hover:shadow-md transition hover:border-green-400 bg-gray-50 dark:bg-gray-700"
               >
                 <div className="flex items-start justify-between mb-1">
-                  <h5 className="font-semibold truncate flex-1 dark:text-gray-100">{recipe.name}</h5>
-                  <button
-                    onClick={() => onToggleFavorite(recipe.id)}
-                    className={`ml-2 flex-shrink-0 text-lg ${
-                      isFavorite(recipe.id) ? 'text-yellow-500' : 'text-gray-300 dark:text-gray-500 hover:text-yellow-400'
-                    }`}
-                    title={isFavorite(recipe.id) ? 'Remove from favorites' : 'Add to favorites'}
-                  >
-                    ★
-                  </button>
+                  <h5 className="font-semibold truncate flex-1 dark:text-gray-100">
+                    {recipe.name}
+                  </h5>
+                  <div className="flex items-center gap-1 ml-2 flex-shrink-0">
+                    {onViewRecipe && (
+                      <button
+                        onClick={() => onViewRecipe(recipe)}
+                        className="text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                        title="View recipe details"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                      </button>
+                    )}
+                    <button
+                      onClick={() => onToggleFavorite(recipe.id)}
+                      className={`text-lg ${
+                        isFavorite(recipe.id) ? 'text-yellow-500' : 'text-gray-300 dark:text-gray-500 hover:text-yellow-400'
+                      }`}
+                      title={isFavorite(recipe.id) ? 'Remove from favorites' : 'Add to favorites'}
+                    >
+                      ★
+                    </button>
+                  </div>
                 </div>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
                   {recipe.servings?.default || '?'} servings • {recipe.totalTime?.replace('PT', '').replace('M', ' min') || '—'}

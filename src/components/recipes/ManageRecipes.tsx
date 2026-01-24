@@ -4,6 +4,7 @@ import type { ChangeEvent } from 'react';
 import type { Recipe, RecipeOperationResult, FilterType } from '../../types';
 import RecipeList from './RecipeList';
 import RecipeFormModal from './RecipeFormModal';
+import RecipeDetailModal from './RecipeDetailModal';
 import ImportUrlModal from './ImportUrlModal';
 import { parseRecipeFromUrl } from '../../utils/recipeParser';
 
@@ -29,6 +30,7 @@ const ManageRecipes = ({
   const [showFormModal, setShowFormModal] = useState<boolean>(false);
   const [editingRecipe, setEditingRecipe] = useState<Recipe | null>(null);
   const [showImportModal, setShowImportModal] = useState<boolean>(false);
+  const [viewingRecipe, setViewingRecipe] = useState<Recipe | null>(null);
 
   const filteredRecipes = useMemo<Recipe[]>(() => {
     let filtered = recipes;
@@ -55,6 +57,20 @@ const ManageRecipes = ({
 
   const handleAddNew = (): void => {
     setEditingRecipe(null);
+    setShowFormModal(true);
+  };
+
+  const handleView = (recipe: Recipe): void => {
+    setViewingRecipe(recipe);
+  };
+
+  const handleViewClose = (): void => {
+    setViewingRecipe(null);
+  };
+
+  const handleViewEdit = (recipe: Recipe): void => {
+    setViewingRecipe(null);
+    setEditingRecipe(recipe);
     setShowFormModal(true);
   };
 
@@ -224,6 +240,7 @@ const ManageRecipes = ({
 
       <RecipeList
         recipes={filteredRecipes}
+        onView={handleView}
         onEdit={handleEdit}
         onDelete={handleDelete}
         onDuplicate={handleDuplicate}
@@ -281,6 +298,13 @@ const ManageRecipes = ({
           onClose={handleImportClose}
         />
       )}
+
+      <RecipeDetailModal
+        recipe={viewingRecipe}
+        onClose={handleViewClose}
+        onEdit={handleViewEdit}
+        isCustomRecipe={isCustomRecipe}
+      />
     </div>
   );
 };

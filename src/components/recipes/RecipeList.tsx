@@ -4,6 +4,7 @@ import RecipeCard from './RecipeCard';
 
 interface RecipeListProps {
   recipes: Recipe[];
+  onView: (recipe: Recipe) => void;
   onEdit: (recipe: Recipe) => void;
   onDelete: (recipe: Recipe) => void;
   onDuplicate: (recipe: Recipe) => void;
@@ -12,6 +13,7 @@ interface RecipeListProps {
 
 const RecipeList = ({
   recipes,
+  onView,
   onEdit,
   onDelete,
   onDuplicate,
@@ -27,6 +29,7 @@ const RecipeList = ({
         <RecipeCard
           key={recipe.id}
           recipe={recipe}
+          onView={onView}
           onEdit={onEdit}
           onDelete={onDelete}
           onDuplicate={onDuplicate}

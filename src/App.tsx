@@ -18,6 +18,7 @@ import BottomNav from './components/BottomNav';
 import OnboardingModal from './components/OnboardingModal';
 import PrivacyPolicyModal from './components/PrivacyPolicyModal';
 import PullToRefresh from './components/PullToRefresh';
+import RecipeDetailModal from './components/recipes/RecipeDetailModal';
 
 import { useRecipes } from './hooks/useRecipes';
 
@@ -73,6 +74,7 @@ function App() {
   // Modal states
   const [showPantryModal, setShowPantryModal] = useState(false);
   const [showTemplateModal, setShowTemplateModal] = useState(false);
+  const [viewingRecipe, setViewingRecipe] = useState<Recipe | null>(null);
 
   // Tab state: 'planner' or 'recipes' - persisted to localStorage
   const [activeTab, setActiveTab] = useState<ActiveTab>(() =>
@@ -338,6 +340,15 @@ function App() {
 
   const isFavorite = (recipeId: string): boolean => {
     return userPrefs.favoriteRecipeIds.includes(recipeId);
+  };
+
+  // View recipe details
+  const handleViewRecipe = (recipe: Recipe): void => {
+    setViewingRecipe(recipe);
+  };
+
+  const handleCloseViewRecipe = (): void => {
+    setViewingRecipe(null);
   };
 
   // Track recent recipe usage
@@ -788,6 +799,7 @@ function App() {
               onToggleFavorite={toggleFavorite}
               isFavorite={isFavorite}
               days={days}
+              onViewRecipe={handleViewRecipe}
             />
 
             <SearchBar
@@ -798,6 +810,7 @@ function App() {
               days={days}
               onToggleFavorite={toggleFavorite}
               isFavorite={isFavorite}
+              onViewRecipe={handleViewRecipe}
             />
 
             <MealPlan
@@ -828,6 +841,7 @@ function App() {
               isCustomRecipe={isCustomRecipe}
               onToggleFavorite={toggleFavorite}
               isFavorite={isFavorite}
+              onViewRecipe={handleViewRecipe}
             />
 
             <PantryModal
@@ -941,6 +955,13 @@ function App() {
       <PrivacyPolicyModal
         isOpen={showPrivacyPolicy}
         onClose={() => setShowPrivacyPolicy(false)}
+      />
+
+      {/* Recipe Detail Modal - for viewing recipes from QuickRecipes */}
+      <RecipeDetailModal
+        recipe={viewingRecipe}
+        onClose={handleCloseViewRecipe}
+        isCustomRecipe={isCustomRecipe}
       />
     </div>
   );
