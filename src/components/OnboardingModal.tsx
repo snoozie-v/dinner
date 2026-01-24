@@ -74,6 +74,16 @@ const ONBOARDING_STEPS: OnboardingStep[] = [
     tip: 'Star your favorite recipes for quick access!',
   },
   {
+    title: 'Import Recipes from URLs',
+    description: 'Save time by importing recipes from popular cooking websites! Just paste a URL from sites like AllRecipes, Food Network, or Serious Eats, and we\'ll automatically extract the recipe details for you.',
+    icon: (
+      <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+      </svg>
+    ),
+    tip: 'Click "Import from URL" in the Recipe Library to get started!',
+  },
+  {
     title: 'Undo Mistakes',
     description: 'Accidentally deleted something? No worries! A toast notification appears with an Undo button for 5 seconds after any destructive action.',
     icon: (
