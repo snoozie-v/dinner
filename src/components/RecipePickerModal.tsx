@@ -29,8 +29,8 @@ const RecipePickerModal = ({
   const displayRecipes = searchTerm.trim() ? filteredRecipes : recipes;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-start sm:items-center justify-center z-50 p-4 overflow-y-auto">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] my-4 sm:my-0 flex flex-col overflow-hidden">
         <div className="p-5 border-b dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-700">
           <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
             Choose recipe for Day {selectedDayForPicker + 1}

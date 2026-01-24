@@ -1,9 +1,10 @@
 // src/components/OnboardingModal.tsx
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 interface OnboardingModalProps {
   isOpen: boolean;
   onComplete: () => void;
+  initialStep?: number;
 }
 
 interface OnboardingStep {
@@ -92,14 +93,26 @@ const ONBOARDING_STEPS: OnboardingStep[] = [
   },
 ];
 
-const OnboardingModal = ({ isOpen, onComplete }: OnboardingModalProps) => {
-  const [currentStep, setCurrentStep] = useState(0);
+const OnboardingModal = ({ isOpen, onComplete, initialStep = 0 }: OnboardingModalProps) => {
+  const [currentStep, setCurrentStep] = useState(initialStep);
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
+
+  // Reset to initial step when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      setCurrentStep(initialStep);
+    }
+  }, [isOpen, initialStep]);
 
   if (!isOpen) return null;
 
   const step = ONBOARDING_STEPS[currentStep];
   const isFirstStep = currentStep === 0;
   const isLastStep = currentStep === ONBOARDING_STEPS.length - 1;
+
+  // Minimum swipe distance (in px)
+  const minSwipeDistance = 50;
 
   const handleNext = () => {
     if (isLastStep) {
@@ -121,9 +134,38 @@ const OnboardingModal = ({ isOpen, onComplete }: OnboardingModalProps) => {
     setCurrentStep(0);
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchEndX.current = null;
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+
+    const distance = touchStartX.current - touchEndX.current;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe && !isLastStep) {
+      handleNext();
+    }
+    if (isRightSwipe && !isFirstStep) {
+      handlePrev();
+    }
+  };
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full overflow-hidden">
+      <div
+        className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full overflow-hidden"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
         {/* Progress bar */}
         <div className="h-1 bg-gray-200 dark:bg-gray-700">
           <div
@@ -179,24 +221,27 @@ const OnboardingModal = ({ isOpen, onComplete }: OnboardingModalProps) => {
 
         {/* Actions */}
         <div className="px-6 sm:px-8 pb-6 sm:pb-8 flex items-center justify-between gap-3">
-          {isFirstStep ? (
-            <button
-              onClick={handleSkip}
-              className="px-4 py-3 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 font-medium transition-colors touch-manipulation min-h-[44px]"
-            >
-              Skip Tour
-            </button>
-          ) : (
-            <button
-              onClick={handlePrev}
-              className="px-4 py-3 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 font-medium transition-colors touch-manipulation min-h-[44px] flex items-center gap-1"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              Back
-            </button>
-          )}
+          <div className="flex items-center gap-2">
+            {!isFirstStep && (
+              <button
+                onClick={handlePrev}
+                className="px-4 py-3 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 font-medium transition-colors touch-manipulation min-h-[44px] flex items-center gap-1"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+                Back
+              </button>
+            )}
+            {!isLastStep && (
+              <button
+                onClick={handleSkip}
+                className="px-4 py-3 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 font-medium transition-colors touch-manipulation min-h-[44px]"
+              >
+                Skip Tour
+              </button>
+            )}
+          </div>
 
           <button
             onClick={handleNext}

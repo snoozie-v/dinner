@@ -84,6 +84,8 @@ function App() {
     const seen = localStorage.getItem(STORAGE_KEYS.ONBOARDING_SEEN);
     return !seen; // Show if not seen before
   });
+  const [onboardingInitialStep, setOnboardingInitialStep] = useState(0);
+  const [showTutorialDropdown, setShowTutorialDropdown] = useState(false);
 
   // Privacy policy modal state
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
@@ -126,11 +128,14 @@ function App() {
   const handleOnboardingComplete = () => {
     localStorage.setItem(STORAGE_KEYS.ONBOARDING_SEEN, 'true');
     setShowOnboarding(false);
+    setOnboardingInitialStep(0);
   };
 
   // Show onboarding again (for Help button)
-  const handleShowOnboarding = () => {
+  const handleShowOnboarding = (step: number = 0) => {
+    setOnboardingInitialStep(step);
     setShowOnboarding(true);
+    setShowTutorialDropdown(false);
   };
 
   // Handle pull-to-refresh
@@ -618,9 +623,9 @@ function App() {
           <div className="max-w-6xl mx-auto">
         {/* Header with theme toggle and help button */}
         <div className="flex items-center justify-between mb-4 sm:mb-6">
-          <div className="flex-1 flex justify-start">
+          <div className="flex-1 flex justify-start relative">
             <button
-              onClick={handleShowOnboarding}
+              onClick={() => setShowTutorialDropdown(!showTutorialDropdown)}
               className="p-3 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors touch-manipulation"
               aria-label="Show tutorial"
               title="Show tutorial"
@@ -629,6 +634,75 @@ function App() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </button>
+
+            {/* Tutorial Dropdown */}
+            {showTutorialDropdown && (
+              <>
+                {/* Backdrop to close dropdown */}
+                <div
+                  className="fixed inset-0 z-40"
+                  onClick={() => setShowTutorialDropdown(false)}
+                />
+
+                {/* Dropdown Menu */}
+                <div className="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden z-50">
+                  <div className="px-4 py-2 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
+                    <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">Tutorial Topics</p>
+                  </div>
+                  <div className="py-1">
+                    <button
+                      onClick={() => handleShowOnboarding(0)}
+                      className="w-full text-left px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                    >
+                      <span className="font-medium">Welcome</span>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Introduction to the app</p>
+                    </button>
+                    <button
+                      onClick={() => handleShowOnboarding(1)}
+                      className="w-full text-left px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                    >
+                      <span className="font-medium">Plan Your Meals</span>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">How to create meal plans</p>
+                    </button>
+                    <button
+                      onClick={() => handleShowOnboarding(2)}
+                      className="w-full text-left px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                    >
+                      <span className="font-medium">Shopping List</span>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Auto-generated lists</p>
+                    </button>
+                    <button
+                      onClick={() => handleShowOnboarding(3)}
+                      className="w-full text-left px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                    >
+                      <span className="font-medium">Pantry Staples</span>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Mark commonly used items</p>
+                    </button>
+                    <button
+                      onClick={() => handleShowOnboarding(4)}
+                      className="w-full text-left px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                    >
+                      <span className="font-medium">Save Templates</span>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Reuse meal plans</p>
+                    </button>
+                    <button
+                      onClick={() => handleShowOnboarding(5)}
+                      className="w-full text-left px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                    >
+                      <span className="font-medium">Manage Recipes</span>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Browse & create recipes</p>
+                    </button>
+                    <button
+                      onClick={() => handleShowOnboarding(6)}
+                      className="w-full text-left px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                    >
+                      <span className="font-medium">Undo Mistakes</span>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Recovery options</p>
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
           <h1 className="text-2xl sm:text-4xl font-bold text-gray-800 dark:text-gray-100 text-center">
             {activeTab === 'shop' ? 'Shopping List' : activeTab === 'recipes' ? 'Recipes' : 'Meal Planner'}
@@ -845,6 +919,7 @@ function App() {
       <OnboardingModal
         isOpen={showOnboarding}
         onComplete={handleOnboardingComplete}
+        initialStep={onboardingInitialStep}
       />
 
       {/* Privacy Policy Modal */}
