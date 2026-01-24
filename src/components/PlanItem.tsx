@@ -6,12 +6,25 @@ interface PlanItemProps {
   planItem: PlanItemType;
   setSelectedDayForPicker: (day: number | null) => void;
   updateServings: (planItemId: string, multiplier: number) => void;
+  updateNotes: (planItemId: string, notes: string) => void;
   onRemoveRecipe: (dayIndex: number) => void;
 }
 
-const PlanItem = ({ planItem, setSelectedDayForPicker, updateServings, onRemoveRecipe }: PlanItemProps) => {
-  const { recipe, servingsMultiplier = 1, day, id } = planItem;
+const PlanItem = ({ planItem, setSelectedDayForPicker, updateServings, updateNotes, onRemoveRecipe }: PlanItemProps) => {
+  const { recipe, servingsMultiplier = 1, day, id, notes = '' } = planItem;
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const [isEditingNotes, setIsEditingNotes] = useState<boolean>(false);
+  const [notesDraft, setNotesDraft] = useState<string>(notes);
+
+  const handleSaveNotes = () => {
+    updateNotes(id, notesDraft);
+    setIsEditingNotes(false);
+  };
+
+  const handleCancelNotes = () => {
+    setNotesDraft(notes);
+    setIsEditingNotes(false);
+  };
 
   // Calculate actual servings based on recipe default and multiplier
   const baseServings = recipe?.servings?.default || 4;
@@ -118,6 +131,56 @@ const PlanItem = ({ planItem, setSelectedDayForPicker, updateServings, onRemoveR
             <div>Total: {recipe.totalTime.replace('PT', '').replace('M', ' min')}</div>
           )}
           {recipe?.difficulty && <div>Difficulty: {recipe.difficulty}</div>}
+        </div>
+
+        {/* Meal Prep Notes */}
+        <div className="mt-3">
+          {isEditingNotes ? (
+            <div className="space-y-2">
+              <textarea
+                value={notesDraft}
+                onChange={(e) => setNotesDraft(e.target.value)}
+                placeholder="Add meal prep notes (e.g., marinate chicken night before)..."
+                className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
+                rows={2}
+                autoFocus
+              />
+              <div className="flex gap-2">
+                <button
+                  onClick={handleSaveNotes}
+                  className="px-3 py-1.5 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+                >
+                  Save
+                </button>
+                <button
+                  onClick={handleCancelNotes}
+                  className="px-3 py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-md transition"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          ) : notes ? (
+            <button
+              onClick={() => setIsEditingNotes(true)}
+              className="flex items-start gap-2 text-sm text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/30 px-3 py-2 rounded-lg hover:bg-amber-100 dark:hover:bg-amber-900/50 transition w-full text-left"
+            >
+              <svg className="w-4 h-4 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+              </svg>
+              <span className="whitespace-pre-wrap">{notes}</span>
+            </button>
+          ) : (
+            <button
+              onClick={() => setIsEditingNotes(true)}
+              className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
+              Add prep notes
+            </button>
+          )}
         </div>
       </div>
 

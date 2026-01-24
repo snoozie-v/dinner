@@ -530,6 +530,14 @@ function App() {
     );
   };
 
+  const updateNotes = (planItemId: string, notes: string): void => {
+    setPlan((prev) =>
+      prev.map((item) =>
+        item.id === planItemId ? { ...item, notes } : item
+      )
+    );
+  };
+
   useEffect(() => {
     setPlan((prevPlan) => {
       let updated = [...prevPlan];
@@ -921,6 +929,7 @@ function App() {
               plan={plan}
               setSelectedDayForPicker={setSelectedDayForPicker}
               updateServings={updateServings}
+              updateNotes={updateNotes}
               onReorderDays={handleReorderDays}
               onRemoveRecipe={removeMealPlanRecipe}
             />

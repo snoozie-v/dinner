@@ -75,6 +75,7 @@ export interface PlanItem {
   id: string;
   recipe: Recipe | null;
   servingsMultiplier: number;
+  notes?: string;
 }
 
 export interface ShoppingItem {
