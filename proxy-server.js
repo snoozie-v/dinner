@@ -41,6 +41,7 @@ const ALLOWED_DOMAINS = [
   'pinchofyum.com',
   'loveandlemons.com',
   'recipetineats.com',
+  'hellofresh.com'
 ];
 
 // Simple rate limiting
