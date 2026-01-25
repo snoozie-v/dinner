@@ -509,6 +509,67 @@ function parseServings(recipeYield: string | number): { default: number; unit: s
 }
 
 /**
+ * Known cooking units - must be followed by a space to match
+ * Listed from longest to shortest to match longer units first
+ */
+const KNOWN_UNITS = [
+  'tablespoons?', 'tbsp\\.?', 'tbs\\.?',
+  'teaspoons?', 'tsp\\.?',
+  'ounces?', 'oz\\.?',
+  'pounds?', 'lbs?\\.?', 'lb\\.?',
+  'cups?',
+  'grams?',
+  'kilograms?', 'kg\\.?',
+  'milliliters?', 'ml\\.?',
+  'liters?',
+  'quarts?', 'qt\\.?',
+  'pints?', 'pt\\.?',
+  'gallons?', 'gal\\.?',
+  'pinch(?:es)?',
+  'dash(?:es)?',
+  'cloves?',
+  'cans?',
+  'packages?', 'pkg\\.?',
+  'bunche?s?',
+  'stalks?',
+  'slices?',
+  'pieces?',
+  'heads?',
+  'sprigs?',
+  'leaves?',
+  'whole',
+  'large',
+  'medium',
+  'small',
+];
+
+/**
+ * Helper to extract name and preparation from ingredient rest
+ * Handles both comma separation and parentheses: "chicken, diced" or "cabbage (shredded)"
+ */
+function extractNameAndPrep(rest: string): { name: string; preparation: string } {
+  // Check for parentheses first: "cabbage (shredded)"
+  const parenMatch = rest.match(/^(.+?)\s*\(([^)]+)\)\s*$/);
+  if (parenMatch) {
+    return {
+      name: parenMatch[1].trim(),
+      preparation: parenMatch[2].trim(),
+    };
+  }
+
+  // Otherwise split on comma: "chicken breast, diced"
+  const commaIndex = rest.indexOf(',');
+  if (commaIndex !== -1) {
+    return {
+      name: rest.substring(0, commaIndex).trim(),
+      preparation: rest.substring(commaIndex + 1).trim(),
+    };
+  }
+
+  return { name: rest.trim(), preparation: '' };
+}
+
+/**
  * Parses an ingredient string into structured format
  */
 function parseIngredient(ingredientStr: string): Ingredient | null {
@@ -519,40 +580,55 @@ function parseIngredient(ingredientStr: string): Ingredient | null {
   // Decode HTML entities first
   const str = decodeHtmlEntities(ingredientStr.trim());
 
-  // Try to parse quantity and unit using regex
-  // Matches patterns like: "2 cups flour", "1/2 tsp salt", "3-4 large eggs"
-  const qtyUnitPattern = /^([\d\s\/\-\.]+)\s*([a-zA-Z]+(?:\s+[a-zA-Z]+)?)\s+(.+)$/;
-  const match = str.match(qtyUnitPattern);
+  // Build pattern with known units - unit must be followed by space
+  const unitPattern = KNOWN_UNITS.join('|');
 
+  // Pattern WITH a known unit: "2 cups flour, sifted"
+  const patternWithUnit = new RegExp(
+    `^([\\d\\s\\/\\-\\.]+)\\s+(${unitPattern})\\s+(.+)$`,
+    'i'
+  );
+
+  let match = str.match(patternWithUnit);
   if (match) {
     const [, qtyStr, unit, rest] = match;
     const quantity = parseQuantity(qtyStr.trim());
-
-    // Check if the rest contains a comma (often separates name from preparation)
-    const commaIndex = rest.indexOf(',');
-    let name = rest;
-    let preparation: string | undefined;
-
-    if (commaIndex !== -1) {
-      name = rest.substring(0, commaIndex).trim();
-      preparation = rest.substring(commaIndex + 1).trim();
-    }
+    const { name, preparation } = extractNameAndPrep(rest);
 
     return {
       name,
       quantity,
-      unit: unit.trim(),
-      preparation,
-      category: 'Other',
+      unit: unit.toLowerCase().replace(/\.$/, ''),
+      preparation: preparation || undefined,
+      category: 'other',
     };
   }
 
-  // No quantity/unit pattern found - treat entire string as ingredient name
+  // Pattern WITHOUT a unit: "1 cabbage" or "2 onions, diced"
+  const patternNoUnit = /^([\d\s\/\-\.]+)\s+(.+)$/;
+  match = str.match(patternNoUnit);
+  if (match) {
+    const [, qtyStr, rest] = match;
+    const quantity = parseQuantity(qtyStr.trim());
+    const { name, preparation } = extractNameAndPrep(rest);
+
+    return {
+      name,
+      quantity,
+      unit: '',
+      preparation: preparation || undefined,
+      category: 'other',
+    };
+  }
+
+  // No quantity found - treat entire string as ingredient name
+  const { name, preparation } = extractNameAndPrep(str);
   return {
-    name: str,
+    name,
     quantity: null,
     unit: '',
-    category: 'Other',
+    preparation: preparation || undefined,
+    category: 'other',
   };
 }
 
