@@ -1,11 +1,19 @@
 // src/components/recipes/form-sections/IngredientsSection.tsx
-import type { ChangeEvent } from 'react';
+import { useState, type ChangeEvent } from 'react';
 import type { FormSectionProps } from '../RecipeForm';
 import type { Ingredient } from '../../../types';
-import { createBlankIngredient, INGREDIENT_CATEGORIES } from '../../../utils/recipeValidation';
+import {
+  createBlankIngredient,
+  INGREDIENT_CATEGORIES,
+  parseFraction,
+  formatQuantity,
+  parseIngredientLines,
+} from '../../../utils/recipeValidation';
 
 const IngredientsSection = ({ data, onChange }: FormSectionProps) => {
   const ingredients = data.ingredients || [];
+  const [showBulkEntry, setShowBulkEntry] = useState(false);
+  const [bulkText, setBulkText] = useState('');
 
   const addIngredient = (): void => {
     onChange({ ingredients: [...ingredients, createBlankIngredient()] });
@@ -23,14 +31,97 @@ const IngredientsSection = ({ data, onChange }: FormSectionProps) => {
     onChange({ ingredients: updated });
   };
 
+  // Handle quantity input - supports fractions like "1/2" or "1 1/2"
+  const handleQuantityChange = (index: number, value: string): void => {
+    // Store the parsed value, allowing fractions
+    const parsed = parseFraction(value);
+    updateIngredient(index, 'quantity', parsed);
+  };
+
+  // Process bulk ingredient paste
+  const handleBulkAdd = (): void => {
+    const parsed = parseIngredientLines(bulkText);
+    if (parsed.length > 0) {
+      onChange({ ingredients: [...ingredients, ...parsed] });
+      setBulkText('');
+      setShowBulkEntry(false);
+    }
+  };
+
   return (
     <div className="space-y-5">
       <div>
         <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Ingredients</h3>
-        <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
-          Add all the ingredients needed for this recipe. Include quantities, units, and any preparation notes.
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+          Add ingredients one at a time, or paste multiple ingredients at once.
+        </p>
+        <p className="text-xs text-gray-500 dark:text-gray-500 mb-6">
+          Tip: Quantities support fractions (1/2, 1 1/4) and ranges (2-3). For ranges, the average is used for scaling.
         </p>
       </div>
+
+      {/* Bulk Entry Toggle */}
+      <div className="flex gap-2">
+        <button
+          type="button"
+          onClick={() => setShowBulkEntry(!showBulkEntry)}
+          className={`px-4 py-2 text-sm rounded-lg border transition-colors ${
+            showBulkEntry
+              ? 'bg-blue-50 dark:bg-blue-900/30 border-blue-300 dark:border-blue-700 text-blue-700 dark:text-blue-300'
+              : 'border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
+          }`}
+        >
+          <span className="flex items-center gap-2">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            Paste Multiple Ingredients
+          </span>
+        </button>
+      </div>
+
+      {/* Bulk Entry Panel */}
+      {showBulkEntry && (
+        <div className="p-4 border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/20 rounded-lg space-y-3">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              Paste your ingredients (one per line)
+            </label>
+            <textarea
+              value={bulkText}
+              onChange={(e) => setBulkText(e.target.value)}
+              placeholder={`Example:\n2 cups all-purpose flour\n1/2 tsp salt\n1 lb chicken breast, diced\n3-4 cloves garlic, minced\n1 can (14 oz) diced tomatoes`}
+              rows={6}
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm font-mono"
+              autoFocus
+            />
+          </div>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={handleBulkAdd}
+              disabled={!bulkText.trim()}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              Add Ingredients
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setShowBulkEntry(false);
+                setBulkText('');
+              }}
+              className="px-4 py-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-sm transition-colors"
+            >
+              Cancel
+            </button>
+          </div>
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            The parser will try to extract quantities, units, ingredient names, and preparation notes automatically.
+            You can edit each ingredient after adding.
+          </p>
+        </div>
+      )}
 
       {/* Ingredients List */}
       <div className="space-y-4">
@@ -67,18 +158,17 @@ const IngredientsSection = ({ data, onChange }: FormSectionProps) => {
                 />
               </div>
 
-              {/* Quantity */}
+              {/* Quantity - Now supports fractions */}
               <div>
                 <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
                   Quantity
                 </label>
                 <input
-                  type="number"
-                  step="0.25"
-                  min="0"
-                  value={ingredient.quantity ?? ''}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => updateIngredient(index, 'quantity', e.target.value ? parseFloat(e.target.value) : null)}
-                  placeholder="2"
+                  type="text"
+                  inputMode="decimal"
+                  value={formatQuantity(ingredient.quantity)}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => handleQuantityChange(index, e.target.value)}
+                  placeholder="1/2, 2, 2-3"
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-600 dark:text-gray-100 dark:placeholder-gray-400 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
                 />
               </div>
@@ -92,7 +182,7 @@ const IngredientsSection = ({ data, onChange }: FormSectionProps) => {
                   type="text"
                   value={ingredient.unit || ''}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => updateIngredient(index, 'unit', e.target.value)}
-                  placeholder="lb, cup, etc."
+                  placeholder="cup, lb, tsp"
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-600 dark:text-gray-100 dark:placeholder-gray-400 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
                 />
               </div>
@@ -156,9 +246,9 @@ const IngredientsSection = ({ data, onChange }: FormSectionProps) => {
         Add Ingredient
       </button>
 
-      {ingredients.length === 0 && (
+      {ingredients.length === 0 && !showBulkEntry && (
         <p className="text-center text-sm text-gray-500 dark:text-gray-400 py-4">
-          No ingredients added yet. Click the button above to add your first ingredient.
+          No ingredients added yet. Click "Add Ingredient" or "Paste Multiple Ingredients" to get started.
         </p>
       )}
     </div>
