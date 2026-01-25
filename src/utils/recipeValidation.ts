@@ -89,6 +89,11 @@ export const validateRecipe = (recipe: Recipe): RecipeValidationResult => {
     errors.push('Recipe name is required');
   }
 
+  // Servings must be at least 1
+  if (!recipe.servings?.default || recipe.servings.default < 1) {
+    errors.push('Number of servings must be at least 1');
+  }
+
   // Validate ingredients if present
   if (recipe.ingredients && recipe.ingredients.length > 0) {
     recipe.ingredients.forEach((ing, index) => {

@@ -23,7 +23,13 @@ const Controls = ({
   hasTemplates,
 }: ControlsProps) => {
   const handleDaysChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setDays(Math.max(1, Number(e.target.value) || 1));
+    const val = e.target.value;
+    // Allow empty input (store as 0) so user can clear and type a new number
+    if (val === '') {
+      setDays(0);
+    } else {
+      setDays(Math.max(1, Math.min(30, Number(val))));
+    }
   };
 
   return (
@@ -36,7 +42,7 @@ const Controls = ({
             type="number"
             min="1"
             max="30"
-            value={days}
+            value={days || ''}
             onChange={handleDaysChange}
             className="w-20 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-lg px-3 py-3 text-center focus:ring-2 focus:ring-blue-500 text-lg touch-manipulation"
           />

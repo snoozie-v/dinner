@@ -18,17 +18,25 @@ const TimingSection = ({ data, onChange }: FormSectionProps) => {
   };
 
   const handleServingsChange = (field: 'default' | 'unit') => (e: ChangeEvent<HTMLInputElement>): void => {
-    const value = field === 'default'
-      ? parseInt(e.target.value, 10) || 1
-      : e.target.value;
+    const rawValue = e.target.value;
 
-    onChange({
-      servings: {
-        default: data.servings?.default ?? 4,
-        unit: data.servings?.unit ?? 'servings',
-        [field]: value
-      }
-    });
+    if (field === 'default') {
+      // Allow empty input - store 0 which displays as empty, letting user type freely
+      const numValue = rawValue === '' ? 0 : parseInt(rawValue, 10);
+      onChange({
+        servings: {
+          default: numValue,
+          unit: data.servings?.unit ?? 'servings',
+        }
+      });
+    } else {
+      onChange({
+        servings: {
+          default: data.servings?.default ?? 4,
+          unit: rawValue,
+        }
+      });
+    }
   };
 
   return (

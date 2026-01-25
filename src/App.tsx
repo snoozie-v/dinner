@@ -455,7 +455,8 @@ function App() {
 
   const generateRandomPlan = (): void => {
     const newPlan: PlanItem[] = [];
-    for (let i = 0; i < days; i++) {
+    const numDays = days || 7; // Default to 7 if field is empty
+    for (let i = 0; i < numDays; i++) {
       const randomIndex = Math.floor(Math.random() * allRecipes.length);
       const recipe = allRecipes[randomIndex];
       newPlan.push({
@@ -473,7 +474,8 @@ function App() {
 
   const initManualPlan = (): void => {
     const newPlan: PlanItem[] = [];
-    for (let i = 0; i < days; i++) {
+    const numDays = days || 7; // Default to 7 if field is empty
+    for (let i = 0; i < numDays; i++) {
       newPlan.push({
         day: i + 1,
         id: `day-${i + 1}-placeholder`,
