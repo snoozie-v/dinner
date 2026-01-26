@@ -73,10 +73,10 @@ const HelpModal = ({ isOpen, onClose }: HelpModalProps) => {
 
   return (
     <div
-      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 overscroll-contain"
+      className="fixed inset-0 bg-black/50 flex items-start sm:items-center justify-center z-50 p-4 pt-12 sm:pt-4 overscroll-contain safe-area-top"
       onTouchMove={(e) => e.stopPropagation()}
     >
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden overscroll-contain">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-4xl max-h-[85vh] sm:max-h-[90vh] flex flex-col overflow-hidden overscroll-contain">
         {/* Header */}
         <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-blue-600 to-indigo-600">
           <div className="flex items-center gap-3">

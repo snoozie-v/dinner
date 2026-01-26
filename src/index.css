@@ -17,6 +17,10 @@ html.dark body {
   padding-bottom: env(safe-area-inset-bottom, 0);
 }
 
+.safe-area-top {
+  padding-top: env(safe-area-inset-top, 0);
+}
+
 /* Mobile bottom padding when bottom nav is visible */
 @media (max-width: 639px) {
   .mobile-bottom-padding {
