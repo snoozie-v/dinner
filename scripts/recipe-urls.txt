@@ -1,0 +1,200 @@
+# Popular Recipe URLs for Batch Import
+# One URL per line - lines starting with # are ignored
+# These are popular, well-rated recipes from allowed domains
+
+# === ALLRECIPES (Popular & Highly Rated) ===
+https://www.allrecipes.com/recipe/22180/waffles-i/
+https://www.allrecipes.com/recipe/16354/easy-meatloaf/
+https://www.allrecipes.com/recipe/24264/simple-beef-pot-roast/
+https://www.allrecipes.com/recipe/228285/teriyaki-salmon/
+https://www.allrecipes.com/recipe/229156/quick-chicken-piccata/
+https://www.allrecipes.com/recipe/213742/maries-easy-slow-cooker-pot-roast/
+https://www.allrecipes.com/recipe/24074/slow-cooker-pulled-pork/
+https://www.allrecipes.com/recipe/219164/simple-lemon-herb-chicken/
+https://www.allrecipes.com/recipe/244716/shirataki-meatless-meat-pad-thai/
+https://www.allrecipes.com/recipe/228823/quick-beef-stir-fry/
+https://www.allrecipes.com/recipe/220943/chef-johns-buttermilk-fried-chicken/
+https://www.allrecipes.com/recipe/26317/chicken-pot-pie-ix/
+https://www.allrecipes.com/recipe/8652/garlic-chicken/
+https://www.allrecipes.com/recipe/223042/chicken-parmesan/
+https://www.allrecipes.com/recipe/229293/korean-beef-bowl/
+https://www.allrecipes.com/recipe/246628/sheet-pan-lemon-parmesan-garlic-chicken-and-veggies/
+
+# === BUDGET BYTES (Budget-Friendly) ===
+https://www.budgetbytes.com/one-pot-creamy-cajun-chicken-pasta/
+https://www.budgetbytes.com/skillet-cheeseburger-pasta/
+https://www.budgetbytes.com/slow-cooker-chicken-noodle-soup/
+https://www.budgetbytes.com/dragon-noodles/
+https://www.budgetbytes.com/creamy-tomato-spinach-pasta/
+https://www.budgetbytes.com/black-bean-quesadillas/
+https://www.budgetbytes.com/italian-wonderpot/
+https://www.budgetbytes.com/taco-pasta/
+https://www.budgetbytes.com/slow-cooker-beef-stew/
+https://www.budgetbytes.com/garlic-noodles/
+https://www.budgetbytes.com/chicken-yakisoba/
+https://www.budgetbytes.com/easy-pad-thai/
+https://www.budgetbytes.com/one-pot-teriyaki-chicken-and-rice/
+https://www.budgetbytes.com/honey-sriracha-chicken/
+https://www.budgetbytes.com/poor-mans-burrito-bowls/
+
+# === SIMPLY RECIPES (Classic Home Cooking) ===
+https://www.simplyrecipes.com/recipes/perfect_guacamole/
+https://www.simplyrecipes.com/recipes/homemade_pizza/
+https://www.simplyrecipes.com/recipes/baked_ziti/
+https://www.simplyrecipes.com/recipes/easy_lasagna/
+https://www.simplyrecipes.com/recipes/how_to_make_chicken_soup/
+https://www.simplyrecipes.com/recipes/easy_mac_and_cheese/
+https://www.simplyrecipes.com/recipes/grilled_cheese_sandwich/
+https://www.simplyrecipes.com/recipes/spaghetti_with_meat_sauce/
+https://www.simplyrecipes.com/recipes/tuna_salad_sandwich/
+https://www.simplyrecipes.com/recipes/caesar_salad/
+https://www.simplyrecipes.com/recipes/classic_meatballs/
+https://www.simplyrecipes.com/recipes/honey_garlic_shrimp/
+https://www.simplyrecipes.com/recipes/chicken_stir_fry/
+
+# === SERIOUS EATS (Technique-Focused) ===
+https://www.seriouseats.com/the-best-slow-cooked-bolognese-sauce-recipe
+https://www.seriouseats.com/pressure-cooker-chicken-and-chickpea-masala
+https://www.seriouseats.com/easy-pan-fried-pork-chops-recipe
+https://www.seriouseats.com/easy-creamy-mushroom-pasta-recipe
+https://www.seriouseats.com/the-best-chicken-cutlets-recipe
+https://www.seriouseats.com/quick-and-easy-pressure-cooker-pork-chile-verde
+https://www.seriouseats.com/crispy-pan-fried-salmon-recipe
+https://www.seriouseats.com/easy-oven-baked-french-fries-recipe
+https://www.seriouseats.com/spaghetti-aglio-olio-recipe
+https://www.seriouseats.com/the-food-lab-really-awesome-chili-recipe
+
+# === COOKIE AND KATE (Vegetarian) ===
+https://cookieandkate.com/best-lentil-soup-recipe/
+https://cookieandkate.com/vegetarian-chili-recipe/
+https://cookieandkate.com/best-hummus-recipe/
+https://cookieandkate.com/sweet-potato-black-bean-tacos/
+https://cookieandkate.com/vegetarian-stuffed-peppers/
+https://cookieandkate.com/fresh-tomato-pasta-recipe/
+https://cookieandkate.com/best-minestrone-soup-recipe/
+https://cookieandkate.com/mediterranean-quinoa-salad/
+https://cookieandkate.com/cauliflower-fried-rice/
+https://cookieandkate.com/greek-salad-recipe/
+
+# === MINIMALIST BAKER (Simple & Often Vegan) ===
+https://minimalistbaker.com/easy-vegan-fried-rice/
+https://minimalistbaker.com/simple-vegan-pesto-pasta/
+https://minimalistbaker.com/1-pot-vegetable-dal/
+https://minimalistbaker.com/30-minute-coconut-curry/
+https://minimalistbaker.com/easy-vegan-stir-fry/
+https://minimalistbaker.com/amazing-easy-vegan-tacos/
+https://minimalistbaker.com/easy-vegetable-lo-mein/
+https://minimalistbaker.com/crispy-tofu-with-garlic-sauce/
+https://minimalistbaker.com/best-vegan-chili/
+
+# === PINCH OF YUM (Family Friendly) ===
+https://pinchofyum.com/the-best-healthy-turkey-chili
+https://pinchofyum.com/garlic-butter-salmon
+https://pinchofyum.com/creamy-mushroom-pasta
+https://pinchofyum.com/healthier-kung-pao-chicken
+https://pinchofyum.com/instant-pot-butter-chicken
+https://pinchofyum.com/sesame-chicken
+https://pinchofyum.com/30-minute-stir-fry
+https://pinchofyum.com/spicy-peanut-noodles
+
+# === LOVE AND LEMONS (Fresh & Healthy) ===
+https://www.loveandlemons.com/vegetable-soup/
+https://www.loveandlemons.com/tomato-soup/
+https://www.loveandlemons.com/pasta-salad/
+https://www.loveandlemons.com/butternut-squash-soup/
+https://www.loveandlemons.com/broccoli-salad/
+https://www.loveandlemons.com/veggie-tacos/
+https://www.loveandlemons.com/zucchini-noodles/
+https://www.loveandlemons.com/sheet-pan-fajitas/
+
+# === RECIPE TIN EATS (International) ===
+https://www.recipetineats.com/chicken-stir-fry/
+https://www.recipetineats.com/butter-chicken/
+https://www.recipetineats.com/honey-garlic-chicken/
+https://www.recipetineats.com/beef-tacos-ground-beef/
+https://www.recipetineats.com/chicken-fried-rice/
+https://www.recipetineats.com/teriyaki-chicken/
+https://www.recipetineats.com/thai-red-curry-with-chicken/
+https://www.recipetineats.com/easy-shepherd-pie/
+https://www.recipetineats.com/beef-stroganoff/
+https://www.recipetineats.com/crispy-baked-chicken-drumsticks/
+
+# === DELISH (Trendy & Fun) ===
+https://www.delish.com/cooking/recipe-ideas/a25238998/how-to-cook-steak-in-the-oven-recipe/
+https://www.delish.com/cooking/recipe-ideas/a19695263/easy-beef-tacos-recipe/
+https://www.delish.com/cooking/recipe-ideas/a24489879/beef-and-broccoli-recipe/
+https://www.delish.com/cooking/recipe-ideas/a25350067/instant-pot-chicken-breast-recipe/
+https://www.delish.com/cooking/recipe-ideas/a30875436/one-pot-chicken-and-rice-recipe/
+# Batch 2 - More verified recipe URLs
+# Focusing on sites that worked well: AllRecipes, BudgetBytes, RecipeTinEats, CookieAndKate
+
+# === ALLRECIPES - More popular recipes ===
+https://www.allrecipes.com/recipe/10813/best-chocolate-chip-cookies/
+https://www.allrecipes.com/recipe/23600/worlds-best-lasagna/
+https://www.allrecipes.com/recipe/17481/simple-white-cake/
+https://www.allrecipes.com/recipe/25037/best-big-fat-chewy-chocolate-chip-cookie/
+https://www.allrecipes.com/recipe/7757/tiramisu-ii/
+https://www.allrecipes.com/recipe/234534/beef-and-broccoli/
+https://www.allrecipes.com/recipe/228285/teriyaki-salmon/
+https://www.allrecipes.com/recipe/233821/shrimp-scampi-with-pasta/
+https://www.allrecipes.com/recipe/216756/moist-and-easy-banana-bread/
+https://www.allrecipes.com/recipe/219173/simple-sesame-chicken/
+https://www.allrecipes.com/recipe/21014/good-old-fashioned-pancakes/
+https://www.allrecipes.com/recipe/158140/spaghetti-sauce-with-ground-beef/
+https://www.allrecipes.com/recipe/228285/teriyaki-salmon/
+https://www.allrecipes.com/recipe/73303/mexican-rice-ii/
+https://www.allrecipes.com/recipe/14231/cabbage-rolls-ii/
+https://www.allrecipes.com/recipe/8941/sauteed-garlic-asparagus/
+
+# === BUDGET BYTES - More budget recipes ===
+https://www.budgetbytes.com/beef-cabbage-stir-fry/
+https://www.budgetbytes.com/mediterranean-tuna-salad/
+https://www.budgetbytes.com/oven-fajitas/
+https://www.budgetbytes.com/southwest-chicken-skillet/
+https://www.budgetbytes.com/freezer-ready-mini-meatloaves/
+https://www.budgetbytes.com/chicken-parmesan-pasta/
+https://www.budgetbytes.com/pizza-pasta/
+https://www.budgetbytes.com/chicken-broccoli-divan/
+https://www.budgetbytes.com/honey-mustard-chicken/
+https://www.budgetbytes.com/easy-sesame-noodles/
+
+# === RECIPE TIN EATS - International ===
+https://www.recipetineats.com/beef-ragu-pasta-sauce/
+https://www.recipetineats.com/chinese-lemon-chicken/
+https://www.recipetineats.com/baked-honey-garlic-chicken/
+https://www.recipetineats.com/pork-fried-rice/
+https://www.recipetineats.com/easy-meatballs/
+https://www.recipetineats.com/mongolian-beef/
+https://www.recipetineats.com/garlic-prawns-shrimp/
+https://www.recipetineats.com/one-pot-chicken-rice/
+https://www.recipetineats.com/japanese-chicken-curry/
+https://www.recipetineats.com/crispy-honey-chicken/
+
+# === COOKIE AND KATE - Vegetarian ===
+https://cookieandkate.com/best-black-bean-soup-recipe/
+https://cookieandkate.com/easy-pad-thai-recipe/
+https://cookieandkate.com/vegetarian-enchiladas/
+https://cookieandkate.com/best-homemade-salsa-recipe/
+https://cookieandkate.com/roasted-broccoli-recipe/
+https://cookieandkate.com/peanut-soba-noodles-recipe/
+https://cookieandkate.com/mushroom-stroganoff/
+https://cookieandkate.com/thai-peanut-sauce-recipe/
+https://cookieandkate.com/vegetable-stir-fry-recipe/
+
+# === TASTY.CO ===
+https://tasty.co/recipe/one-pot-garlic-parmesan-pasta
+https://tasty.co/recipe/mozzarella-stick-onion-rings
+https://tasty.co/recipe/the-best-ever-chili
+https://tasty.co/recipe/honey-garlic-shrimp
+https://tasty.co/recipe/sheet-pan-chicken-fajitas
+https://tasty.co/recipe/classic-beef-stew
+
+# === FOOD52 ===
+https://food52.com/recipes/84763-classic-french-onion-soup
+https://food52.com/recipes/13954-marcella-hazan-s-bolognese-sauce
+https://food52.com/recipes/81896-creamy-white-bean-and-tomato-soup
+
+# === THE KITCHN ===
+https://www.thekitchn.com/recipe-classic-banana-bread-recipes-from-the-kitchn-137730
+https://www.thekitchn.com/how-to-make-fried-rice-cooking-lessons-from-the-kitchn-171968
+https://www.thekitchn.com/recipe-carbonara-spaghetti-squash-254930

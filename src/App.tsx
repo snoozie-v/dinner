@@ -934,6 +934,7 @@ function App() {
               updateNotes={updateNotes}
               onReorderDays={handleReorderDays}
               onRemoveRecipe={removeMealPlanRecipe}
+              onViewRecipe={handleViewRecipe}
             />
 
             <RecipePickerModal

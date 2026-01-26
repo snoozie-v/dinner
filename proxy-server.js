@@ -17,7 +17,7 @@ app.use(express.json());
 // Rate limiting map (simple in-memory implementation)
 const rateLimitMap = new Map();
 const RATE_LIMIT_WINDOW = 60000; // 1 minute
-const MAX_REQUESTS_PER_WINDOW = 10;
+const MAX_REQUESTS_PER_WINDOW = 30; // Increased for batch imports
 
 // Allowed domains for recipe fetching (security measure)
 const ALLOWED_DOMAINS = [

@@ -1,0 +1,73 @@
+# Batch 2 - More verified recipe URLs
+# Focusing on sites that worked well: AllRecipes, BudgetBytes, RecipeTinEats, CookieAndKate
+
+# === ALLRECIPES - More popular recipes ===
+https://www.allrecipes.com/recipe/10813/best-chocolate-chip-cookies/
+https://www.allrecipes.com/recipe/23600/worlds-best-lasagna/
+https://www.allrecipes.com/recipe/17481/simple-white-cake/
+https://www.allrecipes.com/recipe/25037/best-big-fat-chewy-chocolate-chip-cookie/
+https://www.allrecipes.com/recipe/7757/tiramisu-ii/
+https://www.allrecipes.com/recipe/234534/beef-and-broccoli/
+https://www.allrecipes.com/recipe/228285/teriyaki-salmon/
+https://www.allrecipes.com/recipe/233821/shrimp-scampi-with-pasta/
+https://www.allrecipes.com/recipe/216756/moist-and-easy-banana-bread/
+https://www.allrecipes.com/recipe/219173/simple-sesame-chicken/
+https://www.allrecipes.com/recipe/21014/good-old-fashioned-pancakes/
+https://www.allrecipes.com/recipe/158140/spaghetti-sauce-with-ground-beef/
+https://www.allrecipes.com/recipe/228285/teriyaki-salmon/
+https://www.allrecipes.com/recipe/73303/mexican-rice-ii/
+https://www.allrecipes.com/recipe/14231/cabbage-rolls-ii/
+https://www.allrecipes.com/recipe/8941/sauteed-garlic-asparagus/
+
+# === BUDGET BYTES - More budget recipes ===
+https://www.budgetbytes.com/beef-cabbage-stir-fry/
+https://www.budgetbytes.com/mediterranean-tuna-salad/
+https://www.budgetbytes.com/oven-fajitas/
+https://www.budgetbytes.com/southwest-chicken-skillet/
+https://www.budgetbytes.com/freezer-ready-mini-meatloaves/
+https://www.budgetbytes.com/chicken-parmesan-pasta/
+https://www.budgetbytes.com/pizza-pasta/
+https://www.budgetbytes.com/chicken-broccoli-divan/
+https://www.budgetbytes.com/honey-mustard-chicken/
+https://www.budgetbytes.com/easy-sesame-noodles/
+
+# === RECIPE TIN EATS - International ===
+https://www.recipetineats.com/beef-ragu-pasta-sauce/
+https://www.recipetineats.com/chinese-lemon-chicken/
+https://www.recipetineats.com/baked-honey-garlic-chicken/
+https://www.recipetineats.com/pork-fried-rice/
+https://www.recipetineats.com/easy-meatballs/
+https://www.recipetineats.com/mongolian-beef/
+https://www.recipetineats.com/garlic-prawns-shrimp/
+https://www.recipetineats.com/one-pot-chicken-rice/
+https://www.recipetineats.com/japanese-chicken-curry/
+https://www.recipetineats.com/crispy-honey-chicken/
+
+# === COOKIE AND KATE - Vegetarian ===
+https://cookieandkate.com/best-black-bean-soup-recipe/
+https://cookieandkate.com/easy-pad-thai-recipe/
+https://cookieandkate.com/vegetarian-enchiladas/
+https://cookieandkate.com/best-homemade-salsa-recipe/
+https://cookieandkate.com/roasted-broccoli-recipe/
+https://cookieandkate.com/peanut-soba-noodles-recipe/
+https://cookieandkate.com/mushroom-stroganoff/
+https://cookieandkate.com/thai-peanut-sauce-recipe/
+https://cookieandkate.com/vegetable-stir-fry-recipe/
+
+# === TASTY.CO ===
+https://tasty.co/recipe/one-pot-garlic-parmesan-pasta
+https://tasty.co/recipe/mozzarella-stick-onion-rings
+https://tasty.co/recipe/the-best-ever-chili
+https://tasty.co/recipe/honey-garlic-shrimp
+https://tasty.co/recipe/sheet-pan-chicken-fajitas
+https://tasty.co/recipe/classic-beef-stew
+
+# === FOOD52 ===
+https://food52.com/recipes/84763-classic-french-onion-soup
+https://food52.com/recipes/13954-marcella-hazan-s-bolognese-sauce
+https://food52.com/recipes/81896-creamy-white-bean-and-tomato-soup
+
+# === THE KITCHN ===
+https://www.thekitchn.com/recipe-classic-banana-bread-recipes-from-the-kitchn-137730
+https://www.thekitchn.com/how-to-make-fried-rice-cooking-lessons-from-the-kitchn-171968
+https://www.thekitchn.com/recipe-carbonara-spaghetti-squash-254930

@@ -9,7 +9,8 @@
     "dev:all": "concurrently \"npm run dev\" \"npm run proxy\"",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "import-recipes": "node scripts/batch-import-recipes.js"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

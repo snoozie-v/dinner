@@ -1,7 +1,7 @@
 // src/components/SortablePlanItem.tsx
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import type { PlanItem as PlanItemType } from '../types';
+import type { PlanItem as PlanItemType, Recipe } from '../types';
 import PlanItem from './PlanItem';
 
 interface SortablePlanItemProps {
@@ -10,9 +10,10 @@ interface SortablePlanItemProps {
   updateServings: (planItemId: string, multiplier: number) => void;
   updateNotes: (planItemId: string, notes: string) => void;
   onRemoveRecipe: (dayIndex: number) => void;
+  onViewRecipe: (recipe: Recipe) => void;
 }
 
-const SortablePlanItem = ({ planItem, setSelectedDayForPicker, updateServings, updateNotes, onRemoveRecipe }: SortablePlanItemProps) => {
+const SortablePlanItem = ({ planItem, setSelectedDayForPicker, updateServings, updateNotes, onRemoveRecipe, onViewRecipe }: SortablePlanItemProps) => {
   const {
     attributes,
     listeners,
@@ -60,6 +61,7 @@ const SortablePlanItem = ({ planItem, setSelectedDayForPicker, updateServings, u
           updateServings={updateServings}
           updateNotes={updateNotes}
           onRemoveRecipe={onRemoveRecipe}
+          onViewRecipe={onViewRecipe}
         />
       </div>
     </div>

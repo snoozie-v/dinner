@@ -17,7 +17,7 @@ import {
   restrictToVerticalAxis,
   restrictToParentElement,
 } from '@dnd-kit/modifiers';
-import type { PlanItem as PlanItemType } from '../types';
+import type { PlanItem as PlanItemType, Recipe } from '../types';
 import SortablePlanItem from './SortablePlanItem';
 
 interface MealPlanProps {
@@ -27,9 +27,10 @@ interface MealPlanProps {
   updateNotes: (planItemId: string, notes: string) => void;
   onReorderDays: (activeId: string, overId: string) => void;
   onRemoveRecipe: (dayIndex: number) => void;
+  onViewRecipe: (recipe: Recipe) => void;
 }
 
-const MealPlan = ({ plan, setSelectedDayForPicker, updateServings, updateNotes, onReorderDays, onRemoveRecipe }: MealPlanProps) => {
+const MealPlan = ({ plan, setSelectedDayForPicker, updateServings, updateNotes, onReorderDays, onRemoveRecipe, onViewRecipe }: MealPlanProps) => {
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -86,6 +87,7 @@ const MealPlan = ({ plan, setSelectedDayForPicker, updateServings, updateNotes, 
                   updateServings={updateServings}
                   updateNotes={updateNotes}
                   onRemoveRecipe={onRemoveRecipe}
+                  onViewRecipe={onViewRecipe}
                 />
               ))}
             </div>

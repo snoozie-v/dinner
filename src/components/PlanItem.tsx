@@ -1,6 +1,6 @@
 // src/components/PlanItem.tsx
 import { useState } from 'react';
-import type { PlanItem as PlanItemType } from '../types';
+import type { PlanItem as PlanItemType, Recipe } from '../types';
 
 interface PlanItemProps {
   planItem: PlanItemType;
@@ -8,9 +8,10 @@ interface PlanItemProps {
   updateServings: (planItemId: string, multiplier: number) => void;
   updateNotes: (planItemId: string, notes: string) => void;
   onRemoveRecipe: (dayIndex: number) => void;
+  onViewRecipe: (recipe: Recipe) => void;
 }
 
-const PlanItem = ({ planItem, setSelectedDayForPicker, updateServings, updateNotes, onRemoveRecipe }: PlanItemProps) => {
+const PlanItem = ({ planItem, setSelectedDayForPicker, updateServings, updateNotes, onRemoveRecipe, onViewRecipe }: PlanItemProps) => {
   const { recipe, servingsMultiplier = 1, day, id, notes = '' } = planItem;
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [isEditingNotes, setIsEditingNotes] = useState<boolean>(false);
@@ -71,10 +72,20 @@ const PlanItem = ({ planItem, setSelectedDayForPicker, updateServings, updateNot
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
             <div className="flex items-center gap-2">
               <button
+                onClick={() => onViewRecipe(recipe)}
+                className="flex-1 sm:flex-none px-4 py-3 bg-green-50 dark:bg-green-900 text-green-700 dark:text-green-300 rounded-lg hover:bg-green-100 dark:hover:bg-green-800 active:bg-green-200 dark:active:bg-green-700 text-sm font-medium transition touch-manipulation min-h-[44px] flex items-center gap-2"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+                View
+              </button>
+              <button
                 onClick={() => setSelectedDayForPicker(day - 1)}
                 className="flex-1 sm:flex-none px-4 py-3 bg-indigo-50 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-800 active:bg-indigo-200 dark:active:bg-indigo-700 text-sm font-medium transition touch-manipulation min-h-[44px]"
               >
-                Change Recipe
+                Change
               </button>
               <button
                 onClick={() => onRemoveRecipe(day - 1)}
