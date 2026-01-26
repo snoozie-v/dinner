@@ -779,7 +779,7 @@ function App() {
                   <div className="px-4 py-2 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
                     <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">Quick Tutorials</p>
                   </div>
-                  <div className="py-1">
+                  <div className="py-1 max-h-80 overflow-y-auto">
                     <button
                       onClick={() => handleShowOnboarding(0)}
                       className="w-full text-left px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
@@ -792,49 +792,70 @@ function App() {
                       className="w-full text-left px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                     >
                       <span className="font-medium">Plan Your Meals</span>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">How to create meal plans</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Create & organize meal plans</p>
                     </button>
                     <button
                       onClick={() => handleShowOnboarding(2)}
                       className="w-full text-left px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                     >
-                      <span className="font-medium">Shopping List</span>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Auto-generated lists</p>
+                      <span className="font-medium">View & Prep Notes</span>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">View recipes, add prep reminders</p>
                     </button>
                     <button
                       onClick={() => handleShowOnboarding(3)}
                       className="w-full text-left px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                     >
-                      <span className="font-medium">Pantry Staples</span>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Mark commonly used items</p>
+                      <span className="font-medium">Shopping List</span>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Auto-generated, shareable lists</p>
                     </button>
                     <button
                       onClick={() => handleShowOnboarding(4)}
+                      className="w-full text-left px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                    >
+                      <span className="font-medium">Pantry Staples</span>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Mark items you always have</p>
+                    </button>
+                    <button
+                      onClick={() => handleShowOnboarding(5)}
                       className="w-full text-left px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                     >
                       <span className="font-medium">Save Templates</span>
                       <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Reuse meal plans</p>
                     </button>
                     <button
-                      onClick={() => handleShowOnboarding(5)}
+                      onClick={() => handleShowOnboarding(6)}
+                      className="w-full text-left px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                    >
+                      <span className="font-medium">Quick Recipe Access</span>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Favorites & recent recipes</p>
+                    </button>
+                    <button
+                      onClick={() => handleShowOnboarding(7)}
                       className="w-full text-left px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                     >
                       <span className="font-medium">Manage Recipes</span>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Browse & create recipes</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Browse, create & edit recipes</p>
                     </button>
                     <button
-                      onClick={() => handleShowOnboarding(6)}
+                      onClick={() => handleShowOnboarding(8)}
                       className="w-full text-left px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                     >
                       <span className="font-medium">Import from URLs</span>
                       <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Import from recipe websites</p>
                     </button>
                     <button
-                      onClick={() => handleShowOnboarding(7)}
+                      onClick={() => handleShowOnboarding(9)}
                       className="w-full text-left px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                     >
-                      <span className="font-medium">Undo Mistakes</span>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Recovery options</p>
+                      <span className="font-medium">Backup & Restore</span>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Export/import your data</p>
+                    </button>
+                    <button
+                      onClick={() => handleShowOnboarding(10)}
+                      className="w-full text-left px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                    >
+                      <span className="font-medium">Undo & Dark Mode</span>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Recovery & theme options</p>
                     </button>
                   </div>
                 </div>

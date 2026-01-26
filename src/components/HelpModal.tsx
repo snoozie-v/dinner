@@ -1,5 +1,5 @@
 // src/components/HelpModal.tsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface HelpModalProps {
   isOpen: boolean;
@@ -10,6 +10,16 @@ type HelpSection = 'overview' | 'ingredients' | 'instructions' | 'importing' | '
 
 const HelpModal = ({ isOpen, onClose }: HelpModalProps) => {
   const [activeSection, setActiveSection] = useState<HelpSection>('overview');
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = '';
+      };
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -62,8 +72,11 @@ const HelpModal = ({ isOpen, onClose }: HelpModalProps) => {
   ];
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden">
+    <div
+      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 overscroll-contain"
+      onTouchMove={(e) => e.stopPropagation()}
+    >
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden overscroll-contain">
         {/* Header */}
         <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-blue-600 to-indigo-600">
           <div className="flex items-center gap-3">
@@ -104,7 +117,7 @@ const HelpModal = ({ isOpen, onClose }: HelpModalProps) => {
           </nav>
 
           {/* Content Area */}
-          <div className="flex-1 overflow-y-auto p-4 sm:p-6">
+          <div className="flex-1 overflow-y-auto p-4 sm:p-6 overscroll-contain">
             {activeSection === 'overview' && <OverviewSection />}
             {activeSection === 'ingredients' && <IngredientsSection />}
             {activeSection === 'instructions' && <InstructionsSection />}
@@ -404,8 +417,20 @@ const TipsSection = () => (
         description="Use tags like 'quick', 'vegetarian', or 'beef-dish' to filter recipes. Add custom tags when creating recipes."
       />
       <TipCard
-        title="Export Your Data"
-        description="Use the Data Settings (gear icon) to export your custom recipes, meal plans, and preferences as a backup."
+        title="Share Your Shopping List"
+        description="Use the Copy or Share button on the shopping list to send it to family members or another app on your phone."
+      />
+      <TipCard
+        title="Dark Mode"
+        description="Click the sun/moon icon in the top right to toggle between light and dark themes. Your preference is saved automatically."
+      />
+      <TipCard
+        title="Bulk Paste Ingredients"
+        description="When creating recipes, click 'Paste Multiple Ingredients' to add many ingredients at once. Supports fractions like 1/2 cup."
+      />
+      <TipCard
+        title="Backup & Restore"
+        description="Click 'Backup & Restore' in the footer to access Data Settings. Export your data as a backup file, and import it later to restore everything."
       />
     </div>
   </div>
