@@ -20,6 +20,7 @@ import PrivacyPolicyModal from './components/PrivacyPolicyModal';
 import PullToRefresh from './components/PullToRefresh';
 import RecipeDetailModal from './components/recipes/RecipeDetailModal';
 import DataSettingsModal from './components/DataSettingsModal';
+import HelpModal from './components/HelpModal';
 
 import { useRecipes } from './hooks/useRecipes';
 
@@ -98,6 +99,9 @@ function App() {
 
   // Data settings modal state
   const [showDataSettings, setShowDataSettings] = useState(false);
+
+  // Help modal state
+  const [showHelpModal, setShowHelpModal] = useState(false);
 
   // Pull-to-refresh feedback
   const [refreshMessage, setRefreshMessage] = useState<string | null>(null);
@@ -753,8 +757,27 @@ function App() {
 
                 {/* Dropdown Menu */}
                 <div className="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden z-50">
+                  {/* User Guide - Full Documentation */}
+                  <button
+                    onClick={() => {
+                      setShowHelpModal(true);
+                      setShowTutorialDropdown(false);
+                    }}
+                    className="w-full text-left px-4 py-3 text-sm bg-blue-50 dark:bg-blue-900/30 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors border-b border-gray-200 dark:border-gray-700"
+                  >
+                    <div className="flex items-center gap-3">
+                      <svg className="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                      </svg>
+                      <div>
+                        <span className="font-semibold text-blue-700 dark:text-blue-300">User Guide</span>
+                        <p className="text-xs text-blue-600 dark:text-blue-400 mt-0.5">Full documentation & examples</p>
+                      </div>
+                    </div>
+                  </button>
+
                   <div className="px-4 py-2 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
-                    <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">Tutorial Topics</p>
+                    <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">Quick Tutorials</p>
                   </div>
                   <div className="py-1">
                     <button
@@ -1090,6 +1113,12 @@ function App() {
         userPrefs={userPrefs}
         theme={theme}
         onImportData={handleImportData}
+      />
+
+      {/* Help Modal - User Guide */}
+      <HelpModal
+        isOpen={showHelpModal}
+        onClose={() => setShowHelpModal(false)}
       />
     </div>
   );
