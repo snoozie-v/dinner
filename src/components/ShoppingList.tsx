@@ -1,7 +1,10 @@
 // src/components/ShoppingList.tsx
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import type { PlanItem, ShoppingItem } from '../types';
 import SwipeableShoppingItem from './SwipeableShoppingItem';
+
+// Proxy server URL for Instacart integration
+const PROXY_URL = import.meta.env.VITE_PROXY_URL || 'http://localhost:3001';
 
 interface ShoppingListProps {
   plan: PlanItem[];
@@ -60,6 +63,68 @@ const ShoppingList = ({
   onOpenPantry,
 }: ShoppingListProps) => {
   const [hideCompleted, setHideCompleted] = useState(false);
+  const [instacartEnabled, setInstacartEnabled] = useState(false);
+  const [isLoadingInstacart, setIsLoadingInstacart] = useState(false);
+
+  // Check if Instacart integration is enabled
+  useEffect(() => {
+    const checkInstacartStatus = async () => {
+      try {
+        const response = await fetch(`${PROXY_URL}/api/instacart/status`);
+        const data = await response.json();
+        setInstacartEnabled(data.enabled);
+      } catch {
+        setInstacartEnabled(false);
+      }
+    };
+    checkInstacartStatus();
+  }, []);
+
+  // Handle Instacart button click
+  const handleInstacart = async () => {
+    setIsLoadingInstacart(true);
+
+    // Get items that still need to be purchased
+    const neededItems = shoppingList
+      .filter(item => item.haveQty < item.totalQty)
+      .map(item => ({
+        name: item.name,
+        quantity: item.totalQty - item.haveQty,
+        unit: item.unit || ''
+      }));
+
+    if (neededItems.length === 0) {
+      alert('All items are already collected!');
+      setIsLoadingInstacart(false);
+      return;
+    }
+
+    try {
+      const response = await fetch(`${PROXY_URL}/api/instacart`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: `Meal Plan - ${new Date().toLocaleDateString()}`,
+          ingredients: neededItems,
+          linkbackUrl: window.location.origin
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.success && data.instacartUrl) {
+        // Open Instacart in new tab
+        window.open(data.instacartUrl, '_blank');
+      } else {
+        alert(data.error || 'Failed to create Instacart list. Please try again.');
+      }
+    } catch (error) {
+      console.error('Instacart error:', error);
+      alert('Failed to connect to Instacart. Please try again.');
+    } finally {
+      setIsLoadingInstacart(false);
+    }
+  };
 
   // Group items by category
   const groupedItems = useMemo(() => {
@@ -196,6 +261,26 @@ const ShoppingList = ({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
               </svg>
               Share
+            </button>
+          )}
+          {instacartEnabled && (
+            <button
+              onClick={handleInstacart}
+              disabled={isLoadingInstacart || stats.needed === 0}
+              className="bg-[#003D29] text-white px-4 py-2.5 rounded-lg hover:bg-[#004D35] active:bg-[#002D1F] transition text-sm font-medium flex items-center gap-2 touch-manipulation min-h-[44px] disabled:opacity-50 disabled:cursor-not-allowed"
+              title="Shop with Instacart"
+            >
+              {isLoadingInstacart ? (
+                <svg className="w-5 h-5 animate-spin" viewBox="0 0 24 24" fill="none">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+                </svg>
+              ) : (
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-3l1.1-2h7.5c.7 0 1.4-.4 1.7-1l3.9-7-1.7-1-3.9 7h-7L4.3 2H1v2h2l3.6 7.6L5.2 14c-.1.3-.2.6-.2 1 0 1.1.9 2 2 2h12v-2H7.4c-.1 0-.2-.1-.2-.2v-.1z"/>
+                </svg>
+              )}
+              {isLoadingInstacart ? 'Loading...' : 'Instacart'}
             </button>
           )}
         </div>

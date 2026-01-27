@@ -1,4 +1,5 @@
 // proxy-server.js - Backend proxy for recipe imports
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 
@@ -6,9 +7,24 @@ const app = express();
 // Use PORT for production (Render/Railway), PROXY_PORT for local dev, or default to 3001
 const PORT = process.env.PORT || process.env.PROXY_PORT || 3001;
 
-// Enable CORS for local development
+// Enable CORS - allow localhost in dev, or specific origin in production
 app.use(cors({
-  origin: process.env.ALLOWED_ORIGIN || 'http://localhost:5173',
+  origin: function(origin, callback) {
+    // Allow requests with no origin (like curl without Origin header)
+    if (!origin) return callback(null, true);
+
+    // In production, use ALLOWED_ORIGIN env var
+    if (process.env.ALLOWED_ORIGIN) {
+      return callback(null, process.env.ALLOWED_ORIGIN);
+    }
+
+    // In development, allow any localhost origin
+    if (origin.match(/^http:\/\/localhost:\d+$/)) {
+      return callback(null, origin);
+    }
+
+    callback(null, false);
+  },
   methods: ['GET', 'POST'],
 }));
 
@@ -77,6 +93,97 @@ setInterval(() => {
 // Health check endpoint
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+// ============================================
+// Instacart Integration
+// ============================================
+
+const INSTACART_API_URL = process.env.NODE_ENV === 'production'
+  ? 'https://connect.instacart.com/idp/v1/products/recipe'
+  : 'https://connect.dev.instacart.tools/idp/v1/products/recipe';
+
+const INSTACART_API_KEY = process.env.INSTACART_API_KEY;
+
+// Check if Instacart is configured (for frontend to know whether to show button)
+app.get('/api/instacart/status', (req, res) => {
+  res.json({
+    enabled: !!INSTACART_API_KEY,
+    timestamp: new Date().toISOString()
+  });
+});
+
+// Create Instacart shopping list
+app.post('/api/instacart', async (req, res) => {
+  if (!INSTACART_API_KEY) {
+    return res.status(503).json({
+      error: 'Instacart integration not configured'
+    });
+  }
+
+  const clientIp = req.ip || req.connection.remoteAddress;
+
+  // Rate limiting
+  if (!checkRateLimit(clientIp)) {
+    return res.status(429).json({
+      error: 'Too many requests. Please wait a minute before trying again.'
+    });
+  }
+
+  const { title, ingredients, linkbackUrl } = req.body;
+
+  if (!ingredients || !Array.isArray(ingredients) || ingredients.length === 0) {
+    return res.status(400).json({ error: 'No ingredients provided' });
+  }
+
+  // Transform ingredients to Instacart format
+  const instacartIngredients = ingredients.map(item => ({
+    name: item.name,
+    display_text: `${item.quantity || ''} ${item.unit || ''} ${item.name}`.trim(),
+    measurements: item.quantity ? [{
+      quantity: parseFloat(item.quantity) || 1,
+      unit: item.unit || 'unit'
+    }] : []
+  }));
+
+  try {
+    const response = await fetch(INSTACART_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${INSTACART_API_KEY}`,
+      },
+      body: JSON.stringify({
+        title: title || 'My Meal Plan Shopping List',
+        link_type: 'recipe',
+        ingredients: instacartIngredients,
+        landing_page_configuration: {
+          partner_linkback_url: linkbackUrl || 'https://meal-planner.app',
+          enable_pantry_items: true
+        }
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error('Instacart API error:', data);
+      throw new Error(data.error || `Instacart API error: ${response.status}`);
+    }
+
+    // Return the Instacart checkout URL
+    res.json({
+      success: true,
+      instacartUrl: data.products_link_url
+    });
+
+  } catch (error) {
+    console.error('Instacart API error:', error);
+    res.status(500).json({
+      error: 'Failed to create Instacart list',
+      message: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
 });
 
 // Proxy endpoint for recipe fetching
