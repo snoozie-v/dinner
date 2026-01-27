@@ -125,7 +125,7 @@ const TemplateModal = ({
                             {template.days} days • Created {formatDate(template.createdAt)}
                           </p>
                           <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
-                            {template.recipes.filter(r => r !== null).length} recipes
+                            {template.slots.filter(s => s.recipeId !== null).length} recipes
                           </p>
                         </div>
                         <div className="flex gap-2 ml-4">

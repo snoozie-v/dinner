@@ -9,6 +9,7 @@ interface ControlsProps {
   clearAllData: () => void;
   onOpenTemplates: () => void;
   onOpenPantry: () => void;
+  onOpenMealSettings: () => void;
   hasTemplates: boolean;
 }
 
@@ -20,6 +21,7 @@ const Controls = ({
   clearAllData,
   onOpenTemplates,
   onOpenPantry,
+  onOpenMealSettings,
   hasTemplates,
 }: ControlsProps) => {
   const handleDaysChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -98,6 +100,18 @@ const Controls = ({
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
           </svg>
           Pantry Staples
+        </button>
+
+        <span className="hidden sm:inline text-gray-300 dark:text-gray-600">|</span>
+
+        <button
+          onClick={onOpenMealSettings}
+          className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 px-4 py-2.5 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 active:bg-gray-200 dark:active:bg-gray-600 rounded-lg transition flex items-center gap-2 touch-manipulation min-h-[44px]"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+          </svg>
+          Meal Settings
         </button>
 
         <span className="hidden sm:inline text-gray-300 dark:text-gray-600">|</span>

@@ -70,7 +70,37 @@ export interface Recipe {
   timesUsed?: number;
 }
 
+// Meal type slots for multi-meal-per-day planning
+export type MealType = 'breakfast' | 'lunch' | 'dinner' | 'dessert' | 'snack';
+
+export interface MealTypeConfig {
+  id: MealType;
+  label: string;
+  icon: string;
+  order: number;
+}
+
+export const MEAL_TYPES: MealTypeConfig[] = [
+  { id: 'breakfast', label: 'Breakfast', icon: '🌅', order: 1 },
+  { id: 'lunch', label: 'Lunch', icon: '☀️', order: 2 },
+  { id: 'dinner', label: 'Dinner', icon: '🌙', order: 3 },
+  { id: 'dessert', label: 'Dessert', icon: '🍰', order: 4 },
+  { id: 'snack', label: 'Snack', icon: '🍎', order: 5 },
+];
+
+export const DEFAULT_ENABLED_MEAL_TYPES: MealType[] = ['breakfast', 'lunch', 'dinner'];
+
 export interface PlanItem {
+  day: number;
+  mealType: MealType;
+  id: string;
+  recipe: Recipe | null;
+  servingsMultiplier: number;
+  notes?: string;
+}
+
+// Legacy PlanItem for migration (v1 format - single meal per day)
+export interface LegacyPlanItem {
   day: number;
   id: string;
   recipe: Recipe | null;
@@ -132,16 +162,39 @@ export interface PantryStaple {
 }
 
 // Meal Plan Templates
+export interface MealPlanTemplateSlot {
+  day: number;
+  mealType: MealType;
+  recipeId: string | null;
+  servingsMultiplier: number;
+}
+
 export interface MealPlanTemplate {
   id: string;
   name: string;
   createdAt: string;
   days: number;
-  recipes: (string | null)[]; // array of recipe IDs, null for empty days
+  version: 2;  // Template format version
+  enabledMealTypes: MealType[];
+  slots: MealPlanTemplateSlot[];
+}
+
+// Legacy template format for migration (v1)
+export interface LegacyMealPlanTemplate {
+  id: string;
+  name: string;
+  createdAt: string;
+  days: number;
+  recipes: (string | null)[]; // flat array, one per day
 }
 
 // User preferences for quick access
 export interface UserPreferences {
   favoriteRecipeIds: string[];
   recentRecipeIds: string[]; // most recent first, max 10
+}
+
+// Meal plan settings
+export interface MealPlanSettings {
+  enabledMealTypes: MealType[];
 }

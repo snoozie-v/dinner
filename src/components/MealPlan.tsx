@@ -17,20 +17,30 @@ import {
   restrictToVerticalAxis,
   restrictToParentElement,
 } from '@dnd-kit/modifiers';
-import type { PlanItem as PlanItemType, Recipe } from '../types';
-import SortablePlanItem from './SortablePlanItem';
+import type { PlanItem as PlanItemType, Recipe, MealType, MealTypeConfig } from '../types';
+import DayCard from './DayCard';
 
 interface MealPlanProps {
   plan: PlanItemType[];
-  setSelectedDayForPicker: (day: number | null) => void;
+  mealTypes: MealTypeConfig[];
+  onSelectRecipe: (day: number, mealType: MealType) => void;
   updateServings: (planItemId: string, multiplier: number) => void;
   updateNotes: (planItemId: string, notes: string) => void;
-  onReorderDays: (activeId: string, overId: string) => void;
-  onRemoveRecipe: (dayIndex: number) => void;
+  onReorderDays: (activeDay: number, overDay: number) => void;
+  onRemoveRecipe: (day: number, mealType: MealType) => void;
   onViewRecipe: (recipe: Recipe) => void;
 }
 
-const MealPlan = ({ plan, setSelectedDayForPicker, updateServings, updateNotes, onReorderDays, onRemoveRecipe, onViewRecipe }: MealPlanProps) => {
+const MealPlan = ({
+  plan,
+  mealTypes,
+  onSelectRecipe,
+  updateServings,
+  updateNotes,
+  onReorderDays,
+  onRemoveRecipe,
+  onViewRecipe,
+}: MealPlanProps) => {
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -42,11 +52,31 @@ const MealPlan = ({ plan, setSelectedDayForPicker, updateServings, updateNotes, 
     })
   );
 
+  // Group plan items by day
+  const dayGroups = plan.reduce((acc, item) => {
+    if (!acc[item.day]) {
+      acc[item.day] = [];
+    }
+    acc[item.day].push(item);
+    return acc;
+  }, {} as Record<number, PlanItemType[]>);
+
+  // Get sorted list of days
+  const sortedDays = Object.keys(dayGroups)
+    .map(Number)
+    .sort((a, b) => a - b);
+
+  // Create sortable IDs for days
+  const sortableIds = sortedDays.map(day => `day-${day}`);
+
   const handleDragEnd = (event: DragEndEvent): void => {
     const { active, over } = event;
 
     if (over && active.id !== over.id) {
-      onReorderDays(String(active.id), String(over.id));
+      // Extract day numbers from IDs (format: "day-1", "day-2", etc.)
+      const activeDay = parseInt(String(active.id).replace('day-', ''), 10);
+      const overDay = parseInt(String(over.id).replace('day-', ''), 10);
+      onReorderDays(activeDay, overDay);
     }
   };
 
@@ -61,7 +91,7 @@ const MealPlan = ({ plan, setSelectedDayForPicker, updateServings, updateNotes, 
         )}
       </div>
 
-      {plan.length === 0 ? (
+      {sortedDays.length === 0 ? (
         <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700">
           <p className="text-gray-500 dark:text-gray-400 text-lg">
             Generate a random plan or pick recipes manually to get started!
@@ -75,15 +105,17 @@ const MealPlan = ({ plan, setSelectedDayForPicker, updateServings, updateNotes, 
           modifiers={[restrictToVerticalAxis, restrictToParentElement]}
         >
           <SortableContext
-            items={plan.map(item => item.id)}
+            items={sortableIds}
             strategy={verticalListSortingStrategy}
           >
             <div className="space-y-6">
-              {plan.map((planItem) => (
-                <SortablePlanItem
-                  key={planItem.id}
-                  planItem={planItem}
-                  setSelectedDayForPicker={setSelectedDayForPicker}
+              {sortedDays.map((day) => (
+                <DayCard
+                  key={`day-${day}`}
+                  day={day}
+                  slots={dayGroups[day]}
+                  mealTypes={mealTypes}
+                  onSelectRecipe={onSelectRecipe}
                   updateServings={updateServings}
                   updateNotes={updateNotes}
                   onRemoveRecipe={onRemoveRecipe}

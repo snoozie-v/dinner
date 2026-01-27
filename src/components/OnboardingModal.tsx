@@ -26,13 +26,13 @@ const ONBOARDING_STEPS: OnboardingStep[] = [
   },
   {
     title: 'Plan Your Meals',
-    description: 'Choose how many days to plan for (1-30), then either randomize your meal plan or manually select recipes. Drag the handle on the left to reorder days.',
+    description: 'Plan breakfast, lunch, dinner, and more for each day! Choose how many days to plan (1-30), then randomize or manually select recipes. Drag to reorder days.',
     icon: (
       <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
       </svg>
     ),
-    tip: 'Use the multiplier buttons (0.5x, 1x, 1.5x, 2x) to scale servings for each meal.',
+    tip: 'Click "Meal Settings" to enable snack or dessert slots, or disable meals you don\'t need.',
   },
   {
     title: 'View Recipes & Add Notes',

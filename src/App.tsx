@@ -2,7 +2,9 @@
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import { arrayMove } from '@dnd-kit/sortable';
 import defaultRecipes from './recipes.json';
-import type { Recipe, PlanItem, ShoppingItem, ShoppingAdjustments, ActiveTab, PantryStaple, MealPlanTemplate, UserPreferences } from './types';
+import type { Recipe, PlanItem, LegacyPlanItem, ShoppingItem, ShoppingAdjustments, ActiveTab, PantryStaple, MealPlanTemplate, LegacyMealPlanTemplate, UserPreferences, MealType, MealPlanSettings } from './types';
+import { DEFAULT_ENABLED_MEAL_TYPES, MEAL_TYPES } from './types';
+import { migrateLegacyPlan, migrateTemplates, isLegacyPlanItem, CURRENT_DATA_VERSION } from './utils/migration';
 
 import Controls from './components/Controls';
 import SearchBar from './components/SearchBar';
@@ -21,6 +23,7 @@ import PullToRefresh from './components/PullToRefresh';
 import RecipeDetailModal from './components/recipes/RecipeDetailModal';
 import DataSettingsModal from './components/DataSettingsModal';
 import HelpModal from './components/HelpModal';
+import MealSettingsModal from './components/MealSettingsModal';
 
 import { useRecipes } from './hooks/useRecipes';
 
@@ -32,6 +35,8 @@ const STORAGE_KEYS = {
   PANTRY_STAPLES: 'dinner-planner-pantry-staples',
   TEMPLATES: 'dinner-planner-templates',
   USER_PREFS: 'dinner-planner-user-prefs',
+  MEAL_SETTINGS: 'dinner-planner-meal-settings',
+  DATA_VERSION: 'dinner-planner-data-version',
   THEME: 'dinner-planner-theme',
   ONBOARDING_SEEN: 'dinner-planner-onboarding-seen',
   ACTIVE_TAB: 'dinner-planner-active-tab',
@@ -54,6 +59,12 @@ function App() {
   const [plan, setPlan] = useState<PlanItem[]>(() => getStoredValue(STORAGE_KEYS.PLAN, []));
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedDayForPicker, setSelectedDayForPicker] = useState<number | null>(null);
+  const [selectedMealTypeForPicker, setSelectedMealTypeForPicker] = useState<MealType | null>(null);
+
+  // Meal settings - which meal types are enabled
+  const [mealSettings, setMealSettings] = useState<MealPlanSettings>(() =>
+    getStoredValue(STORAGE_KEYS.MEAL_SETTINGS, { enabledMealTypes: DEFAULT_ENABLED_MEAL_TYPES })
+  );
   const [shoppingAdjustments, setShoppingAdjustments] = useState<ShoppingAdjustments>(() =>
     getStoredValue(STORAGE_KEYS.SHOPPING_ADJUSTMENTS, {})
   );
@@ -108,6 +119,9 @@ function App() {
 
   // Help modal state
   const [showHelpModal, setShowHelpModal] = useState(false);
+
+  // Meal settings modal state
+  const [showMealSettingsModal, setShowMealSettingsModal] = useState(false);
 
   // Pull-to-refresh feedback
   const [refreshMessage, setRefreshMessage] = useState<string | null>(null);
@@ -268,6 +282,46 @@ function App() {
     localStorage.setItem(STORAGE_KEYS.USER_PREFS, JSON.stringify(userPrefs));
   }, [userPrefs]);
 
+  // Persist meal settings
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.MEAL_SETTINGS, JSON.stringify(mealSettings));
+  }, [mealSettings]);
+
+  // Handle meal settings save
+  const handleSaveMealSettings = (newSettings: MealPlanSettings): void => {
+    setMealSettings(newSettings);
+  };
+
+  // Migration: Run once on app load to migrate legacy data to new format
+  useEffect(() => {
+    const storedVersion = getStoredValue<number | null>(STORAGE_KEYS.DATA_VERSION, null);
+
+    if (storedVersion === null || storedVersion < CURRENT_DATA_VERSION) {
+      // Check if plan needs migration (legacy format has no mealType)
+      const storedPlan = getStoredValue<(PlanItem | LegacyPlanItem)[]>(STORAGE_KEYS.PLAN, []);
+      if (storedPlan.length > 0 && isLegacyPlanItem(storedPlan[0])) {
+        const migratedPlan = migrateLegacyPlan(
+          storedPlan as LegacyPlanItem[],
+          mealSettings.enabledMealTypes
+        );
+        setPlan(migratedPlan);
+      }
+
+      // Migrate templates if needed
+      const storedTemplates = getStoredValue<(MealPlanTemplate | LegacyMealPlanTemplate)[]>(
+        STORAGE_KEYS.TEMPLATES,
+        []
+      );
+      if (storedTemplates.length > 0) {
+        const migratedTemplates = migrateTemplates(storedTemplates);
+        setTemplates(migratedTemplates);
+      }
+
+      // Save the new version
+      localStorage.setItem(STORAGE_KEYS.DATA_VERSION, JSON.stringify(CURRENT_DATA_VERSION));
+    }
+  }, []); // Run only once on mount
+
   // Update selected shopping days when total days changes
   useEffect(() => {
     setSelectedShoppingDays(prev => {
@@ -319,26 +373,43 @@ function App() {
 
   // Template handlers
   const saveTemplate = (name: string): void => {
+    // Get max day from plan
+    const maxDay = Math.max(...plan.map(p => p.day), 0);
+
     const template: MealPlanTemplate = {
       id: `template-${Date.now().toString(36)}`,
       name,
       createdAt: new Date().toISOString(),
-      days: plan.length,
-      recipes: plan.map(p => p.recipe?.id || null),
+      days: maxDay,
+      version: 2,
+      enabledMealTypes: [...mealSettings.enabledMealTypes],
+      slots: plan.map(p => ({
+        day: p.day,
+        mealType: p.mealType,
+        recipeId: p.recipe?.id || null,
+        servingsMultiplier: p.servingsMultiplier,
+      })),
     };
     setTemplates(prev => [...prev, template]);
   };
 
   const loadTemplate = (template: MealPlanTemplate): void => {
-    const newPlan: PlanItem[] = template.recipes.map((recipeId, index) => {
-      const recipe = recipeId ? allRecipes.find(r => r.id === recipeId) || null : null;
+    const newPlan: PlanItem[] = template.slots.map(slot => {
+      const recipe = slot.recipeId ? allRecipes.find(r => r.id === slot.recipeId) || null : null;
       return {
-        day: index + 1,
-        id: `day-${index + 1}-${recipeId || 'placeholder'}`,
+        day: slot.day,
+        mealType: slot.mealType,
+        id: `day-${slot.day}-${slot.mealType}-${slot.recipeId || 'empty'}`,
         recipe: recipe ? { ...recipe } : null,
-        servingsMultiplier: 1,
+        servingsMultiplier: slot.servingsMultiplier,
       };
     });
+
+    // Update meal settings to match template if different
+    if (template.enabledMealTypes) {
+      setMealSettings({ enabledMealTypes: template.enabledMealTypes });
+    }
+
     setDays(template.days);
     setPlan(newPlan);
     setShoppingAdjustments({});
@@ -483,43 +554,77 @@ function App() {
       .filter((r): r is Recipe => r !== undefined);
   }, [userPrefs.recentRecipeIds, allRecipes]);
 
+  // Helper to get sorted enabled meal types
+  const sortedEnabledMealTypes = useMemo(() => {
+    return MEAL_TYPES
+      .filter(mt => mealSettings.enabledMealTypes.includes(mt.id))
+      .sort((a, b) => a.order - b.order)
+      .map(mt => mt.id);
+  }, [mealSettings.enabledMealTypes]);
+
+  // Helper to get recipes that match a meal type
+  const getRecipesForMealType = (mealType: MealType): Recipe[] => {
+    // Map our meal types to recipe mealTypes values
+    // Recipes use lowercase: "breakfast", "lunch", "dinner", "snack", "dessert"
+    const matchingRecipes = allRecipes.filter(recipe =>
+      recipe.mealTypes?.some(mt => mt.toLowerCase() === mealType.toLowerCase())
+    );
+
+    // If we have matching recipes, use them; otherwise fall back to all recipes
+    return matchingRecipes.length > 0 ? matchingRecipes : allRecipes;
+  };
+
   const generateRandomPlan = (): void => {
     const newPlan: PlanItem[] = [];
     const numDays = days || 7; // Default to 7 if field is empty
-    for (let i = 0; i < numDays; i++) {
-      const randomIndex = Math.floor(Math.random() * allRecipes.length);
-      const recipe = allRecipes[randomIndex];
-      newPlan.push({
-        day: i + 1,
-        id: `day-${i + 1}-${recipe.id || Math.random().toString(36).slice(2)}`,
-        recipe: { ...recipe },
-        servingsMultiplier: 1,
-      });
+
+    for (let day = 1; day <= numDays; day++) {
+      for (const mealType of sortedEnabledMealTypes) {
+        // Get recipes appropriate for this meal type
+        const recipesForMeal = getRecipesForMealType(mealType);
+        const randomIndex = Math.floor(Math.random() * recipesForMeal.length);
+        const recipe = recipesForMeal[randomIndex];
+        newPlan.push({
+          day,
+          mealType,
+          id: `day-${day}-${mealType}-${recipe.id || Math.random().toString(36).slice(2)}`,
+          recipe: { ...recipe },
+          servingsMultiplier: 1,
+        });
+      }
     }
-    setPlan(newPlan.sort((a, b) => a.day - b.day));
+
+    setPlan(newPlan);
     setSearchTerm('');
     setSelectedDayForPicker(null);
+    setSelectedMealTypeForPicker(null);
     setShoppingAdjustments({});
   };
 
   const initManualPlan = (): void => {
     const newPlan: PlanItem[] = [];
     const numDays = days || 7; // Default to 7 if field is empty
-    for (let i = 0; i < numDays; i++) {
-      newPlan.push({
-        day: i + 1,
-        id: `day-${i + 1}-placeholder`,
-        recipe: null,
-        servingsMultiplier: 1,
-      });
+
+    for (let day = 1; day <= numDays; day++) {
+      for (const mealType of sortedEnabledMealTypes) {
+        newPlan.push({
+          day,
+          mealType,
+          id: `day-${day}-${mealType}-empty`,
+          recipe: null,
+          servingsMultiplier: 1,
+        });
+      }
     }
-    setPlan(newPlan.sort((a, b) => a.day - b.day));
+    setPlan(newPlan);
     setSearchTerm('');
     setSelectedDayForPicker(null);
+    setSelectedMealTypeForPicker(null);
     setShoppingAdjustments({});
   };
 
-  const assignRecipeToDay = (dayIndex: number, newRecipe: Recipe | null): void => {
+  // Assign a recipe to a specific day and meal type slot
+  const assignRecipeToSlot = (day: number, mealType: MealType, newRecipe: Recipe | null): void => {
     // Track recent recipe usage
     if (newRecipe?.id) {
       addToRecent(newRecipe.id);
@@ -527,31 +632,37 @@ function App() {
 
     setPlan((prevPlan) => {
       const updated = prevPlan.map((item) => ({ ...item }));
-
-      const targetDay = dayIndex + 1;
-      const existingIndex = updated.findIndex((p) => p.day === targetDay);
-
+      const existingIndex = updated.findIndex((p) => p.day === day && p.mealType === mealType);
       const recipeCopy = newRecipe ? { ...newRecipe } : null;
 
       if (existingIndex !== -1) {
         updated[existingIndex] = {
           ...updated[existingIndex],
           recipe: recipeCopy,
-          id: `day-${targetDay}-${newRecipe?.id || Date.now().toString(36).slice(2)}`,
+          id: `day-${day}-${mealType}-${newRecipe?.id || 'empty'}`,
         };
       } else {
+        // Create the slot if it doesn't exist
         updated.push({
-          day: targetDay,
-          id: `day-${targetDay}-${newRecipe?.id || Date.now().toString(36).slice(2)}`,
+          day,
+          mealType,
+          id: `day-${day}-${mealType}-${newRecipe?.id || 'empty'}`,
           recipe: recipeCopy,
           servingsMultiplier: 1,
         });
       }
 
-      return updated.sort((a, b) => a.day - b.day);
+      return updated;
     });
 
     setSelectedDayForPicker(null);
+    setSelectedMealTypeForPicker(null);
+  };
+
+  // Legacy wrapper for backward compatibility (used by some components)
+  const assignRecipeToDay = (dayIndex: number, newRecipe: Recipe | null): void => {
+    // Default to dinner slot for backward compatibility
+    assignRecipeToSlot(dayIndex + 1, 'dinner', newRecipe);
   };
 
   const updateServings = (planItemId: string, multiplier: number): void => {
@@ -570,24 +681,42 @@ function App() {
     );
   };
 
+  // Adjust plan when days or enabled meal types change
   useEffect(() => {
     setPlan((prevPlan) => {
       let updated = [...prevPlan];
 
+      // Remove slots for days that no longer exist
       updated = updated.filter((p) => p.day <= days);
 
-      for (let i = updated.length + 1; i <= days; i++) {
-        updated.push({
-          day: i,
-          id: `day-${i}-placeholder`,
-          recipe: null,
-          servingsMultiplier: 1,
-        });
+      // Remove slots for meal types that are no longer enabled
+      updated = updated.filter((p) => sortedEnabledMealTypes.includes(p.mealType));
+
+      // Add missing slots for all days and enabled meal types
+      for (let day = 1; day <= days; day++) {
+        for (const mealType of sortedEnabledMealTypes) {
+          const exists = updated.some(p => p.day === day && p.mealType === mealType);
+          if (!exists) {
+            updated.push({
+              day,
+              mealType,
+              id: `day-${day}-${mealType}-empty`,
+              recipe: null,
+              servingsMultiplier: 1,
+            });
+          }
+        }
       }
 
-      return updated.sort((a, b) => a.day - b.day);
+      // Sort by day, then by meal type order
+      return updated.sort((a, b) => {
+        if (a.day !== b.day) return a.day - b.day;
+        const aOrder = MEAL_TYPES.find(mt => mt.id === a.mealType)?.order ?? 99;
+        const bOrder = MEAL_TYPES.find(mt => mt.id === b.mealType)?.order ?? 99;
+        return aOrder - bOrder;
+      });
     });
-  }, [days]);
+  }, [days, sortedEnabledMealTypes]);
 
   const shoppingListMemo = useMemo<ShoppingItem[]>(() => {
     const map = new Map<string, {
@@ -681,29 +810,47 @@ function App() {
     assignRecipeToDay(dayIndex, recipe);
   };
 
+  // Open recipe picker for a specific day and meal type
+  const handleSelectRecipeSlot = (day: number, mealType: MealType): void => {
+    setSelectedDayForPicker(day);
+    setSelectedMealTypeForPicker(mealType);
+  };
+
+  // Close recipe picker
+  const handleCloseRecipePicker = (): void => {
+    setSelectedDayForPicker(null);
+    setSelectedMealTypeForPicker(null);
+  };
+
   // Remove recipe from meal plan with undo
-  const removeMealPlanRecipe = (dayIndex: number): void => {
-    const planItem = plan.find(p => p.day === dayIndex + 1);
+  const removeMealPlanRecipe = (day: number, mealType: MealType): void => {
+    const planItem = plan.find(p => p.day === day && p.mealType === mealType);
     if (!planItem?.recipe) return;
 
     const removedRecipe = planItem.recipe;
     const removedMultiplier = planItem.servingsMultiplier;
+    const removedNotes = planItem.notes;
 
     // Clear the recipe
-    assignRecipeToDay(dayIndex, null);
+    assignRecipeToSlot(day, mealType, null);
+
+    // Get meal type label for message
+    const mealTypeConfig = MEAL_TYPES.find(mt => mt.id === mealType);
+    const mealLabel = mealTypeConfig?.label || mealType;
 
     // Show undo toast
     setUndoAction({
       id: `plan-${Date.now()}`,
-      message: `Removed "${removedRecipe.name}" from Day ${dayIndex + 1}`,
+      message: `Removed "${removedRecipe.name}" from Day ${day} ${mealLabel}`,
       onUndo: () => {
         setPlan(prev => prev.map(item => {
-          if (item.day === dayIndex + 1) {
+          if (item.day === day && item.mealType === mealType) {
             return {
               ...item,
               recipe: removedRecipe,
               servingsMultiplier: removedMultiplier,
-              id: `day-${dayIndex + 1}-${removedRecipe.id}`,
+              notes: removedNotes,
+              id: `day-${day}-${mealType}-${removedRecipe.id}`,
             };
           }
           return item;
@@ -730,21 +877,37 @@ function App() {
     return result;
   };
 
-  const handleReorderDays = useCallback((activeId: string, overId: string): void => {
+  // Reorder days in the meal plan
+  const handleReorderDays = useCallback((activeDay: number, overDay: number): void => {
     setPlan((prevPlan) => {
-      const oldIndex = prevPlan.findIndex((item) => item.id === activeId);
-      const newIndex = prevPlan.findIndex((item) => item.id === overId);
+      // Get all unique days and sort them
+      const uniqueDays = [...new Set(prevPlan.map(item => item.day))].sort((a, b) => a - b);
 
-      if (oldIndex === -1 || newIndex === -1) return prevPlan;
+      const activeIndex = uniqueDays.indexOf(activeDay);
+      const overIndex = uniqueDays.indexOf(overDay);
 
-      // Reorder the array
-      const reordered = arrayMove(prevPlan, oldIndex, newIndex);
+      if (activeIndex === -1 || overIndex === -1) return prevPlan;
 
-      // Reassign day numbers based on new positions
-      return reordered.map((item, index) => ({
+      // Create new day order using arrayMove
+      const newDayOrder = arrayMove(uniqueDays, activeIndex, overIndex);
+
+      // Create a mapping from old day to new day position
+      const dayMapping: Record<number, number> = {};
+      newDayOrder.forEach((oldDay, newIndex) => {
+        dayMapping[oldDay] = newIndex + 1;
+      });
+
+      // Update all plan items with new day numbers
+      return prevPlan.map((item) => ({
         ...item,
-        day: index + 1,
-      }));
+        day: dayMapping[item.day],
+        id: `day-${dayMapping[item.day]}-${item.mealType}-${item.recipe?.id || 'empty'}`,
+      })).sort((a, b) => {
+        if (a.day !== b.day) return a.day - b.day;
+        const aOrder = MEAL_TYPES.find(mt => mt.id === a.mealType)?.order ?? 99;
+        const bOrder = MEAL_TYPES.find(mt => mt.id === b.mealType)?.order ?? 99;
+        return aOrder - bOrder;
+      });
     });
   }, []);
 
@@ -976,6 +1139,7 @@ function App() {
               clearAllData={clearAllData}
               onOpenTemplates={() => setShowTemplateModal(true)}
               onOpenPantry={() => setShowPantryModal(true)}
+              onOpenMealSettings={() => setShowMealSettingsModal(true)}
               hasTemplates={templates.length > 0}
             />
 
@@ -1002,7 +1166,8 @@ function App() {
 
             <MealPlan
               plan={plan}
-              setSelectedDayForPicker={setSelectedDayForPicker}
+              mealTypes={MEAL_TYPES.filter(mt => mealSettings.enabledMealTypes.includes(mt.id))}
+              onSelectRecipe={handleSelectRecipeSlot}
               updateServings={updateServings}
               updateNotes={updateNotes}
               onReorderDays={handleReorderDays}
@@ -1011,12 +1176,13 @@ function App() {
             />
 
             <RecipePickerModal
-              selectedDayForPicker={selectedDayForPicker}
-              setSelectedDayForPicker={setSelectedDayForPicker}
+              selectedDay={selectedDayForPicker}
+              selectedMealType={selectedMealTypeForPicker}
+              onClose={handleCloseRecipePicker}
               searchTerm={searchTerm}
               filteredRecipes={filteredRecipes}
               recipes={allRecipes}
-              assignRecipeToDay={assignRecipeToDay}
+              assignRecipeToSlot={assignRecipeToSlot}
               isCustomRecipe={isCustomRecipe}
               onToggleFavorite={toggleFavorite}
               isFavorite={isFavorite}
@@ -1039,6 +1205,13 @@ function App() {
               onLoadTemplate={loadTemplate}
               onDeleteTemplate={deleteTemplate}
               currentPlanHasRecipes={plan.some(p => p.recipe !== null)}
+            />
+
+            <MealSettingsModal
+              isOpen={showMealSettingsModal}
+              onClose={() => setShowMealSettingsModal(false)}
+              settings={mealSettings}
+              onSave={handleSaveMealSettings}
             />
           </>
         )}
