@@ -149,7 +149,7 @@ const OverviewSection = () => (
       <FeatureCard
         icon={<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>}
         title="Shop Tab"
-        description="View your auto-generated shopping list organized by store section. Check off items as you shop, adjust quantities, or mark items you already have."
+        description="View your auto-generated shopping list organized by store section. Filter by day range to shop for just a portion of your plan, check off items as you shop, and mark pantry staples."
       />
       <FeatureCard
         icon={<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>}
@@ -415,6 +415,10 @@ const TipsSection = () => (
       <TipCard
         title="Filter by Tags"
         description="Use tags like 'quick', 'vegetarian', or 'beef-dish' to filter recipes. Add custom tags when creating recipes."
+      />
+      <TipCard
+        title="Shop for Specific Days"
+        description="Planning for a month but only shopping for a week? Use the day range selector at the top of your shopping list to filter ingredients for just the days you need (e.g., days 1-7). Quick week buttons make it easy to switch between weeks."
       />
       <TipCard
         title="Share Your Shopping List"

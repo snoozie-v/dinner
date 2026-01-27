@@ -63,6 +63,12 @@ function App() {
     getStoredValue(STORAGE_KEYS.PANTRY_STAPLES, [])
   );
 
+  // Selected days for shopping list filtering (default: all days selected)
+  const [selectedShoppingDays, setSelectedShoppingDays] = useState<Set<number>>(() => {
+    const storedDays = getStoredValue<number>(STORAGE_KEYS.DAYS, 3);
+    return new Set(Array.from({ length: storedDays }, (_, i) => i + 1));
+  });
+
   // Meal plan templates
   const [templates, setTemplates] = useState<MealPlanTemplate[]>(() =>
     getStoredValue(STORAGE_KEYS.TEMPLATES, [])
@@ -261,6 +267,26 @@ function App() {
   useEffect(() => {
     localStorage.setItem(STORAGE_KEYS.USER_PREFS, JSON.stringify(userPrefs));
   }, [userPrefs]);
+
+  // Update selected shopping days when total days changes
+  useEffect(() => {
+    setSelectedShoppingDays(prev => {
+      const newSet = new Set<number>();
+      for (let i = 1; i <= days; i++) {
+        // Keep previous selection state for existing days, select new days by default
+        if (prev.has(i) || i > prev.size) {
+          newSet.add(i);
+        }
+      }
+      // If nothing is selected, select all
+      if (newSet.size === 0) {
+        for (let i = 1; i <= days; i++) {
+          newSet.add(i);
+        }
+      }
+      return newSet;
+    });
+  }, [days]);
 
   // Dismiss undo action
   const dismissUndo = useCallback(() => {
@@ -574,7 +600,10 @@ function App() {
       key: string;
     }>();
 
-    plan.forEach(({ recipe, servingsMultiplier }) => {
+    // Filter plan by selected shopping days
+    const filteredPlan = plan.filter(item => selectedShoppingDays.has(item.day));
+
+    filteredPlan.forEach(({ recipe, servingsMultiplier }) => {
       if (!recipe) return;
 
       recipe?.ingredients?.forEach((ing) => {
@@ -624,7 +653,7 @@ function App() {
           isPantryStaple,
         };
       });
-  }, [plan, shoppingAdjustments, pantryStaples]);
+  }, [plan, shoppingAdjustments, pantryStaples, selectedShoppingDays]);
 
   const toggleHaveItem = (key: string, totalQty: number): void => {
     setShoppingAdjustments((prev) => {
@@ -1022,6 +1051,9 @@ function App() {
               shoppingList={shoppingListMemo}
               toggleHaveItem={toggleHaveItem}
               onOpenPantry={() => setShowPantryModal(true)}
+              totalDays={days}
+              selectedDays={selectedShoppingDays}
+              onSelectedDaysChange={setSelectedShoppingDays}
             />
 
             <PantryModal

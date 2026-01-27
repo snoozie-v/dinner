@@ -47,13 +47,13 @@ const ONBOARDING_STEPS: OnboardingStep[] = [
   },
   {
     title: 'Smart Shopping List',
-    description: 'Your shopping list is automatically generated from your meal plan with quantities combined. Items are grouped by store section for easy shopping.',
+    description: 'Your shopping list is automatically generated from your meal plan with quantities combined. Items are grouped by store section, and you can filter by day range to shop for just part of your plan.',
     icon: (
       <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
       </svg>
     ),
-    tip: 'Use the Copy or Share button to send your list to others or another app.',
+    tip: 'Planning for 30 days? Use the day range selector to shop for just days 1-7, then switch to days 8-14 next week.',
   },
   {
     title: 'Pantry Staples',

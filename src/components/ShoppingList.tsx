@@ -11,6 +11,9 @@ interface ShoppingListProps {
   shoppingList: ShoppingItem[];
   toggleHaveItem: (key: string, totalQty: number) => void;
   onOpenPantry: () => void;
+  totalDays: number;
+  selectedDays: Set<number>;
+  onSelectedDaysChange: (days: Set<number>) => void;
 }
 
 // Category display names and order for shopping flow (roughly store layout)
@@ -61,6 +64,9 @@ const ShoppingList = ({
   shoppingList,
   toggleHaveItem,
   onOpenPantry,
+  totalDays,
+  selectedDays,
+  onSelectedDaysChange,
 }: ShoppingListProps) => {
   const [hideCompleted, setHideCompleted] = useState(false);
   const [instacartEnabled, setInstacartEnabled] = useState(false);
@@ -211,9 +217,37 @@ const ShoppingList = ({
 
   if (plan.length === 0) return null;
 
+  // Get current range from selected days
+  const selectedArray = Array.from(selectedDays).sort((a, b) => a - b);
+  const rangeStart = selectedArray.length > 0 ? selectedArray[0] : 1;
+  const rangeEnd = selectedArray.length > 0 ? selectedArray[selectedArray.length - 1] : totalDays;
+
+  // Check if selection is a contiguous range
+  const isContiguousRange = selectedArray.length === (rangeEnd - rangeStart + 1) &&
+    selectedArray.every((day, idx) => day === rangeStart + idx);
+
+  // Set a range of days
+  const setDayRange = (start: number, end: number) => {
+    const newSet = new Set<number>();
+    for (let i = start; i <= end; i++) {
+      newSet.add(i);
+    }
+    onSelectedDaysChange(newSet);
+  };
+
+  // Select all days
+  const selectAllDays = () => {
+    setDayRange(1, totalDays);
+  };
+
+  const allDaysSelected = selectedDays.size === totalDays;
+
+  // Calculate weeks for quick selection
+  const numWeeks = Math.ceil(totalDays / 7);
+
   return (
     <section>
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
         <div>
           <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">Shopping List</h2>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
@@ -285,6 +319,86 @@ const ShoppingList = ({
           )}
         </div>
       </div>
+
+      {/* Day range selector for filtering shopping list */}
+      {totalDays > 1 && (
+        <div className="mb-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-4">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+            {/* Range selector */}
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                Shop for days
+              </span>
+              <select
+                value={rangeStart}
+                onChange={(e) => {
+                  const newStart = Number(e.target.value);
+                  setDayRange(newStart, Math.max(newStart, rangeEnd));
+                }}
+                className="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 text-sm min-h-[44px] touch-manipulation"
+              >
+                {Array.from({ length: totalDays }, (_, i) => i + 1).map(day => (
+                  <option key={day} value={day}>
+                    {day}
+                  </option>
+                ))}
+              </select>
+              <span className="text-sm text-gray-500 dark:text-gray-400">to</span>
+              <select
+                value={rangeEnd}
+                onChange={(e) => {
+                  const newEnd = Number(e.target.value);
+                  setDayRange(Math.min(rangeStart, newEnd), newEnd);
+                }}
+                className="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 text-sm min-h-[44px] touch-manipulation"
+              >
+                {Array.from({ length: totalDays }, (_, i) => i + 1).map(day => (
+                  <option key={day} value={day}>
+                    {day}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Quick presets */}
+            <div className="flex items-center gap-2 flex-wrap">
+              {numWeeks > 1 && Array.from({ length: Math.min(numWeeks, 4) }, (_, i) => {
+                const weekStart = i * 7 + 1;
+                const weekEnd = Math.min((i + 1) * 7, totalDays);
+                const isActive = rangeStart === weekStart && rangeEnd === weekEnd && isContiguousRange;
+                return (
+                  <button
+                    key={i}
+                    onClick={() => setDayRange(weekStart, weekEnd)}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors touch-manipulation ${
+                      isActive
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600'
+                    }`}
+                  >
+                    Week {i + 1}
+                  </button>
+                );
+              })}
+              {!allDaysSelected && (
+                <button
+                  onClick={selectAllDays}
+                  className="px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors touch-manipulation"
+                >
+                  All {totalDays} days
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Selection summary */}
+          {!allDaysSelected && (
+            <p className="mt-3 text-xs text-gray-500 dark:text-gray-400">
+              Showing ingredients for {isContiguousRange ? `days ${rangeStart}-${rangeEnd}` : `${selectedDays.size} selected days`} ({selectedDays.size} of {totalDays} days)
+            </p>
+          )}
+        </div>
+      )}
 
       {shoppingList.length === 0 ? (
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-8 text-center">
