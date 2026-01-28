@@ -106,11 +106,6 @@
       "fiber_g": 5,
       "source": "estimated / MyFitnessPal"
     },
-    "costEstimate": {
-      "total": 12.5,
-      "currency": "USD",
-      "perServing": 3.13
-    },
     "equipment": [
       "large skillet",
       "cutting board",
@@ -310,11 +305,6 @@
       "fiber_g": 4,
       "source": "estimated"
     },
-    "costEstimate": {
-      "total": 15,
-      "currency": "USD",
-      "perServing": 2.5
-    },
     "equipment": [
       "large sheet pan",
       "mixing bowl",
@@ -487,11 +477,6 @@
       "fat_g": 18,
       "fiber_g": 6,
       "source": "estimated"
-    },
-    "costEstimate": {
-      "total": 14,
-      "currency": "USD",
-      "perServing": 2.8
     },
     "equipment": [
       "large pot or Dutch oven",
@@ -1124,7 +1109,6 @@
         "name": "boneless skinless chicken thighs (2 lbs)",
         "quantity": 6,
         "unit": "",
-        "preparation": "$5.98",
         "category": "protein/meat",
         "optional": false
       },
@@ -1132,7 +1116,6 @@
         "name": "garlic",
         "quantity": 2,
         "unit": "cloves",
-        "preparation": "$0.16",
         "category": "produce",
         "optional": false
       },
@@ -1140,7 +1123,6 @@
         "name": "inch fresh ginger",
         "quantity": 1,
         "unit": "",
-        "preparation": "$0.11",
         "category": "other",
         "optional": false
       },
@@ -1148,7 +1130,6 @@
         "name": "sriracha hot sauce",
         "quantity": 2,
         "unit": "tbsp",
-        "preparation": "$0.17",
         "category": "pantry",
         "optional": false
       },
@@ -1156,7 +1137,6 @@
         "name": "soy sauce",
         "quantity": 1.5,
         "unit": "tbsp",
-        "preparation": "$0.15",
         "category": "pantry",
         "optional": false
       },
@@ -1164,7 +1144,6 @@
         "name": "rice vinegar",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "$0.11",
         "category": "pantry",
         "optional": false
       },
@@ -1172,7 +1151,6 @@
         "name": "honey",
         "quantity": 2,
         "unit": "tbsp",
-        "preparation": "$0.24",
         "category": "pantry",
         "optional": false
       },
@@ -1180,7 +1158,6 @@
         "name": "brown sugar",
         "quantity": 2,
         "unit": "tbsp",
-        "preparation": "$0.03",
         "category": "pantry",
         "optional": false
       },
@@ -1188,7 +1165,6 @@
         "name": "vegetable oil",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "$0.02",
         "category": "pantry",
         "optional": false
       },
@@ -1196,7 +1172,6 @@
         "name": "water",
         "quantity": 0.5,
         "unit": "cup",
-        "preparation": "$0.00",
         "category": "other",
         "optional": false
       },
@@ -1204,7 +1179,6 @@
         "name": "corn starch",
         "quantity": 2,
         "unit": "tbsp",
-        "preparation": "$0.12",
         "category": "produce",
         "optional": false
       },
@@ -1212,7 +1186,7 @@
         "name": "cilantro",
         "quantity": 0.25,
         "unit": "bunch",
-        "preparation": "or green onions, $0.20",
+        "preparation": "or green onions",
         "category": "produce",
         "optional": false
       }
@@ -1264,7 +1238,6 @@
         "name": "uncooked long grain white rice",
         "quantity": 2,
         "unit": "cups",
-        "preparation": "$1.32",
         "category": "pantry",
         "optional": false
       },
@@ -1272,7 +1245,6 @@
         "name": "salt",
         "quantity": 0.5,
         "unit": "tsp",
-        "preparation": "$0.02",
         "category": "spices",
         "optional": false
       },
@@ -1280,7 +1252,6 @@
         "name": "15oz. cans black beans",
         "quantity": 2,
         "unit": "",
-        "preparation": "$0.98",
         "category": "pantry",
         "optional": false
       },
@@ -1288,7 +1259,6 @@
         "name": "ground cumin",
         "quantity": 0.5,
         "unit": "tsp",
-        "preparation": "$0.05",
         "category": "spices",
         "optional": false
       },
@@ -1296,7 +1266,6 @@
         "name": "garlic powder",
         "quantity": 0.25,
         "unit": "tsp",
-        "preparation": "$0.02",
         "category": "produce",
         "optional": false
       },
@@ -1304,7 +1273,6 @@
         "name": "16oz. jar salsa",
         "quantity": 1,
         "unit": "",
-        "preparation": "$2.37",
         "category": "condiments",
         "optional": false
       },
@@ -1312,7 +1280,6 @@
         "name": "shredded cheese*",
         "quantity": 6,
         "unit": "oz",
-        "preparation": "$1.27",
         "category": "dairy",
         "optional": false
       },
@@ -1320,7 +1287,6 @@
         "name": "green onions",
         "quantity": 1,
         "unit": "bunch",
-        "preparation": "$0.89",
         "category": "produce",
         "optional": false
       },
@@ -1328,7 +1294,6 @@
         "name": "jalape\u00f1o (optional)",
         "quantity": 1,
         "unit": "",
-        "preparation": "$0.15",
         "category": "other",
         "optional": false
       }
@@ -2608,19 +2573,19 @@
         "name": "light soy sauce (",
         "quantity": 1.5,
         "unit": "tbsp",
-        "preparation": "or all purpose soy(Note 3))",
+        "preparation": "or all purpose soy",
         "category": "pantry",
         "optional": false
       },
       {
-        "name": "Oyster Sauce ((Note 4))",
+        "name": "Oyster Sauce ",
         "quantity": 1,
         "unit": "tbsp",
         "category": "pantry",
         "optional": false
       },
       {
-        "name": "Chinese Cooking Wine (OR Mirin (Note 5))",
+        "name": "Chinese Cooking Wine (OR Mirin ",
         "quantity": 1,
         "unit": "tbsp",
         "category": "other",
@@ -2770,14 +2735,14 @@
         "optional": false
       },
       {
-        "name": "garam masala  ((Note 1))",
+        "name": "garam masala  ",
         "quantity": 2,
         "unit": "tsp",
         "category": "other",
         "optional": false
       },
       {
-        "name": "chilli powder or cayenne pepper powder  ((Note 2))",
+        "name": "chilli powder or cayenne pepper powder  ",
         "quantity": 0.5,
         "unit": "tsp",
         "category": "produce",
@@ -2818,19 +2783,19 @@
         "name": "(30 g)  ghee or butter",
         "quantity": 2,
         "unit": "tbsp",
-        "preparation": "( OR 1 tbsp vegetable oil  (Note 3))",
+        "preparation": "( OR 1 tbsp vegetable oil  ",
         "category": "dairy",
         "optional": false
       },
       {
-        "name": "tomato passata (aka tomato puree) ((Note 4))",
+        "name": "tomato passata (aka tomato puree) ",
         "quantity": 1,
         "unit": "cup",
         "category": "produce",
         "optional": false
       },
       {
-        "name": "heavy / thickened cream ((Note 5))",
+        "name": "heavy / thickened cream ",
         "quantity": 1,
         "unit": "cup",
         "category": "dairy",
@@ -2943,7 +2908,7 @@
         "optional": false
       },
       {
-        "name": "flour ((Note 1))",
+        "name": "flour ",
         "quantity": 0.25,
         "unit": "cup",
         "category": "pantry",
@@ -2975,7 +2940,7 @@
         "name": "soy sauce (",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "light or all purpose (Note 2))",
+        "preparation": "light or all purpose ",
         "category": "pantry",
         "optional": false
       },
@@ -3085,7 +3050,7 @@
         "name": "120g (4oz)  bacon (",
         "quantity": null,
         "unit": "",
-        "preparation": "excess fat trimmed, chopped (Note 1))",
+        "preparation": "excess fat trimmed, chopped ",
         "category": "protein/meat",
         "optional": false
       },
@@ -3115,7 +3080,7 @@
         "name": "(packed) cooked white rice (",
         "quantity": 2,
         "unit": "cups",
-        "preparation": "day old (Note 2))",
+        "preparation": "day old ",
         "category": "pantry",
         "optional": false
       },
@@ -3128,21 +3093,21 @@
         "optional": false
       },
       {
-        "name": "Chinese cooking wine or Mirin ((Note 3))",
+        "name": "Chinese cooking wine or Mirin ",
         "quantity": 2.5,
         "unit": "tbsp",
         "category": "other",
         "optional": false
       },
       {
-        "name": "oyster sauce ((Note 4))",
+        "name": "oyster sauce ",
         "quantity": 1,
         "unit": "tbsp",
         "category": "pantry",
         "optional": false
       },
       {
-        "name": "light soy sauce ((Note 5))",
+        "name": "light soy sauce ",
         "quantity": 3,
         "unit": "tbsp",
         "category": "pantry",
@@ -3319,7 +3284,7 @@
         "name": "Thai Red Curry Paste ((store bought",
         "quantity": 5.5,
         "unit": "tbsp",
-        "preparation": "Maesri best) (Note 1))",
+        "preparation": "Maesri best) ",
         "category": "other",
         "optional": false
       },
@@ -3347,7 +3312,7 @@
         "optional": false
       },
       {
-        "name": "lemongrass paste (or finely chopped fresh (Note 3))",
+        "name": "lemongrass paste (or finely chopped fresh ",
         "quantity": 1,
         "unit": "tbsp",
         "category": "produce",
@@ -3376,7 +3341,7 @@
         "optional": false
       },
       {
-        "name": "kaffir lime leaves ((Note 4))",
+        "name": "kaffir lime leaves ",
         "quantity": 6,
         "unit": "",
         "category": "produce",
@@ -3402,7 +3367,7 @@
         "name": "350g / 12 oz  chicken thighs ((boneless and skinless)",
         "quantity": null,
         "unit": "",
-        "preparation": "cut into 0.75 / 1/3\" thick slices (Note 5))",
+        "preparation": "cut into 0.75 / 1/3\" thick slices ",
         "category": "protein/meat",
         "optional": false
       },
@@ -3423,7 +3388,7 @@
         "optional": false
       },
       {
-        "name": "Thai basil leaves ((Note 6))",
+        "name": "Thai basil leaves ",
         "quantity": 12,
         "unit": "",
         "category": "produce",
@@ -3883,7 +3848,6 @@
         "name": "smoked paprika",
         "quantity": 2,
         "unit": "tsp",
-        "preparation": "$0.20",
         "category": "spices",
         "optional": false
       },
@@ -3891,7 +3855,6 @@
         "name": "oregano",
         "quantity": 1,
         "unit": "tsp",
-        "preparation": "$0.10",
         "category": "spices",
         "optional": false
       },
@@ -3899,7 +3862,6 @@
         "name": "thyme",
         "quantity": 1,
         "unit": "tsp",
-        "preparation": "$0.10",
         "category": "spices",
         "optional": false
       },
@@ -3907,7 +3869,6 @@
         "name": "garlic powder",
         "quantity": 0.5,
         "unit": "tsp",
-        "preparation": "$0.05",
         "category": "produce",
         "optional": false
       },
@@ -3915,7 +3876,6 @@
         "name": "onion powder",
         "quantity": 0.5,
         "unit": "tsp",
-        "preparation": "$0.05",
         "category": "produce",
         "optional": false
       },
@@ -3923,7 +3883,6 @@
         "name": "cayenne pepper",
         "quantity": 0.25,
         "unit": "tsp",
-        "preparation": "$0.03",
         "category": "produce",
         "optional": false
       },
@@ -3931,7 +3890,6 @@
         "name": "black pepper",
         "quantity": 0.25,
         "unit": "tsp",
-        "preparation": "$0.02",
         "category": "produce",
         "optional": false
       },
@@ -3939,7 +3897,6 @@
         "name": "salt",
         "quantity": 0.25,
         "unit": "tsp",
-        "preparation": "$0.02",
         "category": "spices",
         "optional": false
       },
@@ -3947,7 +3904,6 @@
         "name": "olive oil",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "$0.16",
         "category": "pantry",
         "optional": false
       },
@@ -3955,7 +3911,6 @@
         "name": "butter",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "$0.13",
         "category": "dairy",
         "optional": false
       },
@@ -3963,7 +3918,6 @@
         "name": "boneless, skinless chicken breast",
         "quantity": 1,
         "unit": "lb",
-        "preparation": "$5.47",
         "category": "protein/meat",
         "optional": false
       },
@@ -3971,7 +3925,6 @@
         "name": "yellow onion, diced",
         "quantity": 1,
         "unit": "",
-        "preparation": "$0.32",
         "category": "produce",
         "optional": false
       },
@@ -3979,7 +3932,6 @@
         "name": "penne pasta (uncooked)",
         "quantity": 0.5,
         "unit": "lb",
-        "preparation": "$0.75",
         "category": "pantry",
         "optional": false
       },
@@ -3987,7 +3939,6 @@
         "name": "fire roasted diced tomatoes",
         "quantity": 15,
         "unit": "oz",
-        "preparation": "$1.00",
         "category": "produce",
         "optional": false
       },
@@ -3995,7 +3946,6 @@
         "name": "chicken broth",
         "quantity": 2,
         "unit": "cups",
-        "preparation": "$0.26",
         "category": "protein/meat",
         "optional": false
       },
@@ -4003,7 +3953,6 @@
         "name": "cream cheese",
         "quantity": 2,
         "unit": "oz",
-        "preparation": "$0.50",
         "category": "dairy",
         "optional": false
       },
@@ -4011,7 +3960,6 @@
         "name": "green onions, sliced",
         "quantity": 3,
         "unit": "",
-        "preparation": "$0.25",
         "category": "produce",
         "optional": false
       }
@@ -4069,7 +4017,6 @@
         "name": "yellow onion",
         "quantity": 1,
         "unit": "",
-        "preparation": "$0.25",
         "category": "produce",
         "optional": false
       },
@@ -4077,7 +4024,6 @@
         "name": "olive oil",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "$0.16",
         "category": "pantry",
         "optional": false
       },
@@ -4085,7 +4031,6 @@
         "name": "ground beef",
         "quantity": 0.5,
         "unit": "lb",
-        "preparation": "$2.50",
         "category": "protein/meat",
         "optional": false
       },
@@ -4093,7 +4038,6 @@
         "name": "all-purpose flour",
         "quantity": 2,
         "unit": "tbsp",
-        "preparation": "$0.02",
         "category": "pantry",
         "optional": false
       },
@@ -4101,7 +4045,6 @@
         "name": "8oz. can tomato sauce",
         "quantity": 1,
         "unit": "",
-        "preparation": "$0.29",
         "category": "produce",
         "optional": false
       },
@@ -4109,7 +4052,6 @@
         "name": "beef broth",
         "quantity": 2,
         "unit": "cups",
-        "preparation": "$0.26",
         "category": "protein/meat",
         "optional": false
       },
@@ -4117,7 +4059,6 @@
         "name": "pasta shells, uncooked",
         "quantity": 0.5,
         "unit": "lb",
-        "preparation": "$0.50",
         "category": "pantry",
         "optional": false
       },
@@ -4125,7 +4066,6 @@
         "name": "cheddar cheese, shredded",
         "quantity": 4,
         "unit": "oz",
-        "preparation": "$0.75",
         "category": "dairy",
         "optional": false
       },
@@ -4133,7 +4073,6 @@
         "name": "hot dog relish",
         "quantity": 2,
         "unit": "tbsp",
-        "preparation": "$0.16",
         "category": "condiments",
         "optional": false
       },
@@ -4141,7 +4080,6 @@
         "name": "green onions, sliced (optional)",
         "quantity": 2,
         "unit": "",
-        "preparation": "$0.20",
         "category": "produce",
         "optional": false
       }
@@ -4204,7 +4142,6 @@
         "name": "yellow onion",
         "quantity": 1,
         "unit": "",
-        "preparation": "$0.32",
         "category": "produce",
         "optional": false
       },
@@ -4212,7 +4149,6 @@
         "name": "garlic",
         "quantity": 3,
         "unit": "cloves",
-        "preparation": "$0.24",
         "category": "produce",
         "optional": false
       },
@@ -4220,7 +4156,6 @@
         "name": "carrots (about 4 medium)",
         "quantity": 0.5,
         "unit": "lb",
-        "preparation": "$0.30",
         "category": "produce",
         "optional": false
       },
@@ -4228,7 +4163,6 @@
         "name": "ribs celery",
         "quantity": 4,
         "unit": "",
-        "preparation": "$0.43",
         "category": "produce",
         "optional": false
       },
@@ -4236,7 +4170,6 @@
         "name": "split chicken breasts* (2-2.5 lbs. total)",
         "quantity": 2,
         "unit": "",
-        "preparation": "$6.30",
         "category": "protein/meat",
         "optional": false
       },
@@ -4244,7 +4177,6 @@
         "name": "dried basil",
         "quantity": 1,
         "unit": "tsp",
-        "preparation": "$0.10",
         "category": "produce",
         "optional": false
       },
@@ -4252,7 +4184,6 @@
         "name": "dried parsley",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "$0.30",
         "category": "produce",
         "optional": false
       },
@@ -4260,7 +4191,6 @@
         "name": "dried thyme",
         "quantity": 0.5,
         "unit": "tsp",
-        "preparation": "$0.05",
         "category": "spices",
         "optional": false
       },
@@ -4268,7 +4198,6 @@
         "name": "bay leaf",
         "quantity": 1,
         "unit": "",
-        "preparation": "$0.15",
         "category": "other",
         "optional": false
       },
@@ -4276,7 +4205,6 @@
         "name": "freshly cracked black pepper",
         "quantity": 0.25,
         "unit": "tsp",
-        "preparation": "$0.05",
         "category": "produce",
         "optional": false
       },
@@ -4284,7 +4212,6 @@
         "name": "water",
         "quantity": 8,
         "unit": "cups",
-        "preparation": "$0.00",
         "category": "other",
         "optional": false
       },
@@ -4292,7 +4219,6 @@
         "name": "wide egg noodles",
         "quantity": 6,
         "unit": "oz",
-        "preparation": "$0.68",
         "category": "other",
         "optional": false
       },
@@ -4300,7 +4226,6 @@
         "name": "salt (or to taste)",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "$0.10",
         "category": "spices",
         "optional": false
       },
@@ -4308,7 +4233,6 @@
         "name": "chopped fresh parsley (optional)",
         "quantity": 0.25,
         "unit": "cup",
-        "preparation": "$0.20",
         "category": "produce",
         "optional": false
       }
@@ -4368,7 +4292,6 @@
         "name": "lo mein noodles",
         "quantity": 4,
         "unit": "oz",
-        "preparation": "$1.30",
         "category": "other",
         "optional": false
       },
@@ -4376,7 +4299,6 @@
         "name": "butter",
         "quantity": 2,
         "unit": "tbsp",
-        "preparation": "$0.20",
         "category": "dairy",
         "optional": false
       },
@@ -4384,7 +4306,6 @@
         "name": "crushed red pepper",
         "quantity": 0.25,
         "unit": "tsp",
-        "preparation": "$0.02",
         "category": "produce",
         "optional": false
       },
@@ -4392,7 +4313,6 @@
         "name": "eggs",
         "quantity": 2,
         "unit": "large",
-        "preparation": "$0.42",
         "category": "other",
         "optional": false
       },
@@ -4400,7 +4320,6 @@
         "name": "brown sugar",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "$0.08",
         "category": "pantry",
         "optional": false
       },
@@ -4408,7 +4327,6 @@
         "name": "soy sauce",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "$0.06",
         "category": "pantry",
         "optional": false
       },
@@ -4416,7 +4334,6 @@
         "name": "sriracha",
         "quantity": 2,
         "unit": "tbsp",
-        "preparation": "$0.22",
         "category": "condiments",
         "optional": false
       },
@@ -4424,7 +4341,7 @@
         "name": "handful fresh cilantro",
         "quantity": 1,
         "unit": "",
-        "preparation": "optional, $0.10",
+        "preparation": "optional",
         "category": "produce",
         "optional": false
       },
@@ -4432,7 +4349,6 @@
         "name": "green onion, sliced",
         "quantity": 1,
         "unit": "",
-        "preparation": "$0.10",
         "category": "produce",
         "optional": false
       }
@@ -4495,7 +4411,6 @@
         "name": "\u00bd lb penne pasta",
         "quantity": null,
         "unit": "",
-        "preparation": "$0.49",
         "category": "pantry",
         "optional": false
       },
@@ -4503,7 +4418,7 @@
         "name": "yellow onion",
         "quantity": 1,
         "unit": "",
-        "preparation": "small dice, 340g, 1.5 cups, $0.78",
+        "preparation": "small dice, 340g, 1.5 cups",
         "category": "produce",
         "optional": false
       },
@@ -4511,7 +4426,7 @@
         "name": "garlic",
         "quantity": 2,
         "unit": "cloves",
-        "preparation": "minced, 1 Tbsp, $0.12",
+        "preparation": "minced, 1 Tbsp",
         "category": "produce",
         "optional": false
       },
@@ -4519,7 +4434,6 @@
         "name": "olive oil",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "$0.18",
         "category": "pantry",
         "optional": false
       },
@@ -4527,7 +4441,7 @@
         "name": "diced tomatoes",
         "quantity": 14.5,
         "unit": "oz",
-        "preparation": "1 can, $0.96",
+        "preparation": "1 can",
         "category": "produce",
         "optional": false
       },
@@ -4535,7 +4449,6 @@
         "name": "\u00bd tsp dried oregano",
         "quantity": null,
         "unit": "",
-        "preparation": "$0.12",
         "category": "spices",
         "optional": false
       },
@@ -4543,7 +4456,6 @@
         "name": "\u00bd tsp dried basil",
         "quantity": null,
         "unit": "",
-        "preparation": "$0.13",
         "category": "produce",
         "optional": false
       },
@@ -4551,7 +4463,6 @@
         "name": "\u215b tsp crushed red pepper",
         "quantity": null,
         "unit": "",
-        "preparation": "$0.02",
         "category": "produce",
         "optional": false
       },
@@ -4559,7 +4470,6 @@
         "name": "\u00bd tsp salt",
         "quantity": null,
         "unit": "",
-        "preparation": "$0.02",
         "category": "spices",
         "optional": false
       },
@@ -4567,7 +4477,6 @@
         "name": "\u00bd tsp freshly cracked black pepper",
         "quantity": null,
         "unit": "",
-        "preparation": "$0.08",
         "category": "produce",
         "optional": false
       },
@@ -4575,7 +4484,6 @@
         "name": "tomato paste",
         "quantity": 2,
         "unit": "tbsp",
-        "preparation": "$0.14",
         "category": "produce",
         "optional": false
       },
@@ -4583,7 +4491,6 @@
         "name": "\u00bd cup water",
         "quantity": null,
         "unit": "",
-        "preparation": "$0.00",
         "category": "other",
         "optional": false
       },
@@ -4591,7 +4498,6 @@
         "name": "cream cheese",
         "quantity": 2,
         "unit": "oz",
-        "preparation": "$0.46",
         "category": "dairy",
         "optional": false
       },
@@ -4599,7 +4505,7 @@
         "name": "\u00bc cup grated Parmesan",
         "quantity": null,
         "unit": "",
-        "preparation": "30g, $0.51",
+        "preparation": "30g",
         "category": "dairy",
         "optional": false
       },
@@ -4607,7 +4513,6 @@
         "name": "fresh spinach",
         "quantity": 4,
         "unit": "oz",
-        "preparation": "$0.79",
         "category": "produce",
         "optional": false
       }
@@ -4660,7 +4565,6 @@
         "name": "vegetable broth",
         "quantity": 4,
         "unit": "cups",
-        "preparation": "$0.52",
         "category": "pantry",
         "optional": false
       },
@@ -4668,7 +4572,6 @@
         "name": "olive oil",
         "quantity": 2,
         "unit": "tbsp",
-        "preparation": "$0.22",
         "category": "pantry",
         "optional": false
       },
@@ -4676,7 +4579,6 @@
         "name": "fettuccine",
         "quantity": 12,
         "unit": "oz",
-        "preparation": "$0.75",
         "category": "other",
         "optional": false
       },
@@ -4684,7 +4586,6 @@
         "name": "frozen chopped spinach",
         "quantity": 8,
         "unit": "oz",
-        "preparation": "$0.72",
         "category": "produce",
         "optional": false
       },
@@ -4692,7 +4593,6 @@
         "name": "28oz. can diced tomatoes",
         "quantity": 1,
         "unit": "",
-        "preparation": "$1.68",
         "category": "produce",
         "optional": false
       },
@@ -4700,7 +4600,6 @@
         "name": "yellow onion, sliced",
         "quantity": 1,
         "unit": "",
-        "preparation": "$0.42",
         "category": "produce",
         "optional": false
       },
@@ -4708,7 +4607,6 @@
         "name": "garlic, sliced",
         "quantity": 4,
         "unit": "cloves",
-        "preparation": "$0.32",
         "category": "produce",
         "optional": false
       },
@@ -4716,7 +4614,6 @@
         "name": "dried basil",
         "quantity": 0.5,
         "unit": "tbsp",
-        "preparation": "$0.15",
         "category": "produce",
         "optional": false
       },
@@ -4724,7 +4621,6 @@
         "name": "dried oregano",
         "quantity": 0.5,
         "unit": "tbsp",
-        "preparation": "$0.15",
         "category": "spices",
         "optional": false
       },
@@ -4732,7 +4628,6 @@
         "name": "crushed red pepper",
         "quantity": 0.25,
         "unit": "tsp",
-        "preparation": "$0.03",
         "category": "produce",
         "optional": false
       },
@@ -4740,7 +4635,6 @@
         "name": "freshly cracked black pepper to taste",
         "quantity": null,
         "unit": "",
-        "preparation": "$0.05",
         "category": "produce",
         "optional": false
       },
@@ -4748,7 +4642,6 @@
         "name": "shaved Parmesan",
         "quantity": 2,
         "unit": "oz",
-        "preparation": "$1.25",
         "category": "dairy",
         "optional": false
       }
@@ -4809,7 +4702,6 @@
         "name": "red potatoes",
         "quantity": 2,
         "unit": "lbs",
-        "preparation": "$2.40",
         "category": "produce",
         "optional": false
       },
@@ -4817,7 +4709,6 @@
         "name": "yellow onion",
         "quantity": 1,
         "unit": "",
-        "preparation": "$0.37",
         "category": "produce",
         "optional": false
       },
@@ -4825,7 +4716,6 @@
         "name": "carrots",
         "quantity": 3,
         "unit": "",
-        "preparation": "$0.44",
         "category": "produce",
         "optional": false
       },
@@ -4833,7 +4723,6 @@
         "name": "celery",
         "quantity": 4,
         "unit": "stalks",
-        "preparation": "$0.44",
         "category": "produce",
         "optional": false
       },
@@ -4841,7 +4730,6 @@
         "name": "garlic",
         "quantity": 4,
         "unit": "cloves",
-        "preparation": "$0.32",
         "category": "produce",
         "optional": false
       },
@@ -4849,7 +4737,6 @@
         "name": "beef stew meat",
         "quantity": 1.5,
         "unit": "lbs",
-        "preparation": "$11.24",
         "category": "protein/meat",
         "optional": false
       },
@@ -4857,7 +4744,6 @@
         "name": "all-purpose flour",
         "quantity": 2,
         "unit": "tbsp",
-        "preparation": "$0.03",
         "category": "pantry",
         "optional": false
       },
@@ -4865,7 +4751,6 @@
         "name": "salt",
         "quantity": 0.25,
         "unit": "tsp",
-        "preparation": "$0.02",
         "category": "spices",
         "optional": false
       },
@@ -4873,7 +4758,6 @@
         "name": "Freshly cracked black pepper",
         "quantity": 0.25,
         "unit": "tsp",
-        "preparation": "$0.02",
         "category": "produce",
         "optional": false
       },
@@ -4881,7 +4765,6 @@
         "name": "cooking oil",
         "quantity": 2,
         "unit": "tbsp",
-        "preparation": "$0.08",
         "category": "pantry",
         "optional": false
       },
@@ -4889,7 +4772,6 @@
         "name": "beef broth",
         "quantity": 2,
         "unit": "cups",
-        "preparation": "$0.27",
         "category": "protein/meat",
         "optional": false
       },
@@ -4897,7 +4779,6 @@
         "name": "Dijon mustard",
         "quantity": 2,
         "unit": "tbsp",
-        "preparation": "$0.13",
         "category": "condiments",
         "optional": false
       },
@@ -4905,7 +4786,6 @@
         "name": "Worcestershire sauce",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "$0.06",
         "category": "pantry",
         "optional": false
       },
@@ -4913,7 +4793,6 @@
         "name": "soy sauce",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "$0.06",
         "category": "pantry",
         "optional": false
       },
@@ -4921,7 +4800,6 @@
         "name": "brown sugar",
         "quantity": 1.5,
         "unit": "tsp",
-        "preparation": "$0.02",
         "category": "pantry",
         "optional": false
       },
@@ -4929,7 +4807,6 @@
         "name": "dried rosemary",
         "quantity": 1.5,
         "unit": "tsp",
-        "preparation": "$0.15",
         "category": "spices",
         "optional": false
       },
@@ -4937,7 +4814,6 @@
         "name": "dried thyme",
         "quantity": 1.5,
         "unit": "tsp",
-        "preparation": "$0.15",
         "category": "spices",
         "optional": false
       }
@@ -4999,7 +4875,6 @@
         "name": "oyster sauce*",
         "quantity": 2,
         "unit": "tbsp",
-        "preparation": "$0.23",
         "category": "pantry",
         "optional": false
       },
@@ -5007,7 +4882,6 @@
         "name": "brown sugar**",
         "quantity": 2,
         "unit": "tbsp",
-        "preparation": "$0.06",
         "category": "pantry",
         "optional": false
       },
@@ -5015,7 +4889,6 @@
         "name": "soy sauce",
         "quantity": 2,
         "unit": "tsp",
-        "preparation": "$0.10",
         "category": "pantry",
         "optional": false
       },
@@ -5023,7 +4896,6 @@
         "name": "toasted sesame oil",
         "quantity": 1,
         "unit": "tsp",
-        "preparation": "$0.40",
         "category": "pantry",
         "optional": false
       },
@@ -5031,7 +4903,6 @@
         "name": "angel hair pasta***",
         "quantity": 8,
         "unit": "oz",
-        "preparation": "$0.54",
         "category": "pantry",
         "optional": false
       },
@@ -5039,7 +4910,6 @@
         "name": "garlic",
         "quantity": 4,
         "unit": "cloves",
-        "preparation": "$0.16",
         "category": "produce",
         "optional": false
       },
@@ -5047,7 +4917,6 @@
         "name": "green onions",
         "quantity": 0.5,
         "unit": "bunch",
-        "preparation": "$0.35",
         "category": "produce",
         "optional": false
       },
@@ -5055,7 +4924,6 @@
         "name": "butter",
         "quantity": 4,
         "unit": "tbsp",
-        "preparation": "$0.50",
         "category": "dairy",
         "optional": false
       }
@@ -5113,7 +4981,6 @@
         "name": "green cabbage",
         "quantity": 0.5,
         "unit": "head",
-        "preparation": "$0.41",
         "category": "produce",
         "optional": false
       },
@@ -5121,7 +4988,6 @@
         "name": "yellow onion",
         "quantity": 1,
         "unit": "",
-        "preparation": "$0.55",
         "category": "produce",
         "optional": false
       },
@@ -5129,7 +4995,6 @@
         "name": "carrots",
         "quantity": 2,
         "unit": "",
-        "preparation": "$0.25",
         "category": "produce",
         "optional": false
       },
@@ -5137,7 +5002,6 @@
         "name": "crown broccoli",
         "quantity": 1,
         "unit": "",
-        "preparation": "$0.70",
         "category": "produce",
         "optional": false
       },
@@ -5145,7 +5009,6 @@
         "name": "inch fresh ginger",
         "quantity": 1,
         "unit": "",
-        "preparation": "$0.52",
         "category": "other",
         "optional": false
       },
@@ -5153,7 +5016,6 @@
         "name": "chicken breast",
         "quantity": 1,
         "unit": "large",
-        "preparation": "$1.66",
         "category": "protein/meat",
         "optional": false
       },
@@ -5161,7 +5023,6 @@
         "name": "vegetable oil",
         "quantity": 2,
         "unit": "tbsp",
-        "preparation": "$0.08",
         "category": "pantry",
         "optional": false
       },
@@ -5169,7 +5030,7 @@
         "name": "3oz. packages ramen noodles",
         "quantity": 2,
         "unit": "",
-        "preparation": "seasoning packets discarded, $0.50",
+        "preparation": "seasoning packets discarded",
         "category": "other",
         "optional": false
       },
@@ -5177,7 +5038,6 @@
         "name": "sesame oil, optional",
         "quantity": 1,
         "unit": "tsp",
-        "preparation": "$0.19",
         "category": "pantry",
         "optional": false
       },
@@ -5185,7 +5045,6 @@
         "name": "soy sauce",
         "quantity": 0.25,
         "unit": "cup",
-        "preparation": "$0.24",
         "category": "pantry",
         "optional": false
       },
@@ -5193,7 +5052,6 @@
         "name": "worcestershire sauce",
         "quantity": 0.25,
         "unit": "cup",
-        "preparation": "$0.20",
         "category": "pantry",
         "optional": false
       },
@@ -5201,7 +5059,6 @@
         "name": "ketchup",
         "quantity": 2,
         "unit": "tbsp",
-        "preparation": "$0.05",
         "category": "condiments",
         "optional": false
       },
@@ -5209,7 +5066,6 @@
         "name": "sriracha",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "$0.26",
         "category": "condiments",
         "optional": false
       },
@@ -5217,7 +5073,6 @@
         "name": "sugar",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "$0.02",
         "category": "pantry",
         "optional": false
       }
@@ -5278,7 +5133,6 @@
         "name": "boneless, skinless chicken breast (about 2/3 lb.)",
         "quantity": 1,
         "unit": "",
-        "preparation": "$2.81",
         "category": "protein/meat",
         "optional": false
       },
@@ -5286,7 +5140,6 @@
         "name": "cooking oil",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "$0.04",
         "category": "pantry",
         "optional": false
       },
@@ -5294,7 +5147,6 @@
         "name": "garlic, minced",
         "quantity": 2,
         "unit": "cloves",
-        "preparation": "$0.16",
         "category": "produce",
         "optional": false
       },
@@ -5302,7 +5154,6 @@
         "name": "grated fresh ginger",
         "quantity": 1,
         "unit": "tsp",
-        "preparation": "$0.10",
         "category": "other",
         "optional": false
       },
@@ -5310,7 +5161,6 @@
         "name": "uncooked jasmine rice",
         "quantity": 1.5,
         "unit": "cups",
-        "preparation": "$0.99",
         "category": "pantry",
         "optional": false
       },
@@ -5318,7 +5168,6 @@
         "name": "water",
         "quantity": 2.5,
         "unit": "cups",
-        "preparation": "$0.00",
         "category": "other",
         "optional": false
       },
@@ -5326,7 +5175,6 @@
         "name": "frozen stir fry vegetables",
         "quantity": 12,
         "unit": "oz",
-        "preparation": "$1.59",
         "category": "other",
         "optional": false
       },
@@ -5334,7 +5182,6 @@
         "name": "soy sauce",
         "quantity": 0.25,
         "unit": "cup",
-        "preparation": "$0.24",
         "category": "pantry",
         "optional": false
       },
@@ -5342,7 +5189,6 @@
         "name": "brown sugar",
         "quantity": 2,
         "unit": "tbsp",
-        "preparation": "$0.08",
         "category": "pantry",
         "optional": false
       },
@@ -5350,7 +5196,6 @@
         "name": "toasted sesame oil",
         "quantity": 1,
         "unit": "tsp",
-        "preparation": "$0.10",
         "category": "pantry",
         "optional": false
       },
@@ -5358,7 +5203,6 @@
         "name": "green onions, sliced",
         "quantity": 2,
         "unit": "",
-        "preparation": "$0.15",
         "category": "produce",
         "optional": false
       }
@@ -6768,7 +6612,7 @@
     "cuisine": "Russian",
     "ingredients": [
       {
-        "name": "g / 1.2 lb   scotch fillet steak / boneless rib eye ((Note 1))",
+        "name": "g / 1.2 lb   scotch fillet steak / boneless rib eye ",
         "quantity": 600,
         "unit": "",
         "category": "protein/meat",
@@ -6806,7 +6650,7 @@
         "optional": false
       },
       {
-        "name": "flour ((Note 2))",
+        "name": "flour ",
         "quantity": 2,
         "unit": "tbsp",
         "category": "pantry",
@@ -6842,7 +6686,7 @@
         "optional": false
       },
       {
-        "name": "g / 8 - 10 oz   pasta or egg noodles of choice ((Note 3))",
+        "name": "g / 8 - 10 oz   pasta or egg noodles of choice ",
         "quantity": 275,
         "unit": "",
         "category": "pantry",
@@ -6913,7 +6757,7 @@
     "cuisine": "Western",
     "ingredients": [
       {
-        "name": "chicken drumsticks ((Note 1))",
+        "name": "chicken drumsticks ",
         "quantity": 12,
         "unit": "",
         "category": "protein/meat",
@@ -6979,7 +6823,7 @@
         "name": "baking powder ((makes them crispier",
         "quantity": 3,
         "unit": "tsp",
-        "preparation": "DO NOT confuse with baking soda / bi-carb) (Note 3))",
+        "preparation": "DO NOT confuse with baking soda / bi-carb) ",
         "category": "other",
         "optional": false
       }
@@ -8007,7 +7851,6 @@
         "name": "soy sauce",
         "quantity": 2,
         "unit": "tbsp",
-        "preparation": "$0.18",
         "category": "pantry",
         "optional": false
       },
@@ -8015,7 +7858,6 @@
         "name": "toasted sesame oil*",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "$0.33",
         "category": "pantry",
         "optional": false
       },
@@ -8023,7 +7865,6 @@
         "name": "sriracha**",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "$0.05",
         "category": "condiments",
         "optional": false
       },
@@ -8031,7 +7872,6 @@
         "name": "brown sugar",
         "quantity": 0.5,
         "unit": "tbsp",
-        "preparation": "$0.02",
         "category": "pantry",
         "optional": false
       },
@@ -8039,7 +7879,6 @@
         "name": "green cabbage",
         "quantity": 0.5,
         "unit": "head",
-        "preparation": "$1.78",
         "category": "produce",
         "optional": false
       },
@@ -8047,7 +7886,6 @@
         "name": "carrots",
         "quantity": 2,
         "unit": "",
-        "preparation": "$0.22",
         "category": "produce",
         "optional": false
       },
@@ -8055,7 +7893,6 @@
         "name": "green onions",
         "quantity": 3,
         "unit": "",
-        "preparation": "$0.17",
         "category": "produce",
         "optional": false
       },
@@ -8063,7 +7900,6 @@
         "name": "neutral cooking oil",
         "quantity": 0.5,
         "unit": "tbsp",
-        "preparation": "$0.02",
         "category": "pantry",
         "optional": false
       },
@@ -8071,7 +7907,6 @@
         "name": "lean ground beef***",
         "quantity": 0.5,
         "unit": "lb",
-        "preparation": "$3.90",
         "category": "protein/meat",
         "optional": false
       },
@@ -8079,7 +7914,6 @@
         "name": "garlic",
         "quantity": 2,
         "unit": "cloves",
-        "preparation": "$0.16",
         "category": "produce",
         "optional": false
       },
@@ -8087,7 +7921,6 @@
         "name": "fresh grated ginger",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "$0.13",
         "category": "other",
         "optional": false
       },
@@ -8095,7 +7928,6 @@
         "name": "Pinch of salt and pepper",
         "quantity": null,
         "unit": "",
-        "preparation": "$0.05",
         "category": "produce",
         "optional": false
       },
@@ -8103,7 +7935,6 @@
         "name": "sesame seeds",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "$0.08",
         "category": "other",
         "optional": false
       },
@@ -8111,7 +7942,6 @@
         "name": "sriracha",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "$0.05",
         "category": "condiments",
         "optional": false
       }
@@ -8168,7 +7998,6 @@
         "name": "olive oil",
         "quantity": 0.25,
         "unit": "cup",
-        "preparation": "$0.88",
         "category": "pantry",
         "optional": false
       },
@@ -8176,7 +8005,6 @@
         "name": "red wine vinegar",
         "quantity": 2,
         "unit": "tbsp",
-        "preparation": "$0.20",
         "category": "pantry",
         "optional": false
       },
@@ -8184,7 +8012,6 @@
         "name": "lemon juice",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "$0.06",
         "category": "produce",
         "optional": false
       },
@@ -8192,7 +8019,6 @@
         "name": "dried oregano",
         "quantity": 1,
         "unit": "tsp",
-        "preparation": "$0.10",
         "category": "spices",
         "optional": false
       },
@@ -8200,7 +8026,6 @@
         "name": "salt",
         "quantity": 0.5,
         "unit": "tsp",
-        "preparation": "$0.02",
         "category": "spices",
         "optional": false
       },
@@ -8208,7 +8033,7 @@
         "name": "black pepper",
         "quantity": 0.25,
         "unit": "tsp",
-        "preparation": "freshly cracked, $0.02",
+        "preparation": "freshly cracked",
         "category": "produce",
         "optional": false
       },
@@ -8216,7 +8041,6 @@
         "name": "cucumber",
         "quantity": 1,
         "unit": "",
-        "preparation": "$1.29*",
         "category": "produce",
         "optional": false
       },
@@ -8224,7 +8048,6 @@
         "name": "grape tomatoes",
         "quantity": 1,
         "unit": "pint",
-        "preparation": "$2.48*",
         "category": "produce",
         "optional": false
       },
@@ -8232,7 +8055,6 @@
         "name": "red onion",
         "quantity": 0.5,
         "unit": "",
-        "preparation": "$0.49",
         "category": "produce",
         "optional": false
       },
@@ -8240,7 +8062,7 @@
         "name": "fresh parsley (chopped",
         "quantity": 0.25,
         "unit": "bunch",
-        "preparation": "(about \u00bd cup) $0.35)",
+        "preparation": "(about \u00bd cup",
         "category": "produce",
         "optional": false
       },
@@ -8248,7 +8070,6 @@
         "name": "can cannellini beans",
         "quantity": 1,
         "unit": "oz",
-        "preparation": "$0.94",
         "category": "pantry",
         "optional": false
       },
@@ -8256,7 +8077,6 @@
         "name": "can chunk light tuna",
         "quantity": 1,
         "unit": "oz",
-        "preparation": "$2.50**",
         "category": "protein/seafood",
         "optional": false
       },
@@ -8264,7 +8084,6 @@
         "name": "feta cheese",
         "quantity": 2,
         "unit": "oz",
-        "preparation": "$1.42",
         "category": "dairy",
         "optional": false
       }
@@ -8327,7 +8146,6 @@
         "name": "chili powder",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "$0.30",
         "category": "spices",
         "optional": false
       },
@@ -8335,7 +8153,6 @@
         "name": "paprika",
         "quantity": 0.5,
         "unit": "tbsp",
-        "preparation": "$0.15",
         "category": "spices",
         "optional": false
       },
@@ -8343,7 +8160,6 @@
         "name": "onion powder",
         "quantity": 0.5,
         "unit": "tsp",
-        "preparation": "$0.05",
         "category": "produce",
         "optional": false
       },
@@ -8351,7 +8167,6 @@
         "name": "garlic powder",
         "quantity": 0.25,
         "unit": "tsp",
-        "preparation": "$0.05",
         "category": "produce",
         "optional": false
       },
@@ -8359,7 +8174,6 @@
         "name": "cumin",
         "quantity": 0.25,
         "unit": "tsp",
-        "preparation": "$0.03",
         "category": "spices",
         "optional": false
       },
@@ -8367,7 +8181,6 @@
         "name": "cayenne pepper",
         "quantity": 0.125,
         "unit": "tsp",
-        "preparation": "$0.02",
         "category": "produce",
         "optional": false
       },
@@ -8375,7 +8188,6 @@
         "name": "sugar",
         "quantity": 1,
         "unit": "tsp",
-        "preparation": "$0.02",
         "category": "pantry",
         "optional": false
       },
@@ -8383,7 +8195,6 @@
         "name": "salt",
         "quantity": 0.5,
         "unit": "tsp",
-        "preparation": "$0.02",
         "category": "spices",
         "optional": false
       },
@@ -8391,7 +8202,7 @@
         "name": "yellow onions",
         "quantity": 2,
         "unit": "small",
-        "preparation": "or one large, $1.40",
+        "preparation": "or one large",
         "category": "produce",
         "optional": false
       },
@@ -8399,7 +8210,6 @@
         "name": "bell peppers, any color",
         "quantity": 3,
         "unit": "",
-        "preparation": "$2.58",
         "category": "produce",
         "optional": false
       },
@@ -8407,7 +8217,6 @@
         "name": "chicken breast",
         "quantity": 1,
         "unit": "lb",
-        "preparation": "$2.67",
         "category": "protein/meat",
         "optional": false
       },
@@ -8415,7 +8224,6 @@
         "name": "cooking oil",
         "quantity": 2,
         "unit": "tbsp",
-        "preparation": "$0.08",
         "category": "pantry",
         "optional": false
       },
@@ -8423,7 +8231,6 @@
         "name": "lime",
         "quantity": 1,
         "unit": "",
-        "preparation": "$0.25",
         "category": "produce",
         "optional": false
       },
@@ -8431,7 +8238,6 @@
         "name": "6-inch tortillas",
         "quantity": 8,
         "unit": "",
-        "preparation": "$1.58",
         "category": "bakery",
         "optional": false
       },
@@ -8439,7 +8245,7 @@
         "name": "sour cream",
         "quantity": 0.5,
         "unit": "cup",
-        "preparation": "optional, $0.49",
+        "preparation": "optional",
         "category": "dairy",
         "optional": false
       },
@@ -8447,7 +8253,7 @@
         "name": "cilantro",
         "quantity": 0.25,
         "unit": "bunch",
-        "preparation": "optional, $0.50",
+        "preparation": "optional",
         "category": "produce",
         "optional": false
       }
@@ -8500,7 +8306,6 @@
         "name": "uncooked long grain white rice",
         "quantity": 1,
         "unit": "cup",
-        "preparation": "$0.33",
         "category": "pantry",
         "optional": false
       },
@@ -8508,7 +8313,6 @@
         "name": "salsa",
         "quantity": 1,
         "unit": "cup",
-        "preparation": "$0.65",
         "category": "condiments",
         "optional": false
       },
@@ -8516,7 +8320,7 @@
         "name": "shredded chicken",
         "quantity": 1.75,
         "unit": "cups",
-        "preparation": "precooked, $3.50",
+        "preparation": "precooked",
         "category": "protein/meat",
         "optional": false
       },
@@ -8524,7 +8328,6 @@
         "name": "15oz. can black beans",
         "quantity": 1,
         "unit": "",
-        "preparation": "$0.49",
         "category": "pantry",
         "optional": false
       },
@@ -8532,7 +8335,6 @@
         "name": "chili powder",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "$0.30",
         "category": "spices",
         "optional": false
       },
@@ -8540,7 +8342,6 @@
         "name": "chicken broth",
         "quantity": 1.75,
         "unit": "cups",
-        "preparation": "$0.23",
         "category": "protein/meat",
         "optional": false
       },
@@ -8548,7 +8349,6 @@
         "name": "shredded cheese",
         "quantity": 1,
         "unit": "cup",
-        "preparation": "$1.00",
         "category": "dairy",
         "optional": false
       },
@@ -8556,7 +8356,7 @@
         "name": "green onions",
         "quantity": 2.5,
         "unit": "",
-        "preparation": "sliced, $0.26",
+        "preparation": "sliced",
         "category": "produce",
         "optional": false
       }
@@ -8618,7 +8418,6 @@
         "name": "olive oil",
         "quantity": 0.5,
         "unit": "cup",
-        "preparation": "$0.84",
         "category": "pantry",
         "optional": false
       },
@@ -8626,7 +8425,6 @@
         "name": "red wine vinegar",
         "quantity": 0.25,
         "unit": "cup",
-        "preparation": "$0.40",
         "category": "pantry",
         "optional": false
       },
@@ -8634,7 +8432,6 @@
         "name": "Dijon mustard",
         "quantity": 1,
         "unit": "tsp",
-        "preparation": "$0.06",
         "category": "condiments",
         "optional": false
       },
@@ -8642,7 +8439,6 @@
         "name": "garlic powder",
         "quantity": 0.25,
         "unit": "tsp",
-        "preparation": "$0.02",
         "category": "produce",
         "optional": false
       },
@@ -8650,7 +8446,6 @@
         "name": "Italian seasoning",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "$0.30",
         "category": "other",
         "optional": false
       },
@@ -8658,7 +8453,6 @@
         "name": "salt",
         "quantity": 0.5,
         "unit": "tsp",
-        "preparation": "$0.02",
         "category": "spices",
         "optional": false
       },
@@ -8666,7 +8460,6 @@
         "name": "pepper",
         "quantity": 0.25,
         "unit": "tsp",
-        "preparation": "$0.02",
         "category": "produce",
         "optional": false
       },
@@ -8674,7 +8467,6 @@
         "name": "grated Parmesan",
         "quantity": 2,
         "unit": "tbsp",
-        "preparation": "$0.22",
         "category": "dairy",
         "optional": false
       },
@@ -8682,7 +8474,6 @@
         "name": "rotini pasta",
         "quantity": 1,
         "unit": "lb",
-        "preparation": "$1.00",
         "category": "pantry",
         "optional": false
       },
@@ -8690,7 +8481,6 @@
         "name": "pepperoni",
         "quantity": 3,
         "unit": "oz",
-        "preparation": "$1.25",
         "category": "produce",
         "optional": false
       },
@@ -8698,7 +8488,6 @@
         "name": "mozzarella",
         "quantity": 4,
         "unit": "oz",
-        "preparation": "$1.15",
         "category": "dairy",
         "optional": false
       },
@@ -8706,7 +8495,6 @@
         "name": "green bell pepper",
         "quantity": 1,
         "unit": "",
-        "preparation": "$0.89",
         "category": "produce",
         "optional": false
       },
@@ -8714,7 +8502,6 @@
         "name": "red onion",
         "quantity": 0.25,
         "unit": "cup",
-        "preparation": "$0.11",
         "category": "produce",
         "optional": false
       },
@@ -8722,7 +8509,6 @@
         "name": "12oz. jar banana pepper rings",
         "quantity": 0.5,
         "unit": "",
-        "preparation": "$1.00",
         "category": "produce",
         "optional": false
       },
@@ -8730,7 +8516,6 @@
         "name": "4oz. can sliced black olives",
         "quantity": 0.5,
         "unit": "",
-        "preparation": "$0.70",
         "category": "other",
         "optional": false
       }
@@ -8783,7 +8568,7 @@
         "name": "chicken breast",
         "quantity": 1,
         "unit": "large",
-        "preparation": "about 3/4 lb., $1.49*",
+        "preparation": "about 3/4 lb.",
         "category": "protein/meat",
         "optional": false
       },
@@ -8791,7 +8576,6 @@
         "name": "celery",
         "quantity": 2,
         "unit": "stalks",
-        "preparation": "$0.32",
         "category": "produce",
         "optional": false
       },
@@ -8799,7 +8583,6 @@
         "name": "dried cranberries",
         "quantity": 0.25,
         "unit": "cup",
-        "preparation": "$0.28",
         "category": "other",
         "optional": false
       },
@@ -8807,7 +8590,6 @@
         "name": "mayonnaise",
         "quantity": 0.25,
         "unit": "cup",
-        "preparation": "$0.33",
         "category": "condiments",
         "optional": false
       },
@@ -8815,7 +8597,6 @@
         "name": "honey",
         "quantity": 1.5,
         "unit": "tbsp",
-        "preparation": "$0.17",
         "category": "pantry",
         "optional": false
       },
@@ -8823,7 +8604,6 @@
         "name": "dijon mustard",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "$0.06",
         "category": "condiments",
         "optional": false
       },
@@ -8831,7 +8611,6 @@
         "name": "apple cider vinegar",
         "quantity": 0.5,
         "unit": "tsp",
-        "preparation": "$0.01",
         "category": "produce",
         "optional": false
       },
@@ -8839,7 +8618,6 @@
         "name": "salt",
         "quantity": 0.25,
         "unit": "tsp",
-        "preparation": "$0.02",
         "category": "spices",
         "optional": false
       },
@@ -8847,7 +8625,6 @@
         "name": "garlic powder",
         "quantity": 0.125,
         "unit": "tsp",
-        "preparation": "$0.02",
         "category": "produce",
         "optional": false
       },
@@ -8855,7 +8632,6 @@
         "name": "paprika",
         "quantity": 0.125,
         "unit": "tsp",
-        "preparation": "$0.02",
         "category": "spices",
         "optional": false
       }
@@ -8950,12 +8726,12 @@
         "name": "40g / 3 tbsp  unsalted butter (",
         "quantity": null,
         "unit": "",
-        "preparation": "cut into 1.5cm / 1/2\" cubes (Note 2))",
+        "preparation": "cut into 1.5cm / 1/2\" cubes ",
         "category": "dairy",
         "optional": false
       },
       {
-        "name": "chardonnay or other dry white wine ((Note 3))",
+        "name": "chardonnay or other dry white wine ",
         "quantity": 0.25,
         "unit": "cup",
         "category": "other",
@@ -9996,7 +9772,6 @@
         "name": "sour cream",
         "quantity": 4,
         "unit": "oz",
-        "preparation": "$0.49",
         "category": "dairy",
         "optional": false
       },
@@ -10004,7 +9779,7 @@
         "name": "limes",
         "quantity": 2,
         "unit": "",
-        "preparation": "juiced and zested, $0.50",
+        "preparation": "juiced and zested",
         "category": "produce",
         "optional": false
       },
@@ -10012,7 +9787,7 @@
         "name": "garlic clove",
         "quantity": 1,
         "unit": "",
-        "preparation": "minced, $0.08",
+        "preparation": "minced",
         "category": "produce",
         "optional": false
       },
@@ -10020,7 +9795,6 @@
         "name": "\u00bc tsp salt",
         "quantity": null,
         "unit": "",
-        "preparation": "$0.01",
         "category": "spices",
         "optional": false
       },
@@ -10028,7 +9802,6 @@
         "name": "\u00bc tsp chili powder",
         "quantity": null,
         "unit": "",
-        "preparation": "$0.03",
         "category": "spices",
         "optional": false
       },
@@ -10036,7 +9809,6 @@
         "name": "\u00bd tsp granulated sugar",
         "quantity": null,
         "unit": "",
-        "preparation": "$0.01",
         "category": "pantry",
         "optional": false
       },
@@ -10044,7 +9816,6 @@
         "name": "olive oil",
         "quantity": 4,
         "unit": "tbsp",
-        "preparation": "$0.88",
         "category": "pantry",
         "optional": false
       },
@@ -10052,7 +9823,6 @@
         "name": "lean ground beef",
         "quantity": 1,
         "unit": "lb",
-        "preparation": "$4.98*",
         "category": "protein/meat",
         "optional": false
       },
@@ -10060,7 +9830,6 @@
         "name": "packet taco seasoning",
         "quantity": 1,
         "unit": "oz",
-        "preparation": "$0.54**",
         "category": "other",
         "optional": false
       },
@@ -10068,7 +9837,7 @@
         "name": "\u00bd  red onion",
         "quantity": null,
         "unit": "",
-        "preparation": "julienned, $0.37",
+        "preparation": "julienned",
         "category": "produce",
         "optional": false
       },
@@ -10076,7 +9845,6 @@
         "name": "roma tomatoes",
         "quantity": 2,
         "unit": "",
-        "preparation": "$0.56",
         "category": "produce",
         "optional": false
       },
@@ -10084,7 +9852,6 @@
         "name": "corn kernels",
         "quantity": 1,
         "unit": "cup",
-        "preparation": "$0.42",
         "category": "produce",
         "optional": false
       },
@@ -10092,7 +9859,7 @@
         "name": "can black beans",
         "quantity": 15,
         "unit": "oz",
-        "preparation": "drained and rinsed, $0.89",
+        "preparation": "drained and rinsed",
         "category": "pantry",
         "optional": false
       },
@@ -10100,7 +9867,7 @@
         "name": "avocado",
         "quantity": 1,
         "unit": "",
-        "preparation": "diced, $0.99",
+        "preparation": "diced",
         "category": "produce",
         "optional": false
       },
@@ -10108,7 +9875,7 @@
         "name": "tortilla chips",
         "quantity": 1,
         "unit": "cup",
-        "preparation": "crushed, $1.44",
+        "preparation": "crushed",
         "category": "bakery",
         "optional": false
       },
@@ -10116,7 +9883,7 @@
         "name": "cheddar cheese (shredded",
         "quantity": 1,
         "unit": "cup",
-        "preparation": "(about 1/2 of an 8-oz. block) $1.25)",
+        "preparation": "(about 1/2 of an 8-oz. block",
         "category": "dairy",
         "optional": false
       },
@@ -10124,7 +9891,7 @@
         "name": "jalape\u00f1o",
         "quantity": 1,
         "unit": "",
-        "preparation": "sliced into thin rings, $0.30",
+        "preparation": "sliced into thin rings",
         "category": "other",
         "optional": false
       },
@@ -10132,7 +9899,7 @@
         "name": "iceberg lettuce",
         "quantity": 1,
         "unit": "head",
-        "preparation": "chopped into bite-sized pieces, $1.79",
+        "preparation": "chopped into bite-sized pieces",
         "category": "produce",
         "optional": false
       }
@@ -10197,7 +9964,6 @@
         "name": "garlic",
         "quantity": 2,
         "unit": "cloves",
-        "preparation": "$0.16",
         "category": "produce",
         "optional": false
       },
@@ -10205,7 +9971,6 @@
         "name": "butter",
         "quantity": 2,
         "unit": "tbsp",
-        "preparation": "$0.22",
         "category": "dairy",
         "optional": false
       },
@@ -10213,7 +9978,6 @@
         "name": "\u00bd lb. ground beef",
         "quantity": null,
         "unit": "",
-        "preparation": "$2.50*",
         "category": "protein/meat",
         "optional": false
       },
@@ -10221,7 +9985,6 @@
         "name": "mushrooms",
         "quantity": 8,
         "unit": "oz",
-        "preparation": "$1.49",
         "category": "produce",
         "optional": false
       },
@@ -10229,7 +9992,7 @@
         "name": "\u215b tsp black pepper",
         "quantity": null,
         "unit": "",
-        "preparation": "freshly cracked, $0.01",
+        "preparation": "freshly cracked",
         "category": "produce",
         "optional": false
       },
@@ -10237,7 +10000,6 @@
         "name": "beef broth",
         "quantity": 2,
         "unit": "cups",
-        "preparation": "$0.26**",
         "category": "protein/meat",
         "optional": false
       },
@@ -10245,7 +10007,6 @@
         "name": "Worcestershire sauce",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "$0.03",
         "category": "pantry",
         "optional": false
       },
@@ -10253,7 +10014,6 @@
         "name": "\u00bd tsp Dijon mustard",
         "quantity": null,
         "unit": "",
-        "preparation": "$0.02",
         "category": "condiments",
         "optional": false
       },
@@ -10261,7 +10021,6 @@
         "name": "wide egg noodles",
         "quantity": 8,
         "unit": "oz",
-        "preparation": "$0.60",
         "category": "other",
         "optional": false
       },
@@ -10269,7 +10028,6 @@
         "name": "\u2153 cup sour cream",
         "quantity": null,
         "unit": "",
-        "preparation": "$0.15***",
         "category": "dairy",
         "optional": false
       },
@@ -10277,7 +10035,6 @@
         "name": "parsley (chopped (optional)",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "$0.10)",
         "category": "produce",
         "optional": false
       }
@@ -10338,7 +10095,6 @@
         "name": "15oz.can black beans",
         "quantity": 1,
         "unit": "",
-        "preparation": "$0.94",
         "category": "pantry",
         "optional": false
       },
@@ -10346,7 +10102,6 @@
         "name": "frozen corn",
         "quantity": 1,
         "unit": "cup",
-        "preparation": "$0.78",
         "category": "produce",
         "optional": false
       },
@@ -10354,7 +10109,6 @@
         "name": "red onion",
         "quantity": 0.5,
         "unit": "cup",
-        "preparation": "$0.15",
         "category": "produce",
         "optional": false
       },
@@ -10362,7 +10116,6 @@
         "name": "garlic",
         "quantity": 1,
         "unit": "clove",
-        "preparation": "$0.04",
         "category": "produce",
         "optional": false
       },
@@ -10370,7 +10123,7 @@
         "name": "fresh cilantro",
         "quantity": 0.25,
         "unit": "bunch",
-        "preparation": "about \u00bd cup chopped, $0.20",
+        "preparation": "about \u00bd cup chopped",
         "category": "produce",
         "optional": false
       },
@@ -10378,7 +10131,6 @@
         "name": "shredded cheddar cheese",
         "quantity": 2,
         "unit": "cups",
-        "preparation": "$1.97",
         "category": "dairy",
         "optional": false
       },
@@ -10386,7 +10138,7 @@
         "name": "batch taco seasoning",
         "quantity": 1,
         "unit": "",
-        "preparation": "see notes, $0.67",
+        "preparation": "see notes",
         "category": "other",
         "optional": false
       },
@@ -10394,7 +10146,6 @@
         "name": "flour tortillas (7-inch diameter)",
         "quantity": 10,
         "unit": "",
-        "preparation": "$1.98",
         "category": "pantry",
         "optional": false
       }
@@ -10456,7 +10207,6 @@
         "name": "\u00bd lb. ground beef",
         "quantity": null,
         "unit": "",
-        "preparation": "$3.16",
         "category": "protein/meat",
         "optional": false
       },
@@ -10464,7 +10214,6 @@
         "name": "olive oil",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "$0.19",
         "category": "pantry",
         "optional": false
       },
@@ -10472,7 +10221,6 @@
         "name": "onion",
         "quantity": 1,
         "unit": "small",
-        "preparation": "$0.39",
         "category": "produce",
         "optional": false
       },
@@ -10480,7 +10228,6 @@
         "name": "butter",
         "quantity": 2,
         "unit": "tbsp",
-        "preparation": "$0.24",
         "category": "dairy",
         "optional": false
       },
@@ -10488,7 +10235,7 @@
         "name": "can crushed tomatoes",
         "quantity": 28,
         "unit": "oz",
-        "preparation": "1 can, $1.52",
+        "preparation": "1 can",
         "category": "produce",
         "optional": false
       },
@@ -10496,7 +10243,6 @@
         "name": "\u00bd tsp Italian seasoning blend",
         "quantity": null,
         "unit": "",
-        "preparation": "$0.05",
         "category": "other",
         "optional": false
       },
@@ -10504,7 +10250,7 @@
         "name": "black pepper",
         "quantity": null,
         "unit": "",
-        "preparation": "freshly cracked, $0.05",
+        "preparation": "freshly cracked",
         "category": "produce",
         "optional": false
       },
@@ -10512,7 +10258,7 @@
         "name": "salt",
         "quantity": null,
         "unit": "",
-        "preparation": "to taste, $0.02",
+        "preparation": "to taste",
         "category": "spices",
         "optional": false
       }
@@ -10631,7 +10377,7 @@
         "name": "beef bouillon cubes (",
         "quantity": 2,
         "unit": "",
-        "preparation": "crumbled (Note 1))",
+        "preparation": "crumbled ",
         "category": "protein/meat",
         "optional": false
       },
@@ -10650,7 +10396,7 @@
         "optional": false
       },
       {
-        "name": "cayenne pepper  ((adjust to taste) (Note 2))",
+        "name": "cayenne pepper  ((adjust to taste) ",
         "quantity": 1.5,
         "unit": "tsp",
         "category": "produce",
@@ -10860,7 +10606,7 @@
         "optional": false
       },
       {
-        "name": "EACH dried oregano",
+        "name": "dried oregano",
         "quantity": 0.5,
         "unit": "tsp",
         "preparation": "cumin, paprika",
@@ -10985,7 +10731,7 @@
     ],
     "ingredients": [
       {
-        "name": "to 12  crispy taco shells ((\"stand and stuff) OR soft tortillas of choice (Note 1))",
+        "name": "to 12  crispy taco shells ((\"stand and stuff) OR soft tortillas of choice ",
         "quantity": 10,
         "unit": "",
         "category": "bakery",
@@ -11018,7 +10764,7 @@
         "name": "g / 1 lb   beef (",
         "quantity": 500,
         "unit": "",
-        "preparation": "ground / mince (Note 2))",
+        "preparation": "ground / mince ",
         "category": "protein/meat",
         "optional": false
       },
@@ -11037,7 +10783,7 @@
         "optional": false
       },
       {
-        "name": "EACH garlic powder",
+        "name": "garlic powder",
         "quantity": 1,
         "unit": "tsp",
         "preparation": "onion powder, dried oregano",
@@ -11045,7 +10791,7 @@
         "optional": false
       },
       {
-        "name": "EACH cumin powder",
+        "name": "cumin powder",
         "quantity": 2,
         "unit": "tsp",
         "preparation": "paprika",
@@ -11075,7 +10821,7 @@
         "optional": false
       },
       {
-        "name": "Shredded cheese ((Note 3))",
+        "name": "Shredded cheese ",
         "quantity": null,
         "unit": "",
         "category": "dairy",
