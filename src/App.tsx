@@ -806,8 +806,8 @@ function App() {
     }
   };
 
-  const handleAssign = (recipe: Recipe, dayIndex: number): void => {
-    assignRecipeToDay(dayIndex, recipe);
+  const handleAssign = (recipe: Recipe, day: number, mealType: MealType): void => {
+    assignRecipeToSlot(day, mealType, recipe);
   };
 
   // Open recipe picker for a specific day and meal type
@@ -1150,6 +1150,7 @@ function App() {
               onToggleFavorite={toggleFavorite}
               isFavorite={isFavorite}
               days={days}
+              mealTypes={MEAL_TYPES.filter(mt => mealSettings.enabledMealTypes.includes(mt.id))}
               onViewRecipe={handleViewRecipe}
             />
 
@@ -1159,6 +1160,7 @@ function App() {
               filteredRecipes={filteredRecipes}
               onAssign={handleAssign}
               days={days}
+              mealTypes={MEAL_TYPES.filter(mt => mealSettings.enabledMealTypes.includes(mt.id))}
               onToggleFavorite={toggleFavorite}
               isFavorite={isFavorite}
               onViewRecipe={handleViewRecipe}
@@ -1179,8 +1181,6 @@ function App() {
               selectedDay={selectedDayForPicker}
               selectedMealType={selectedMealTypeForPicker}
               onClose={handleCloseRecipePicker}
-              searchTerm={searchTerm}
-              filteredRecipes={filteredRecipes}
               recipes={allRecipes}
               assignRecipeToSlot={assignRecipeToSlot}
               isCustomRecipe={isCustomRecipe}

@@ -1,13 +1,14 @@
 // src/components/SearchBar.tsx
 import type { ChangeEvent } from 'react';
-import type { Recipe } from '../types';
+import type { Recipe, MealType, MealTypeConfig } from '../types';
 
 interface SearchBarProps {
   searchTerm: string;
   setSearchTerm: (term: string) => void;
   filteredRecipes: Recipe[];
-  onAssign: (recipe: Recipe, dayIndex: number) => void;
+  onAssign: (recipe: Recipe, day: number, mealType: MealType) => void;
   days: number;
+  mealTypes: MealTypeConfig[];
   onToggleFavorite: (recipeId: string) => void;
   isFavorite: (recipeId: string) => boolean;
   onViewRecipe?: (recipe: Recipe) => void;
@@ -19,6 +20,7 @@ const SearchBar = ({
   filteredRecipes,
   onAssign,
   days,
+  mealTypes,
   onToggleFavorite,
   isFavorite,
   onViewRecipe,
@@ -27,11 +29,16 @@ const SearchBar = ({
     setSearchTerm(e.target.value);
   };
 
+  // Parse "day-mealType" value from select
   const handleAssignChange = (recipe: Recipe) => (e: ChangeEvent<HTMLSelectElement>) => {
-    const dayIndex = parseInt(e.target.value);
-    if (!isNaN(dayIndex)) {
-      onAssign(recipe, dayIndex);
-      e.target.value = '';
+    const value = e.target.value;
+    if (value) {
+      const [dayStr, mealType] = value.split('-');
+      const day = parseInt(dayStr);
+      if (!isNaN(day) && mealType) {
+        onAssign(recipe, day, mealType as MealType);
+        e.target.value = '';
+      }
     }
   };
 
@@ -118,9 +125,15 @@ const SearchBar = ({
                   className="mt-2 w-full border dark:border-gray-600 rounded px-2 py-1 text-sm bg-white dark:bg-gray-600 dark:text-gray-100"
                   defaultValue=""
                 >
-                  <option value="">Assign to Day...</option>
+                  <option value="">Assign to...</option>
                   {Array.from({ length: days }, (_, i) => i + 1).map((d) => (
-                    <option key={d} value={d - 1}>Day {d}</option>
+                    <optgroup key={d} label={`Day ${d}`}>
+                      {mealTypes.map((mt) => (
+                        <option key={`${d}-${mt.id}`} value={`${d}-${mt.id}`}>
+                          {mt.icon} {mt.label}
+                        </option>
+                      ))}
+                    </optgroup>
                   ))}
                 </select>
               </div>

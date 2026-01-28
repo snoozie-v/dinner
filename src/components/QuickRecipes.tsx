@@ -1,15 +1,16 @@
 // src/components/QuickRecipes.tsx
 import { useState } from 'react';
 import type { ChangeEvent } from 'react';
-import type { Recipe } from '../types';
+import type { Recipe, MealType, MealTypeConfig } from '../types';
 
 interface QuickRecipesProps {
   favoriteRecipes: Recipe[];
   recentRecipes: Recipe[];
-  onAssign: (recipe: Recipe, dayIndex: number) => void;
+  onAssign: (recipe: Recipe, day: number, mealType: MealType) => void;
   onToggleFavorite: (recipeId: string) => void;
   isFavorite: (recipeId: string) => boolean;
   days: number;
+  mealTypes: MealTypeConfig[];
   onViewRecipe?: (recipe: Recipe) => void;
 }
 
@@ -20,17 +21,23 @@ const QuickRecipes = ({
   onToggleFavorite,
   isFavorite,
   days,
+  mealTypes,
   onViewRecipe,
 }: QuickRecipesProps) => {
   const [activeSection, setActiveSection] = useState<'favorites' | 'recent'>('favorites');
 
   const recipes = activeSection === 'favorites' ? favoriteRecipes : recentRecipes;
 
+  // Parse "day-mealType" value from select
   const handleAssignChange = (recipe: Recipe) => (e: ChangeEvent<HTMLSelectElement>) => {
-    const dayIndex = parseInt(e.target.value);
-    if (!isNaN(dayIndex)) {
-      onAssign(recipe, dayIndex);
-      e.target.value = '';
+    const value = e.target.value;
+    if (value) {
+      const [dayStr, mealType] = value.split('-');
+      const day = parseInt(dayStr);
+      if (!isNaN(day) && mealType) {
+        onAssign(recipe, day, mealType as MealType);
+        e.target.value = '';
+      }
     }
   };
 
@@ -117,9 +124,15 @@ const QuickRecipes = ({
                 className="w-full border dark:border-gray-600 rounded px-2 py-1 text-xs bg-white dark:bg-gray-600 dark:text-gray-100"
                 defaultValue=""
               >
-                <option value="">Add to day...</option>
+                <option value="">Add to...</option>
                 {Array.from({ length: days }, (_, i) => i + 1).map((d) => (
-                  <option key={d} value={d - 1}>Day {d}</option>
+                  <optgroup key={d} label={`Day ${d}`}>
+                    {mealTypes.map((mt) => (
+                      <option key={`${d}-${mt.id}`} value={`${d}-${mt.id}`}>
+                        {mt.icon} {mt.label}
+                      </option>
+                    ))}
+                  </optgroup>
                 ))}
               </select>
             </div>

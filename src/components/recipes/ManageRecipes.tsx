@@ -1,7 +1,8 @@
 // src/components/recipes/ManageRecipes.tsx
 import { useState, useMemo } from 'react';
 import type { ChangeEvent } from 'react';
-import type { Recipe, RecipeOperationResult, FilterType } from '../../types';
+import type { Recipe, RecipeOperationResult, FilterType, MealType } from '../../types';
+import { MEAL_TYPES } from '../../types';
 import RecipeList from './RecipeList';
 import RecipeFormModal from './RecipeFormModal';
 import RecipeDetailModal from './RecipeDetailModal';
@@ -27,20 +28,49 @@ const ManageRecipes = ({
 }: ManageRecipesProps) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [filterType, setFilterType] = useState<FilterType>('all');
+  const [mealTypeFilter, setMealTypeFilter] = useState<MealType | null>(null);
   const [showFormModal, setShowFormModal] = useState<boolean>(false);
   const [editingRecipe, setEditingRecipe] = useState<Recipe | null>(null);
   const [showImportModal, setShowImportModal] = useState<boolean>(false);
   const [viewingRecipe, setViewingRecipe] = useState<Recipe | null>(null);
 
+  // Count recipes by meal type
+  const mealTypeCounts = useMemo(() => {
+    const counts: Record<MealType, number> = {
+      breakfast: 0,
+      lunch: 0,
+      dinner: 0,
+      dessert: 0,
+      snack: 0,
+    };
+    recipes.forEach(recipe => {
+      recipe.mealTypes?.forEach(mt => {
+        if (mt in counts) {
+          counts[mt as MealType]++;
+        }
+      });
+    });
+    return counts;
+  }, [recipes]);
+
   const filteredRecipes = useMemo<Recipe[]>(() => {
     let filtered = recipes;
 
+    // Filter by custom/default
     if (filterType === 'custom') {
       filtered = filtered.filter(r => isCustomRecipe(r));
     } else if (filterType === 'default') {
       filtered = filtered.filter(r => !isCustomRecipe(r));
     }
 
+    // Filter by meal type
+    if (mealTypeFilter) {
+      filtered = filtered.filter(r =>
+        r.mealTypes?.some(mt => mt.toLowerCase() === mealTypeFilter.toLowerCase())
+      );
+    }
+
+    // Filter by search term
     if (searchTerm.trim()) {
       const term = searchTerm.toLowerCase().trim();
       filtered = filtered.filter(recipe =>
@@ -53,7 +83,7 @@ const ManageRecipes = ({
     }
 
     return filtered;
-  }, [recipes, searchTerm, filterType, isCustomRecipe]);
+  }, [recipes, searchTerm, filterType, mealTypeFilter, isCustomRecipe]);
 
   const handleAddNew = (): void => {
     setEditingRecipe(null);
@@ -238,6 +268,38 @@ const ManageRecipes = ({
         </div>
       </div>
 
+      {/* Meal Type Filter Chips */}
+      <div className="flex flex-wrap gap-2">
+        <span className="text-sm text-gray-500 dark:text-gray-400 self-center mr-1">Category:</span>
+        <button
+          onClick={() => setMealTypeFilter(null)}
+          className={`px-3 py-1.5 text-sm rounded-full transition-colors ${
+            mealTypeFilter === null
+              ? 'bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-800'
+              : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+          }`}
+        >
+          All
+        </button>
+        {MEAL_TYPES.map((mt) => (
+          <button
+            key={mt.id}
+            onClick={() => setMealTypeFilter(mealTypeFilter === mt.id ? null : mt.id)}
+            className={`px-3 py-1.5 text-sm rounded-full transition-colors flex items-center gap-1.5 ${
+              mealTypeFilter === mt.id
+                ? 'bg-blue-600 text-white'
+                : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+            }`}
+          >
+            <span>{mt.icon}</span>
+            <span>{mt.label}</span>
+            <span className={`text-xs ${mealTypeFilter === mt.id ? 'text-blue-200' : 'text-gray-500 dark:text-gray-400'}`}>
+              ({mealTypeCounts[mt.id]})
+            </span>
+          </button>
+        ))}
+      </div>
+
       <RecipeList
         recipes={filteredRecipes}
         onView={handleView}
@@ -266,6 +328,8 @@ const ManageRecipes = ({
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
             {searchTerm
               ? `No recipes match "${searchTerm}"`
+              : mealTypeFilter
+              ? `No ${mealTypeFilter} recipes found${filterType !== 'all' ? ` in ${filterType} recipes` : ''}`
               : filterType === 'custom'
               ? 'You haven\'t created any custom recipes yet'
               : 'No recipes available'}
