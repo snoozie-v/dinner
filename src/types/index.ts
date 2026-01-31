@@ -135,7 +135,7 @@ export interface ShoppingOrder {
 export type ShoppingAdjustments = Record<string, ShoppingAdjustment>;
 export type ShoppingOrders = Record<string, ShoppingOrder>;
 
-export type ActiveTab = 'planner' | 'shop' | 'recipes';
+export type ActiveTab = 'planner' | 'shop' | 'recipes' | 'prep';
 export type FilterType = 'all' | 'custom' | 'default';
 
 export interface RecipeValidationResult {
@@ -197,4 +197,36 @@ export interface UserPreferences {
 // Meal plan settings
 export interface MealPlanSettings {
   enabledMealTypes: MealType[];
+}
+
+// Prep task types
+export type PrepTaskSource = 'auto-instruction' | 'auto-notes' | 'auto-timing' | 'manual';
+
+export interface PrepTiming {
+  daysBeforeMeal: number;      // 0 = same day, 1 = day before
+  hoursBeforeMeal?: number;    // More precise timing
+  description: string;         // "day before", "2 hours before"
+}
+
+export interface PrepTask {
+  id: string;
+  planItemId: string;          // References PlanItem.id
+  recipeId: string;
+  recipeName: string;
+  mealDay: number;
+  mealType: MealType;
+  description: string;
+  timing: PrepTiming;
+  source: PrepTaskSource;
+  completed: boolean;
+  completedAt?: string;
+}
+
+export interface ManualPrepTask {
+  id: string;
+  planItemId: string;
+  description: string;
+  timing: PrepTiming;
+  completed: boolean;
+  completedAt?: string;
 }

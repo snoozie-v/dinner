@@ -73,7 +73,7 @@ const MealSlot = ({
               {mealLabel}
             </span>
           </div>
-          <h4 className="font-semibold text-gray-900 dark:text-gray-100 truncate">
+          <h4 className="font-semibold text-gray-900 dark:text-gray-100 sm:truncate">
             {recipe.name}
           </h4>
 

@@ -2,7 +2,7 @@
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import { arrayMove } from '@dnd-kit/sortable';
 import defaultRecipes from './recipes.json';
-import type { Recipe, PlanItem, LegacyPlanItem, ShoppingItem, ShoppingAdjustments, ActiveTab, PantryStaple, MealPlanTemplate, LegacyMealPlanTemplate, UserPreferences, MealType, MealPlanSettings } from './types';
+import type { Recipe, PlanItem, LegacyPlanItem, ShoppingItem, ShoppingAdjustments, ActiveTab, PantryStaple, MealPlanTemplate, LegacyMealPlanTemplate, UserPreferences, MealType, MealPlanSettings, PrepTask, ManualPrepTask } from './types';
 import { DEFAULT_ENABLED_MEAL_TYPES, MEAL_TYPES } from './types';
 import { migrateLegacyPlan, migrateTemplates, isLegacyPlanItem, CURRENT_DATA_VERSION } from './utils/migration';
 
@@ -24,8 +24,10 @@ import RecipeDetailModal from './components/recipes/RecipeDetailModal';
 import DataSettingsModal from './components/DataSettingsModal';
 import HelpModal from './components/HelpModal';
 import MealSettingsModal from './components/MealSettingsModal';
+import PrepTimeline from './components/PrepTimeline';
 
 import { useRecipes } from './hooks/useRecipes';
+import { extractPrepTasks, getExecutionDay } from './utils/prepExtractor';
 
 // localStorage keys
 const STORAGE_KEYS = {
@@ -40,6 +42,8 @@ const STORAGE_KEYS = {
   THEME: 'dinner-planner-theme',
   ONBOARDING_SEEN: 'dinner-planner-onboarding-seen',
   ACTIVE_TAB: 'dinner-planner-active-tab',
+  MANUAL_PREP_TASKS: 'dinner-planner-manual-prep-tasks',
+  PREP_TASK_COMPLETIONS: 'dinner-planner-prep-completions',
 } as const;
 
 type Theme = 'light' | 'dark' | 'system';
@@ -123,6 +127,14 @@ function App() {
   // Meal settings modal state
   const [showMealSettingsModal, setShowMealSettingsModal] = useState(false);
 
+  // Prep task state
+  const [manualPrepTasks, setManualPrepTasks] = useState<ManualPrepTask[]>(() =>
+    getStoredValue(STORAGE_KEYS.MANUAL_PREP_TASKS, [])
+  );
+  const [prepTaskCompletions, setPrepTaskCompletions] = useState<Record<string, { completed: boolean; completedAt?: string }>>(() =>
+    getStoredValue(STORAGE_KEYS.PREP_TASK_COMPLETIONS, {})
+  );
+
   // Pull-to-refresh feedback
   const [refreshMessage, setRefreshMessage] = useState<string | null>(null);
 
@@ -187,6 +199,8 @@ function App() {
       message = 'Meal plan is up to date!';
     } else if (activeTab === 'shop') {
       message = 'Shopping list refreshed!';
+    } else if (activeTab === 'prep') {
+      message = 'Prep tasks refreshed!';
     } else if (activeTab === 'recipes') {
       message = 'Recipes are up to date!';
     }
@@ -287,10 +301,125 @@ function App() {
     localStorage.setItem(STORAGE_KEYS.MEAL_SETTINGS, JSON.stringify(mealSettings));
   }, [mealSettings]);
 
+  // Persist prep tasks
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.MANUAL_PREP_TASKS, JSON.stringify(manualPrepTasks));
+  }, [manualPrepTasks]);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.PREP_TASK_COMPLETIONS, JSON.stringify(prepTaskCompletions));
+  }, [prepTaskCompletions]);
+
   // Handle meal settings save
   const handleSaveMealSettings = (newSettings: MealPlanSettings): void => {
     setMealSettings(newSettings);
   };
+
+  // Computed prep tasks: auto-extracted + manual, with completion status applied
+  const allPrepTasks = useMemo<PrepTask[]>(() => {
+    // Extract auto tasks from planned meals
+    const autoTasks = extractPrepTasks(plan);
+
+    // Convert manual tasks to PrepTask format
+    const manualTasks: PrepTask[] = manualPrepTasks
+      .map(manual => {
+        const planItem = plan.find(p => p.id === manual.planItemId);
+        if (!planItem || !planItem.recipe) return null;
+
+        return {
+          id: manual.id,
+          planItemId: manual.planItemId,
+          recipeId: planItem.recipe.id,
+          recipeName: planItem.recipe.name,
+          mealDay: planItem.day,
+          mealType: planItem.mealType,
+          description: manual.description,
+          timing: manual.timing,
+          source: 'manual' as const,
+          completed: manual.completed,
+          completedAt: manual.completedAt,
+        };
+      })
+      .filter((t): t is PrepTask => t !== null);
+
+    // Merge all tasks
+    const allTasks = [...autoTasks, ...manualTasks];
+
+    // Apply completion status from prepTaskCompletions
+    return allTasks.map(task => {
+      const completion = prepTaskCompletions[task.id];
+      if (completion) {
+        return {
+          ...task,
+          completed: completion.completed,
+          completedAt: completion.completedAt,
+        };
+      }
+      return task;
+    });
+  }, [plan, manualPrepTasks, prepTaskCompletions]);
+
+  // Prep task handlers
+  const togglePrepTask = useCallback((taskId: string): void => {
+    setPrepTaskCompletions(prev => {
+      const current = prev[taskId];
+      const isCompleted = current?.completed || false;
+      return {
+        ...prev,
+        [taskId]: {
+          completed: !isCompleted,
+          completedAt: !isCompleted ? new Date().toISOString() : undefined,
+        },
+      };
+    });
+  }, []);
+
+  const addManualPrepTask = useCallback((planItemId: string, description: string, daysBeforeMeal: number): void => {
+    const newTask: ManualPrepTask = {
+      id: `manual-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+      planItemId,
+      description,
+      timing: {
+        daysBeforeMeal,
+        description: daysBeforeMeal === 0 ? 'same day' : `${daysBeforeMeal} day${daysBeforeMeal > 1 ? 's' : ''} before`,
+      },
+      completed: false,
+    };
+    setManualPrepTasks(prev => [...prev, newTask]);
+  }, []);
+
+  const deleteManualPrepTask = useCallback((taskId: string): void => {
+    const task = manualPrepTasks.find(t => t.id === taskId);
+    if (!task) return;
+
+    setManualPrepTasks(prev => prev.filter(t => t.id !== taskId));
+
+    // Clean up completion status
+    setPrepTaskCompletions(prev => {
+      const { [taskId]: _, ...rest } = prev;
+      return rest;
+    });
+
+    // Show undo toast
+    setUndoAction({
+      id: `prep-${Date.now()}`,
+      message: `Deleted prep task`,
+      onUndo: () => {
+        setManualPrepTasks(prev => [...prev, task]);
+      },
+    });
+  }, [manualPrepTasks]);
+
+  // Clean up orphaned manual tasks when plan changes
+  useEffect(() => {
+    const validPlanItemIds = new Set(plan.map(p => p.id));
+    setManualPrepTasks(prev => prev.filter(t => validPlanItemIds.has(t.planItemId)));
+  }, [plan]);
+
+  // Count incomplete prep tasks for badge
+  const incompletePrepCount = useMemo(() => {
+    return allPrepTasks.filter(t => !t.completed).length;
+  }, [allPrepTasks]);
 
   // Migration: Run once on app load to migrate legacy data to new format
   useEffect(() => {
@@ -1055,7 +1184,7 @@ function App() {
             )}
           </div>
           <h1 className="text-2xl sm:text-4xl font-bold text-gray-800 dark:text-gray-100 text-center">
-            {activeTab === 'shop' ? 'Shopping List' : activeTab === 'recipes' ? 'Recipes' : 'Meal Planner'}
+            {activeTab === 'shop' ? 'Shopping List' : activeTab === 'prep' ? 'Prep Tasks' : activeTab === 'recipes' ? 'Recipes' : 'Meal Planner'}
           </h1>
           <div className="flex-1 flex justify-end">
             <button
@@ -1112,6 +1241,28 @@ function App() {
                 </span>
               )}
             </button>
+            {/* TODO: Uncomment once recipe data is cleaned up for prep extraction
+            <button
+              onClick={() => setActiveTab('prep')}
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-medium transition-colors relative ${
+                activeTab === 'prep'
+                  ? 'bg-blue-600 text-white shadow-sm'
+                  : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700'
+              }`}
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+              </svg>
+              Prep
+              {incompletePrepCount > 0 && (
+                <span className={`min-w-[20px] h-5 flex items-center justify-center text-xs font-bold rounded-full px-1.5 ${
+                  activeTab === 'prep' ? 'bg-white text-blue-600' : 'bg-orange-500 text-white'
+                }`}>
+                  {incompletePrepCount > 99 ? '99+' : incompletePrepCount}
+                </span>
+              )}
+            </button>
+            */}
             <button
               onClick={() => setActiveTab('recipes')}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-medium transition-colors ${
@@ -1239,6 +1390,21 @@ function App() {
           </>
         )}
 
+        {/* Prep Tab Content */}
+        {activeTab === 'prep' && (
+          <PrepTimeline
+            tasks={allPrepTasks}
+            plan={plan}
+            onToggleTask={togglePrepTask}
+            onDeleteTask={deleteManualPrepTask}
+            onAddTask={addManualPrepTask}
+            onViewRecipe={(recipeId) => {
+              const recipe = allRecipes.find(r => r.id === recipeId);
+              if (recipe) handleViewRecipe(recipe);
+            }}
+          />
+        )}
+
         {/* Recipes Tab Content */}
         {activeTab === 'recipes' && (
           <ManageRecipes
@@ -1301,6 +1467,7 @@ function App() {
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         shoppingCount={shoppingNeededCount}
+        prepCount={incompletePrepCount}
       />
 
       {/* Undo Toast */}

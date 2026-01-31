@@ -5,9 +5,10 @@ interface BottomNavProps {
   activeTab: ActiveTab;
   setActiveTab: (tab: ActiveTab) => void;
   shoppingCount: number;
+  prepCount?: number;
 }
 
-const BottomNav = ({ activeTab, setActiveTab, shoppingCount }: BottomNavProps) => {
+const BottomNav = ({ activeTab, setActiveTab, shoppingCount, prepCount = 0 }: BottomNavProps) => {
   const tabs: { id: ActiveTab; label: string; icon: JSX.Element }[] = [
     {
       id: 'planner',
@@ -27,6 +28,16 @@ const BottomNav = ({ activeTab, setActiveTab, shoppingCount }: BottomNavProps) =
         </svg>
       ),
     },
+    // TODO: Uncomment once recipe data is cleaned up for prep extraction
+    // {
+    //   id: 'prep',
+    //   label: 'Prep',
+    //   icon: (
+    //     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    //       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+    //     </svg>
+    //   ),
+    // },
     {
       id: 'recipes',
       label: 'Recipes',
@@ -57,6 +68,12 @@ const BottomNav = ({ activeTab, setActiveTab, shoppingCount }: BottomNavProps) =
               {tab.id === 'shop' && shoppingCount > 0 && (
                 <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] flex items-center justify-center text-xs font-bold text-white bg-red-500 rounded-full px-1">
                   {shoppingCount > 99 ? '99+' : shoppingCount}
+                </span>
+              )}
+              {/* Badge for incomplete prep tasks */}
+              {tab.id === 'prep' && prepCount > 0 && (
+                <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] flex items-center justify-center text-xs font-bold text-white bg-orange-500 rounded-full px-1">
+                  {prepCount > 99 ? '99+' : prepCount}
                 </span>
               )}
             </div>
