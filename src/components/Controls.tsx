@@ -5,7 +5,6 @@ interface ControlsProps {
   days: number;
   setDays: (days: number) => void;
   generateRandomPlan: () => void;
-  initManualPlan: () => void;
   clearAllData: () => void;
   onOpenTemplates: () => void;
   onOpenPantry: () => void;
@@ -17,7 +16,6 @@ const Controls = ({
   days,
   setDays,
   generateRandomPlan,
-  initManualPlan,
   clearAllData,
   onOpenTemplates,
   onOpenPantry,
@@ -56,13 +54,6 @@ const Controls = ({
           className="w-full sm:w-auto bg-blue-600 text-white px-6 py-3 sm:py-2.5 rounded-lg font-medium hover:bg-blue-700 active:bg-blue-800 transition shadow-sm touch-manipulation min-h-[44px]"
         >
           Randomize Plan
-        </button>
-
-        <button
-          onClick={initManualPlan}
-          className="w-full sm:w-auto bg-green-600 text-white px-5 py-3 sm:py-2.5 rounded-lg font-medium hover:bg-green-700 active:bg-green-800 transition shadow-sm touch-manipulation min-h-[44px]"
-        >
-          Start Manual
         </button>
 
         {hasTemplates && (

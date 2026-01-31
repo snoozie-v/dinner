@@ -2,8 +2,9 @@
 import { useState } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import type { PlanItem, Recipe, MealType, MealTypeConfig } from '../types';
+import type { PlanItem, Recipe, MealType, MealTypeConfig, MealSlotTheme } from '../types';
 import MealSlot from './MealSlot';
+import { getThemeForSlot } from '../utils/dietaryPreferences';
 
 interface DayCardProps {
   day: number;
@@ -14,6 +15,7 @@ interface DayCardProps {
   updateNotes: (planItemId: string, notes: string) => void;
   onRemoveRecipe: (day: number, mealType: MealType) => void;
   onViewRecipe: (recipe: Recipe) => void;
+  mealSlotThemes?: MealSlotTheme[];
 }
 
 const DayCard = ({
@@ -25,6 +27,7 @@ const DayCard = ({
   updateNotes,
   onRemoveRecipe,
   onViewRecipe,
+  mealSlotThemes = [],
 }: DayCardProps) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
@@ -145,6 +148,7 @@ const DayCard = ({
                   updateNotes={updateNotes}
                   onRemoveRecipe={onRemoveRecipe}
                   onViewRecipe={onViewRecipe}
+                  slotTheme={getThemeForSlot(day, mealTypeConfig.id, mealSlotThemes)}
                 />
               );
             })}

@@ -1,7 +1,7 @@
 // src/components/MealSlot.tsx
 import { useState } from 'react';
 import type { PlanItem as PlanItemType, Recipe, MealType } from '../types';
-import { MEAL_TYPES } from '../types';
+import { MEAL_TYPES, PREDEFINED_THEMES } from '../types';
 
 interface MealSlotProps {
   planItem: PlanItemType;
@@ -10,6 +10,7 @@ interface MealSlotProps {
   updateNotes: (planItemId: string, notes: string) => void;
   onRemoveRecipe: (day: number, mealType: MealType) => void;
   onViewRecipe: (recipe: Recipe) => void;
+  slotTheme?: string | null;
 }
 
 const MealSlot = ({
@@ -19,8 +20,10 @@ const MealSlot = ({
   updateNotes,
   onRemoveRecipe,
   onViewRecipe,
+  slotTheme,
 }: MealSlotProps) => {
   const { recipe, servingsMultiplier = 1, day, mealType, id, notes = '' } = planItem;
+  const themeConfig = slotTheme ? PREDEFINED_THEMES.find(t => t.id === slotTheme) : null;
   const [isEditingNotes, setIsEditingNotes] = useState(false);
   const [notesDraft, setNotesDraft] = useState(notes);
 
@@ -48,7 +51,14 @@ const MealSlot = ({
       <div className="flex items-center gap-3 py-3 px-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
         <span className="text-xl" title={mealLabel}>{mealIcon}</span>
         <div className="flex-1">
-          <span className="text-sm font-medium text-gray-500 dark:text-gray-400">{mealLabel}</span>
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-sm font-medium text-gray-500 dark:text-gray-400">{mealLabel}</span>
+            {themeConfig && (
+              <span className="text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 px-2 py-0.5 rounded-full">
+                {themeConfig.icon} {themeConfig.label}
+              </span>
+            )}
+          </div>
         </div>
         <button
           onClick={() => onSelectRecipe(day, mealType)}
@@ -72,6 +82,11 @@ const MealSlot = ({
             <span className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
               {mealLabel}
             </span>
+            {themeConfig && (
+              <span className="text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 px-2 py-0.5 rounded-full">
+                {themeConfig.icon} {themeConfig.label}
+              </span>
+            )}
           </div>
           <h4 className="font-semibold text-gray-900 dark:text-gray-100 sm:truncate">
             {recipe.name}

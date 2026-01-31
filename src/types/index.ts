@@ -194,9 +194,50 @@ export interface UserPreferences {
   recentRecipeIds: string[]; // most recent first, max 10
 }
 
-// Meal plan settings
+// Meal plan settings - dietary preferences
+export interface IngredientExclusion {
+  ingredientName: string;  // Normalized lowercase for matching
+  displayName: string;     // User-facing display
+}
+
+export interface IngredientFrequencyLimit {
+  ingredientName: string;
+  displayName: string;
+  maxPerWeek: number;
+}
+
+export interface MealSlotTheme {
+  day: number;
+  mealType: MealType;
+  theme: string;  // Theme ID: "taco", "crockpot", etc.
+}
+
+export interface ThemeDefinition {
+  id: string;
+  label: string;
+  icon: string;
+  matchTags: string[];
+  matchCuisines?: string[];
+}
+
+export const PREDEFINED_THEMES: ThemeDefinition[] = [
+  { id: 'taco', label: 'Taco Night', icon: '🌮', matchTags: ['taco', 'taco-night', 'tacos'], matchCuisines: ['Mexican'] },
+  { id: 'crockpot', label: 'Crockpot', icon: '🍲', matchTags: ['slow-cooker', 'crockpot', 'instant-pot', 'slow cooker'] },
+  { id: 'italian', label: 'Italian', icon: '🍝', matchTags: ['pasta', 'italian'], matchCuisines: ['Italian'] },
+  { id: 'asian', label: 'Asian', icon: '🥡', matchTags: ['asian', 'stir-fry', 'chinese', 'thai', 'japanese'], matchCuisines: ['Chinese', 'Thai', 'Japanese', 'Vietnamese', 'Korean'] },
+  { id: 'grilling', label: 'Grill Night', icon: '🔥', matchTags: ['grilled', 'bbq', 'grill', 'barbecue'] },
+  { id: 'seafood', label: 'Seafood', icon: '🐟', matchTags: ['seafood', 'fish', 'shrimp', 'salmon'] },
+  { id: 'vegetarian', label: 'Vegetarian', icon: '🥬', matchTags: ['vegetarian', 'veggie', 'meatless', 'vegan'] },
+  { id: 'quick', label: 'Quick & Easy', icon: '⚡', matchTags: ['quick', '30-minute', 'easy', 'weeknight', '15-minute'] },
+  { id: 'comfort', label: 'Comfort Food', icon: '🍖', matchTags: ['comfort', 'hearty', 'casserole', 'soup', 'stew'] },
+  { id: 'healthy', label: 'Healthy', icon: '🥗', matchTags: ['healthy', 'light', 'low-carb', 'salad', 'low-calorie'] },
+];
+
 export interface MealPlanSettings {
   enabledMealTypes: MealType[];
+  ingredientExclusions?: IngredientExclusion[];
+  frequencyLimits?: IngredientFrequencyLimit[];
+  mealSlotThemes?: MealSlotTheme[];
 }
 
 // Prep task types

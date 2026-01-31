@@ -17,7 +17,7 @@ import {
   restrictToVerticalAxis,
   restrictToParentElement,
 } from '@dnd-kit/modifiers';
-import type { PlanItem as PlanItemType, Recipe, MealType, MealTypeConfig } from '../types';
+import type { PlanItem as PlanItemType, Recipe, MealType, MealTypeConfig, MealSlotTheme } from '../types';
 import DayCard from './DayCard';
 
 interface MealPlanProps {
@@ -29,6 +29,7 @@ interface MealPlanProps {
   onReorderDays: (activeDay: number, overDay: number) => void;
   onRemoveRecipe: (day: number, mealType: MealType) => void;
   onViewRecipe: (recipe: Recipe) => void;
+  mealSlotThemes?: MealSlotTheme[];
 }
 
 const MealPlan = ({
@@ -40,6 +41,7 @@ const MealPlan = ({
   onReorderDays,
   onRemoveRecipe,
   onViewRecipe,
+  mealSlotThemes = [],
 }: MealPlanProps) => {
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -120,6 +122,7 @@ const MealPlan = ({
                   updateNotes={updateNotes}
                   onRemoveRecipe={onRemoveRecipe}
                   onViewRecipe={onViewRecipe}
+                  mealSlotThemes={mealSlotThemes}
                 />
               ))}
             </div>

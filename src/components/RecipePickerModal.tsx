@@ -1,7 +1,13 @@
 // src/components/RecipePickerModal.tsx
 import { useEffect, useMemo, useState } from 'react';
-import type { Recipe, MealType, MealTypeConfig } from '../types';
-import { MEAL_TYPES } from '../types';
+import type { Recipe, MealType, MealTypeConfig, PlanItem, IngredientExclusion, IngredientFrequencyLimit, MealSlotTheme } from '../types';
+import { MEAL_TYPES, PREDEFINED_THEMES } from '../types';
+import {
+  filterExcludedRecipes,
+  getRecipesExceedingLimits,
+  getThemeForSlot,
+  recipeMatchesTheme,
+} from '../utils/dietaryPreferences';
 
 interface RecipePickerModalProps {
   selectedDay: number | null;
@@ -13,6 +19,10 @@ interface RecipePickerModalProps {
   onToggleFavorite: (recipeId: string) => void;
   isFavorite: (recipeId: string) => boolean;
   onViewRecipe?: (recipe: Recipe) => void;
+  ingredientExclusions?: IngredientExclusion[];
+  frequencyLimits?: IngredientFrequencyLimit[];
+  mealSlotThemes?: MealSlotTheme[];
+  plan?: PlanItem[];
 }
 
 const RecipePickerModal = ({
@@ -25,6 +35,10 @@ const RecipePickerModal = ({
   onToggleFavorite,
   isFavorite,
   onViewRecipe,
+  ingredientExclusions = [],
+  frequencyLimits = [],
+  mealSlotThemes = [],
+  plan = [],
 }: RecipePickerModalProps) => {
   const [showOnlySuggested, setShowOnlySuggested] = useState(false);
   const [localSearchTerm, setLocalSearchTerm] = useState('');
@@ -42,49 +56,88 @@ const RecipePickerModal = ({
     return recipe.mealTypes?.some(mt => mt.toLowerCase() === mealType.toLowerCase()) ?? false;
   };
 
-  // Filter recipes based on local search term
-  const searchFilteredRecipes = useMemo(() => {
-    if (!localSearchTerm.trim()) return recipes;
+  // Get theme for current slot
+  const slotTheme = useMemo(() => {
+    if (!selectedDay || !selectedMealType) return null;
+    return getThemeForSlot(selectedDay, selectedMealType, mealSlotThemes);
+  }, [selectedDay, selectedMealType, mealSlotThemes]);
 
-    const term = localSearchTerm.toLowerCase().trim();
-    return recipes.filter(recipe => {
-      // Search in name
-      if (recipe.name?.toLowerCase().includes(term)) return true;
-      // Search in ingredients
-      if (recipe.ingredients?.some(i => i.name?.toLowerCase().includes(term))) return true;
-      // Search in tags
-      if (recipe.tags?.some(t => t.toLowerCase().includes(term))) return true;
-      // Search in cuisine
-      if (recipe.cuisine?.toLowerCase().includes(term)) return true;
-      // Search in dietary
-      if (recipe.dietary?.some(d => d.toLowerCase().includes(term))) return true;
-      // Search in meal types
-      if (recipe.mealTypes?.some(mt => mt.toLowerCase().includes(term))) return true;
-      return false;
-    });
-  }, [recipes, localSearchTerm]);
+  const themeConfig = slotTheme ? PREDEFINED_THEMES.find(t => t.id === slotTheme) : null;
 
-  // Sort and filter recipes - suggested ones first
-  const { suggestedRecipes, displayRecipes } = useMemo(() => {
-    if (!selectedMealType) {
-      return { suggestedRecipes: [], displayRecipes: searchFilteredRecipes };
+  // Filter and sort recipes
+  const { suggestedRecipes, displayRecipes, recipesAtLimit, themedRecipeIds } = useMemo(() => {
+    // Step 1: Filter out excluded ingredients
+    let filtered = filterExcludedRecipes(recipes, ingredientExclusions);
+
+    // Step 2: Apply search filter
+    if (localSearchTerm.trim()) {
+      const term = localSearchTerm.toLowerCase().trim();
+      filtered = filtered.filter(recipe => {
+        if (recipe.name?.toLowerCase().includes(term)) return true;
+        if (recipe.ingredients?.some(i => i.name?.toLowerCase().includes(term))) return true;
+        if (recipe.tags?.some(t => t.toLowerCase().includes(term))) return true;
+        if (recipe.cuisine?.toLowerCase().includes(term)) return true;
+        if (recipe.dietary?.some(d => d.toLowerCase().includes(term))) return true;
+        if (recipe.mealTypes?.some(mt => mt.toLowerCase().includes(term))) return true;
+        return false;
+      });
     }
 
+    // Step 3: Get recipes that would exceed frequency limits
+    const atLimit = getRecipesExceedingLimits(filtered, plan, frequencyLimits);
+
+    // Step 4: Identify themed recipes
+    const themedIds = new Set<string>();
+    if (slotTheme) {
+      filtered.forEach(recipe => {
+        if (recipeMatchesTheme(recipe, slotTheme)) {
+          themedIds.add(recipe.id);
+        }
+      });
+    }
+
+    // Step 5: Sort recipes - themed+suggested first, then suggested, then themed, then rest
+    if (!selectedMealType) {
+      return {
+        suggestedRecipes: [],
+        displayRecipes: filtered,
+        recipesAtLimit: atLimit,
+        themedRecipeIds: themedIds,
+      };
+    }
+
+    const themedSuggested: Recipe[] = [];
     const suggested: Recipe[] = [];
+    const themedOther: Recipe[] = [];
     const other: Recipe[] = [];
 
-    searchFilteredRecipes.forEach(recipe => {
-      if (recipeMatchesMealType(recipe, selectedMealType)) {
+    filtered.forEach(recipe => {
+      const isSuggested = recipeMatchesMealType(recipe, selectedMealType);
+      const isThemed = themedIds.has(recipe.id);
+
+      if (isThemed && isSuggested) {
+        themedSuggested.push(recipe);
+      } else if (isSuggested) {
         suggested.push(recipe);
+      } else if (isThemed) {
+        themedOther.push(recipe);
       } else {
         other.push(recipe);
       }
     });
 
-    const display = showOnlySuggested && suggested.length > 0 ? suggested : [...suggested, ...other];
+    const allSuggested = [...themedSuggested, ...suggested];
+    const display = showOnlySuggested && allSuggested.length > 0
+      ? allSuggested
+      : [...themedSuggested, ...suggested, ...themedOther, ...other];
 
-    return { suggestedRecipes: suggested, displayRecipes: display };
-  }, [searchFilteredRecipes, selectedMealType, showOnlySuggested]);
+    return {
+      suggestedRecipes: allSuggested,
+      displayRecipes: display,
+      recipesAtLimit: atLimit,
+      themedRecipeIds: themedIds,
+    };
+  }, [recipes, localSearchTerm, selectedMealType, showOnlySuggested, ingredientExclusions, frequencyLimits, plan, slotTheme]);
 
   if (selectedDay === null || selectedMealType === null) return null;
 
@@ -95,6 +148,8 @@ const RecipePickerModal = ({
 
   const hasSuggestedRecipes = suggestedRecipes.length > 0;
   const isSearching = localSearchTerm.trim().length > 0;
+  const hasExclusions = ingredientExclusions.length > 0;
+  const excludedCount = recipes.length - filterExcludedRecipes(recipes, ingredientExclusions).length;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-start justify-center p-4 pt-4 sm:pt-8">
@@ -106,9 +161,16 @@ const RecipePickerModal = ({
               <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
                 Choose recipe for Day {selectedDay}
               </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
-                {mealIcon} {mealLabel}
-              </p>
+              <div className="flex items-center gap-2 mt-0.5">
+                <span className="text-sm text-gray-500 dark:text-gray-400">
+                  {mealIcon} {mealLabel}
+                </span>
+                {themeConfig && (
+                  <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300">
+                    {themeConfig.icon} {themeConfig.label}
+                  </span>
+                )}
+              </div>
             </div>
             <button
               onClick={onClose}
@@ -175,13 +237,18 @@ const RecipePickerModal = ({
           </div>
         )}
 
-        {/* Search results count */}
-        {isSearching && (
-          <div className="px-5 py-2 border-b dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
+        {/* Search results count / exclusion notice */}
+        {(isSearching || hasExclusions) && (
+          <div className="px-5 py-2 border-b dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 flex items-center justify-between">
             <span className="text-sm text-gray-600 dark:text-gray-400">
-              {displayRecipes.length} recipe{displayRecipes.length !== 1 ? 's' : ''} found
+              {displayRecipes.length} recipe{displayRecipes.length !== 1 ? 's' : ''} available
               {hasSuggestedRecipes && ` (${suggestedRecipes.length} ${mealLabel.toLowerCase()})`}
             </span>
+            {hasExclusions && excludedCount > 0 && (
+              <span className="text-xs text-gray-400 dark:text-gray-500">
+                {excludedCount} hidden by exclusions
+              </span>
+            )}
           </div>
         )}
 
@@ -190,6 +257,8 @@ const RecipePickerModal = ({
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {displayRecipes.map((recipe, index) => {
               const isSuggested = recipeMatchesMealType(recipe, selectedMealType);
+              const isThemed = themedRecipeIds.has(recipe.id);
+              const isAtLimit = recipesAtLimit.has(recipe.id);
               const isFirstOther = !showOnlySuggested && !isSearching && hasSuggestedRecipes && index === suggestedRecipes.length;
 
               return (
@@ -206,7 +275,11 @@ const RecipePickerModal = ({
                   )}
                   <div
                     className={`border rounded-lg p-4 hover:border-blue-400 hover:shadow-md cursor-pointer transition-all duration-150 bg-white dark:bg-gray-700 relative ${
-                      isSuggested && !showOnlySuggested
+                      isAtLimit
+                        ? 'border-amber-300 dark:border-amber-700 opacity-75'
+                        : isThemed
+                        ? 'border-purple-200 dark:border-purple-700'
+                        : isSuggested && !showOnlySuggested
                         ? 'border-blue-200 dark:border-blue-700'
                         : 'border-gray-200 dark:border-gray-600'
                     }`}
@@ -214,8 +287,22 @@ const RecipePickerModal = ({
                       assignRecipeToSlot(selectedDay, selectedMealType, recipe);
                     }}
                   >
+                    {/* Warning for at-limit recipes */}
+                    {isAtLimit && (
+                      <div className="absolute -top-2 -left-2 bg-amber-500 text-white rounded-full p-1" title="At frequency limit">
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                      </div>
+                    )}
+
                     <div className="absolute top-2 right-2 flex items-center gap-1.5">
-                      {isSuggested && !showOnlySuggested && (
+                      {isThemed && (
+                        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300">
+                          {themeConfig?.icon}
+                        </span>
+                      )}
+                      {isSuggested && !showOnlySuggested && !isThemed && (
                         <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300">
                           {mealLabel}
                         </span>
@@ -273,6 +360,8 @@ const RecipePickerModal = ({
               <div className="col-span-full text-center py-10 text-gray-500 dark:text-gray-400">
                 {isSearching
                   ? `No recipes match "${localSearchTerm.trim()}"`
+                  : hasExclusions
+                  ? 'No recipes available with current exclusions'
                   : `No ${mealLabel.toLowerCase()} recipes found`}
               </div>
             )}

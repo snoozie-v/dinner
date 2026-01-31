@@ -65,10 +65,22 @@ function App() {
   const [selectedDayForPicker, setSelectedDayForPicker] = useState<number | null>(null);
   const [selectedMealTypeForPicker, setSelectedMealTypeForPicker] = useState<MealType | null>(null);
 
-  // Meal settings - which meal types are enabled
-  const [mealSettings, setMealSettings] = useState<MealPlanSettings>(() =>
-    getStoredValue(STORAGE_KEYS.MEAL_SETTINGS, { enabledMealTypes: DEFAULT_ENABLED_MEAL_TYPES })
-  );
+  // Meal settings - which meal types are enabled and dietary preferences
+  const [mealSettings, setMealSettings] = useState<MealPlanSettings>(() => {
+    const stored = getStoredValue<MealPlanSettings>(STORAGE_KEYS.MEAL_SETTINGS, {
+      enabledMealTypes: DEFAULT_ENABLED_MEAL_TYPES,
+      ingredientExclusions: [],
+      frequencyLimits: [],
+      mealSlotThemes: [],
+    });
+    // Ensure new fields have defaults for existing users
+    return {
+      enabledMealTypes: stored.enabledMealTypes ?? DEFAULT_ENABLED_MEAL_TYPES,
+      ingredientExclusions: stored.ingredientExclusions ?? [],
+      frequencyLimits: stored.frequencyLimits ?? [],
+      mealSlotThemes: stored.mealSlotThemes ?? [],
+    };
+  });
   const [shoppingAdjustments, setShoppingAdjustments] = useState<ShoppingAdjustments>(() =>
     getStoredValue(STORAGE_KEYS.SHOPPING_ADJUSTMENTS, {})
   );
@@ -730,28 +742,6 @@ function App() {
     setShoppingAdjustments({});
   };
 
-  const initManualPlan = (): void => {
-    const newPlan: PlanItem[] = [];
-    const numDays = days || 7; // Default to 7 if field is empty
-
-    for (let day = 1; day <= numDays; day++) {
-      for (const mealType of sortedEnabledMealTypes) {
-        newPlan.push({
-          day,
-          mealType,
-          id: `day-${day}-${mealType}-empty`,
-          recipe: null,
-          servingsMultiplier: 1,
-        });
-      }
-    }
-    setPlan(newPlan);
-    setSearchTerm('');
-    setSelectedDayForPicker(null);
-    setSelectedMealTypeForPicker(null);
-    setShoppingAdjustments({});
-  };
-
   // Assign a recipe to a specific day and meal type slot
   const assignRecipeToSlot = (day: number, mealType: MealType, newRecipe: Recipe | null): void => {
     // Track recent recipe usage
@@ -1286,7 +1276,6 @@ function App() {
               days={days}
               setDays={setDays}
               generateRandomPlan={generateRandomPlan}
-              initManualPlan={initManualPlan}
               clearAllData={clearAllData}
               onOpenTemplates={() => setShowTemplateModal(true)}
               onOpenPantry={() => setShowPantryModal(true)}
@@ -1326,6 +1315,7 @@ function App() {
               onReorderDays={handleReorderDays}
               onRemoveRecipe={removeMealPlanRecipe}
               onViewRecipe={handleViewRecipe}
+              mealSlotThemes={mealSettings.mealSlotThemes}
             />
 
             <RecipePickerModal
@@ -1338,6 +1328,10 @@ function App() {
               onToggleFavorite={toggleFavorite}
               isFavorite={isFavorite}
               onViewRecipe={handleViewRecipe}
+              ingredientExclusions={mealSettings.ingredientExclusions}
+              frequencyLimits={mealSettings.frequencyLimits}
+              mealSlotThemes={mealSettings.mealSlotThemes}
+              plan={plan}
             />
 
             <PantryModal
@@ -1363,6 +1357,8 @@ function App() {
               onClose={() => setShowMealSettingsModal(false)}
               settings={mealSettings}
               onSave={handleSaveMealSettings}
+              plan={plan}
+              days={days}
             />
           </>
         )}
