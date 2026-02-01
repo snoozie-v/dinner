@@ -60,11 +60,20 @@ const ALLOWED_DOMAINS = [
   'hellofresh.com',
   'diethood.com',
   'aprettylifeinthesuburbs.com',
+  'aheadofthyme.com',
+  'adamantkitchen.com',
+  'amybakesbread.com',
+  'lordbyronskitchen.com',
+  'hellofresh.ca',
+  'bellyrumbles.com',
+
 ];
 
 // Domains that are known to block automated requests (Cloudflare, etc.)
 const BLOCKED_DOMAINS = [
   'sweetphi.com',
+  'thesourdoughpodcast.com',
+    'homechef.com',
 ];
 
 // Simple rate limiting
@@ -243,7 +252,7 @@ app.post('/api/fetch-recipe', async (req, res) => {
 
   if (!isAllowed) {
     return res.status(403).json({
-      error: 'Domain not allowed. Only popular recipe sites are supported.',
+      error: 'Domain not yet supported.',
       allowedDomains: ALLOWED_DOMAINS
     });
   }

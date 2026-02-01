@@ -1,5 +1,5 @@
 // src/utils/recipeParser.ts
-import type { Recipe, Ingredient, InstructionSection, Nutrition } from '../types';
+import type { Recipe, Ingredient, InstructionSection, Nutrition, MealType } from '../types';
 
 export interface ParseResult {
   success: boolean;
@@ -438,23 +438,33 @@ function parseRecipeSchema(schema: SchemaOrgRecipe, sourceUrl: string): Partial<
 
   // Tags and categories
   const tags: string[] = [];
+  const categories: string[] = [];
+  const keywords: string[] = [];
 
   if (schema.recipeCategory) {
-    const categories = Array.isArray(schema.recipeCategory)
+    const cats = Array.isArray(schema.recipeCategory)
       ? schema.recipeCategory
       : [schema.recipeCategory];
-    tags.push(...categories.map(c => decodeHtmlEntities(c.trim())));
+    categories.push(...cats.map(c => decodeHtmlEntities(c.trim())));
+    tags.push(...categories);
   }
 
   if (schema.keywords) {
-    const keywords = typeof schema.keywords === 'string'
+    const kws = typeof schema.keywords === 'string'
       ? schema.keywords.split(',').map(k => k.trim())
       : schema.keywords;
-    tags.push(...keywords.map(k => decodeHtmlEntities(k.trim())));
+    keywords.push(...kws.map(k => decodeHtmlEntities(k.trim())));
+    tags.push(...keywords);
   }
 
   if (tags.length > 0) {
     recipe.tags = [...new Set(tags)]; // Remove duplicates
+  }
+
+  // Infer meal types from categories, keywords, and recipe name
+  const mealTypes = inferMealTypes(categories, keywords, recipe.name || '');
+  if (mealTypes.length > 0) {
+    recipe.mealTypes = mealTypes;
   }
 
   // Cuisine
@@ -519,6 +529,66 @@ function parseServings(recipeYield: string | number): { default: number; unit: s
   }
 
   return null;
+}
+
+/**
+ * Infers meal types from recipe categories, keywords, and name
+ */
+function inferMealTypes(
+  categories: string[],
+  keywords: string[],
+  name: string
+): MealType[] {
+  const mealTypes: Set<MealType> = new Set();
+
+  // Combine all text sources for matching
+  const allText = [...categories, ...keywords, name].map(s => s.toLowerCase());
+
+  // Mapping patterns to meal types
+  const mealTypePatterns: { patterns: RegExp[]; mealType: MealType }[] = [
+    {
+      patterns: [/breakfast/, /brunch/, /morning/, /pancake/, /waffle/, /omelette/, /omelet/, /scramble/, /french toast/],
+      mealType: 'breakfast',
+    },
+    {
+      patterns: [/lunch/, /sandwich/, /wrap/, /salad/, /tacos?/, /burrito/, /quesadilla/],
+      mealType: 'lunch',
+    },
+    {
+      patterns: [/dinner/, /supper/, /main dish/, /main course/, /entree/, /entrée/, /tacos?/, /burrito/, /enchilada/, /fajita/],
+      mealType: 'dinner',
+    },
+    {
+      patterns: [/dessert/, /cake/, /cookie/, /brownie/, /pie/, /pastry/, /sweet treat/, /ice cream/, /pudding/],
+      mealType: 'dessert',
+    },
+    {
+      patterns: [/snack/, /appetizer/, /finger food/, /dip/, /chips/],
+      mealType: 'snack',
+    },
+  ];
+
+  for (const { patterns, mealType } of mealTypePatterns) {
+    for (const text of allText) {
+      if (patterns.some(pattern => pattern.test(text))) {
+        mealTypes.add(mealType);
+        break;
+      }
+    }
+  }
+
+  // If no meal types were inferred and it looks like a main dish, default to dinner
+  if (mealTypes.size === 0) {
+    const mainDishIndicators = [/chicken/, /beef/, /pork/, /fish/, /pasta/, /rice/, /steak/, /roast/, /casserole/, /stew/, /soup/];
+    for (const text of allText) {
+      if (mainDishIndicators.some(pattern => pattern.test(text))) {
+        mealTypes.add('dinner');
+        break;
+      }
+    }
+  }
+
+  return Array.from(mealTypes);
 }
 
 /**

@@ -2,4 +2,4 @@
 # These will be tagged with "beef-dish"
 
 # === ALLRECIPES - Beef Dishes ===
-https://www.allrecipes.com/recipe/130358/worlds-best-pasta-sauce/
+https://www.homechef.com/meals/stroganoff-pot-roast-pasta

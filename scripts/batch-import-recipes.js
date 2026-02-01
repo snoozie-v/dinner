@@ -407,6 +407,60 @@ function parseNutrition(nutrition) {
   };
 }
 
+// Infer meal types from categories, keywords, and name
+function inferMealTypes(categories, keywords, name) {
+  const mealTypes = new Set();
+
+  // Combine all text sources for matching
+  const allText = [...categories, ...keywords, name].map(s => s.toLowerCase());
+
+  // Mapping patterns to meal types
+  const mealTypePatterns = [
+    {
+      patterns: [/breakfast/, /brunch/, /morning/, /pancake/, /waffle/, /omelette/, /omelet/, /scramble/, /french toast/],
+      mealType: 'breakfast',
+    },
+    {
+      patterns: [/lunch/, /sandwich/, /wrap/, /salad/, /tacos?/, /burrito/, /quesadilla/],
+      mealType: 'lunch',
+    },
+    {
+      patterns: [/dinner/, /supper/, /main dish/, /main course/, /entree/, /entrée/, /tacos?/, /burrito/, /enchilada/, /fajita/],
+      mealType: 'dinner',
+    },
+    {
+      patterns: [/dessert/, /cake/, /cookie/, /brownie/, /pie/, /pastry/, /sweet treat/, /ice cream/, /pudding/],
+      mealType: 'dessert',
+    },
+    {
+      patterns: [/snack/, /appetizer/, /finger food/, /dip/, /chips/],
+      mealType: 'snack',
+    },
+  ];
+
+  for (const { patterns, mealType } of mealTypePatterns) {
+    for (const text of allText) {
+      if (patterns.some(pattern => pattern.test(text))) {
+        mealTypes.add(mealType);
+        break;
+      }
+    }
+  }
+
+  // If no meal types were inferred and it looks like a main dish, default to dinner
+  if (mealTypes.size === 0) {
+    const mainDishIndicators = [/chicken/, /beef/, /pork/, /fish/, /pasta/, /rice/, /steak/, /roast/, /casserole/, /stew/, /soup/];
+    for (const text of allText) {
+      if (mainDishIndicators.some(pattern => pattern.test(text))) {
+        mealTypes.add('dinner');
+        break;
+      }
+    }
+  }
+
+  return Array.from(mealTypes);
+}
+
 // Generate unique ID
 function generateId(name) {
   const slug = name
@@ -461,17 +515,22 @@ function parseRecipe(schema, sourceUrl) {
   // Servings
   recipe.servings = parseServings(schema.recipeYield);
 
-  // Tags
+  // Tags and categories
   const tags = [];
+  const categories = [];
+  const keywords = [];
+
   if (schema.recipeCategory) {
     const cats = Array.isArray(schema.recipeCategory) ? schema.recipeCategory : [schema.recipeCategory];
-    tags.push(...cats.map(c => decodeHtmlEntities(c.trim().toLowerCase())));
+    categories.push(...cats.map(c => decodeHtmlEntities(c.trim())));
+    tags.push(...categories.map(c => c.toLowerCase()));
   }
   if (schema.keywords) {
     const kws = typeof schema.keywords === 'string'
-      ? schema.keywords.split(',').map(k => k.trim().toLowerCase())
-      : schema.keywords.map(k => k.toLowerCase());
-    tags.push(...kws);
+      ? schema.keywords.split(',').map(k => k.trim())
+      : schema.keywords;
+    keywords.push(...kws.map(k => decodeHtmlEntities(k.trim())));
+    tags.push(...keywords.map(k => k.toLowerCase()));
   }
   // Add custom tags from environment variable
   if (CUSTOM_TAGS.length > 0) {
@@ -479,6 +538,12 @@ function parseRecipe(schema, sourceUrl) {
   }
   if (tags.length > 0) {
     recipe.tags = [...new Set(tags)].slice(0, 15); // Limit to 15 tags
+  }
+
+  // Infer meal types from categories, keywords, and recipe name
+  const mealTypes = inferMealTypes(categories, keywords, recipe.name || '');
+  if (mealTypes.length > 0) {
+    recipe.mealTypes = mealTypes;
   }
 
   // Cuisine
