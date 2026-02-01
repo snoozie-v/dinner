@@ -23,7 +23,7 @@ const __dirname = path.dirname(__filename);
 
 // Configuration
 const PROXY_URL = process.env.PROXY_URL || 'http://localhost:3001';
-const URLS_FILE = process.env.URLS_FILE || path.join(__dirname, 'recipe-urls.txt');
+const URLS_FILE = process.env.URLS_FILE || path.join(__dirname, 'beef-recipes.txt');
 const OUTPUT_FILE = path.join(__dirname, '..', 'src', 'recipes.json');
 const DELAY_BETWEEN_REQUESTS = 3000; // 3 seconds to be respectful and avoid rate limits
 const CUSTOM_TAGS = process.env.CUSTOM_TAGS ? process.env.CUSTOM_TAGS.split(',') : []; // Add custom tags to all imported recipes
@@ -299,27 +299,73 @@ function guessCategory(name) {
   return 'other';
 }
 
-// Parse instructions
+// Parse instructions - handles HowToSection and HowToStep schema structures
 function parseInstructions(instructions) {
   if (!instructions) return [];
 
-  const steps = [];
+  const sections = [];
 
   if (typeof instructions === 'string') {
-    steps.push(...instructions.split(/\n+/).filter(s => s.trim()).map(s => decodeHtmlEntities(s)));
+    const steps = instructions.split(/\n+/).filter(s => s.trim()).map(s => decodeHtmlEntities(s));
+    if (steps.length > 0) {
+      sections.push({ section: 'Instructions', steps });
+    }
   } else if (Array.isArray(instructions)) {
+    let currentSteps = [];
+
     for (const inst of instructions) {
       if (typeof inst === 'string') {
-        steps.push(decodeHtmlEntities(inst.trim()));
-      } else if (inst?.text) {
-        steps.push(decodeHtmlEntities(inst.text.trim()));
-      } else if (inst?.name) {
-        steps.push(decodeHtmlEntities(inst.name.trim()));
+        currentSteps.push(decodeHtmlEntities(inst.trim()));
+      } else if (inst && typeof inst === 'object') {
+        const instType = inst['@type'];
+
+        // Handle HowToSection - contains itemListElement with nested steps
+        if (instType === 'HowToSection' && Array.isArray(inst.itemListElement)) {
+          // Save any accumulated steps first
+          if (currentSteps.length > 0) {
+            sections.push({ section: 'Instructions', steps: currentSteps });
+            currentSteps = [];
+          }
+
+          // Extract steps from the section
+          const sectionName = typeof inst.name === 'string'
+            ? decodeHtmlEntities(inst.name.trim().replace(/:$/, ''))
+            : 'Instructions';
+          const sectionSteps = [];
+
+          for (const item of inst.itemListElement) {
+            if (typeof item === 'string') {
+              sectionSteps.push(decodeHtmlEntities(item));
+            } else if (item && typeof item === 'object') {
+              // HowToStep or HowToDirection
+              const stepText = item.text || item.name;
+              if (typeof stepText === 'string' && stepText.trim()) {
+                sectionSteps.push(decodeHtmlEntities(stepText.trim()));
+              }
+            }
+          }
+
+          if (sectionSteps.length > 0) {
+            sections.push({ section: sectionName, steps: sectionSteps });
+          }
+        }
+        // Handle direct HowToStep
+        else if (inst.text) {
+          currentSteps.push(decodeHtmlEntities(inst.text.trim()));
+        } else if (inst.name && instType !== 'HowToSection') {
+          // Only use name if it's not a section header
+          currentSteps.push(decodeHtmlEntities(inst.name.trim()));
+        }
       }
+    }
+
+    // Add any remaining steps
+    if (currentSteps.length > 0) {
+      sections.push({ section: 'Instructions', steps: currentSteps });
     }
   }
 
-  return [{ section: 'Instructions', steps: steps.filter(s => s.length > 0) }];
+  return sections.filter(s => s.steps.length > 0);
 }
 
 // Parse servings

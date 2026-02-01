@@ -93,7 +93,7 @@
       {
         "section": "Assemble",
         "steps": [
-          "Build tacos: tortilla \u2192 shrimp \u2192 cabbage \u2192 lime crema \u2192 any extras.",
+          "Build tacos: tortilla → shrimp → cabbage → lime crema → any extras.",
           "Serve immediately with extra lime wedges."
         ]
       }
@@ -120,7 +120,7 @@
   {
     "id": "meatloaf-roasted-potatoes-001",
     "name": "Meatloaf with Roasted Potatoes",
-    "description": "Classic juicy meatloaf with a sweet-tangy glaze, served with crispy herb-roasted potatoes \u2013 ultimate comfort food for family dinners.",
+    "description": "Classic juicy meatloaf with a sweet-tangy glaze, served with crispy herb-roasted potatoes – ultimate comfort food for family dinners.",
     "author": "Adapted from traditional American home recipes",
     "sourceUrl": "https://www.allrecipes.com/recipe/219171/classic-meatloaf/",
     "createdAt": "2026-01-01",
@@ -274,7 +274,7 @@
       {
         "section": "Prep",
         "steps": [
-          "Preheat oven to 375\u00b0F (190\u00b0C). Line a large sheet pan with foil or parchment for easy cleanup.",
+          "Preheat oven to 375°F (190°C). Line a large sheet pan with foil or parchment for easy cleanup.",
           "In a small bowl, mix glaze: 1/3 cup ketchup, brown sugar, and mustard; set aside.",
           "In a large bowl, soak breadcrumbs in milk for 5 minutes.",
           "Add ground beef, onion, garlic, egg, Worcestershire, 2 tbsp ketchup, salt, and pepper. Mix gently until just combined (don't overmix)."
@@ -292,7 +292,7 @@
         "section": "Glaze & Finish",
         "steps": [
           "Brush glaze generously over the top and sides of the meatloaf.",
-          "Increase oven to 400\u00b0F (200\u00b0C) if needed for crispier potatoes; continue baking 15\u201325 minutes more, until meatloaf reaches 160\u00b0F internally and potatoes are golden and tender.",
+          "Increase oven to 400°F (200°C) if needed for crispier potatoes; continue baking 15–25 minutes more, until meatloaf reaches 160°F internally and potatoes are golden and tender.",
           "Let meatloaf rest 10 minutes before slicing. Serve with roasted potatoes (and optional green beans or gravy)."
         ]
       }
@@ -321,7 +321,7 @@
   {
     "id": "spaghetti-bolognese-001",
     "name": "Spaghetti Bolognese",
-    "description": "Hearty, classic spaghetti with a rich ground beef and tomato meat sauce \u2013 perfect for cozy family dinners.",
+    "description": "Hearty, classic spaghetti with a rich ground beef and tomato meat sauce – perfect for cozy family dinners.",
     "author": "Adapted from classic home-style recipes",
     "sourceUrl": "https://www.recipetineats.com/spaghetti-bolognese/",
     "createdAt": "2026-01-01",
@@ -426,7 +426,7 @@
         "name": "red wine",
         "quantity": 0.5,
         "unit": "cup",
-        "preparation": "optional \u2013 substitute beef broth if preferred",
+        "preparation": "optional – substitute beef broth if preferred",
         "category": "pantry",
         "optional": true
       },
@@ -451,20 +451,20 @@
         "section": "Make the sauce",
         "steps": [
           "Heat olive oil in a large pot or deep skillet over medium-high heat.",
-          "Add onion and carrot; cook 4\u20135 minutes until softened.",
+          "Add onion and carrot; cook 4–5 minutes until softened.",
           "Add garlic and cook 1 minute until fragrant.",
-          "Add ground beef, break it up, and cook until browned (about 6\u20138 minutes). Drain excess fat if needed.",
-          "Stir in tomato paste and oregano; cook 1\u20132 minutes.",
+          "Add ground beef, break it up, and cook until browned (about 6–8 minutes). Drain excess fat if needed.",
+          "Stir in tomato paste and oregano; cook 1–2 minutes.",
           "Pour in red wine (if using) and let it bubble for 1 minute to reduce.",
           "Add crushed tomatoes, a pinch of salt & pepper. Bring to a simmer, then reduce heat to low.",
-          "Simmer uncovered 20\u201330 minutes, stirring occasionally, until thickened. Taste and adjust seasoning."
+          "Simmer uncovered 20–30 minutes, stirring occasionally, until thickened. Taste and adjust seasoning."
         ]
       },
       {
         "section": "Cook pasta & serve",
         "steps": [
           "While sauce simmers, bring a large pot of salted water to a boil.",
-          "Cook spaghetti according to package instructions until al dente; reserve \u00bd cup pasta water, then drain.",
+          "Cook spaghetti according to package instructions until al dente; reserve ½ cup pasta water, then drain.",
           "Toss pasta with a splash of reserved water and a bit of sauce if desired.",
           "Serve sauce over spaghetti, topped with grated Parmesan."
         ]
@@ -484,7 +484,7 @@
       "wooden spoon",
       "colander"
     ],
-    "notes": "Tastes even better the next day. Freezes well \u2013 portion sauce separately from pasta. For quicker version, simmer only 15 minutes; for richer flavor, simmer up to 1\u20132 hours on low.",
+    "notes": "Tastes even better the next day. Freezes well – portion sauce separately from pasta. For quicker version, simmer only 15 minutes; for richer flavor, simmer up to 1–2 hours on low.",
     "imageUrl": "https://example.com/spaghetti-bolognese.jpg",
     "videoUrl": null,
     "rating": 4.8,
@@ -1291,7 +1291,7 @@
         "optional": false
       },
       {
-        "name": "jalape\u00f1o (optional)",
+        "name": "jalapeño (optional)",
         "quantity": 1,
         "unit": "",
         "category": "other",
@@ -1304,8 +1304,8 @@
         "steps": [
           "Add the rice, salt, and 3 cups water to a medium sauce pot. Place a lid on top, turn the heat on to high, and allow the water to come up to a full boil. Once boiling, turn the heat down to low and let it continue to simmer for 15 minutes. After 15 minutes, turn the heat off and let it sit, with the lid in place, for an additional five minutes. Fluff just before serving.",
           "While the rice is cooking, make the beans. Add both cans of black beans (undrained) to a small sauce pot, along with the cumin, and garlic powder. Heat over medium, stirring often, until heated through.",
-          "Slice the green onions and jalape\u00f1o (if using).",
-          "Once the rice is cooked, build the bowls. Add one cup cooked rice, 1/2 cup warm black beans, 1/3 cup salsa, and 1 oz. shredded cheese (about 1/4 cup) to each bowl. Top with a few sliced green onions and jalape\u00f1os, then serve."
+          "Slice the green onions and jalapeño (if using).",
+          "Once the rice is cooked, build the bowls. Add one cup cooked rice, 1/2 cup warm black beans, 1/3 cup salsa, and 1 oz. shredded cheese (about 1/4 cup) to each bowl. Top with a few sliced green onions and jalapeños, then serve."
         ]
       }
     ],
@@ -1383,7 +1383,7 @@
         "optional": false
       },
       {
-        "name": "serrano (or jalape\u00f1o) chiles",
+        "name": "serrano (or jalapeño) chiles",
         "quantity": 1.5,
         "unit": "",
         "preparation": "stems and seeds removed, minced",
@@ -1483,7 +1483,7 @@
         "name": "(355 ml) warm water",
         "quantity": 1.5,
         "unit": "cups",
-        "preparation": "105\u00b0F-115\u00b0F",
+        "preparation": "105°F-115°F",
         "category": "other",
         "optional": false
       },
@@ -1542,7 +1542,7 @@
         "name": "Tomato sauce",
         "quantity": null,
         "unit": "",
-        "preparation": "smooth, or pur\u00e9ed",
+        "preparation": "smooth, or puréed",
         "category": "produce",
         "optional": false
       },
@@ -1590,7 +1590,7 @@
         "name": "Mushrooms",
         "quantity": null,
         "unit": "",
-        "preparation": "very thinly sliced if raw, otherwise first saut\u00e9ed",
+        "preparation": "very thinly sliced if raw, otherwise first sautéed",
         "category": "produce",
         "optional": false
       },
@@ -1832,12 +1832,12 @@
       {
         "section": "Instructions",
         "steps": [
-          "Preheat the oven to 350\u00b0F.",
-          "Heat a large pot of salted water (for every 2 quarts of water, one tablespoon of salt) to a strong boil. Add the pasta and cook at a rolling boil, uncovered, until the pasta is al dente\u2014edible but still a little firm to the bite. Drain the pasta through a colander. Toss with a little olive oil so the pasta does not stick together while you make the sauce.",
-          "While the water is heating in the previous step, start on the sauce. Heat a tablespoon of olive oil in a large saut\u00e9 pan on medium-high heat. When the oil is shimmering hot, add the bulk sausage or ground meat. Break up any large chunks of sausage as it cooks. Brown well. Don't stir that often or it will be more difficult for the meat to brown. If you are using ground beef or pork instead of sausage, sprinkle with a little salt.",
-          "When the meat is mostly browned, add the onions and stir well to combine. Saut\u00e9 everything until the onions are translucent and beginning to brown, about 4 to 5 minutes. Add the garlic, rosemary or basil, Italian seasoning, and red pepper flakes and stir to combine. Cook 1 minute, then add the tomato sauce and stir well. Bring to a simmer. Taste the sauce and season with salt and pepper, if needed.",
+          "Preheat the oven to 350°F.",
+          "Heat a large pot of salted water (for every 2 quarts of water, one tablespoon of salt) to a strong boil. Add the pasta and cook at a rolling boil, uncovered, until the pasta is al dente—edible but still a little firm to the bite. Drain the pasta through a colander. Toss with a little olive oil so the pasta does not stick together while you make the sauce.",
+          "While the water is heating in the previous step, start on the sauce. Heat a tablespoon of olive oil in a large sauté pan on medium-high heat. When the oil is shimmering hot, add the bulk sausage or ground meat. Break up any large chunks of sausage as it cooks. Brown well. Don't stir that often or it will be more difficult for the meat to brown. If you are using ground beef or pork instead of sausage, sprinkle with a little salt.",
+          "When the meat is mostly browned, add the onions and stir well to combine. Sauté everything until the onions are translucent and beginning to brown, about 4 to 5 minutes. Add the garlic, rosemary or basil, Italian seasoning, and red pepper flakes and stir to combine. Cook 1 minute, then add the tomato sauce and stir well. Bring to a simmer. Taste the sauce and season with salt and pepper, if needed.",
           "Spread a thin layer of the sauce in the bottom of a 9x13-inch casserole pan, then dot the surface with half the ricotta cheese. Ladle a spoonful of sauce into the pasta, stir it well and then add the pasta into the casserole. Pour the rest of the sauce over the pasta, dot the remaining ricotta cheese over the pasta, and sprinkle on top both the mozzarella and the Parmesan cheese.",
-          "Bake uncovered in the oven at 350\u00b0F until the top is lightly browned and the cheese melted, about 20 to 25 minutes. Let stand for 10 minutes before serving. Did you love the recipe? Give us some stars and leave a comment below!"
+          "Bake uncovered in the oven at 350°F until the top is lightly browned and the cheese melted, about 20 to 25 minutes. Let stand for 10 minutes before serving. Did you love the recipe? Give us some stars and leave a comment below!"
         ]
       }
     ],
@@ -1902,10 +1902,10 @@
         "optional": false
       },
       {
-        "name": "\u00bd cup long-grain brown rice",
+        "name": "½ cup long-grain brown rice",
         "quantity": null,
         "unit": "",
-        "preparation": "or 1 \u00bd cups cooked rice",
+        "preparation": "or 1 ½ cups cooked rice",
         "category": "pantry",
         "optional": false
       },
@@ -1925,7 +1925,7 @@
         "optional": false
       },
       {
-        "name": "\u00bd teaspoon fine salt",
+        "name": "½ teaspoon fine salt",
         "quantity": null,
         "unit": "",
         "preparation": "to taste",
@@ -1941,7 +1941,7 @@
         "optional": false
       },
       {
-        "name": "\u00bd cup chopped fresh cilantro",
+        "name": "½ cup chopped fresh cilantro",
         "quantity": null,
         "unit": "",
         "preparation": "plus more for garnish",
@@ -1957,7 +1957,7 @@
         "optional": false
       },
       {
-        "name": "\u00bd teaspoons chili powder",
+        "name": "½ teaspoons chili powder",
         "quantity": 1,
         "unit": "",
         "category": "spices",
@@ -1971,7 +1971,7 @@
         "optional": false
       },
       {
-        "name": "(1 \u00bd cups) pinto beans",
+        "name": "(1 ½ cups) pinto beans",
         "quantity": 1,
         "unit": "can",
         "preparation": "rinsed and drained",
@@ -2015,11 +2015,11 @@
         "steps": [
           "To roast the peppers: Preheat the oven to 425 degrees Fahrenheit. Place the halved peppers in a large 9 by 13-inch baking dish, or on a rimmed baking sheet lined with parchment paper. Drizzle 1 tablespoon olive oil over the peppers and sprinkle them with salt and pepper. Use your hands to rub the oil all over both sides of the peppers, then arrange them with the cut sides facing up. Bake for 20 to 25 minutes, until the peppers are a little blistered around the edges and easily pierced through by a fork. Set aside. Leave the oven on for baking the peppers.",
           "In the meantime, cook the rice: Bring a large pot of water to boil. Rinse the rice in a fine-mesh colander until the water runs clear. Add the rice to the boiling water and continue boiling, uncovered, for 30 minutes (reduce the heat as necessary to prevent overflow). Drain off the remaining cooking water and return the rice to the pot. Set aside.",
-          "Prepare the filling: In a large skillet over medium heat, warm 2 tablespoons olive oil until shimmering. Add the onion and \u00bd teaspoon of the salt. Cook, stirring often, until the onion is tender, about 5 minutes. Add the tomatoes and cook until they\u2019re lightly squishy, another 5 minutes or so.",
+          "Prepare the filling: In a large skillet over medium heat, warm 2 tablespoons olive oil until shimmering. Add the onion and ½ teaspoon of the salt. Cook, stirring often, until the onion is tender, about 5 minutes. Add the tomatoes and cook until they’re lightly squishy, another 5 minutes or so.",
           "Add the cilantro, garlic, chili powder and cumin. While stirring, cook until the garlic is fragrant, about 30 to 60 seconds.",
-          "Remove the pot from the heat and add the rice, beans, lime juice and about 10 twists of black pepper. Stir to combine, then season with additional salt (I usually add \u00bc teaspoon) and black pepper, to taste.",
-          "To stuff the peppers, first pour off any excess juice pooled within the peppers. Then stuff each pepper generously with the rice mixture (if the peppers were truly large, you should have just the right amount of filling\u2014if you have extra, save it to serve as a side dish). Top the peppers with the cheese.",
-          "Bake at 425 for 12 to 13 minutes, until the cheese is golden in spots. Serve warm with fresh cilantro leaves on top or any other garnishes of your choice. Leftovers keep well in the fridge, covered, for up to 4 days. I believe they would freeze well for several months, but haven\u2019t tried to be sure."
+          "Remove the pot from the heat and add the rice, beans, lime juice and about 10 twists of black pepper. Stir to combine, then season with additional salt (I usually add ¼ teaspoon) and black pepper, to taste.",
+          "To stuff the peppers, first pour off any excess juice pooled within the peppers. Then stuff each pepper generously with the rice mixture (if the peppers were truly large, you should have just the right amount of filling—if you have extra, save it to serve as a side dish). Top the peppers with the cheese.",
+          "Bake at 425 for 12 to 13 minutes, until the cheese is golden in spots. Serve warm with fresh cilantro leaves on top or any other garnishes of your choice. Leftovers keep well in the fridge, covered, for up to 4 days. I believe they would freeze well for several months, but haven’t tried to be sure."
         ]
       }
     ],
@@ -2099,10 +2099,10 @@
         "optional": false
       },
       {
-        "name": "\u00bd cup uncooked quinoa, rinsed",
+        "name": "½ cup uncooked quinoa, rinsed",
         "quantity": null,
         "unit": "",
-        "preparation": "or 1 \u00bd cups cooked quinoa",
+        "preparation": "or 1 ½ cups cooked quinoa",
         "category": "other",
         "optional": false
       },
@@ -2138,23 +2138,23 @@
         "optional": false
       },
       {
-        "name": "\u2154 ounce fresh basil leaves, chopped",
+        "name": "⅔ ounce fresh basil leaves, chopped",
         "quantity": null,
         "unit": "",
-        "preparation": "about \u2153 cup",
+        "preparation": "about ⅓ cup",
         "category": "produce",
         "optional": false
       },
       {
-        "name": "\u2154 ounce fresh mint leaves, chopped",
+        "name": "⅔ ounce fresh mint leaves, chopped",
         "quantity": null,
         "unit": "",
-        "preparation": "about \u2153 cup",
+        "preparation": "about ⅓ cup",
         "category": "other",
         "optional": false
       },
       {
-        "name": "\u00bc cup sliced almonds or pine nuts",
+        "name": "¼ cup sliced almonds or pine nuts",
         "quantity": null,
         "unit": "",
         "preparation": "toasted",
@@ -2162,7 +2162,7 @@
         "optional": false
       },
       {
-        "name": "\u00bd to \u00be cup crumbled feta cheese",
+        "name": "½ to ¾ cup crumbled feta cheese",
         "quantity": null,
         "unit": "",
         "category": "dairy",
@@ -2174,10 +2174,10 @@
         "section": "Instructions",
         "steps": [
           "Preheat oven to 425 degrees Fahrenheit with racks in the upper and lower thirds of the oven. Line two large, rimmed baking sheets with parchment paper.",
-          "Divide the eggplant, zucchini and yellow squash between the two baking sheets. Drizzle each baking sheet with 1 tablespoon olive oil and toss. (Add a little more if necessary; you want enough to lightly coat the vegetables.) Sprinkle each pan with \u00bc teaspoon salt and 5 twists of pepper. Roast until the veggies are softened and browning along the edges, about 25 to 30 minutes. Set the roasted vegetables aside to cool.",
+          "Divide the eggplant, zucchini and yellow squash between the two baking sheets. Drizzle each baking sheet with 1 tablespoon olive oil and toss. (Add a little more if necessary; you want enough to lightly coat the vegetables.) Sprinkle each pan with ¼ teaspoon salt and 5 twists of pepper. Roast until the veggies are softened and browning along the edges, about 25 to 30 minutes. Set the roasted vegetables aside to cool.",
           "To cook the quinoa, combine the uncooked quinoa with 1 cup water in a small saucepan. Bring to boil over medium-high heat, then cover and reduce heat to low. Simmer until the water is absorbed, about 15 minutes, then remove from heat and let the quinoa steam with the lid on for 5 minutes. Remove lid, fluff the quinoa with a fork and set aside.",
-          "To toast the almonds or pine nuts, cook them in a small skillet over medium heat, stirring frequently, until they\u2019re turning lightly golden and fragrant, about 4 to 8 minutes. Be sure to keep an eye on them so they don\u2019t burn. Transfer them to a bowl to cool.",
-          "In a large serving bowl, whisk together 2 tablespoons of the lemon juice and garlic. Slowly pour in the remaining 2 tablespoons of olive oil while whisking constantly. Add the tomatoes, quinoa, basil, mint, roasted vegetables and nuts, and gently stir to combine. Season generously with salt (I add another \u00bc teaspoon or more), pepper and maybe another squeeze of lemon, to taste. Stir in the crumbled feta, if you\u2019d like. Serve at room temperature. Store in an airtight container in the refrigerator for up to 5 days."
+          "To toast the almonds or pine nuts, cook them in a small skillet over medium heat, stirring frequently, until they’re turning lightly golden and fragrant, about 4 to 8 minutes. Be sure to keep an eye on them so they don’t burn. Transfer them to a bowl to cool.",
+          "In a large serving bowl, whisk together 2 tablespoons of the lemon juice and garlic. Slowly pour in the remaining 2 tablespoons of olive oil while whisking constantly. Add the tomatoes, quinoa, basil, mint, roasted vegetables and nuts, and gently stir to combine. Season generously with salt (I add another ¼ teaspoon or more), pepper and maybe another squeeze of lemon, to taste. Stir in the crumbled feta, if you’d like. Serve at room temperature. Store in an airtight container in the refrigerator for up to 5 days."
         ]
       }
     ],
@@ -2201,7 +2201,7 @@
     "createdAt": "2026-01-26",
     "updatedAt": "2026-01-26",
     "name": "Easy Vegan Fried Rice",
-    "description": "Easy, 10-ingredient vegan fried rice that's loaded with vegetables, crispy baked tofu, and tons of flavor! A healthy, satisfying plant-based side dish or entr\u00e9e.",
+    "description": "Easy, 10-ingredient vegan fried rice that's loaded with vegetables, crispy baked tofu, and tons of flavor! A healthy, satisfying plant-based side dish or entrée.",
     "author": "Minimalist Baker",
     "imageUrl": "https://minimalistbaker.com/wp-content/uploads/2015/08/Fried-Rice-SQUARE.jpg",
     "prepTime": "PT15M",
@@ -2213,7 +2213,7 @@
       "unit": "servings"
     },
     "tags": [
-      "entr\u00e9e",
+      "entrée",
       "side",
       "fried rice"
     ],
@@ -2311,12 +2311,12 @@
         "steps": [
           "Preheat oven to 400 degrees F (204 C) and line a baking sheet with parchment paper (or lightly grease with non-stick spray).",
           "In the meantime wrap tofu in a clean, absorbent towel and set something heavy on top (such as a cast iron skillet) to press out the liquid.",
-          "Once the oven is preheated, dice tofu into 1/4-inch cubes and arrange on baking sheet. Bake for 26-30 minutes. You\u2019re looking for golden brown edges and a texture that\u2019s firm to the touch. The longer it bakes, the firmer and crispier it will become, so if you\u2019re looking for softer tofu remove from the oven around the 26-28 minute mark. I prefer crispy tofu, so I bake mine the full 30 minutes. Set aside.",
-          "While the tofu bakes prepare your rice by bringing 12 cups of water to a boil in a large pot. Once boiling, add rinsed rice and stir. Boil on high\u00a0uncovered\u00a0for 30 minutes, then strain for 10 seconds and return to pot\u00a0removed\u00a0from the heat. Cover with a lid and let steam for 10 minutes*.",
+          "Once the oven is preheated, dice tofu into 1/4-inch cubes and arrange on baking sheet. Bake for 26-30 minutes. You’re looking for golden brown edges and a texture that’s firm to the touch. The longer it bakes, the firmer and crispier it will become, so if you’re looking for softer tofu remove from the oven around the 26-28 minute mark. I prefer crispy tofu, so I bake mine the full 30 minutes. Set aside.",
+          "While the tofu bakes prepare your rice by bringing 12 cups of water to a boil in a large pot. Once boiling, add rinsed rice and stir. Boil on high uncovered for 30 minutes, then strain for 10 seconds and return to pot removed from the heat. Cover with a lid and let steam for 10 minutes*.",
           "While rice and tofu are cooking, prepare sauce by adding all ingredients to a medium-size mixing bowl and whisking to combine. Taste and adjust flavor as needed, adding more tamari or soy sauce for saltiness, peanut butter for creaminess, brown sugar for sweetness, or chili garlic sauce for heat.",
           "Once the tofu is done baking, add directly to the sauce and marinate for 5 minutes, stirring occasionally.",
           "Heat a large metal or cast iron skillet over medium heat. Once hot, use a slotted spoon to scoop the tofu into the pan leaving most of the sauce behind. Cook for 3-4 minutes, stirring occasionally, until deep golden brown on all sides (see photo). Lower heat if browning too quickly. Remove from pan and set aside.",
-          "To the still hot pan add garlic, green onion, peas and carrots. Saut\u00e9 for 3-4 minutes, stirring occasionally, and season with 1 Tbsp (15 ml) tamari or soy sauce (amount as original recipe is written // adjust if altering batch size).",
+          "To the still hot pan add garlic, green onion, peas and carrots. Sauté for 3-4 minutes, stirring occasionally, and season with 1 Tbsp (15 ml) tamari or soy sauce (amount as original recipe is written // adjust if altering batch size).",
           "Add cooked rice, tofu, and remaining sauce and stir. Cook over medium-high heat for 3-4 minutes, stirring frequently.",
           "Serve immediately with extra chili garlic sauce or sriracha for heat (optional). Crushed salted, roasted peanuts or cashews make a lovely additional garnish. Leftovers keep well in the refrigerator for 3-4 days, though best when fresh. Reheat in a skillet over medium heat or in the microwave."
         ]
@@ -2342,7 +2342,7 @@
     "createdAt": "2026-01-26",
     "updatedAt": "2026-01-26",
     "name": "30-Minute Coconut Curry",
-    "description": "A vegan, gluten free 30-minute curry that\u2019s loaded with veggies and swimming in a perfectly-spiced coconut milk broth. Coconut quinoa sends this over the top. Simple, healthy, fast and so delicious.",
+    "description": "A vegan, gluten free 30-minute curry that’s loaded with veggies and swimming in a perfectly-spiced coconut milk broth. Coconut quinoa sends this over the top. Simple, healthy, fast and so delicious.",
     "author": "Minimalist Baker",
     "imageUrl": "https://minimalistbaker.com/wp-content/uploads/2014/04/Simple-Coconut-Curry-with-Veggies-and-Coconut-Quinoa-minimalist-baker-vegan-glutenfree-square.jpg",
     "prepTime": "PT5M",
@@ -2354,7 +2354,7 @@
       "unit": "servings"
     },
     "tags": [
-      "entr\u00e9e",
+      "entrée",
       "coconut curry"
     ],
     "cuisine": "Gluten-Free",
@@ -2500,9 +2500,9 @@
         "section": "Instructions",
         "steps": [
           "If serving with coconut quinoa, begin by washing thoroughly in a fine mesh strainer. Add to a medium saucepan over medium heat and toast for 3 minutes. Add light coconut milk and 1/2 cup water (amount as original recipe is written // adjust if altering batch size). Bring to a boil, then reduce heat to simmer, cover and cook for 15 minutes or until the quinoa is light, fluffy and the liquid is absorbed. Set aside until serving.",
-          "In the meantime, heat a large saucepan or pot to medium heat and add coconut oil. Add the onion, garlic, ginger, carrot, broccoli and a pinch each salt and pepper and stir. Cook, stirring frequently, until softened \u2013 about 5 minutes.",
+          "In the meantime, heat a large saucepan or pot to medium heat and add coconut oil. Add the onion, garlic, ginger, carrot, broccoli and a pinch each salt and pepper and stir. Cook, stirring frequently, until softened – about 5 minutes.",
           "Add curry powder, cayenne (or chili pepper), veggie stock, coconut milk, another healthy pinch of salt and stir. Bring to a simmer then reduce heat slightly and continue cooking for 10-15 minutes.",
-          "Add the snow peas and tomatoes in the last 5 minutes so they don\u2019t overcook.",
+          "Add the snow peas and tomatoes in the last 5 minutes so they don’t overcook.",
           "Taste and adjust seasonings as needed. I added another pinch or two of salt.",
           "Serve over coconut quinoa (see other options below in notes) and garnish with fresh lemon juice and herbs."
         ]
@@ -2846,7 +2846,7 @@
           "Marinade: Combine the Marinade ingredients with the chicken in a bowl. Cover and refrigerate overnight, or up to 24 hours (minimum 3 hrs).",
           "Cook chicken: Heat the ghee (butter or oil) over high heat in a large fry pan. Take the chicken out of the Marinade but do not wipe or shake off the marinade from the chicken (but don't pour the Marinade left in the bowl into the fry pan). ",
           "Place chicken in the fry pan and cook for around 3 minutes, or until the chicken is white all over (it doesn't really brown because of the Marinade).",
-          "Sauce:\u00a0Add the tomato passata, cream, sugar and salt. Also add any remaining marinade left in the bowl. Turn down to low and simmer for 20 minutes.\u00a0Do a taste test to see if it needs more salt.",
+          "Sauce: Add the tomato passata, cream, sugar and salt. Also add any remaining marinade left in the bowl. Turn down to low and simmer for 20 minutes. Do a taste test to see if it needs more salt.",
           "Garnish with coriander/cilantro leaves if using. Serve with basmati rice.",
           "The Butter Chicken is pictured with my very easy No Yeast Flatbread and no-fry papadums (Note 5)."
         ]
@@ -2871,7 +2871,7 @@
     "createdAt": "2026-01-26",
     "updatedAt": "2026-01-26",
     "name": "Honey Garlic Chicken Breast",
-    "description": "Recipe video above. An incredible quick and easy way to serve up chicken breast - seared then simmered in the most amazing honey garlic sauce. Don't be deceived by the short ingredient list! It's absolutely worth the extra step of dusting the chicken with flour because it creates a crust for the sauce to cling to.\u00a0BONUS: See notes for how to make this with any protein - beef, pork, lamb, prawns/shrimp, tofu!",
+    "description": "Recipe video above. An incredible quick and easy way to serve up chicken breast - seared then simmered in the most amazing honey garlic sauce. Don't be deceived by the short ingredient list! It's absolutely worth the extra step of dusting the chicken with flour because it creates a crust for the sauce to cling to. BONUS: See notes for how to make this with any protein - beef, pork, lamb, prawns/shrimp, tofu!",
     "author": "",
     "imageUrl": "https://www.recipetineats.com/tachyon/2020/02/Honey-Garlic-Chicken-Breast_5-SQ.jpg",
     "prepTime": "PT4M",
@@ -3970,7 +3970,7 @@
         "steps": [
           "Combine the ingredients for the Cajun seasoning in a small bowl. Cut the chicken into 1/2 to 3/4-inch cubes. Place the cubed chicken in a bowl, pour the Cajun seasoning over top, and stir to coat the chicken in spices.",
           "Add the olive oil and butter to a large deep skillet. Heat the oil and butter over medium-high until the skillet is very hot and the butter is melted and foamy. Add the seasoned chicken to the skillet and cook for a couple minutes on each side, or just until the outside gets some color. The chicken does not need to be cooked through at this point.",
-          "Add the diced yellow onion to the skillet and continue to saut\u00e9 for about 2 minutes more, or just until the onion begins to soften. Allow the moisture from the onion to dissolve any browned bits from the bottom of the skillet.",
+          "Add the diced yellow onion to the skillet and continue to sauté for about 2 minutes more, or just until the onion begins to soften. Allow the moisture from the onion to dissolve any browned bits from the bottom of the skillet.",
           "Next, add the pasta, fire roasted diced tomatoes (with the juices), and chicken broth to the skillet. Stir just until everything is evenly combined, then place a lid on top and allow the broth to come up to a boil.",
           "Once boiling, turn the heat down to medium-low and let the pasta simmer for about ten minutes, stirring every couple of minutes, until the pasta is tender and the liquid is thick and saucy.",
           "Add the cream cheese to the skillet in chunks, then stir until it has melted into the sauce. Top the pasta with sliced green onions and serve."
@@ -4088,7 +4088,7 @@
       {
         "section": "Instructions",
         "steps": [
-          "Finely dice the onion. Add the onion, olive oil, and ground beef to a large deep skillet and saut\u00e9 over medium heat until the beef is fully browned and the onion is soft and translucent. Drain off any excess fat, if needed.",
+          "Finely dice the onion. Add the onion, olive oil, and ground beef to a large deep skillet and sauté over medium heat until the beef is fully browned and the onion is soft and translucent. Drain off any excess fat, if needed.",
           "Add the flour to the skillet and continue to stir and cook for one minute more. The flour will begin to coat the bottom of the skillet. Be careful not to let the flour burn.",
           "Add the tomato sauce and beef broth to the skillet and stir to dissolve the flour off the bottom of the skillet.",
           "Add the uncooked pasta to the skillet and stir to combine. The liquid in the skillet may not fully cover the pasta, but that is okay.",
@@ -4408,7 +4408,7 @@
     "cuisine": "American",
     "ingredients": [
       {
-        "name": "\u00bd lb penne pasta",
+        "name": "½ lb penne pasta",
         "quantity": null,
         "unit": "",
         "category": "pantry",
@@ -4446,35 +4446,35 @@
         "optional": false
       },
       {
-        "name": "\u00bd tsp dried oregano",
+        "name": "½ tsp dried oregano",
         "quantity": null,
         "unit": "",
         "category": "spices",
         "optional": false
       },
       {
-        "name": "\u00bd tsp dried basil",
+        "name": "½ tsp dried basil",
         "quantity": null,
         "unit": "",
         "category": "produce",
         "optional": false
       },
       {
-        "name": "\u215b tsp crushed red pepper",
+        "name": "⅛ tsp crushed red pepper",
         "quantity": null,
         "unit": "",
         "category": "produce",
         "optional": false
       },
       {
-        "name": "\u00bd tsp salt",
+        "name": "½ tsp salt",
         "quantity": null,
         "unit": "",
         "category": "spices",
         "optional": false
       },
       {
-        "name": "\u00bd tsp freshly cracked black pepper",
+        "name": "½ tsp freshly cracked black pepper",
         "quantity": null,
         "unit": "",
         "category": "produce",
@@ -4488,7 +4488,7 @@
         "optional": false
       },
       {
-        "name": "\u00bd cup water",
+        "name": "½ cup water",
         "quantity": null,
         "unit": "",
         "category": "other",
@@ -4502,7 +4502,7 @@
         "optional": false
       },
       {
-        "name": "\u00bc cup grated Parmesan",
+        "name": "¼ cup grated Parmesan",
         "quantity": null,
         "unit": "",
         "preparation": "30g",
@@ -4523,7 +4523,7 @@
         "steps": [
           "Gather and prepare all ingredients.",
           "Bring a large pot of water to a boil over high heat. Add the pasta and continue to boil until tender (7-10 minutes). Drain the pasta in a colander.",
-          "While the pasta is cooking, prepare the creamy tomato sauce. Dice the onion and mince the garlic. Add the onion, garlic, and olive oil to a large skillet and saut\u00e9 over medium heat until the onions are soft and translucent (3-5 minutes).",
+          "While the pasta is cooking, prepare the creamy tomato sauce. Dice the onion and mince the garlic. Add the onion, garlic, and olive oil to a large skillet and sauté over medium heat until the onions are soft and translucent (3-5 minutes).",
           "Add the diced tomatoes (with juices), oregano, basil, crushed red pepper, salt, and some freshly cracked pepper to the skillet. Stir to combine. Add the tomato paste and a 1/2 cup of water to the skillet and stir until the tomato paste has mixed into the sauce.",
           "Turn the heat down to low. Cut the cream cheese into a few pieces and then add them to the skillet with the tomato sauce. Use a whisk to stir the sauce until the cream cheese has fully melted and the sauce is creamy. Add the Parmesan to the skillet and stir until it is melted into the sauce.",
           "Add the fresh spinach to the skillet and gently stir it into the sauce until it has wilted (2-3 minutes). Add the pasta and stir until it is well coated in the creamy tomato sauce. Taste and adjust the salt and pepper as needed. Serve warm."
@@ -4934,7 +4934,7 @@
         "steps": [
           "Add the oyster sauce, brown sugar, soy sauce and sesame oil to a bowl and stir until combined.",
           "Bring a large pot of water to a boil and cook the noodles according to the package directions (boil for 7-10 minutes). Drain the cooked noodles in a colander, then set aside.",
-          "While the pasta cooks, mince the garlic and slice the green onions. Melt the butter in a large skillet over medium-low heat. Once the butter is melted and bubbly, add the garlic and onions (save a few for garnish) and saut\u00e9 until they are soft and fragrant (1-2 minutes).",
+          "While the pasta cooks, mince the garlic and slice the green onions. Melt the butter in a large skillet over medium-low heat. Once the butter is melted and bubbly, add the garlic and onions (save a few for garnish) and sauté until they are soft and fragrant (1-2 minutes).",
           "Remove the skillet from the heat. Add the drained pasta and oyster sauce mixture to the skillet, and stir well to coat the pasta. If your pasta is stiff or sticky making it hard to stir, sprinkle a small amount of hot water over the pasta to loosen it up. Garnish the pasta with any reserved sliced green onions, then serve."
         ]
       }
@@ -5082,9 +5082,9 @@
         "section": "Instructions",
         "steps": [
           "Before you begin, prepare the meat and vegetables for stir frying. Peel the ginger with either a vegetable peeler or the side of a spoon and then grate it with a cheese grater. Peel and grate the carrots with a large holed cheese grater. Remove the core from the cabbage and cut into thin strips. Slice the onion into thin strips. Cut the broccoli into bite-sized pieces. Slice the chicken into thin strips.",
-          "Begin boiling a medium pot full of water for the noodles. Heat the vegetable oil in a large skillet over medium-high heat. When the oil is hot, add the grated ginger, saute for about 30 seconds to one minute (its okay if it sticks to the pan but don\u2019t let it burn). Add the chicken strips and cook until they are no longer pink (about five minutes).",
+          "Begin boiling a medium pot full of water for the noodles. Heat the vegetable oil in a large skillet over medium-high heat. When the oil is hot, add the grated ginger, saute for about 30 seconds to one minute (its okay if it sticks to the pan but don’t let it burn). Add the chicken strips and cook until they are no longer pink (about five minutes).",
           "Once the chicken is cooked through, add all of the vegetables. Stir and cook until wilted (about 5-10 minutes). Meanwhile, once the water boils, add the noodles and cook just until tender (2-3 minutes). Drain, return to the pot (with the heat turned off) and toss with the sesame oil to keep from sticking.",
-          "In a small bowl, combine the soy sauce, worcestershire sauce, ketchup, sriracha, and sugar. Use only 1/2 tsp of sriracha if you don\u2019t want it spicy, use up to 1 Tbsp if you like it hot. Stir until the ketchup and sugar are dissolved. Pour the sauce into the skillet with the chicken and vegetables with the heat still on medium high. Add the noodles, stir to coat everything in the sauce, and heat through (just a few minutes)."
+          "In a small bowl, combine the soy sauce, worcestershire sauce, ketchup, sriracha, and sugar. Use only 1/2 tsp of sriracha if you don’t want it spicy, use up to 1 Tbsp if you like it hot. Stir until the ketchup and sugar are dissolved. Pour the sauce into the skillet with the chicken and vegetables with the heat still on medium high. Add the noodles, stir to coat everything in the sauce, and heat through (just a few minutes)."
         ]
       }
     ],
@@ -5212,8 +5212,8 @@
         "section": "Instructions",
         "steps": [
           "Cut the chicken breast into very small pieces, about 1/2 to 3/4-inch in size.",
-          "Add the cooking oil, garlic, and ginger to a large, deep skillet. Cook over medium heat for about 1 minute, then add the chicken pieces and continue to saut\u00e9 just until the outside of the chicken is no longer pink. Do not over cook the chicken here, it will finish cooking with the rice.",
-          "Add the uncooked rice to the skillet and continue to saut\u00e9 for 1-2 minutes more. You should hear the rice popping. Finally, add the water and give everything a brief stir to make sure there is no rice stuck to the bottom of the skillet.",
+          "Add the cooking oil, garlic, and ginger to a large, deep skillet. Cook over medium heat for about 1 minute, then add the chicken pieces and continue to sauté just until the outside of the chicken is no longer pink. Do not over cook the chicken here, it will finish cooking with the rice.",
+          "Add the uncooked rice to the skillet and continue to sauté for 1-2 minutes more. You should hear the rice popping. Finally, add the water and give everything a brief stir to make sure there is no rice stuck to the bottom of the skillet.",
           "Place a lid on the skillet, turn the heat up to medium-high, and allow the water to come to a full boil. Once boiling, turn the heat down to low and let it simmer for 10 minutes.",
           "While the skillet is simmering over low, prepare the teriyaki sauce. In a small bowl, stir together the soy sauce, brown sugar, and toasted sesame oil. The brown sugar may not fully dissolve, but that's okay. Set the sauce aside.",
           "After the rice has simmered for 10 minutes, lift the lid briefly to sprinkle the frozen vegetables on top, then replace the lid immediately. Make sure the vegetables are spread evenly over the surface. Let the skillet continue to heat over low for an additional five minute.",
@@ -5287,7 +5287,7 @@
         "optional": false
       },
       {
-        "name": "red\u00a0onion",
+        "name": "red onion",
         "quantity": 0.25,
         "unit": "cup",
         "preparation": "finely chopped",
@@ -5521,7 +5521,7 @@
     "createdAt": "2026-01-26",
     "updatedAt": "2026-01-26",
     "name": "The Best Slow-Cooked Bolognese Sauce Recipe",
-    "description": "The oven technique for this rag\u00f9 Bolognese recipe develops rich flavors and a tender, silky texture. This is the Bolognese that will leave you and your loved ones weak in the knees.",
+    "description": "The oven technique for this ragù Bolognese recipe develops rich flavors and a tender, silky texture. This is the Bolognese that will leave you and your loved ones weak in the knees.",
     "author": "",
     "imageUrl": "https://www.seriouseats.com/thmb/QChcw6d_9s7rS4h57ADKBWEvxv4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/the-best-slow-cooked-bolognese-sauce-recipe-hero-03_1-3bf4f3401fa84c828f68071df496ddd3.JPG",
     "prepTime": "PT10M",
@@ -5731,8 +5731,8 @@
       {
         "section": "Instructions",
         "steps": [
-          "Adjust oven rack to lower-middle position and preheat oven to 300\u00b0F (150\u00b0C). Place stock in a medium bowl or 1-quart liquid measure and sprinkle with gelatin. Set aside. Pur\u00e9e tomatoes in the can using an immersion blender or transfer to the bowl of a countertop blender and pur\u00e9e until smooth. Transfer chicken livers to a cup that just fits head of immersion blender and pur\u00e9e until smooth.",
-          "Heat olive oil in a large Dutch oven over high heat until shimmering. Add ground beef, pork, and lamb, season with salt and pepper, and cook, stirring and breaking up with a wooden spoon or potato masher until no longer pink, about 10 minutes. Remove from heat and stir in pur\u00e9ed chicken livers.",
+          "Adjust oven rack to lower-middle position and preheat oven to 300°F (150°C). Place stock in a medium bowl or 1-quart liquid measure and sprinkle with gelatin. Set aside. Purée tomatoes in the can using an immersion blender or transfer to the bowl of a countertop blender and purée until smooth. Transfer chicken livers to a cup that just fits head of immersion blender and purée until smooth.",
+          "Heat olive oil in a large Dutch oven over high heat until shimmering. Add ground beef, pork, and lamb, season with salt and pepper, and cook, stirring and breaking up with a wooden spoon or potato masher until no longer pink, about 10 minutes. Remove from heat and stir in puréed chicken livers.",
           "Meanwhile, heat butter and pancetta in a large skillet over medium-high heat and cook, stirring frequently, until fat has mostly rendered but butter and pancetta have not yet started to brown, about 8 minutes. Add onion, carrots, celery, garlic, sage, and half of parsley and cook, stirring and tossing, until vegetables are completely softened but not browned, about 8 minutes. Add cooked vegetables to meat mixture.",
           "Return Dutch oven to high heat and cook, stirring, until most of the liquid has evaporated from the pan, about 10 minutes longer.",
           "Add wine and cook, stirring, until mostly evaporated. Add reserved stock, tomatoes, milk, and bay leaves. Season gently with salt and pepper.",
@@ -5876,7 +5876,7 @@
     "cuisine": "Mediterranean",
     "ingredients": [
       {
-        "name": "\u00bc cup extra virgin olive oil",
+        "name": "¼ cup extra virgin olive oil",
         "quantity": null,
         "unit": "",
         "category": "pantry",
@@ -5921,7 +5921,7 @@
         "optional": false
       },
       {
-        "name": "\u00bd teaspoon dried thyme",
+        "name": "½ teaspoon dried thyme",
         "quantity": null,
         "unit": "",
         "category": "spices",
@@ -5989,7 +5989,7 @@
         "optional": false
       },
       {
-        "name": "to 2 tablespoons lemon juice (\u00bd to 1 medium lemon)",
+        "name": "to 2 tablespoons lemon juice (½ to 1 medium lemon)",
         "quantity": 1,
         "unit": "",
         "preparation": "to taste",
@@ -6005,7 +6005,7 @@
           "Once the oil is shimmering, add the chopped onion and carrot and cook, stirring often, until the onion has softened and is turning translucent, about 5 minutes.",
           "Add the garlic, cumin, curry powder and thyme. Cook until fragrant while stirring constantly, about 30 seconds. Pour in the drained diced tomatoes and cook for a few more minutes, stirring often, in order to enhance their flavor.",
           "Pour in the lentils, broth and the water. Add 1 teaspoon salt and a pinch of red pepper flakes. Season generously with freshly ground black pepper. Raise heat and bring the mixture to a boil, then partially cover the pot and reduce the heat to maintain a gentle simmer. Cook for 25 to 30 minutes, or until the lentils are tender but still hold their shape.",
-          "Transfer 2 cups of the soup to a blender. Securely fasten the lid, protect your hand from steam with a tea towel placed over the lid, and pur\u00e9e the soup until smooth. Pour the pur\u00e9ed soup back into the pot. (Or, use an immersion blender to blend a portion of the soup.)",
+          "Transfer 2 cups of the soup to a blender. Securely fasten the lid, protect your hand from steam with a tea towel placed over the lid, and purée the soup until smooth. Pour the puréed soup back into the pot. (Or, use an immersion blender to blend a portion of the soup.)",
           "Add the chopped greens and cook for 5 more minutes, or until the greens have softened to your liking. Remove the pot from the heat and stir in 1 tablespoon of lemon juice. Taste and season with more salt, pepper and/or lemon juice until the flavors really sing. For spicier soup, add another pinch or two of red pepper flakes.",
           "Serve while hot. Leftovers will keep well for about 4 days in the refrigerator, or can be frozen for several months (just defrost before serving)."
         ]
@@ -6087,7 +6087,7 @@
         "optional": false
       },
       {
-        "name": "\u00bd teaspoon salt",
+        "name": "½ teaspoon salt",
         "quantity": null,
         "unit": "",
         "preparation": "divided",
@@ -6117,7 +6117,7 @@
         "optional": false
       },
       {
-        "name": "\u00bd teaspoons smoked paprika*",
+        "name": "½ teaspoons smoked paprika*",
         "quantity": 1,
         "unit": "",
         "category": "spices",
@@ -6188,7 +6188,7 @@
         "name": "Garnishes: chopped cilantro",
         "quantity": null,
         "unit": "",
-        "preparation": "sliced avocado, tortilla chips, sour cream or cr\u00e8me fra\u00eeche, grated cheddar cheese, etc.",
+        "preparation": "sliced avocado, tortilla chips, sour cream or crème fraîche, grated cheddar cheese, etc.",
         "category": "produce",
         "optional": false
       }
@@ -6197,11 +6197,11 @@
       {
         "section": "Instructions",
         "steps": [
-          "In a large Dutch oven or heavy-bottomed pot over medium heat, warm the olive oil until shimmering. Add the chopped onion, bell pepper, carrot, celery and \u00bc teaspoon of the salt. Stir to combine and cook, stirring occasionally, until the vegetables are tender and the onion is translucent, about 7 to 10 minutes.",
+          "In a large Dutch oven or heavy-bottomed pot over medium heat, warm the olive oil until shimmering. Add the chopped onion, bell pepper, carrot, celery and ¼ teaspoon of the salt. Stir to combine and cook, stirring occasionally, until the vegetables are tender and the onion is translucent, about 7 to 10 minutes.",
           "Add the garlic, chili powder, cumin, smoked paprika and oregano. Cook until fragrant while stirring constantly, about 1 minute.",
           "Add the diced tomatoes and their juices, the drained black beans and pinto beans, vegetable broth and bay leaf. Stir to combine and let the mixture come to a simmer. Continue cooking, stirring occasionally and reducing heat as necessary to maintain a gentle simmer, for 30 minutes.",
-          "Remove the chili from the heat and discard the bay leaf. For the best texture and flavor, transfer 1 \u00bd cups of the chili to a blender, making sure to get some of the liquid portion. Securely fasten the lid and blend until smooth (watch out for hot steam), then pour the blended mixture back into the pot. (Or, you can blend the chili briefly with an immersion blender, or mash the chili with a potato masher until it reaches a thicker, more chili-like consistency.)",
-          "Add the chopped cilantro, stir to combine, and then mix in the vinegar, to taste. Add salt to taste, too\u2014I added \u00bc teaspoon more at this point. Divide the mixture into individual bowls and serve with garnishes of your choice. This chili will keep well in the refrigerator for about 4 days or you can freeze it for longer-term storage."
+          "Remove the chili from the heat and discard the bay leaf. For the best texture and flavor, transfer 1 ½ cups of the chili to a blender, making sure to get some of the liquid portion. Securely fasten the lid and blend until smooth (watch out for hot steam), then pour the blended mixture back into the pot. (Or, you can blend the chili briefly with an immersion blender, or mash the chili with a potato masher until it reaches a thicker, more chili-like consistency.)",
+          "Add the chopped cilantro, stir to combine, and then mix in the vinegar, to taste. Add salt to taste, too—I added ¼ teaspoon more at this point. Divide the mixture into individual bowls and serve with garnishes of your choice. This chili will keep well in the refrigerator for about 4 days or you can freeze it for longer-term storage."
         ]
       }
     ],
@@ -6224,7 +6224,7 @@
     "createdAt": "2026-01-26",
     "updatedAt": "2026-01-26",
     "name": "Best Hummus",
-    "description": "Learn how to make the best homemade hummus! It's creamy, dreamy and light. This hummus recipe is easy to make\u2014no peeling chickpeas or overnight soak required. Recipe yields about 2 cups.",
+    "description": "Learn how to make the best homemade hummus! It's creamy, dreamy and light. This hummus recipe is easy to make—no peeling chickpeas or overnight soak required. Recipe yields about 2 cups.",
     "author": "Cookie and Kate",
     "imageUrl": "https://cookieandkate.com/images/2018/05/best-hummus-225x225.jpg",
     "prepTime": "PT20M",
@@ -6247,20 +6247,20 @@
         "name": "(15 ounces) chickpeas",
         "quantity": 1,
         "unit": "can",
-        "preparation": "rinsed and drained, or 1 \u00bd cups cooked chickpeas",
+        "preparation": "rinsed and drained, or 1 ½ cups cooked chickpeas",
         "category": "pantry",
         "optional": false
       },
       {
-        "name": "\u00bd teaspoon baking soda",
+        "name": "½ teaspoon baking soda",
         "quantity": null,
         "unit": "",
-        "preparation": "if you\u2019re using canned chickpeas",
+        "preparation": "if you’re using canned chickpeas",
         "category": "other",
         "optional": false
       },
       {
-        "name": "\u00bc cup lemon juice\u00a0(from 1 \u00bd to 2 lemons)",
+        "name": "¼ cup lemon juice (from 1 ½ to 2 lemons)",
         "quantity": null,
         "unit": "",
         "preparation": "more to taste",
@@ -6276,7 +6276,7 @@
         "optional": false
       },
       {
-        "name": "\u00bd teaspoon fine sea salt",
+        "name": "½ teaspoon fine sea salt",
         "quantity": null,
         "unit": "",
         "preparation": "to taste",
@@ -6284,7 +6284,7 @@
         "optional": false
       },
       {
-        "name": "\u00bd cup tahini",
+        "name": "½ cup tahini",
         "quantity": null,
         "unit": "",
         "category": "other",
@@ -6299,21 +6299,21 @@
         "optional": false
       },
       {
-        "name": "\u00bd teaspoon ground cumin",
+        "name": "½ teaspoon ground cumin",
         "quantity": null,
         "unit": "",
         "category": "spices",
         "optional": false
       },
       {
-        "name": "extra-virgin\u00a0olive oil",
+        "name": "extra-virgin olive oil",
         "quantity": 1,
         "unit": "tablespoon",
         "category": "pantry",
         "optional": false
       },
       {
-        "name": "Any of the following garnishes:\u00a0 drizzle of olive oil or zhoug sauce",
+        "name": "Any of the following garnishes:  drizzle of olive oil or zhoug sauce",
         "quantity": null,
         "unit": "",
         "preparation": "sprinkle of ground sumac or paprika, chopped fresh parsley",
@@ -6325,12 +6325,12 @@
       {
         "section": "Instructions",
         "steps": [
-          "Place the chickpeas in a medium saucepan and add the baking soda. Cover the chickpeas by several inches of water, then bring the mixture to a boil over high heat. Continue boiling, reducing heat if necessary to prevent overflow, for about 20 minutes, or until the chickpeas look bloated, their skins are falling off, and they\u2019re quite soft. In a fine-mesh strainer, drain the chickpeas and run cool water over them for about 30 seconds. Set aside (no need to peel the chickpeas for this recipe!).",
+          "Place the chickpeas in a medium saucepan and add the baking soda. Cover the chickpeas by several inches of water, then bring the mixture to a boil over high heat. Continue boiling, reducing heat if necessary to prevent overflow, for about 20 minutes, or until the chickpeas look bloated, their skins are falling off, and they’re quite soft. In a fine-mesh strainer, drain the chickpeas and run cool water over them for about 30 seconds. Set aside (no need to peel the chickpeas for this recipe!).",
           "Meanwhile, in a food processor or high-powered blender, combine the lemon juice, garlic and salt. Process until the garlic is very finely chopped, then let the mixture rest so the garlic flavor can mellow, ideally 10 minutes or longer.",
           "Add the tahini to the food processor and blend until the mixture is thick and creamy, stopping to scrape down any tahini stuck to the sides and bottom of the processor as necessary.",
           "While running the food processor, drizzle in 2 tablespoons ice water. Scrape down the food processor, and blend until the mixture is ultra smooth, pale and creamy. (If your tahini was extra-thick to begin with, you might need to add 1 to 2 tablespoons more ice water.)",
           "Add the cumin and the drained, over-cooked chickpeas to the food processor. While blending, drizzle in the olive oil. Blend until the mixture is super smooth, scraping down the sides of the processor as necessary, about 2 minutes. Add more ice water by the tablespoon if necessary to achieve a super creamy texture.",
-          "Taste, and adjust as necessary\u2014I almost always add another \u00bc teaspoon salt for more overall flavor and another tablespoon of lemon juice for extra zing.",
+          "Taste, and adjust as necessary—I almost always add another ¼ teaspoon salt for more overall flavor and another tablespoon of lemon juice for extra zing.",
           "Scrape the hummus into a serving bowl or platter, and use a spoon to create nice swooshes on top. Top with garnishes of your choice, and serve. Leftover hummus keeps well in the refrigerator, covered, for up to 1 week."
         ]
       }
@@ -6388,7 +6388,7 @@
         "optional": false
       },
       {
-        "name": "\u00bc teaspoon cayenne pepper",
+        "name": "¼ teaspoon cayenne pepper",
         "quantity": null,
         "unit": "",
         "preparation": "omit if sensitive to spice",
@@ -6396,7 +6396,7 @@
         "optional": false
       },
       {
-        "name": "\u00bc teaspoon fine salt",
+        "name": "¼ teaspoon fine salt",
         "quantity": null,
         "unit": "",
         "category": "spices",
@@ -6432,7 +6432,7 @@
         "optional": false
       },
       {
-        "name": "\u00bc teaspoon chili powder",
+        "name": "¼ teaspoon chili powder",
         "quantity": null,
         "unit": "",
         "category": "spices",
@@ -6447,7 +6447,7 @@
         "optional": false
       },
       {
-        "name": "\u2153 cup water",
+        "name": "⅓ cup water",
         "quantity": null,
         "unit": "",
         "category": "other",
@@ -6485,14 +6485,14 @@
         "optional": false
       },
       {
-        "name": "\u00bd cup pepitas",
+        "name": "½ cup pepitas",
         "quantity": null,
         "unit": "",
         "category": "bakery",
         "optional": false
       },
       {
-        "name": "jalape\u00f1o, seeded and roughly chopped, or \u00bc teaspoon red pepper flakes",
+        "name": "jalapeño, seeded and roughly chopped, or ¼ teaspoon red pepper flakes",
         "quantity": 1,
         "unit": "small",
         "preparation": "go easy if sensitive to spice",
@@ -6522,7 +6522,7 @@
         "optional": false
       },
       {
-        "name": "\u00bd teaspoon fine salt",
+        "name": "½ teaspoon fine salt",
         "quantity": null,
         "unit": "",
         "category": "spices",
@@ -6551,7 +6551,7 @@
         "optional": false
       },
       {
-        "name": "Suggested garnishes: Pickled jalape\u00f1os or pickled radishes or pickled red onions",
+        "name": "Suggested garnishes: Pickled jalapeños or pickled radishes or pickled red onions",
         "quantity": null,
         "unit": "",
         "preparation": "torn cilantro, hot sauce, etc.",
@@ -6565,9 +6565,9 @@
         "steps": [
           "Roast the sweet potatoes: Preheat the oven to 425 degrees Fahrenheit and line a large, rimmed baking sheet with parchment paper for easy clean-up. Toss the prepared sweet potatoes with the olive oil, cayenne pepper (if using) and salt. Arrange in a single layer and bake for 30 to 40 minutes, tossing halfway, until the sweet potatoes are tender and caramelizing at the edges.",
           "Prepare the black beans: Warm the olive oil in a large saucepan over medium heat. Add the onions and a sprinkle of salt. Cook, stirring occasionally, until the onions have softened and are turning translucent, about 5 to 8 minutes. Add the cumin and chili powder and cook for about 30 seconds while stirring. Pour in the beans and water. Stir, cover and reduce heat to maintain a gentle simmer.",
-          "Cook for 5 minutes, then remove the lid and use a potato masher or a fork to mash up at least half of the beans. Remove from heat, stir in the vinegar, season with salt (I added over \u00bc teaspoon) and pepper, and cover until you\u2019re ready to serve.",
+          "Cook for 5 minutes, then remove the lid and use a potato masher or a fork to mash up at least half of the beans. Remove from heat, stir in the vinegar, season with salt (I added over ¼ teaspoon) and pepper, and cover until you’re ready to serve.",
           "Make the avocado dip: First, toast the pepitas in a skillet over medium heat, stirring often, until they are fragrant and starting to make little popping noises, about 5 minutes. Transfer to a bowl and set aside.",
-          "Scoop the avocado flesh into a food processor or blender. Add the cilantro, jalape\u00f1o, garlic, lime juice, water and salt. Blend until smooth, scraping down the sides of the processor/blender as necessary. Add almost all of the pepitas (reserve a few tablespoons for garnish) and process just until the pepitas are chopped into small pieces (some remaining texture is desirable). Taste, and add more salt if necessary. Transfer the dip to a small bowl for serving.",
+          "Scoop the avocado flesh into a food processor or blender. Add the cilantro, jalapeño, garlic, lime juice, water and salt. Blend until smooth, scraping down the sides of the processor/blender as necessary. Add almost all of the pepitas (reserve a few tablespoons for garnish) and process just until the pepitas are chopped into small pieces (some remaining texture is desirable). Taste, and add more salt if necessary. Transfer the dip to a small bowl for serving.",
           "To warm the tortillas, heat a large skillet over medium heat and warm the tortillas in batches, flipping to warm each side. Alternatively, you can warm them directly over a low flame on a gas range. Stack the warmed tortillas on a plate and cover with a tea towel to keep warm.",
           "To assemble the tacos, spread black beans down the middle of each tortilla, then top with some sweet potatoes and avocado-pepita dip. Garnish with feta, pepitas, and anything else that strikes your fancy. Repeat with remaining tortillas and serve."
         ]
@@ -6593,7 +6593,7 @@
     "createdAt": "2026-01-26",
     "updatedAt": "2026-01-26",
     "name": "Beef Stroganoff",
-    "description": "RECIPE VIDEO ABOVE. Juicy strips of beef smothered in a sour cream mushroom gravy - a quick dinner everyone will love! KEY STEPS: Sear beef super quickly for maximum juiciness and use a large skillet (for quick sear + fast sauce reduction).\u00a0Stroganoff calls for good beef but if you only have a budget cut, use this easy Chinese method to tenderise the beef (it's called \"velveting\"). It's life changing - and perfect for Stroganoff.",
+    "description": "RECIPE VIDEO ABOVE. Juicy strips of beef smothered in a sour cream mushroom gravy - a quick dinner everyone will love! KEY STEPS: Sear beef super quickly for maximum juiciness and use a large skillet (for quick sear + fast sauce reduction). Stroganoff calls for good beef but if you only have a budget cut, use this easy Chinese method to tenderise the beef (it's called \"velveting\"). It's life changing - and perfect for Stroganoff.",
     "author": "",
     "imageUrl": "https://www.recipetineats.com/tachyon/2018/01/Beef-Stroganoff_2-1-1.jpg",
     "prepTime": "PT15M",
@@ -6739,7 +6739,7 @@
     "createdAt": "2026-01-26",
     "updatedAt": "2026-01-26",
     "name": "Crispy Baked Chicken Drumsticks",
-    "description": "Recipe video above. This is just a  great, simple chicken drumsticks recipe you can get in the oven quickly. Tossed in a 3-ingredient, barbecue rub-like seasoning, they're beautifully crispy thanks to a touch of baking powder, a tried and proven secret ingredient in my\u00a0Truly Crispy Baked Chicken Wings\u00a0recipe!",
+    "description": "Recipe video above. This is just a  great, simple chicken drumsticks recipe you can get in the oven quickly. Tossed in a 3-ingredient, barbecue rub-like seasoning, they're beautifully crispy thanks to a touch of baking powder, a tried and proven secret ingredient in my Truly Crispy Baked Chicken Wings recipe!",
     "author": "",
     "imageUrl": "https://www.recipetineats.com/tachyon/2022/07/Crispy-Baked-Chicken-Drumsticks_5-SQ.jpg",
     "prepTime": "PT10M",
@@ -6832,12 +6832,12 @@
       {
         "section": "Instructions",
         "steps": [
-          "Preparation: Preheat the oven to 200\u00b0C/390\u00b0F (180\u00b0C fan-forced). Line a tray with foil then place a rack on the tray (makes the underside of the drumsticks crispier, Note 4).",
+          "Preparation: Preheat the oven to 200°C/390°F (180°C fan-forced). Line a tray with foil then place a rack on the tray (makes the underside of the drumsticks crispier, Note 4).",
           "Seasoning: Mix the Seasoning ingredients in a shallow bowl.",
           "Coat in oil: Toss the drumsticks in the olive oil. Stretch and pull the skin on each drumsticks to cover as much of the flesh as possible.",
           "Coat in seasoning: Coat a drumstick in the Seasoning then shake the excess off well. Place on the rack. Repeat with remaining drumsticks.",
           "Spray with oil: Spray the legs generously with oil.",
-          "Bake for 30 minutes, rotating the tray halfway through. Increase the oven to 220\u00b0C / 430\u00b0F (200\u00b0C fan) then bake for a further 15 minutes or until the skin is crispy. Enjoy!"
+          "Bake for 30 minutes, rotating the tray halfway through. Increase the oven to 220°C / 430°F (200°C fan) then bake for a further 15 minutes or until the skin is crispy. Enjoy!"
         ]
       }
     ],
@@ -7344,11 +7344,11 @@
         "steps": [
           "Gather all your ingredients.",
           "Cook sausage, ground beef, onion, and garlic in a Dutch oven over medium heat until well browned.",
-          "Stir in crushed tomatoes, tomato sauce, tomato paste, and water. Season with sugar, 2 tablespoons parsley, basil, 1 teaspoon salt, Italian seasoning, fennel seeds, and pepper. Simmer, covered, for about 1 \u00bd hours, stirring occasionally.",
+          "Stir in crushed tomatoes, tomato sauce, tomato paste, and water. Season with sugar, 2 tablespoons parsley, basil, 1 teaspoon salt, Italian seasoning, fennel seeds, and pepper. Simmer, covered, for about 1 ½ hours, stirring occasionally.",
           "Bring a large pot of lightly salted water to a boil. Cook lasagna noodles in boiling water for 8 to 10 minutes. Drain noodles, and rinse with cold water.",
           "In a mixing bowl, combine ricotta cheese with egg, remaining 2 tablespoons parsley, and 1/2 teaspoon salt.",
           "Preheat the oven to 375 degrees F (190 degrees C).",
-          "To assemble, spread 1 \u00bd cups of meat sauce in the bottom of a 9x13-inch baking dish. Arrange 6 noodles lengthwise over meat sauce, overlapping slightly. Spread with 1/2 of the ricotta cheese mixture. Top with 1/3 of the mozzarella cheese slices. Spoon 1 \u00bd cups meat sauce over mozzarella, and sprinkle with 1/4 cup Parmesan cheese.",
+          "To assemble, spread 1 ½ cups of meat sauce in the bottom of a 9x13-inch baking dish. Arrange 6 noodles lengthwise over meat sauce, overlapping slightly. Spread with 1/2 of the ricotta cheese mixture. Top with 1/3 of the mozzarella cheese slices. Spoon 1 ½ cups meat sauce over mozzarella, and sprinkle with 1/4 cup Parmesan cheese.",
           "Repeat layers, and top with remaining mozzarella and Parmesan cheese. Cover with foil: to prevent sticking, either spray foil with cooking spray or make sure the foil does not touch the cheese.",
           "Bake in the preheated oven for 25 minutes. Remove the foil and bake for an additional 25 minutes.",
           "Rest lasagna for 15 minutes before serving."
@@ -7457,7 +7457,7 @@
           "Whisk flour, baking powder, and salt in a separate bowl. With mixer on low speed, add flour mixture to butter mixture in 3 batches, alternating with milk, beginning and ending with flour. Mix just until combined stopping to scrape down sides if needed, about 2 minutes.",
           "Spread cake batter into the prepared pan.",
           "Bake cake in the preheated oven until a toothpick inserted into the center comes out clean, about 30 minutes.",
-          "Remove cake from the oven and let cool in pan on a wire rack for 10 minutes. Invert cake onto wire rack; remove pan and let cake\u00a0cool completely before frosting. Enjoy!"
+          "Remove cake from the oven and let cool in pan on a wire rack for 10 minutes. Invert cake onto wire rack; remove pan and let cake cool completely before frosting. Enjoy!"
         ]
       }
     ],
@@ -8062,7 +8062,7 @@
         "name": "fresh parsley (chopped",
         "quantity": 0.25,
         "unit": "bunch",
-        "preparation": "(about \u00bd cup",
+        "preparation": "(about ½ cup",
         "category": "produce",
         "optional": false
       },
@@ -8262,7 +8262,7 @@
       {
         "section": "Instructions",
         "steps": [
-          "Preheat the oven to 400\u00baF. Mix all of the spices for the fajita seasoning in a small bowl and set aside (chili powder, paprika, onion powder, garlic powder, cumin, cayenne pepper, sugar, and salt).",
+          "Preheat the oven to 400ºF. Mix all of the spices for the fajita seasoning in a small bowl and set aside (chili powder, paprika, onion powder, garlic powder, cumin, cayenne pepper, sugar, and salt).",
           "Cut the onion and bell peppers into 1/4-inch wide strips. Slice the chicken breast into thin strips. Add the chicken and vegetables to a large baking sheet or casserole dish.",
           "Drizzle the cooking oil over the chicken and vegetables, then sprinkle the fajita seasoning mix over top. Use your hands to toss the ingredients until everything is well coated in oil and seasoning. Spread the chicken and vegetables out over the baking sheet evenly.",
           "Bake the chicken and vegetables in the preheated oven for 35-40 minutes, stirring once halfway through. Squeeze the juice from half of the lime over top of the meat and vegetables after they come out of the oven.",
@@ -8858,7 +8858,7 @@
         "optional": false
       },
       {
-        "name": "\u00bc teaspoon ground cinnamon",
+        "name": "¼ teaspoon ground cinnamon",
         "quantity": null,
         "unit": "",
         "category": "spices",
@@ -8876,7 +8876,7 @@
         "name": "(15 ounces) black beans",
         "quantity": 1,
         "unit": "can",
-        "preparation": "drained and rinsed, or 1 \u00bd cups cooked black beans",
+        "preparation": "drained and rinsed, or 1 ½ cups cooked black beans",
         "category": "pantry",
         "optional": false
       },
@@ -8889,7 +8889,7 @@
         "optional": false
       },
       {
-        "name": "\u00bd teaspoon fine salt",
+        "name": "½ teaspoon fine salt",
         "quantity": null,
         "unit": "",
         "preparation": "to taste",
@@ -8928,11 +8928,11 @@
           "Preheat oven to 400 degrees Fahrenheit with one rack in the middle of the oven and one in the upper third. Lightly grease a 9 by 13-inch pan with olive oil or cooking spray.",
           "In a large skillet over medium heat, warm the olive oil until simmering. Add the onions and a pinch of salt. Cook, stirring often, until the onions are tender and translucent, about 5 to 7 minutes. Add the broccoli and bell pepper, stir, and reduce heat to medium-low. Cover the skillet and cook, stirring occasionally, for about 8 to 9 minutes, or until the broccoli is brighter green and just starting to turn golden on the edges.",
           "Add the cumin and cinnamon to the skillet and cook until fragrant, about 30 seconds. Add the spinach, a few handfuls at a time, stirring until it has reduced in size. Repeat with the remaining spinach and cook until all of the spinach has wilted.",
-          "Transfer the contents of the pan to a medium mixing bowl. Add the drained beans, \u00bc cup cheese and a drizzle of enchilada sauce (about 2 tablespoons). Season with \u00bd teaspoon salt and some freshly ground black pepper, to taste.",
-          "Assemble the enchiladas: Pour \u00bc cup enchilada sauce into your prepared pan and tilt it from side to side until the bottom of the pan is evenly coated. To assemble your first enchilada, spread \u00bd cup filling mixture down the middle of a tortilla, then snugly wrap the left side over and then the right, to make a wrap. Place it seam-side down against the edge of your pan. Repeat with remaining tortillas and filling.",
+          "Transfer the contents of the pan to a medium mixing bowl. Add the drained beans, ¼ cup cheese and a drizzle of enchilada sauce (about 2 tablespoons). Season with ½ teaspoon salt and some freshly ground black pepper, to taste.",
+          "Assemble the enchiladas: Pour ¼ cup enchilada sauce into your prepared pan and tilt it from side to side until the bottom of the pan is evenly coated. To assemble your first enchilada, spread ½ cup filling mixture down the middle of a tortilla, then snugly wrap the left side over and then the right, to make a wrap. Place it seam-side down against the edge of your pan. Repeat with remaining tortillas and filling.",
           "Drizzle the remaining enchilada sauce evenly over the enchiladas, leaving the tips of the enchiladas bare. Sprinkle the remaining shredded cheese evenly over the enchiladas.",
-          "Bake, uncovered, on the middle rack for 20 minutes. If the cheese on top isn\u2019t golden enough for your liking, carefully transfer the enchiladas to the upper rack of the oven and bake for an additional 3 to 6 minutes, until sufficiently golden and bubbly.",
-          "Remove from oven and let the enchiladas rest for 10 minutes (they\u2019re super hot!). Before serving, sprinkle chopped cilantro down the center of the enchiladas. Serve immediately. Leftovers will keep well for up to 4 days in the refrigerator, covered."
+          "Bake, uncovered, on the middle rack for 20 minutes. If the cheese on top isn’t golden enough for your liking, carefully transfer the enchiladas to the upper rack of the oven and bake for an additional 3 to 6 minutes, until sufficiently golden and bubbly.",
+          "Remove from oven and let the enchiladas rest for 10 minutes (they’re super hot!). Before serving, sprinkle chopped cilantro down the center of the enchiladas. Serve immediately. Leftovers will keep well for up to 4 days in the refrigerator, covered."
         ]
       }
     ],
@@ -8956,7 +8956,7 @@
     "createdAt": "2026-01-26",
     "updatedAt": "2026-01-26",
     "name": "One-Pot Garlic Parmesan Pasta Recipe by Tasty",
-    "description": "This delicious one-pot pasta dish is a godsend for busy evenings when you crave a satisfying meal without the hassle of cooking and cleanup. In a single pot, you saut\u00e9 garlic until golden and aromatic, then add the chicken broth, milk, and fettuccine and let the magic happen. As the pasta simmers, it soaks up the flavors of the garlicky broth, making it super tasty. Once the pasta is tender, generous handfuls of grated Parmesan cheese are stirred into the dish, adding a luxurious touch. It's a mouthwatering combination of flavors and textures that kids and adults adore, making it a surefire hit at the dinner table.",
+    "description": "This delicious one-pot pasta dish is a godsend for busy evenings when you crave a satisfying meal without the hassle of cooking and cleanup. In a single pot, you sauté garlic until golden and aromatic, then add the chicken broth, milk, and fettuccine and let the magic happen. As the pasta simmers, it soaks up the flavors of the garlicky broth, making it super tasty. Once the pasta is tender, generous handfuls of grated Parmesan cheese are stirred into the dish, adding a luxurious touch. It's a mouthwatering combination of flavors and textures that kids and adults adore, making it a surefire hit at the dinner table.",
     "author": "Tasty",
     "imageUrl": "https://img.buzzfeed.com/thumbnailer-prod-us-east-1/f69a7f4192b94d8395757b365ac6d866/GarlicParmPasta.jpg?resize=1200:*",
     "prepTime": "PT10M",
@@ -9026,7 +9026,7 @@
         "optional": false
       },
       {
-        "name": "\u00bc cup grated parmesan cheese",
+        "name": "¼ cup grated parmesan cheese",
         "quantity": null,
         "unit": "",
         "category": "dairy",
@@ -9146,13 +9146,13 @@
       {
         "section": "Instructions",
         "steps": [
-          "Peel and cut onions into 1-centimeter (\u00bd inch) rings. Separate the rings.",
+          "Peel and cut onions into 1-centimeter (½ inch) rings. Separate the rings.",
           "Slice the mozzarella into 4 even strips.",
           "Place a smaller onion ring in the center of a larger one.",
           "Fill the gap between the rings with the mozzarella strips. For extra cheesiness, use two layers of cheese. Repeat with remaining onion rings and freeze for 1 hour.",
           "Place the flour, eggs, and breadcrumbs into three separate bowls.",
           "Coat each prepared ring in the flour first. Then dip into the egg, then the breadcrumbs, then the egg again, and one last time into the breadcrumbs. Repeat with the remaining onion rings and place in freezer.",
-          "Fill a large pot with oil and set over medium high heat until it reaches 350\u02daF (175\u02daC).",
+          "Fill a large pot with oil and set over medium high heat until it reaches 350˚F (175˚C).",
           "Fry the rings until golden brown, being careful not to fry them for too long as the cheese may ooze out completely.",
           "Drain on a paper towel, then serve with marinara!",
           "Enjoy!"
@@ -9211,7 +9211,7 @@
         "optional": false
       },
       {
-        "name": "\u00bd teaspoon kosher salt",
+        "name": "½ teaspoon kosher salt",
         "quantity": null,
         "unit": "",
         "preparation": "plus more for taste",
@@ -9219,7 +9219,7 @@
         "optional": false
       },
       {
-        "name": "\u00bd teaspoon black pepper",
+        "name": "½ teaspoon black pepper",
         "quantity": null,
         "unit": "",
         "preparation": "plus more to taste",
@@ -9511,7 +9511,7 @@
         "name": "hot pepper sauce",
         "quantity": 2,
         "unit": "teaspoons",
-        "preparation": "such as Tabasco\u00ae",
+        "preparation": "such as Tabasco®",
         "category": "produce",
         "optional": false
       },
@@ -9563,7 +9563,7 @@
         "name": "(10.5 ounce) bag corn chips",
         "quantity": 1,
         "unit": "",
-        "preparation": "such as Fritos\u00ae",
+        "preparation": "such as Fritos®",
         "category": "produce",
         "optional": false
       },
@@ -9792,21 +9792,21 @@
         "optional": false
       },
       {
-        "name": "\u00bc tsp salt",
+        "name": "¼ tsp salt",
         "quantity": null,
         "unit": "",
         "category": "spices",
         "optional": false
       },
       {
-        "name": "\u00bc tsp chili powder",
+        "name": "¼ tsp chili powder",
         "quantity": null,
         "unit": "",
         "category": "spices",
         "optional": false
       },
       {
-        "name": "\u00bd tsp granulated sugar",
+        "name": "½ tsp granulated sugar",
         "quantity": null,
         "unit": "",
         "category": "pantry",
@@ -9834,7 +9834,7 @@
         "optional": false
       },
       {
-        "name": "\u00bd  red onion",
+        "name": "½  red onion",
         "quantity": null,
         "unit": "",
         "preparation": "julienned",
@@ -9888,7 +9888,7 @@
         "optional": false
       },
       {
-        "name": "jalape\u00f1o",
+        "name": "jalapeño",
         "quantity": 1,
         "unit": "",
         "preparation": "sliced into thin rings",
@@ -9908,7 +9908,7 @@
       {
         "section": "Instructions",
         "steps": [
-          "Gather and prep all topping ingredients: julienne red onion, chop tomato, defrost frozen corn, drain and rinse black beans, dice avocado, crush tortilla chips, shred cheddar cheese, and slice jalape\u00f1o. Set aside or mix together in a large serving bowl.",
+          "Gather and prep all topping ingredients: julienne red onion, chop tomato, defrost frozen corn, drain and rinse black beans, dice avocado, crush tortilla chips, shred cheddar cheese, and slice jalapeño. Set aside or mix together in a large serving bowl.",
           "Chop iceberg lettuce into bite-sized pieces.",
           "Combine sour cream, juice and zest from limes, minced garlic, salt, chili powder, sugar, and oil in a small mixing bowl. Whisk to combine.",
           "Add lean ground beef and taco seasoning packet to skillet. Break apart the ground beef with a spatula and mix in the taco seasoning. Cook until all of the ground beef has turned brown.*",
@@ -9975,7 +9975,7 @@
         "optional": false
       },
       {
-        "name": "\u00bd lb. ground beef",
+        "name": "½ lb. ground beef",
         "quantity": null,
         "unit": "",
         "category": "protein/meat",
@@ -9989,7 +9989,7 @@
         "optional": false
       },
       {
-        "name": "\u215b tsp black pepper",
+        "name": "⅛ tsp black pepper",
         "quantity": null,
         "unit": "",
         "preparation": "freshly cracked",
@@ -10011,7 +10011,7 @@
         "optional": false
       },
       {
-        "name": "\u00bd tsp Dijon mustard",
+        "name": "½ tsp Dijon mustard",
         "quantity": null,
         "unit": "",
         "category": "condiments",
@@ -10025,7 +10025,7 @@
         "optional": false
       },
       {
-        "name": "\u2153 cup sour cream",
+        "name": "⅓ cup sour cream",
         "quantity": null,
         "unit": "",
         "category": "dairy",
@@ -10043,9 +10043,9 @@
       {
         "section": "Instructions",
         "steps": [
-          "Mince the garlic. Add the garlic and butter to a large pot or skillet and saut\u00e9 over medium heat for about one minute, or until the garlic is soft and fragrant.",
-          "Add the ground beef and continue to saut\u00e9 until it is fully browned.",
-          "While the beef is browning, slice the mushrooms. Add the sliced mushrooms and some freshly cracked pepper to the pot with the beef. Continue to saut\u00e9 until the mushrooms are soft (about five minutes).",
+          "Mince the garlic. Add the garlic and butter to a large pot or skillet and sauté over medium heat for about one minute, or until the garlic is soft and fragrant.",
+          "Add the ground beef and continue to sauté until it is fully browned.",
+          "While the beef is browning, slice the mushrooms. Add the sliced mushrooms and some freshly cracked pepper to the pot with the beef. Continue to sauté until the mushrooms are soft (about five minutes).",
           "Add the uncooked egg noodles to the pot along with the beef broth, Worcestershire sauce, and Dijon mustard. Stir to combine. The liquid will not fully cover the noodles, but that's okay.",
           "Place a lid on the pot and allow the liquid to come up to a boil over medium-high heat. As soon as it reaches a boil, give the pot a stir, replace the lid, and reduce the heat to low. Allow the pot to simmer on low heat for about 7-10 minutes, stirring occasionally and replacing the lid every couple of minutes. After 7-10 minutes the pasta should be tender and most of the liquid absorbed.",
           "Once the noodles are tender, add the sour cream and fold it into the noodles until everything is rich and creamy. Give the noodles a taste and add extra salt or pepper, if needed. Roughly chop a handful of parsley leaves and sprinkle over top. Serve hot."
@@ -10123,7 +10123,7 @@
         "name": "fresh cilantro",
         "quantity": 0.25,
         "unit": "bunch",
-        "preparation": "about \u00bd cup chopped",
+        "preparation": "about ½ cup chopped",
         "category": "produce",
         "optional": false
       },
@@ -10204,7 +10204,7 @@
     "cuisine": "American",
     "ingredients": [
       {
-        "name": "\u00bd lb. ground beef",
+        "name": "½ lb. ground beef",
         "quantity": null,
         "unit": "",
         "category": "protein/meat",
@@ -10240,7 +10240,7 @@
         "optional": false
       },
       {
-        "name": "\u00bd tsp Italian seasoning blend",
+        "name": "½ tsp Italian seasoning blend",
         "quantity": null,
         "unit": "",
         "category": "other",
@@ -10267,11 +10267,11 @@
       {
         "section": "Instructions",
         "steps": [
-          "Add the ground beef and olive oil to a pot and saut\u00e9 over medium until the beef is cooked through (about 5 minutes). If you're using a higher fat content beef (10% or higher), you may want to drain the excess fat once the beef has browned.",
-          "While the beef is cooking, finely dice the onion. Add the diced onion and butter to the cooked beef. Continue to saut\u00e9 until the onion is soft and translucent (about 5 minutes).",
+          "Add the ground beef and olive oil to a pot and sauté over medium until the beef is cooked through (about 5 minutes). If you're using a higher fat content beef (10% or higher), you may want to drain the excess fat once the beef has browned.",
+          "While the beef is cooking, finely dice the onion. Add the diced onion and butter to the cooked beef. Continue to sauté until the onion is soft and translucent (about 5 minutes).",
           "Next, add the crushed tomatoes, Italian seasoning blend, and some freshly cracked pepper (10-15 cranks of a pepper mill). Stir everything to combine.",
           "Place a lid on the pot and allow it to come up to a simmer. Once simmering, reduce the heat to low and let the sauce simmer for 30 minutes.",
-          "After a minimum of 30 minutes simmering, add about \u00bd tsp salt, stir to combine, then taste and add more if needed. The flavor of the sauce will deepen and the complexities will pop once the salt is added. Serve over pasta or your favorite roasted vegetables."
+          "After a minimum of 30 minutes simmering, add about ½ tsp salt, stir to combine, then taste and add more if needed. The flavor of the sauce will deepen and the complexities will pop once the salt is added. Serve over pasta or your favorite roasted vegetables."
         ]
       }
     ],
@@ -10712,199 +10712,13 @@
     ]
   },
   {
-    "id": "old-school-beef-taco-recipe-vaaw",
-    "sourceUrl": "https://www.recipetineats.com/ground-beef-tacos/",
-    "isCustom": false,
-    "createdAt": "2026-01-26",
-    "updatedAt": "2026-01-26",
-    "name": "Old School Beef Taco recipe",
-    "description": "Recipe video above. Beef tacos - the old school way! A juicy beef filling stuffed in crispy taco shells. For the real old school experience, go with shredded iceberg lettuce, tomato and sour cream! I like to BAKE my shells with the taco meat and cheese for molten goodness, but this is optional. If you skip it, just bake the empty shells per packet directions. SCALE UP the seasonings and add vegetables to make the filling stretch further!",
-    "author": "",
-    "imageUrl": "https://www.recipetineats.com/tachyon/2018/11/Beef-Tacos_2.jpg",
-    "difficulty": "medium",
-    "servings": {
-      "default": 4,
-      "unit": "servings"
-    },
-    "tags": [
-      "beef-dish"
-    ],
-    "ingredients": [
-      {
-        "name": "to 12  crispy taco shells ((\"stand and stuff) OR soft tortillas of choice ",
-        "quantity": 10,
-        "unit": "",
-        "category": "bakery",
-        "optional": false
-      },
-      {
-        "name": "oil",
-        "quantity": 1,
-        "unit": "tbsp",
-        "category": "pantry",
-        "optional": false
-      },
-      {
-        "name": "garlic cloves",
-        "quantity": 2,
-        "unit": "",
-        "preparation": ", minced",
-        "category": "produce",
-        "optional": false
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "",
-        "preparation": ", finely chopped",
-        "category": "produce",
-        "optional": false
-      },
-      {
-        "name": "g / 1 lb   beef (",
-        "quantity": 500,
-        "unit": "",
-        "preparation": "ground / mince ",
-        "category": "protein/meat",
-        "optional": false
-      },
-      {
-        "name": "tomato paste",
-        "quantity": 2,
-        "unit": "tbsp",
-        "category": "produce",
-        "optional": false
-      },
-      {
-        "name": "/ 65ml  water",
-        "quantity": 0.25,
-        "unit": "cup",
-        "category": "other",
-        "optional": false
-      },
-      {
-        "name": "garlic powder",
-        "quantity": 1,
-        "unit": "tsp",
-        "preparation": "onion powder, dried oregano",
-        "category": "produce",
-        "optional": false
-      },
-      {
-        "name": "cumin powder",
-        "quantity": 2,
-        "unit": "tsp",
-        "preparation": "paprika",
-        "category": "spices",
-        "optional": false
-      },
-      {
-        "name": "cayenne pepper ((adjust spiciness to taste",
-        "quantity": 0.25,
-        "unit": "tsp",
-        "preparation": "can skip))",
-        "category": "produce",
-        "optional": false
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "tsp",
-        "category": "spices",
-        "optional": false
-      },
-      {
-        "name": "black pepper",
-        "quantity": 0.25,
-        "unit": "tsp",
-        "category": "produce",
-        "optional": false
-      },
-      {
-        "name": "Shredded cheese ",
-        "quantity": null,
-        "unit": "",
-        "category": "dairy",
-        "optional": false
-      },
-      {
-        "name": "Shredded iceberg lettuce",
-        "quantity": null,
-        "unit": "",
-        "category": "produce",
-        "optional": false
-      },
-      {
-        "name": "tomatoes",
-        "quantity": 2,
-        "unit": "",
-        "preparation": ", chopped",
-        "category": "produce",
-        "optional": false
-      },
-      {
-        "name": "red or white onion",
-        "quantity": 0.5,
-        "unit": "",
-        "preparation": ", chopped",
-        "category": "produce",
-        "optional": false
-      },
-      {
-        "name": "Sour cream",
-        "quantity": null,
-        "unit": "",
-        "category": "dairy",
-        "optional": false
-      },
-      {
-        "name": "Taco sauce ((optional))",
-        "quantity": null,
-        "unit": "",
-        "category": "pantry",
-        "optional": false
-      },
-      {
-        "name": "Other: coriander/cilantro",
-        "quantity": null,
-        "unit": "",
-        "preparation": ", jalape\u00f1o, hot sauce / chilli sauce, pickled chillies, salsa sauce, pico de gallo",
-        "category": "produce",
-        "optional": false
-      }
-    ],
-    "instructions": [
-      {
-        "section": "Instructions",
-        "steps": [
-          "Preheat oven to 180C/350F.",
-          "Beef Filling:",
-          "Bake (optional):",
-          "Serve:"
-        ]
-      }
-    ],
-    "nutrition": {
-      "calories": 490,
-      "protein_g": 36,
-      "carbs_g": 31,
-      "fat_g": 23,
-      "fiber_g": 4,
-      "source": "imported"
-    },
-    "mealTypes": [
-      "dinner",
-      "lunch"
-    ]
-  },
-  {
     "id": "cottage-pie-ly55",
     "sourceUrl": "https://www.recipetineats.com/cottage-pie/",
     "isCustom": false,
     "createdAt": "2026-01-26",
     "updatedAt": "2026-01-26",
     "name": "Cottage Pie",
-    "description": "Recipe video above.\u00a0One of the greatest comfort foods of all time! A ground beef (mince) filling in a tasty gravy, topped with mashed potato. Make it a Shepherd's Pie simply by swapping the beef for lamb.",
+    "description": "Recipe video above. One of the greatest comfort foods of all time! A ground beef (mince) filling in a tasty gravy, topped with mashed potato. Make it a Shepherd's Pie simply by swapping the beef for lamb.",
     "author": "Nagi | RecipeTin Eats",
     "imageUrl": "https://www.recipetineats.com/tachyon/2016/10/Cottage-Pie_5-SQUARE.jpg",
     "prepTime": "PT15M",
@@ -11087,7 +10901,7 @@
         "steps": [
           "Heat oil in a large skillet over medium high heat. Add onion and garlic, cook for 1 minute. Then add carrots and celery. Cook for 3 minutes or until softened and sweet.",
           "Turn heat up to high. Add beef and cook, breaking it up as you go, until browned.",
-          "Add flour and mix in.\u00a0Add tomato paste, broth, red wine, bouillon cube, Worcestershire sauce, thyme, bay leaves, salt and pepper.",
+          "Add flour and mix in. Add tomato paste, broth, red wine, bouillon cube, Worcestershire sauce, thyme, bay leaves, salt and pepper.",
           "Bring to simmer, then turn down heat so it is simmering rapidly - I have it on medium high. Cook for 30 minutes, stirring occasionally, until it reduces down to a gravy consistency (Note 1) (see video). Taste then add more salt if desired.",
           "Transfer to 6 cup pie dish (1.5 litre / quart). Cover, cool if you have time (even overnight). Cool filling = easier to top with mash (Note 2)",
           "Assemble Pie"
@@ -11374,7 +11188,7 @@
         "name": "tomato sauce",
         "quantity": 2,
         "unit": "cups",
-        "preparation": "or 1 15-ounce can whole tomatoes, pur\u00e9ed",
+        "preparation": "or 1 15-ounce can whole tomatoes, puréed",
         "category": "produce",
         "optional": false
       },
@@ -11439,7 +11253,7 @@
       {
         "section": "Instructions",
         "steps": [
-          "Heat olive oil in a large saut\u00e9 pan on medium high heat. Add the minced carrots and saut\u00e9 for 5 minutes. (If you are using bell pepper instead of carrots, add those at the same time as the onions.) Add the chopped onion and celery. Cook, stirring occasionally until onions are translucent, about 5 more minutes. Add the minced garlic and cook for 30 more seconds. Remove from heat. Remove vegetables from the pan to a medium sized bowl, set aside.",
+          "Heat olive oil in a large sauté pan on medium high heat. Add the minced carrots and sauté for 5 minutes. (If you are using bell pepper instead of carrots, add those at the same time as the onions.) Add the chopped onion and celery. Cook, stirring occasionally until onions are translucent, about 5 more minutes. Add the minced garlic and cook for 30 more seconds. Remove from heat. Remove vegetables from the pan to a medium sized bowl, set aside.",
           "Using the same pan (or you can cook the meat at the same time as the vegetables in a separate pan to save time), crumble the ground beef into the pan. If you are using extra lean beef, you may need to add a tablespoon of olive oil to the pan. Sprinkle the meat with salt. Do not stir the ground beef, just let it cook until it is well browned on one side. Then flip the pieces over and brown the second side. If you're cooking in batches, use a slotted spoon to remove the ground beef from the pan (can add to the set-aside vegetables) and repeat with the rest of the ground beef. When the meat is done cooking, strain off all but 1 tablespoon of any fat left in the pan.",
           "Return the cooked ground beef and vegetables to the pan. Use a wooden spoon to break up any chunks of ground beef into smaller bits. Add the ketchup, tomato sauce, Worcestershire sauce, vinegar, and brown sugar to the pan. Stir to mix well. Add ground cloves, thyme, and cayenne pepper. Lower the heat to medium low and let simmer for 10 minutes. Adjust seasonings to taste.",
           "Serve immediately, or refrigerate to make ahead and reheat to serve. Serve with toasted hamburger buns. Did you love the recipe? Give us some stars and leave a comment below!"
@@ -11488,7 +11302,7 @@
     "cuisine": "Mexican",
     "ingredients": [
       {
-        "name": "dried New Mexico, coste\u00f1o , or choricero chili, seeds and stem removed",
+        "name": "dried New Mexico, costeño , or choricero chili, seeds and stem removed",
         "quantity": 1,
         "unit": "whole",
         "preparation": "see note",
@@ -11628,10 +11442,10 @@
       {
         "section": "Instructions",
         "steps": [
-          "Adjust oven rack to lower-middle position and preheat oven to 275\u00b0F (135\u00b0C). Add dried chiles to large heavy-bottomed Dutch oven or stock pot and cook over medium-high heat, stirring frequently, until slightly darkened with an intense, roasted aroma, 2 to 5 minutes. Do not allow to smoke. Remove chiles to small bowl and set aside. Alternatively, place dried chiles on a microwave-safe plate and microwave on high power in 15-second increments until pliable and toasted-smelling, about 30 seconds total. Transfer to a 2-quart microwave-safe liquid measuring cup or bowl. Add 2 cups chicken broth, cover with plastic wrap, and microwave on high power until gently simmering, about 5 minutes. Remove from microwave and set aside.",
+          "Adjust oven rack to lower-middle position and preheat oven to 275°F (135°C). Add dried chiles to large heavy-bottomed Dutch oven or stock pot and cook over medium-high heat, stirring frequently, until slightly darkened with an intense, roasted aroma, 2 to 5 minutes. Do not allow to smoke. Remove chiles to small bowl and set aside. Alternatively, place dried chiles on a microwave-safe plate and microwave on high power in 15-second increments until pliable and toasted-smelling, about 30 seconds total. Transfer to a 2-quart microwave-safe liquid measuring cup or bowl. Add 2 cups chicken broth, cover with plastic wrap, and microwave on high power until gently simmering, about 5 minutes. Remove from microwave and set aside.",
           "Meanwhile, heat 1 tablespoon oil in now-empty Dutch oven over high heat until shimmering. Season oxtails all over with salt and pepper, and cook, turning occasionally, until well-browned on all sides, about 8 minutes total. Remove oxtails and set aside. Reduce heat to medium.",
           "Add remaining 2 tablespoons oil and heat until shimmering. Add onion and garlic and cook, stirring frequently, until deep brown and onion is just starting to char on the edges, about 10 minutes. Add cumin, cloves, and oregano and cook, stirring constantly, until fragrant, about 30 seconds. Add chipotle chiles, vinegar, and remaining chicken broth. Scrape up browned bits from bottom of pan, simmer until reduced by about half, then transfer entire contents to the jar of a blender.",
-          "Add soaked chiles and their liquid to the blender along with fish sauce. Start blender on low and slowly increase speed to high. Pur\u00e9e\u00a0until smooth, about 1 minute. Set aside.",
+          "Add soaked chiles and their liquid to the blender along with fish sauce. Start blender on low and slowly increase speed to high. Purée until smooth, about 1 minute. Set aside.",
           "Place beef chuck in Dutch oven. Add oxtails, bay leaves, and sauce. Bring to a boil over high heat. Place lid on pot slightly cracked, then transfer to oven. Cook, turning beef occasionally, until completely tender and a cake tester or metal skewer inserted into meat shows little to no resistance, about 4 hours. Discard bay leaves and oxtails (meat from oxtails can be eaten if desired). Transfer chuck to a large plate. Return Dutch oven to stovetop and cook, stirring frequently, over medium-high heat until liquid is reduced to about 1 1/2 cups, about 5 minutes.",
           "Beef can be cut and served immediately, but for best flavor, transfer beef to a sealed container along with liquid and refrigerate up to 5 days. When ready to serve, slice beef against the grain into 1 1/2- to 2-inch slices, then shred into large chunks with fingers or two forks. Return beef to a pot along with the sauce. Bring to a simmer and cook, gently stirring and folding until beef is hot, tender, and coated in sauce. Season to taste with salt. Serve immediately, piling the beef into warm corn tortillas with onions, cilantro, salsa, limes, or other condiments as desired. Alternatively, serve as-is with rice, noodles, grits, or cornbread."
         ]
@@ -11648,5 +11462,312 @@
     "mealTypes": [
       "dinner"
     ]
+  },
+  {
+    "id": "old-school-beef-taco-recipe-ioet",
+    "sourceUrl": "https://www.recipetineats.com/ground-beef-tacos-recipe/",
+    "isCustom": false,
+    "createdAt": "2026-02-01",
+    "updatedAt": "2026-02-01",
+    "name": "Beef Tacos",
+    "description": "Beef tacos - the old school way! A juicy beef filling stuffed in crispy taco shells. For the real old school experience, go with shredded iceberg lettuce, tomato and sour cream! I like to BAKE my shells with the taco meat and cheese for molten goodness, but this is optional. If you skip it, just bake the empty shells per packet directions. SCALE UP the seasonings and add vegetables to make the filling stretch further!",
+    "author": "",
+    "imageUrl": "https://www.recipetineats.com/tachyon/2018/11/Beef-Tacos_2.jpg",
+    "difficulty": "medium",
+    "servings": {
+      "default": 4,
+      "unit": "servings"
+    },
+    "ingredients": [
+      {
+        "name": "to 12  crispy taco shells OR soft tortillas of choice)",
+        "quantity": 10,
+        "unit": "",
+        "category": "bakery",
+        "optional": false
+      },
+      {
+        "name": "oil",
+        "quantity": 1,
+        "unit": "tbsp",
+        "category": "pantry",
+        "optional": false
+      },
+      {
+        "name": "garlic cloves",
+        "quantity": 2,
+        "unit": "",
+        "preparation": ", minced",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "",
+        "preparation": ", finely chopped",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "g / 1 lb   beef (",
+        "quantity": 500,
+        "unit": "",
+        "preparation": "ground / mince (Note 2))",
+        "category": "protein/meat",
+        "optional": false
+      },
+      {
+        "name": "tomato paste",
+        "quantity": 2,
+        "unit": "tbsp",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "/ 65ml  water",
+        "quantity": 0.25,
+        "unit": "cup",
+        "category": "other",
+        "optional": false
+      },
+      {
+        "name": "EACH garlic powder",
+        "quantity": 1,
+        "unit": "tsp",
+        "preparation": "onion powder, dried oregano",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "EACH cumin powder",
+        "quantity": 2,
+        "unit": "tsp",
+        "preparation": "paprika",
+        "category": "spices",
+        "optional": false
+      },
+      {
+        "name": "cayenne pepper ((adjust spiciness to taste",
+        "quantity": 0.25,
+        "unit": "tsp",
+        "preparation": "can skip))",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "category": "spices",
+        "optional": false
+      },
+      {
+        "name": "black pepper",
+        "quantity": 0.25,
+        "unit": "tsp",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "Shredded cheese",
+        "quantity": null,
+        "unit": "",
+        "category": "dairy",
+        "optional": false
+      },
+      {
+        "name": "Shredded iceberg lettuce",
+        "quantity": null,
+        "unit": "",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "",
+        "preparation": ", chopped",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "red or white onion",
+        "quantity": 0.5,
+        "unit": "",
+        "preparation": ", chopped",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "Sour cream",
+        "quantity": null,
+        "unit": "",
+        "category": "dairy",
+        "optional": false
+      },
+      {
+        "name": "Taco sauce ((optional))",
+        "quantity": null,
+        "unit": "",
+        "category": "pantry",
+        "optional": false
+      },
+      {
+        "name": "Other: coriander/cilantro",
+        "quantity": null,
+        "unit": "",
+        "preparation": ", jalapeño, hot sauce / chilli sauce, pickled chillies, salsa sauce, pico de gallo",
+        "category": "produce",
+        "optional": false
+      }
+    ],
+    "instructions": [
+      {
+        "section": "Instructions",
+        "steps": [
+          "Preheat oven to 180C/350F."
+        ]
+      },
+      {
+        "section": "Beef Filling",
+        "steps": [
+          "Heat oil in a large skillet over high heat. Add garlic and onion - cook 2 minutes until golden.",
+          "Add beef and cook for 2 minutes, breaking it up as you go, until it changes from red to light brown.",
+          "Add Taco Seasonings and cook for 2 minutes until beef is cooked through.",
+          "Add tomato paste and water. Cook for 1 minute or until water is evaporated and you're left with a juicy not not watery beef filling."
+        ]
+      },
+      {
+        "section": "Bake (optional)",
+        "steps": [
+          "Place taco shells in a baking pan (I can fit 10 in). Fill with taco meat, top with cheese.",
+          "Bake 5 to 7 minutes until cheese is melted by which time the shells with be crispy."
+        ]
+      },
+      {
+        "section": "Serve",
+        "steps": [
+          "Serve tacos hot, straight out of the oven. Lay out toppings and sauces of choice on the table and let everyone assemble their own!"
+        ]
+      }
+    ],
+    "nutrition": {
+      "calories": 490,
+      "protein_g": 36,
+      "carbs_g": 31,
+      "fat_g": 23,
+      "fiber_g": 4,
+      "source": "imported"
+    }
+  },
+  {
+    "id": "steak-fajita-roll-ups-7cjq",
+    "sourceUrl": "https://diethood.com/steak-fajita-roll-ups/",
+    "isCustom": false,
+    "createdAt": "2026-02-01",
+    "updatedAt": "2026-02-01",
+    "name": "Steak Fajita Roll Ups",
+    "description": "Steak Fajita Roll Ups are made with thin slices of steak packed with bell pepper strips and onions, all rolled up and cooked to a tender perfection!",
+    "author": "",
+    "imageUrl": "https://diethood.com/wp-content/uploads/2017/01/Steak-Fajita-Roll-Ups.jpg",
+    "prepTime": "PT20M",
+    "cookTime": "PT10M",
+    "totalTime": "PT30M",
+    "difficulty": "medium",
+    "servings": {
+      "default": 4,
+      "unit": "servings"
+    },
+    "tags": [
+      "appetizer",
+      "steak fajita roll ups"
+    ],
+    "cuisine": "Mexican",
+    "ingredients": [
+      {
+        "name": "homemade fajita seasoning",
+        "quantity": null,
+        "unit": "",
+        "preparation": "or use 1 tablespoon store-bought fajita seasoning",
+        "category": "other",
+        "optional": false
+      },
+      {
+        "name": "thinly sliced sirloin tip steak",
+        "quantity": 1,
+        "unit": "pound",
+        "category": "protein/meat",
+        "optional": false
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tablespoons",
+        "preparation": "divided",
+        "category": "pantry",
+        "optional": false
+      },
+      {
+        "name": "colored bell peppers",
+        "quantity": 3,
+        "unit": "",
+        "preparation": "cut into thin strips",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "yellow onion",
+        "quantity": 1,
+        "unit": "large",
+        "preparation": "sliced",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "lime",
+        "quantity": 1,
+        "unit": "",
+        "preparation": "juiced",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "chopped fresh parsley or cilantro",
+        "quantity": null,
+        "unit": "",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "prepared Guacamole for serving",
+        "quantity": null,
+        "unit": "",
+        "preparation": "optional",
+        "category": "other",
+        "optional": false
+      }
+    ],
+    "instructions": [
+      {
+        "section": "Instructions",
+        "steps": [
+          "Prep the seasoning. Make the fajitas seasoning mix and set it aside.",
+          "Prep the steak. Cut the steak into 2-inch-wide by 6-inch-long strips. Rub the steak strips with some of the prepared seasoning mix and set aside.",
+          "Cook the peppers and onions. Heat a tablespoon of olive oil in a grill pan or a skillet set over medium-high heat. Add the pepper strips and sliced onions to the hot pan; season with salt, pepper, and a sprinkle of the fajita seasoning. Cook for about 4 to 5 minutes or until tender. Remove from heat and let the veggies cool for a minute.",
+          "Make the roll-ups. Top each slice of steak with the vegetables. Then, roll them up and secure them with a toothpick.",
+          "Sear. Add the remaining olive oil to the grill pan; heat it up and add the roll-ups to the pan. Cook until browned, about 2 to 3 minutes per side. Remove from heat, remove toothpicks, and transfer to a serving plate.",
+          "Finish and serve. Squeeze lime juice over the steak fajita roll ups and garnish with chopped parsley or cilantro. Serve them with prepared guacamole."
+        ]
+      }
+    ],
+    "nutrition": {
+      "calories": 61,
+      "protein_g": 7,
+      "carbs_g": 3,
+      "fat_g": 3,
+      "fiber_g": 1,
+      "source": "imported"
+    }
   }
 ]

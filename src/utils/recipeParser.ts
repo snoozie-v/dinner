@@ -64,6 +64,11 @@ interface SchemaOrgRecipe {
     '@type'?: string;
     text?: string;
     name?: string;
+    itemListElement?: Array<{
+      '@type'?: string;
+      text?: string;
+      name?: string;
+    }>;
   }>;
   prepTime?: string;
   cookTime?: string;
@@ -671,33 +676,80 @@ function parseQuantity(qtyStr: string): number | null {
 
 /**
  * Parses instructions into sections
+ * Handles HowToSection and HowToStep schema structures
  */
 function parseInstructions(instructions: SchemaOrgRecipe['recipeInstructions']): InstructionSection[] {
   if (!instructions) {
     return [];
   }
 
-  const steps: string[] = [];
+  const sections: InstructionSection[] = [];
 
   if (typeof instructions === 'string') {
-    // Single string - split by newlines or numbers
-    steps.push(...instructions.split(/\n+/).filter(s => s.trim()).map(s => decodeHtmlEntities(s)));
+    // Single string - split by newlines
+    const steps = instructions.split(/\n+/).filter(s => s.trim()).map(s => decodeHtmlEntities(s));
+    if (steps.length > 0) {
+      sections.push({ section: 'Instructions', steps });
+    }
   } else if (Array.isArray(instructions)) {
+    let currentSteps: string[] = [];
+
     for (const inst of instructions) {
       if (typeof inst === 'string') {
-        steps.push(decodeHtmlEntities(inst.trim()));
-      } else if (inst.text) {
-        steps.push(decodeHtmlEntities(inst.text.trim()));
-      } else if (inst.name) {
-        steps.push(decodeHtmlEntities(inst.name.trim()));
+        currentSteps.push(decodeHtmlEntities(inst.trim()));
+      } else if (inst && typeof inst === 'object') {
+        const instObj = inst as Record<string, unknown>;
+        const instType = instObj['@type'];
+
+        // Handle HowToSection - contains itemListElement with nested steps
+        if (instType === 'HowToSection' && Array.isArray(instObj.itemListElement)) {
+          // Save any accumulated steps first
+          if (currentSteps.length > 0) {
+            sections.push({ section: 'Instructions', steps: currentSteps });
+            currentSteps = [];
+          }
+
+          // Extract steps from the section
+          const sectionName = typeof instObj.name === 'string'
+            ? decodeHtmlEntities(instObj.name.trim().replace(/:$/, ''))
+            : 'Instructions';
+          const sectionSteps: string[] = [];
+
+          for (const item of instObj.itemListElement as Array<Record<string, unknown>>) {
+            if (typeof item === 'string') {
+              sectionSteps.push(decodeHtmlEntities(item));
+            } else if (item && typeof item === 'object') {
+              // HowToStep or HowToDirection
+              const stepText = item.text || item.name;
+              if (typeof stepText === 'string' && stepText.trim()) {
+                sectionSteps.push(decodeHtmlEntities(stepText.trim()));
+              }
+            }
+          }
+
+          if (sectionSteps.length > 0) {
+            sections.push({ section: sectionName, steps: sectionSteps });
+          }
+        }
+        // Handle direct HowToStep
+        else if (inst.text) {
+          currentSteps.push(decodeHtmlEntities(inst.text.trim()));
+        } else if (inst.name && instType !== 'HowToSection') {
+          // Only use name if it's not a section header
+          currentSteps.push(decodeHtmlEntities(inst.name.trim()));
+        }
       }
+    }
+
+    // Add any remaining steps
+    if (currentSteps.length > 0) {
+      sections.push({ section: 'Instructions', steps: currentSteps });
     }
   }
 
-  return [{
-    section: 'Instructions',
-    steps: steps.filter(s => s.length > 0)
-  }];
+  // If no sections were created, return empty array
+  // If we have sections, filter out any with empty steps
+  return sections.filter(s => s.steps.length > 0);
 }
 
 /**
