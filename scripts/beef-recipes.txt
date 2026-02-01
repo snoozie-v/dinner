@@ -2,5 +2,4 @@
 # These will be tagged with "beef-dish"
 
 # === ALLRECIPES - Beef Dishes ===
-https://sweetphi.com/best-eggless-waffles-recipe/
-
+https://www.allrecipes.com/recipe/130358/worlds-best-pasta-sauce/

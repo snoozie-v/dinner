@@ -59,6 +59,7 @@ const ALLOWED_DOMAINS = [
   'recipetineats.com',
   'hellofresh.com',
   'diethood.com',
+  'aprettylifeinthesuburbs.com',
 ];
 
 // Domains that are known to block automated requests (Cloudflare, etc.)

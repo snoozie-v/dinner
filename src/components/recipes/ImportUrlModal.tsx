@@ -46,6 +46,7 @@ const ImportUrlModal = ({ onImport, onClose }: ImportUrlModalProps) => {
 
   const handleClose = (): void => {
     if (!loading) {
+      window.scrollTo(0, 0);
       onClose();
     }
   };

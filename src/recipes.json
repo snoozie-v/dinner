@@ -10180,7 +10180,7 @@
     "isCustom": false,
     "createdAt": "2026-01-26",
     "updatedAt": "2026-01-26",
-    "name": "The Best Weeknight Pasta Sauce",
+    "name": "Weeknight Pasta Sauce",
     "description": "This rich and subtle pasta sauce is incredibly easy, which has earned it the title of The Best Weeknight Pasta Sauce in my house!Step-by-step photos can be seen below the recipe card.",
     "author": "",
     "imageUrl": "https://www.budgetbytes.com/wp-content/uploads/2018/04/weeknight-pasta-pot.jpg",
@@ -11767,6 +11767,435 @@
       "carbs_g": 3,
       "fat_g": 3,
       "fiber_g": 1,
+      "source": "imported"
+    }
+  },
+  {
+    "id": "eggless-waffles-mi12",
+    "sourceUrl": "https://aprettylifeinthesuburbs.com/eggless-waffles/",
+    "isCustom": false,
+    "createdAt": "2026-02-01",
+    "updatedAt": "2026-02-01",
+    "name": "Eggless Waffles",
+    "description": "These Eggless Waffles are easy to make, with simple ingredients you likely have on hand! They taste like the real thing!",
+    "author": "",
+    "imageUrl": "https://aprettylifeinthesuburbs.com/wp-content/uploads/2012/08/Eggless-Waffles-F.jpg",
+    "prepTime": "PT10M",
+    "cookTime": "PT15M",
+    "difficulty": "medium",
+    "servings": {
+      "default": 4,
+      "unit": "servings"
+    },
+    "tags": [
+      "breakfast",
+      "eggless waffles",
+      "waffles"
+    ],
+    "ingredients": [
+      {
+        "name": "flour",
+        "quantity": 2,
+        "unit": "cups",
+        "category": "pantry",
+        "optional": false
+      },
+      {
+        "name": "baking powder",
+        "quantity": 4,
+        "unit": "tsp",
+        "category": "other",
+        "optional": false
+      },
+      {
+        "name": "sugar",
+        "quantity": 2,
+        "unit": "tsp",
+        "category": "pantry",
+        "optional": false
+      },
+      {
+        "name": "milk",
+        "quantity": 2,
+        "unit": "cups",
+        "preparation": "I used 1 can of condensed milk topped off with water because that's all I had on hand",
+        "category": "dairy",
+        "optional": false
+      },
+      {
+        "name": "vegetable oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "category": "pantry",
+        "optional": false
+      },
+      {
+        "name": "water",
+        "quantity": 2,
+        "unit": "tbsp",
+        "category": "other",
+        "optional": false
+      },
+      {
+        "name": "vanilla",
+        "quantity": 1,
+        "unit": "tsp",
+        "category": "other",
+        "optional": false
+      },
+      {
+        "name": "melted butter",
+        "quantity": 4,
+        "unit": "tbsp",
+        "category": "dairy",
+        "optional": false
+      }
+    ],
+    "instructions": [
+      {
+        "section": "Instructions",
+        "steps": [
+          "Combine the flour, baking powder and sugar.",
+          "In a separate bowl mix together the milk, oil, water, vanilla and butter.",
+          "Add the wet ingredients to the dry ingredients, and mix together gently. As with all pancake batters, it should be slightly lumpy.",
+          "Let the batter sit for a few minutes to give it time to puff up.",
+          "Once your waffle maker is ready to go, depending on the size of your maker, scoop the batter in and enjoy! (for my maker I used 1/4 cup batter for each waffle)"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "hot-tamales-57r5",
+    "sourceUrl": "https://www.foodnetwork.com/recipes/alton-brown/hot-tamales-recipe-2011883",
+    "isCustom": false,
+    "createdAt": "2026-02-01",
+    "updatedAt": "2026-02-01",
+    "name": "Hot Tamales",
+    "author": "",
+    "imageUrl": "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2014/7/23/0/EA1303_Hot-Tamales_s4x3.jpg.rend.hgtvcom.1280.1280.suffix/1406145422579.webp",
+    "prepTime": "P0Y0M0DT1H0M0.000S",
+    "cookTime": "P0Y0M0DT4H0M0.000S",
+    "totalTime": "P0Y0M0DT5H45M0.000S",
+    "difficulty": "medium",
+    "servings": {
+      "default": 4,
+      "unit": "servings"
+    },
+    "tags": [
+      "cornmeal",
+      "grain recipes",
+      "corn recipes"
+    ],
+    "ingredients": [
+      {
+        "name": "chili powder",
+        "quantity": 0.25,
+        "unit": "cup",
+        "category": "spices",
+        "optional": false
+      },
+      {
+        "name": "kosher salt",
+        "quantity": 2,
+        "unit": "tablespoons",
+        "category": "spices",
+        "optional": false
+      },
+      {
+        "name": "paprika",
+        "quantity": 1,
+        "unit": "tablespoon",
+        "category": "spices",
+        "optional": false
+      },
+      {
+        "name": "smoked paprika",
+        "quantity": 1,
+        "unit": "tablespoon",
+        "category": "spices",
+        "optional": false
+      },
+      {
+        "name": "garlic powder",
+        "quantity": 1,
+        "unit": "tablespoon",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "onion powder",
+        "quantity": 1,
+        "unit": "tablespoon",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "cayenne pepper",
+        "quantity": 2.5,
+        "unit": "teaspoons",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "freshly ground black pepper",
+        "quantity": 2,
+        "unit": "teaspoons",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "freshly toasted and ground cumin seed",
+        "quantity": 1,
+        "unit": "teaspoon",
+        "category": "spices",
+        "optional": false
+      },
+      {
+        "name": "Boston butt meat",
+        "quantity": 2,
+        "unit": "pounds",
+        "preparation": "untrimmed",
+        "category": "other",
+        "optional": false
+      },
+      {
+        "name": "vegetable oil",
+        "quantity": 0.5,
+        "unit": "cup",
+        "category": "pantry",
+        "optional": false
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "large",
+        "preparation": "finely chopped",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "garlic",
+        "quantity": 4,
+        "unit": "cloves",
+        "preparation": "minced",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "jalapeno pepper",
+        "quantity": 1,
+        "unit": "",
+        "preparation": "seeded and minced",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "to 5 dozen dried corn husks",
+        "quantity": 4,
+        "unit": "",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "yellow cornmeal",
+        "quantity": 2,
+        "unit": "pounds",
+        "preparation": "approximately 6 cups",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "kosher salt",
+        "quantity": 1.5,
+        "unit": "tablespoons",
+        "category": "spices",
+        "optional": false
+      },
+      {
+        "name": "baking powder",
+        "quantity": 1,
+        "unit": "tablespoon",
+        "category": "other",
+        "optional": false
+      },
+      {
+        "name": "lard",
+        "quantity": 7.5,
+        "unit": "ounces",
+        "preparation": "approximately 1 cup",
+        "category": "other",
+        "optional": false
+      },
+      {
+        "name": "to 4 cups reserved cooking liquid",
+        "quantity": 3,
+        "unit": "",
+        "category": "other",
+        "optional": false
+      }
+    ],
+    "instructions": [
+      {
+        "section": "Instructions",
+        "steps": [
+          "In a small bowl, combine the chili powder, kosher salt, paprika, smoked paprika, garlic powder, onion powder, cayenne pepper, black pepper and cumin. Divide the mixture in half and reserve 1 half for later use.",
+          "Cut the Boston butt into 6 even pieces and place into a 6 to 8-quart saucepan. Add half of the spice mixture and enough water, 3 to 3 1/2 quarts, to completely cover the meat. Set over high heat, cover and bring to a boil. Once boiling, reduce the heat to low and simmer until the meat is very tender and falling apart, 2 to 2 1/2 hours. Remove the meat from the cooking liquid to a cutting board. Leave the cooking liquid in the pot. Both meat and liquid need to cool slightly before making dough and handling. Remove any large pieces of fat and shred the meat into small pieces, pulling apart with your hands or using 2 forks.",
+          "Place a 4-quart saucepan over medium heat and add the vegetable oil. Once shimmering, add the onion and cook, stirring occasionally, until they are semi-translucent, approximately 3 minutes. Add the garlic, jalapeno, and remaining half of the spice mixture and continue to cook for another minute. Add the meat and cook until heated through, 2 to 3 minutes. Remove from the heat.",
+          "While the meat is cooking, place the husks in a large bowl or container and submerge completely in hot water. Soak the husks until they are soft and pliable, at least 45 minutes and up to 2 hours.",
+          "For the dough:",
+          "Place the cornmeal, salt, and baking powder into a large mixing bowl and combine. Add the lard and using your hands, knead together until the lard is well incorporated into the dry mixture. Gradually add enough of the reserved cooking liquid, 3 to 4 cups to create a dough that is like thick mashed potatoes. The dough should be moist but not wet. Cover the bowl with a damp towel and set aside until ready to use.",
+          "To assemble the tamales:",
+          "Remove a corn husks from the water and pat dry to remove excess water. Working in batches of 6, lay the husks on a towel and spread about 2 tablespoons of the dough in an even layer across the wide end of the husk to within 1/2-inch of the edges. Spoon about 1 tablespoon of the meat mixture in a line down the center of the dough. Roll the husk so the dough surrounds the meat, then fold the bottom under to finish creating the tamale. Repeat until all husks, dough and filling are used. Tie the tamales, around the center, individually or in groups of 3, with kitchen twine.",
+          "To cook the tamales:",
+          "Stand the tamales upright on their folded ends, tightly packed together, in the same saucepan used to cook the meat. Add the reserved broth from making the dough and any additional water so the liquid comes to 1-inch below the tops of the tamales. Try not to pour the broth directly into the tops of the tamales. Cover, place over high heat and bring to a boil, approximately 12 minutes. Remove the lid, reduce the heat to low, to maintain a low simmer, and cook until the dough is firm and pulls away easily from the husk, 1 to 1 1/2 hours.",
+          "Serve the tamales warm. For a 'wet' hot tamale, serve with additional simmering liquid. Store leftover tamales, tightly wrapped in plastic wrap, in the freezer, for up to a month. To reheat, remove the plastic wrap and steam until heated through.;"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "world-39-s-best-pasta-sauce-v480",
+    "sourceUrl": "https://www.allrecipes.com/recipe/130358/worlds-best-pasta-sauce/",
+    "isCustom": false,
+    "createdAt": "2026-02-01",
+    "updatedAt": "2026-02-01",
+    "name": "World's Best Pasta Sauce!",
+    "description": "This pasta sauce is easy to make and great in lasagna or on your favorite pasta. It's thick, hearty, and made with Italian sausage and ground beef.",
+    "author": "",
+    "imageUrl": "https://www.allrecipes.com/thmb/By0Ym7RMqjf89PYzgom6lW7VGpQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/AR-130358-worlds-best-pasta-sauce-ddmfs-4x3-fddb370d6d7c469684dc87a180e6e9c3.jpg",
+    "prepTime": "PT15M",
+    "cookTime": "PT100M",
+    "totalTime": "PT115M",
+    "difficulty": "medium",
+    "servings": {
+      "default": 16,
+      "unit": "servings"
+    },
+    "tags": [
+      "dinner"
+    ],
+    "cuisine": "Italian Inspired",
+    "ingredients": [
+      {
+        "name": "sweet Italian sausage",
+        "quantity": 1,
+        "unit": "pound",
+        "preparation": "sliced",
+        "category": "protein/meat",
+        "optional": false
+      },
+      {
+        "name": "lean ground beef",
+        "quantity": 0.75,
+        "unit": "pound",
+        "category": "protein/meat",
+        "optional": false
+      },
+      {
+        "name": "minced onion",
+        "quantity": 0.5,
+        "unit": "cup",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "garlic",
+        "quantity": 2,
+        "unit": "cloves",
+        "preparation": "crushed",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "(28 ounce) can crushed tomatoes",
+        "quantity": 1,
+        "unit": "",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "(6.5 ounce) cans tomato sauce",
+        "quantity": 2,
+        "unit": "",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "(6 ounce) cans tomato paste",
+        "quantity": 2,
+        "unit": "",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "water",
+        "quantity": 0.5,
+        "unit": "cup",
+        "category": "other",
+        "optional": false
+      },
+      {
+        "name": "white sugar",
+        "quantity": 2,
+        "unit": "tablespoons",
+        "category": "pantry",
+        "optional": false
+      },
+      {
+        "name": "dried basil",
+        "quantity": 1.5,
+        "unit": "teaspoons",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "Italian seasoning",
+        "quantity": 1,
+        "unit": "teaspoon",
+        "category": "other",
+        "optional": false
+      },
+      {
+        "name": "fennel seed",
+        "quantity": 0.5,
+        "unit": "teaspoon",
+        "category": "other",
+        "optional": false
+      },
+      {
+        "name": "salt",
+        "quantity": 0.5,
+        "unit": "teaspoon",
+        "category": "spices",
+        "optional": false
+      },
+      {
+        "name": "ground black pepper",
+        "quantity": 0.25,
+        "unit": "teaspoon",
+        "category": "produce",
+        "optional": false
+      }
+    ],
+    "instructions": [
+      {
+        "section": "Instructions",
+        "steps": [
+          "Gather all ingredients.",
+          "Cook sausage, beef, onion, and garlic in a large pot or Dutch oven over medium heat until browned; drain fat.",
+          "Stir in crushed tomatoes, tomato sauce, tomato paste, and water.",
+          "Mix in sugar, basil, Italian seasoning, fennel seed, salt, and pepper.",
+          "Cover and simmer, stirring occasionally, until cooked through, about 1 ½ hours.",
+          "Serve with your favorite pasta and enjoy!"
+        ]
+      }
+    ],
+    "nutrition": {
+      "calories": 157,
+      "protein_g": 10,
+      "carbs_g": 12,
+      "fat_g": 9,
+      "fiber_g": 2,
       "source": "imported"
     }
   }

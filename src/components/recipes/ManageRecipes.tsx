@@ -7,6 +7,7 @@ import RecipeList from './RecipeList';
 import RecipeFormModal from './RecipeFormModal';
 import RecipeDetailModal from './RecipeDetailModal';
 import ImportUrlModal from './ImportUrlModal';
+import DeleteConfirmModal from './DeleteConfirmModal';
 import { parseRecipeFromUrl } from '../../utils/recipeParser';
 
 interface ManageRecipesProps {
@@ -33,6 +34,7 @@ const ManageRecipes = ({
   const [editingRecipe, setEditingRecipe] = useState<Recipe | null>(null);
   const [showImportModal, setShowImportModal] = useState<boolean>(false);
   const [viewingRecipe, setViewingRecipe] = useState<Recipe | null>(null);
+  const [deletingRecipe, setDeletingRecipe] = useState<Recipe | null>(null);
 
   // Count recipes by meal type
   const mealTypeCounts = useMemo(() => {
@@ -110,8 +112,18 @@ const ManageRecipes = ({
   };
 
   const handleDelete = (recipe: Recipe): void => {
-    // Delete directly - undo toast provides recovery option
-    onDeleteRecipe(recipe.id);
+    setDeletingRecipe(recipe);
+  };
+
+  const handleDeleteConfirm = (): void => {
+    if (deletingRecipe) {
+      onDeleteRecipe(deletingRecipe.id);
+      setDeletingRecipe(null);
+    }
+  };
+
+  const handleDeleteCancel = (): void => {
+    setDeletingRecipe(null);
   };
 
   const handleDuplicate = (recipe: Recipe): void => {
@@ -369,6 +381,14 @@ const ManageRecipes = ({
         onEdit={handleViewEdit}
         isCustomRecipe={isCustomRecipe}
       />
+
+      {deletingRecipe && (
+        <DeleteConfirmModal
+          recipe={deletingRecipe}
+          onConfirm={handleDeleteConfirm}
+          onCancel={handleDeleteCancel}
+        />
+      )}
     </div>
   );
 };
