@@ -58,7 +58,12 @@ const ALLOWED_DOMAINS = [
   'loveandlemons.com',
   'recipetineats.com',
   'hellofresh.com',
-  'diethood.com'
+  'diethood.com',
+];
+
+// Domains that are known to block automated requests (Cloudflare, etc.)
+const BLOCKED_DOMAINS = [
+  'sweetphi.com',
 ];
 
 // Simple rate limiting
@@ -217,8 +222,20 @@ app.post('/api/fetch-recipe', async (req, res) => {
     return res.status(400).json({ error: 'Only HTTPS URLs are allowed' });
   }
 
-  // Security: Check if domain is in allowed list
   const hostname = parsedUrl.hostname.replace('www.', '');
+
+  // Check if domain is known to block automated requests
+  const isBlocked = BLOCKED_DOMAINS.some(domain =>
+    hostname === domain || hostname.endsWith('.' + domain)
+  );
+
+  if (isBlocked) {
+    return res.status(403).json({
+      error: `Sorry, ${hostname} blocks automated recipe imports. Please add this recipe manually using the recipe form.`
+    });
+  }
+
+  // Security: Check if domain is in allowed list
   const isAllowed = ALLOWED_DOMAINS.some(domain =>
     hostname === domain || hostname.endsWith('.' + domain)
   );
@@ -249,14 +266,16 @@ app.post('/api/fetch-recipe', async (req, res) => {
 
     clearTimeout(timeout);
 
-    if (!response.ok) {
+    const html = await response.text();
+
+    // Some sites return 403 but still send valid HTML (anti-bot quirk)
+    // Only reject if we got an error status AND no meaningful content
+    if (!response.ok && html.length < 1000) {
       return res.status(response.status).json({
         error: `Failed to fetch recipe: HTTP ${response.status}`,
         status: response.status
       });
     }
-
-    const html = await response.text();
 
     // Return the HTML content
     res.json({
