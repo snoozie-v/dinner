@@ -36,6 +36,8 @@ const RATE_LIMIT_WINDOW = 60000; // 1 minute
 const MAX_REQUESTS_PER_WINDOW = 30; // Increased for batch imports
 
 // Allowed domains for recipe fetching (security measure)
+
+
 const ALLOWED_DOMAINS = [
   'allrecipes.com',
   'foodnetwork.com',
@@ -66,7 +68,7 @@ const ALLOWED_DOMAINS = [
   'lordbyronskitchen.com',
   'hellofresh.ca',
   'bellyrumbles.com',
-
+  'Fooddolls.com',
 ];
 
 // Domains that are known to block automated requests (Cloudflare, etc.)
