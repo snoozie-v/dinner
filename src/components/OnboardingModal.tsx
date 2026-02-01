@@ -141,10 +141,11 @@ const OnboardingModal = ({ isOpen, onComplete, initialStep = 0 }: OnboardingModa
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
 
-  // Reset to initial step when modal opens
+  // Reset to initial step when modal opens and scroll to top
   useEffect(() => {
     if (isOpen) {
       setCurrentStep(initialStep);
+      window.scrollTo(0, 0);
     }
   }, [isOpen, initialStep]);
 
@@ -202,7 +203,7 @@ const OnboardingModal = ({ isOpen, onComplete, initialStep = 0 }: OnboardingModa
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-black bg-opacity-60 flex items-start justify-center z-50 p-4 pt-8 sm:pt-16 overflow-y-auto">
       <div
         className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full overflow-hidden"
         onTouchStart={handleTouchStart}

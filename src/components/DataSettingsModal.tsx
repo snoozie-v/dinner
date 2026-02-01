@@ -1,5 +1,5 @@
 // src/components/DataSettingsModal.tsx
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import type { ChangeEvent } from 'react';
 import type { Recipe, PlanItem, PantryStaple, MealPlanTemplate, UserPreferences, ShoppingAdjustments } from '../types';
 
@@ -52,6 +52,12 @@ const DataSettingsModal = ({
   const [importError, setImportError] = useState<string | null>(null);
   const [showImportConfirm, setShowImportConfirm] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      window.scrollTo(0, 0);
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -149,8 +155,8 @@ const DataSettingsModal = ({
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-start justify-center p-4 pt-4 sm:pt-8 overflow-y-auto">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-lg w-full mb-8">
         {/* Header */}
         <div className="p-5 border-b dark:border-gray-700 flex justify-between items-center">
           <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
@@ -271,8 +277,8 @@ const DataSettingsModal = ({
 
         {/* Import Confirmation Modal */}
         {showImportConfirm && importPreview && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 z-60 flex items-center justify-center p-4">
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-md w-full">
+          <div className="fixed inset-0 bg-black bg-opacity-50 z-60 flex items-start justify-center p-4 pt-20 sm:pt-32 overflow-y-auto">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-md w-full mb-8">
               <div className="p-5 border-b dark:border-gray-700">
                 <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">
                   Confirm Import

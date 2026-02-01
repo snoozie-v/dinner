@@ -1,5 +1,5 @@
 // src/components/PantryModal.tsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { FormEvent } from 'react';
 import type { PantryStaple } from '../types';
 
@@ -38,6 +38,12 @@ const PantryModal = ({
   const [newName, setNewName] = useState('');
   const [newUnit, setNewUnit] = useState('unit');
 
+  useEffect(() => {
+    if (isOpen) {
+      window.scrollTo(0, 0);
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   const handleSubmit = (e: FormEvent) => {
@@ -56,8 +62,8 @@ const PantryModal = ({
   const stapleKeys = new Set(pantryStaples.map(s => s.key));
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-lg w-full max-h-[90vh] flex flex-col overflow-hidden">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-start justify-center z-50 p-4 pt-4 sm:pt-8 overflow-y-auto">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-lg w-full flex flex-col mb-8">
         <div className="px-4 sm:px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-700">
           <div>
             <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Pantry Staples</h2>

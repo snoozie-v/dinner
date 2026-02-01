@@ -22,12 +22,13 @@ const AddPrepTaskModal = ({ isOpen, onClose, plannedMeals, onAddTask }: AddPrepT
   const [description, setDescription] = useState('');
   const [daysBeforeMeal, setDaysBeforeMeal] = useState(0);
 
-  // Reset form when modal opens
+  // Reset form when modal opens and scroll to top
   useEffect(() => {
     if (isOpen) {
       setSelectedMealId(plannedMeals[0]?.id || '');
       setDescription('');
       setDaysBeforeMeal(0);
+      window.scrollTo(0, 0);
     }
   }, [isOpen, plannedMeals]);
 
@@ -47,7 +48,7 @@ const AddPrepTaskModal = ({ isOpen, onClose, plannedMeals, onAddTask }: AddPrepT
     : null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-start justify-center p-4 pt-8 sm:pt-16 overflow-y-auto">
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/50"
