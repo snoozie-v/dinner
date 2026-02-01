@@ -148,17 +148,25 @@ async function fetchRecipeHtml(url: string): Promise<{ html: string; finalUrl: s
       body: JSON.stringify({ url }),
     });
 
-    if (proxyResponse.ok) {
-      const data = await proxyResponse.json();
-      if (data.success && data.html) {
-        console.log('Fetched via proxy server');
-        return { html: data.html, finalUrl: data.url || url };
-      }
+    const data = await proxyResponse.json();
+
+    if (proxyResponse.ok && data.success && data.html) {
+      console.log('Fetched via proxy server');
+      return { html: data.html, finalUrl: data.url || url };
     }
 
-    // Proxy failed, try direct fetch
+    // Proxy returned an error - throw it instead of falling back
+    if (data.error) {
+      throw new Error(data.error);
+    }
+
+    // Proxy failed without error message, try direct fetch
     console.log('Proxy fetch failed, trying direct fetch');
   } catch (proxyError) {
+    // Re-throw if it's our own error message
+    if (proxyError instanceof Error && !proxyError.message.includes('fetch')) {
+      throw proxyError;
+    }
     console.log('Proxy not available, trying direct fetch');
   }
 
