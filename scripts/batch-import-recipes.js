@@ -172,28 +172,31 @@ function isRecipeType(obj) {
 function parseQuantity(qtyStr) {
   const str = qtyStr.trim();
 
+  // Helper to round to 2 decimal places
+  const round = (n) => Math.round(n * 100) / 100;
+
   // Handle ranges
   if (str.includes('-')) {
     const parts = str.split('-').map(s => parseFloat(s.trim()));
     if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
-      return (parts[0] + parts[1]) / 2;
+      return round((parts[0] + parts[1]) / 2);
     }
   }
 
   // Mixed fractions: "1 1/2"
   const mixedMatch = str.match(/^(\d+)\s+(\d+)\/(\d+)$/);
   if (mixedMatch) {
-    return parseInt(mixedMatch[1]) + parseInt(mixedMatch[2]) / parseInt(mixedMatch[3]);
+    return round(parseInt(mixedMatch[1]) + parseInt(mixedMatch[2]) / parseInt(mixedMatch[3]));
   }
 
   // Simple fractions: "1/2"
   const fracMatch = str.match(/^(\d+)\/(\d+)$/);
   if (fracMatch) {
-    return parseInt(fracMatch[1]) / parseInt(fracMatch[2]);
+    return round(parseInt(fracMatch[1]) / parseInt(fracMatch[2]));
   }
 
   const num = parseFloat(str);
-  return isNaN(num) ? null : num;
+  return isNaN(num) ? null : round(num);
 }
 
 // Extract name and preparation

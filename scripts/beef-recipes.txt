@@ -1,6 +1,4 @@
-# Beef Recipes - No other proteins, no rice
-# These will be tagged with "beef-dish"
 
-# === ALLRECIPES - Beef Dishes ===
-https://www.skinnytaste.com/quick-beef-chili-recipe/
+
+https://www.tasteofhome.com/recipes/favorite-baked-spaghetti/
 

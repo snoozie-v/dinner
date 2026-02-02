@@ -70,6 +70,7 @@ const ALLOWED_DOMAINS = [
   'bellyrumbles.com',
   'fooddolls.com',
   'skinnytaste.com',
+  'tasteofhome.com'
 ];
 
 // Domains that are known to block automated requests (Cloudflare, etc.)

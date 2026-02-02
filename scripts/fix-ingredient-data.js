@@ -167,6 +167,26 @@ function analyzeRecipe(recipe) {
       });
     }
 
+    // Check for long decimal quantities (more than 2 decimal places)
+    if (typeof ing.quantity === 'number' && ing.quantity !== 0) {
+      const rounded = Math.round(ing.quantity * 100) / 100;
+      if (rounded !== ing.quantity) {
+        issues.push({
+          type: 'long-decimal',
+          index: idx,
+          name: ing.name,
+          current: ing.quantity,
+          suggested: rounded,
+        });
+        fixes.push({
+          index: idx,
+          field: 'quantity',
+          from: ing.quantity,
+          to: rounded,
+        });
+      }
+    }
+
     // Check for malformed name
     if (isMalformedName(ing.name)) {
       const { name: fixedName, changed } = fixIngredientName(ing.name);
@@ -257,6 +277,7 @@ async function main() {
     analyzed: 0,
     withIssues: 0,
     nullQuantities: 0,
+    longDecimals: 0,
     malformedNames: 0,
     otherFixes: 0,
     details: [],
@@ -273,6 +294,8 @@ async function main() {
       analysis.fixes.forEach(fix => {
         if (fix.field === 'quantity' && fix.from === null) {
           results.nullQuantities++;
+        } else if (fix.field === 'quantity' && typeof fix.from === 'number') {
+          results.longDecimals++;
         } else if (fix.field === 'name') {
           results.malformedNames++;
         } else {
@@ -312,6 +335,7 @@ async function main() {
   console.log(`  Recipes analyzed: ${results.analyzed}`);
   console.log(`  Recipes with issues: ${results.withIssues}`);
   console.log(`  Null quantities to fix: ${results.nullQuantities}`);
+  console.log(`  Long decimals to round: ${results.longDecimals}`);
   console.log(`  Malformed names to fix: ${results.malformedNames}`);
   console.log(`  Other fixes: ${results.otherFixes}`);
   console.log('');

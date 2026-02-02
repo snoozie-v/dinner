@@ -722,11 +722,14 @@ function parseQuantity(qtyStr: string): number | null {
   // Handle fractions like "1/2", "1 1/2", "2-3"
   const str = qtyStr.trim();
 
+  // Helper to round to 2 decimal places
+  const round = (n: number): number => Math.round(n * 100) / 100;
+
   // Handle ranges (take the average)
   if (str.includes('-')) {
     const [min, max] = str.split('-').map(s => parseFloat(s.trim()));
     if (!isNaN(min) && !isNaN(max)) {
-      return (min + max) / 2;
+      return round((min + max) / 2);
     }
   }
 
@@ -736,7 +739,7 @@ function parseQuantity(qtyStr: string): number | null {
     const whole = parseInt(mixedMatch[1]);
     const num = parseInt(mixedMatch[2]);
     const den = parseInt(mixedMatch[3]);
-    return whole + (num / den);
+    return round(whole + (num / den));
   }
 
   // Handle simple fractions like "1/2"
@@ -744,12 +747,12 @@ function parseQuantity(qtyStr: string): number | null {
   if (fracMatch) {
     const num = parseInt(fracMatch[1]);
     const den = parseInt(fracMatch[2]);
-    return num / den;
+    return round(num / den);
   }
 
   // Handle regular numbers
   const num = parseFloat(str);
-  return isNaN(num) ? null : num;
+  return isNaN(num) ? null : round(num);
 }
 
 /**

@@ -182,7 +182,7 @@
       },
       {
         "name": "ketchup",
-        "quantity": 0.333,
+        "quantity": 0.33,
         "unit": "cup",
         "category": "condiments",
         "optional": false
@@ -1405,7 +1405,7 @@
       },
       {
         "name": "honey (or maple syrup)",
-        "quantity": 0.3333333333333333,
+        "quantity": 0.33,
         "unit": "cup",
         "category": "pantry",
         "optional": false
@@ -1495,21 +1495,21 @@
       },
       {
         "name": "butter",
-        "quantity": 0.33333334326744,
+        "quantity": 0.33,
         "unit": "cup",
         "category": "dairy",
         "optional": false
       },
       {
         "name": "chopped onion",
-        "quantity": 0.33333334326744,
+        "quantity": 0.33,
         "unit": "cup",
         "category": "produce",
         "optional": false
       },
       {
         "name": "all-purpose flour",
-        "quantity": 0.33333334326744,
+        "quantity": 0.33,
         "unit": "cup",
         "category": "pantry",
         "optional": false
@@ -1544,7 +1544,7 @@
       },
       {
         "name": "milk",
-        "quantity": 0.66666668653488,
+        "quantity": 0.67,
         "unit": "cup",
         "category": "dairy",
         "optional": false
@@ -2893,7 +2893,7 @@
       },
       {
         "name": "cottage cheese",
-        "quantity": 0.3333333333333333,
+        "quantity": 0.33,
         "unit": "cup",
         "category": "dairy",
         "optional": false
@@ -5639,7 +5639,7 @@
       },
       {
         "name": "cayenne pepper",
-        "quantity": 0.125,
+        "quantity": 0.13,
         "unit": "tsp",
         "category": "produce",
         "optional": false
@@ -5984,14 +5984,14 @@
       },
       {
         "name": "garlic powder",
-        "quantity": 0.125,
+        "quantity": 0.13,
         "unit": "tsp",
         "category": "produce",
         "optional": false
       },
       {
         "name": "paprika",
-        "quantity": 0.125,
+        "quantity": 0.13,
         "unit": "tsp",
         "category": "spices",
         "optional": false
@@ -7834,7 +7834,7 @@
       },
       {
         "name": "green onion",
-        "quantity": 0.3333333333333333,
+        "quantity": 0.33,
         "unit": "cup",
         "preparation": "finely sliced",
         "category": "produce",
@@ -8049,7 +8049,7 @@
       },
       {
         "name": "(165 ml)  milk",
-        "quantity": 0.6666666666666666,
+        "quantity": 0.67,
         "unit": "cup",
         "preparation": "warmed",
         "category": "dairy",
@@ -9630,7 +9630,7 @@
       },
       {
         "name": "cayenne powder",
-        "quantity": 0.125,
+        "quantity": 0.13,
         "unit": "teaspoon",
         "preparation": "or more or less, to taste",
         "category": "spices",
@@ -12571,7 +12571,7 @@
       },
       {
         "name": "black pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "to taste",
         "category": "produce",
@@ -12579,7 +12579,7 @@
       },
       {
         "name": "chopped red onions",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "cilantro leaves, lime wedges, sour cream, cheddar, avocado",
         "category": "produce",
@@ -12616,6 +12616,135 @@
       "carbs_g": 22.5,
       "fat_g": 7,
       "fiber_g": 8.5,
+      "source": "imported"
+    }
+  },
+  {
+    "id": "baked-spaghetti-k45l",
+    "sourceUrl": "https://www.tasteofhome.com/recipes/favorite-baked-spaghetti/",
+    "isCustom": false,
+    "createdAt": "2026-02-02",
+    "updatedAt": "2026-02-02",
+    "name": "Baked Spaghetti",
+    "description": "This baked spaghetti is one of our top-rated pasta recipes ever (and we have lots of pasta recipes). It may be the rich trio of cheeses or the bubbling brown top, but we suspect the real reason is that it's just so easy to make.",
+    "author": "",
+    "imageUrl": "https://www.tasteofhome.com/wp-content/uploads/2018/01/Favorite-Baked-Spaghetti_EXPS26331_CS2919398C04_30_8b_RMS.jpg",
+    "prepTime": "PT25M",
+    "cookTime": "PT60M",
+    "totalTime": "PT01H25M",
+    "difficulty": "medium",
+    "servings": {
+      "default": 10,
+      "unit": "servings"
+    },
+    "tags": [
+      "dinner"
+    ],
+    "mealTypes": [
+      "dinner"
+    ],
+    "cuisine": "Europe, Italian",
+    "ingredients": [
+      {
+        "name": "(16 ounces) spaghetti",
+        "quantity": 1,
+        "unit": "package",
+        "category": "other",
+        "optional": false
+      },
+      {
+        "name": "ground beef",
+        "quantity": 1,
+        "unit": "pound",
+        "category": "protein/meat",
+        "optional": false
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "preparation": "chopped",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "jar (24 ounces) pasta sauce",
+        "quantity": 1,
+        "unit": "",
+        "category": "pantry",
+        "optional": false
+      },
+      {
+        "name": "seasoned salt",
+        "quantity": 0.5,
+        "unit": "teaspoon",
+        "category": "spices",
+        "optional": false
+      },
+      {
+        "name": "eggs",
+        "quantity": 2,
+        "unit": "large",
+        "category": "other",
+        "optional": false
+      },
+      {
+        "name": "grated Parmesan cheese",
+        "quantity": 0.33,
+        "unit": "cup",
+        "category": "dairy",
+        "optional": false
+      },
+      {
+        "name": "butter",
+        "quantity": 5,
+        "unit": "tablespoons",
+        "preparation": "melted",
+        "category": "dairy",
+        "optional": false
+      },
+      {
+        "name": "4% cottage cheese",
+        "quantity": 2,
+        "unit": "cups",
+        "category": "dairy",
+        "optional": false
+      },
+      {
+        "name": "shredded part-skim mozzarella cheese",
+        "quantity": 4,
+        "unit": "cups",
+        "category": "dairy",
+        "optional": false
+      },
+      {
+        "name": "Chopped fresh basil",
+        "quantity": 0,
+        "unit": "",
+        "preparation": "optional",
+        "category": "produce",
+        "optional": false
+      }
+    ],
+    "instructions": [
+      {
+        "section": "Instructions",
+        "steps": [
+          "Preheat the oven to 350°F. Cook the spaghetti according to the package directions for al dente. Editor's Tip: Al dente means \"to the tooth.\" The pasta should have a bit of bite, as it will continue to soften slightly as the casserole bakes.",
+          "While the pasta is cooking, cook the ground beef and onions in a large skillet over medium heat, breaking the meat into crumbles with a wooden spoon or spatula. Cook until the onion is tender and the beef is no longer pink, six to eight minutes. Drain the excess fat, then stir in the pasta sauce and seasoned salt.",
+          "In a large bowl, whisk the eggs, Parmesan cheese and butter. Drain the spaghetti and add it to the egg mixture; toss to coat. Editor's Tip: Coating the noodles in this egg mixture keeps them from clumping in the baking pan.",
+          "Using tongs, place half the noodle mixture in a greased 13x9-inch baking dish. Spread half the cottage cheese across the noodles, then add a layer of meat sauce and a sprinkling of mozzarella cheese. Repeat the layers once more, ending with a final layer of mozzarella. Editor's Tip: To make the cottage cheese smoother, whiz it in a food processor or blender before layering.",
+          "Place the baking dish on a rimmed baking sheet and cover the dish with aluminum foil. Bake for 40 minutes, then uncover and bake for 20 to 25 minutes longer until the pasta heats through and the cheese is melty and golden brown in spots.",
+          "Let the pasta stand for 15 minutes. If desired, sprinkle with fresh basil before serving. Editor's Tip: Don't dig in right away! Letting baked spaghetti (and any baked pasta dish) sit for 15 minutes or more allows it to firm up, making for more uniform slices vs. a gloopy, too-hot-to-eat mess."
+        ]
+      }
+    ],
+    "nutrition": {
+      "calories": 526,
+      "protein_g": 31,
+      "carbs_g": 459,
+      "fat_g": 2413,
+      "fiber_g": 3,
       "source": "imported"
     }
   }
