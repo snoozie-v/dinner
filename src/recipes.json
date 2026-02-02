@@ -82,7 +82,7 @@
       },
       {
         "name": "nonstick cooking spray",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "other",
         "optional": false
@@ -175,7 +175,7 @@
       },
       {
         "name": "salt and pepper to taste",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -536,7 +536,7 @@
       },
       {
         "name": "Pinch freshly ground black pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -551,7 +551,7 @@
       },
       {
         "name": "Red radish or jicama slices for garnish",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "optional",
         "category": "other",
@@ -559,7 +559,7 @@
       },
       {
         "name": "Tortilla chips",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "to serve",
         "category": "bakery",
@@ -662,14 +662,14 @@
       },
       {
         "name": "Extra virgin olive oil",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "pantry",
         "optional": false
       },
       {
         "name": "Cornmeal",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "to help slide the pizza onto the pizza stone",
         "category": "produce",
@@ -677,7 +677,7 @@
       },
       {
         "name": "Tomato sauce",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "smooth, or puréed",
         "category": "produce",
@@ -685,7 +685,7 @@
       },
       {
         "name": "Firm mozzarella cheese",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "grated",
         "category": "dairy",
@@ -693,7 +693,7 @@
       },
       {
         "name": "Fresh soft mozzarella cheese",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "separated into small clumps",
         "category": "dairy",
@@ -701,7 +701,7 @@
       },
       {
         "name": "Fontina cheese",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "grated",
         "category": "dairy",
@@ -709,7 +709,7 @@
       },
       {
         "name": "Parmesan cheese",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "grated",
         "category": "dairy",
@@ -717,7 +717,7 @@
       },
       {
         "name": "Feta cheese",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "crumbled",
         "category": "dairy",
@@ -725,7 +725,7 @@
       },
       {
         "name": "Mushrooms",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "very thinly sliced if raw, otherwise first sautéed",
         "category": "produce",
@@ -733,7 +733,7 @@
       },
       {
         "name": "Bell peppers",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "stems and seeds removed, very thinly sliced",
         "category": "produce",
@@ -741,7 +741,7 @@
       },
       {
         "name": "Italian pepperoncini",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "thinly sliced",
         "category": "produce",
@@ -749,7 +749,7 @@
       },
       {
         "name": "Italian sausage",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "cooked ahead and crumbled",
         "category": "protein/meat",
@@ -757,21 +757,21 @@
       },
       {
         "name": "Sliced black olives",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "other",
         "optional": false
       },
       {
         "name": "Chopped fresh basil",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
       },
       {
         "name": "Baby arugula",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "tossed in a little olive oil, added as pizza comes out of the oven",
         "category": "other",
@@ -779,14 +779,14 @@
       },
       {
         "name": "Pesto",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "other",
         "optional": false
       },
       {
         "name": "Pepperoni",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "thinly sliced",
         "category": "produce",
@@ -794,7 +794,7 @@
       },
       {
         "name": "Onions",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "thinly sliced raw or caramelized",
         "category": "produce",
@@ -802,7 +802,7 @@
       },
       {
         "name": "Ham",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "thinly sliced",
         "category": "protein/meat",
@@ -875,14 +875,14 @@
       },
       {
         "name": "Kosher salt",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "spices",
         "optional": false
       },
       {
         "name": "Extra virgin olive oil",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "pantry",
         "optional": false
@@ -941,7 +941,7 @@
       },
       {
         "name": "Salt and pepper to taste",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -1053,14 +1053,14 @@
       },
       {
         "name": "Salt and freshly ground black pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
       },
       {
         "name": "½ cup uncooked quinoa, rinsed",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "or 1 ½ cups cooked quinoa",
         "category": "other",
@@ -1074,7 +1074,7 @@
         "optional": false
       },
       {
-        "name": "to 3 tablespoons lemon juice, to taste",
+        "name": "tablespoons lemon juice, to taste",
         "quantity": 2,
         "unit": "",
         "preparation": "about 1 medium lemon",
@@ -1099,7 +1099,7 @@
       },
       {
         "name": "⅔ ounce fresh basil leaves, chopped",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "about ⅓ cup",
         "category": "produce",
@@ -1107,7 +1107,7 @@
       },
       {
         "name": "⅔ ounce fresh mint leaves, chopped",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "about ⅓ cup",
         "category": "other",
@@ -1115,7 +1115,7 @@
       },
       {
         "name": "¼ cup sliced almonds or pine nuts",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "toasted",
         "category": "other",
@@ -1123,7 +1123,7 @@
       },
       {
         "name": "½ to ¾ cup crumbled feta cheese",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "dairy",
         "optional": false
@@ -1183,17 +1183,17 @@
     "ingredients": [
       {
         "name": "180g (6oz )  chicken breast",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
-        "preparation": ", thinly sliced",
+        "preparation": "thinly sliced",
         "category": "protein/meat",
         "optional": false
       },
       {
-        "name": "baking soda / bi-carb ((optional",
+        "name": "baking soda / bi-carb (optional",
         "quantity": 0.5,
         "unit": "tsp",
-        "preparation": "Note 1))",
+        "preparation": "Note 1",
         "category": "other",
         "optional": false
       },
@@ -1205,7 +1205,7 @@
         "optional": false
       },
       {
-        "name": "light soy sauce (",
+        "name": "light soy sauce",
         "quantity": 1.5,
         "unit": "tbsp",
         "preparation": "or all purpose soy",
@@ -1227,15 +1227,15 @@
         "optional": false
       },
       {
-        "name": "sesame oil ((optional))",
+        "name": "sesame oil (optional)",
         "quantity": 0.5,
         "unit": "tsp",
         "category": "pantry",
         "optional": false
       },
       {
-        "name": "Dash of white pepper ((or black))",
-        "quantity": null,
+        "name": "Dash of white pepper (or black)",
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -1248,7 +1248,7 @@
         "optional": false
       },
       {
-        "name": "vegetable oil ((or other cooking oil))",
+        "name": "vegetable oil (or other cooking oil)",
         "quantity": 1.5,
         "unit": "tbsp",
         "category": "pantry",
@@ -1258,20 +1258,20 @@
         "name": "garlic cloves",
         "quantity": 2,
         "unit": "",
-        "preparation": ", finely chopped",
+        "preparation": "finely chopped",
         "category": "produce",
         "optional": false
       },
       {
-        "name": "onion (",
+        "name": "onion",
         "quantity": 0.5,
         "unit": "",
-        "preparation": "sliced (white, brown, yellow))",
+        "preparation": "sliced (white, brown, yellow",
         "category": "produce",
         "optional": false
       },
       {
-        "name": "stems choy sum ((or other Asian greens))",
+        "name": "stems choy sum (or other Asian greens)",
         "quantity": 5.5,
         "unit": "",
         "category": "other",
@@ -1285,10 +1285,10 @@
         "optional": false
       },
       {
-        "name": "sliced mushrooms ((shiitake is authentic",
+        "name": "sliced mushrooms (shiitake is authentic",
         "quantity": 0.5,
         "unit": "cup",
-        "preparation": "but any will do))",
+        "preparation": "but any will do",
         "category": "produce",
         "optional": false
       },
@@ -1352,16 +1352,16 @@
     "cuisine": "Western",
     "ingredients": [
       {
-        "name": "500g / 1 lb   chicken breast (",
-        "quantity": null,
+        "name": "chicken breast",
+        "quantity": 0,
         "unit": "",
-        "preparation": "boneless and skinless (2 pieces))",
+        "preparation": "boneless and skinless (2 pieces",
         "category": "protein/meat",
         "optional": false
       },
       {
         "name": "Salt and pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -1374,7 +1374,7 @@
         "optional": false
       },
       {
-        "name": "(50g)  unsalted butter ((or 2 1/2 tbsp olive oil))",
+        "name": "(50g) unsalted butter (or 2 1/2 tbsp olive oil)",
         "quantity": 3.5,
         "unit": "tbsp",
         "category": "dairy",
@@ -1384,27 +1384,27 @@
         "name": "garlic cloves",
         "quantity": 2,
         "unit": "",
-        "preparation": ", minced",
+        "preparation": "minced",
         "category": "produce",
         "optional": false
       },
       {
-        "name": "apple cider vinegar ((or white or other clear vinegar))",
+        "name": "apple cider vinegar (or white or other clear vinegar)",
         "quantity": 1.5,
         "unit": "tbsp",
         "category": "produce",
         "optional": false
       },
       {
-        "name": "soy sauce (",
+        "name": "soy sauce",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "light or all purpose ",
+        "preparation": "light or all purpose",
         "category": "pantry",
         "optional": false
       },
       {
-        "name": "honey ((or maple syrup))",
+        "name": "honey (or maple syrup)",
         "quantity": 0.3333333333333333,
         "unit": "cup",
         "category": "pantry",
@@ -1707,7 +1707,7 @@
       },
       {
         "name": "salt and freshly ground black pepper to taste",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -2301,7 +2301,7 @@
     "ingredients": [
       {
         "name": "½ lb penne pasta",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "pantry",
         "optional": false
@@ -2339,35 +2339,35 @@
       },
       {
         "name": "½ tsp dried oregano",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "spices",
         "optional": false
       },
       {
         "name": "½ tsp dried basil",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
       },
       {
         "name": "⅛ tsp crushed red pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
       },
       {
         "name": "½ tsp salt",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "spices",
         "optional": false
       },
       {
         "name": "½ tsp freshly cracked black pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -2381,7 +2381,7 @@
       },
       {
         "name": "½ cup water",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "other",
         "optional": false
@@ -2395,7 +2395,7 @@
       },
       {
         "name": "¼ cup grated Parmesan",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "30g",
         "category": "dairy",
@@ -2525,7 +2525,7 @@
       },
       {
         "name": "freshly cracked black pepper to taste",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -2937,7 +2937,7 @@
       },
       {
         "name": "A pinch or two fresh dill",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "chopped",
         "category": "other",
@@ -2968,7 +2968,7 @@
       },
       {
         "name": "Lettuce and sliced tomatoes",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "optional",
         "category": "produce",
@@ -2976,7 +2976,7 @@
       },
       {
         "name": "sliced tomatoes",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -3178,7 +3178,7 @@
         "optional": false
       },
       {
-        "name": "to 1 1/2 ounces powdered gelatin (4 to 6 packets; 30 to 45g), such as Knox",
+        "name": "1/2 ounces powdered gelatin (4 to 6 packets; 30 to 45g), such as Knox",
         "quantity": 1,
         "unit": "",
         "preparation": "see note",
@@ -3233,7 +3233,7 @@
       },
       {
         "name": "Kosher salt and freshly ground black pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -3344,7 +3344,7 @@
       },
       {
         "name": "Dried or fresh pasta",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "preferably pappardelle, tagliatelle, or penne",
         "category": "pantry",
@@ -3408,7 +3408,7 @@
     "ingredients": [
       {
         "name": "Kosher salt",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "spices",
         "optional": false
@@ -3438,7 +3438,7 @@
       },
       {
         "name": "Red pepper flakes, to taste",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "optional",
         "category": "produce",
@@ -3446,7 +3446,7 @@
       },
       {
         "name": "Minced flat-leaf parsley, for serving",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "optional",
         "category": "produce",
@@ -3504,7 +3504,7 @@
     "ingredients": [
       {
         "name": "¼ cup extra virgin olive oil",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "pantry",
         "optional": false
@@ -3549,7 +3549,7 @@
       },
       {
         "name": "½ teaspoon dried thyme",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "spices",
         "optional": false
@@ -3594,14 +3594,14 @@
       },
       {
         "name": "Pinch of red pepper flakes",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
       },
       {
         "name": "Freshly ground black pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "to taste",
         "category": "produce",
@@ -3616,7 +3616,7 @@
         "optional": false
       },
       {
-        "name": "to 2 tablespoons lemon juice (½ to 1 medium lemon)",
+        "name": "tablespoons lemon juice (½ to 1 medium lemon)",
         "quantity": 1,
         "unit": "",
         "preparation": "to taste",
@@ -3715,7 +3715,7 @@
       },
       {
         "name": "½ teaspoon salt",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "divided",
         "category": "spices",
@@ -3804,7 +3804,7 @@
         "optional": false
       },
       {
-        "name": "to 2 teaspoons sherry vinegar or red wine vinegar or lime juice",
+        "name": "teaspoons sherry vinegar or red wine vinegar or lime juice",
         "quantity": 1,
         "unit": "",
         "preparation": "to taste",
@@ -3813,7 +3813,7 @@
       },
       {
         "name": "Garnishes: chopped cilantro",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "sliced avocado, tortilla chips, sour cream or crème fraîche, grated cheddar cheese, etc.",
         "category": "produce",
@@ -3882,15 +3882,15 @@
       },
       {
         "name": "½ teaspoon baking soda",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "if you’re using canned chickpeas",
         "category": "other",
         "optional": false
       },
       {
-        "name": "¼ cup lemon juice (from 1 ½ to 2 lemons)",
-        "quantity": null,
+        "name": "¼ cup lemon juice (from 1 ½ to 2 lemons)",
+        "quantity": 0,
         "unit": "",
         "preparation": "more to taste",
         "category": "produce",
@@ -3906,7 +3906,7 @@
       },
       {
         "name": "½ teaspoon fine sea salt",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "to taste",
         "category": "spices",
@@ -3914,13 +3914,13 @@
       },
       {
         "name": "½ cup tahini",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "other",
         "optional": false
       },
       {
-        "name": "to 4 tablespoons ice water",
+        "name": "tablespoons ice water",
         "quantity": 2,
         "unit": "",
         "preparation": "more as needed",
@@ -3929,7 +3929,7 @@
       },
       {
         "name": "½ teaspoon ground cumin",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "spices",
         "optional": false
@@ -3943,7 +3943,7 @@
       },
       {
         "name": "Any of the following garnishes:  drizzle of olive oil or zhoug sauce",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "sprinkle of ground sumac or paprika, chopped fresh parsley",
         "category": "pantry",
@@ -4019,7 +4019,7 @@
       },
       {
         "name": "¼ teaspoon cayenne pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "omit if sensitive to spice",
         "category": "produce",
@@ -4027,7 +4027,7 @@
       },
       {
         "name": "¼ teaspoon fine salt",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "spices",
         "optional": false
@@ -4049,7 +4049,7 @@
       },
       {
         "name": "Fine salt",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "spices",
         "optional": false
@@ -4063,7 +4063,7 @@
       },
       {
         "name": "¼ teaspoon chili powder",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "spices",
         "optional": false
@@ -4078,7 +4078,7 @@
       },
       {
         "name": "⅓ cup water",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "other",
         "optional": false
@@ -4092,7 +4092,7 @@
       },
       {
         "name": "Freshly ground black pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "to taste",
         "category": "produce",
@@ -4116,7 +4116,7 @@
       },
       {
         "name": "½ cup pepitas",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "bakery",
         "optional": false
@@ -4153,21 +4153,21 @@
       },
       {
         "name": "½ teaspoon fine salt",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "spices",
         "optional": false
       },
       {
         "name": "Freshly ground black pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "to taste",
         "category": "produce",
         "optional": false
       },
       {
-        "name": "to 10 small corn tortillas",
+        "name": "small corn tortillas",
         "quantity": 8,
         "unit": "",
         "category": "produce",
@@ -4175,14 +4175,14 @@
       },
       {
         "name": "Crumbled feta",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "other",
         "optional": false
       },
       {
         "name": "Suggested garnishes: Pickled jalapeños or pickled radishes or pickled red onions",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "torn cilantro, hot sauce, etc.",
         "category": "produce",
@@ -4243,7 +4243,7 @@
     "cuisine": "Russian",
     "ingredients": [
       {
-        "name": "g / 1.2 lb   scotch fillet steak / boneless rib eye ",
+        "name": "scotch fillet steak / boneless rib eye",
         "quantity": 600,
         "unit": "",
         "category": "protein/meat",
@@ -4253,28 +4253,28 @@
         "name": "vegetable oil",
         "quantity": 2,
         "unit": "tbsp",
-        "preparation": ", divided",
+        "preparation": "divided",
         "category": "pantry",
         "optional": false
       },
       {
-        "name": "onion ((or 2 small onions)",
+        "name": "onion (or 2 small onions)",
         "quantity": 1,
         "unit": "large",
-        "preparation": "sliced)",
+        "preparation": "sliced",
         "category": "produce",
         "optional": false
       },
       {
-        "name": "g / 10 oz   mushrooms (",
+        "name": "mushrooms",
         "quantity": 300,
         "unit": "",
-        "preparation": "sliced (not too thin))",
+        "preparation": "sliced (not too thin",
         "category": "produce",
         "optional": false
       },
       {
-        "name": "g / 3 tbsp   butter",
+        "name": "tbsp butter",
         "quantity": 40,
         "unit": "",
         "category": "dairy",
@@ -4288,10 +4288,10 @@
         "optional": false
       },
       {
-        "name": "/ 500 ml   beef broth",
+        "name": "beef broth",
         "quantity": 2,
         "unit": "cups",
-        "preparation": ", preferably salt reduced",
+        "preparation": "preferably salt reduced",
         "category": "protein/meat",
         "optional": false
       },
@@ -4303,7 +4303,7 @@
         "optional": false
       },
       {
-        "name": "/ 2/3 cup   sour cream",
+        "name": "/ 2/3 cup sour cream",
         "quantity": 150,
         "unit": "ml",
         "category": "dairy",
@@ -4311,23 +4311,23 @@
       },
       {
         "name": "Salt and pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
       },
       {
-        "name": "g / 8 - 10 oz   pasta or egg noodles of choice ",
+        "name": "10 oz pasta or egg noodles of choice",
         "quantity": 275,
         "unit": "",
         "category": "pantry",
         "optional": false
       },
       {
-        "name": "Chopped chives (",
-        "quantity": null,
+        "name": "Chopped chives",
+        "quantity": 0,
         "unit": "",
-        "preparation": "for garnish (optional))",
+        "preparation": "for garnish (optional",
         "category": "other",
         "optional": false
       }
@@ -4404,7 +4404,7 @@
       },
       {
         "name": "Oil spray",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "pantry",
         "optional": false
@@ -4452,10 +4452,10 @@
         "optional": false
       },
       {
-        "name": "baking powder ((makes them crispier",
+        "name": "baking powder (makes them crispier",
         "quantity": 3,
         "unit": "tsp",
-        "preparation": "DO NOT confuse with baking soda / bi-carb) ",
+        "preparation": "DO NOT confuse with baking soda / bi-carb",
         "category": "other",
         "optional": false
       }
@@ -5382,7 +5382,7 @@
       },
       {
         "name": "Pinch of salt and pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -5519,7 +5519,7 @@
         "name": "fresh parsley (chopped",
         "quantity": 0.25,
         "unit": "bunch",
-        "preparation": "(about ½ cup",
+        "preparation": "about ½ cup",
         "category": "produce",
         "optional": false
       },
@@ -6051,10 +6051,10 @@
     "cuisine": "Western",
     "ingredients": [
       {
-        "name": "500g / 1lb  prawns (shrimp) (",
-        "quantity": null,
+        "name": "prawns (shrimp)",
+        "quantity": 0,
         "unit": "",
-        "preparation": "peeled and deveined, tail on (unpeeled weight 1kg/2lb, Note 1))",
+        "preparation": "peeled and deveined, tail on (unpeeled weight 1kg/2lb, Note 1",
         "category": "protein/seafood",
         "optional": false
       },
@@ -6073,25 +6073,25 @@
         "optional": false
       },
       {
-        "name": "extra virgin olive oil ((separated))",
+        "name": "extra virgin olive oil (separated)",
         "quantity": 3,
         "unit": "tbsp",
         "category": "pantry",
         "optional": false
       },
       {
-        "name": "finely minced garlic cloves (~ 4 cloves) ((use knife",
+        "name": "finely minced garlic cloves (~ 4 cloves) (use knife",
         "quantity": 3,
         "unit": "tsp",
-        "preparation": "not crusher/mincer))",
+        "preparation": "not crusher/mincer",
         "category": "produce",
         "optional": false
       },
       {
-        "name": "40g / 3 tbsp  unsalted butter (",
-        "quantity": null,
+        "name": "tbsp unsalted butter",
+        "quantity": 0,
         "unit": "",
-        "preparation": "cut into 1.5cm / 1/2\" cubes ",
+        "preparation": "cut into 1.5cm / 1/2\" cubes",
         "category": "dairy",
         "optional": false
       },
@@ -6113,20 +6113,20 @@
         "name": "parsley",
         "quantity": 1,
         "unit": "tbsp",
-        "preparation": "finely chopped ((garnish))",
+        "preparation": "finely chopped ((garnish",
         "category": "produce",
         "optional": false
       },
       {
         "name": "Lemon wedges",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
       },
       {
         "name": "Bread for mopping!",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "bakery",
         "optional": false
@@ -6225,13 +6225,13 @@
       },
       {
         "name": "¼ teaspoon ground cinnamon",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "spices",
         "optional": false
       },
       {
-        "name": "to 6 ounces baby spinach",
+        "name": "ounces baby spinach",
         "quantity": 5,
         "unit": "",
         "preparation": "about 5 cups, packed",
@@ -6256,7 +6256,7 @@
       },
       {
         "name": "½ teaspoon fine salt",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "to taste",
         "category": "spices",
@@ -6264,7 +6264,7 @@
       },
       {
         "name": "Freshly ground black pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "to taste",
         "category": "produce",
@@ -6280,7 +6280,7 @@
       },
       {
         "name": "Handful of chopped cilantro",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "for garnishing",
         "category": "produce",
@@ -6379,7 +6379,7 @@
       },
       {
         "name": "salt",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "to taste",
         "category": "spices",
@@ -6387,7 +6387,7 @@
       },
       {
         "name": "pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "to taste",
         "category": "produce",
@@ -6395,7 +6395,7 @@
       },
       {
         "name": "¼ cup grated parmesan cheese",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "dairy",
         "optional": false
@@ -6497,7 +6497,7 @@
       },
       {
         "name": "oil",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "for frying",
         "category": "pantry",
@@ -6505,7 +6505,7 @@
       },
       {
         "name": "marinara sauce",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "pantry",
         "optional": false
@@ -6583,7 +6583,7 @@
       },
       {
         "name": "½ teaspoon kosher salt",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "plus more for taste",
         "category": "spices",
@@ -6591,7 +6591,7 @@
       },
       {
         "name": "½ teaspoon black pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "plus more to taste",
         "category": "produce",
@@ -6686,7 +6686,7 @@
       },
       {
         "name": "egg noodle",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "cooked, for serving",
         "category": "other",
@@ -7165,21 +7165,21 @@
       },
       {
         "name": "¼ tsp salt",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "spices",
         "optional": false
       },
       {
         "name": "¼ tsp chili powder",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "spices",
         "optional": false
       },
       {
         "name": "½ tsp granulated sugar",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "pantry",
         "optional": false
@@ -7207,7 +7207,7 @@
       },
       {
         "name": "½  red onion",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "julienned",
         "category": "produce",
@@ -7255,7 +7255,7 @@
         "name": "cheddar cheese (shredded",
         "quantity": 1,
         "unit": "cup",
-        "preparation": "(about 1/2 of an 8-oz. block",
+        "preparation": "about 1/2 of an 8-oz. block",
         "category": "dairy",
         "optional": false
       },
@@ -7351,7 +7351,7 @@
       },
       {
         "name": "½ lb. ground beef",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "protein/meat",
         "optional": false
@@ -7365,7 +7365,7 @@
       },
       {
         "name": "⅛ tsp black pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "freshly cracked",
         "category": "produce",
@@ -7387,7 +7387,7 @@
       },
       {
         "name": "½ tsp Dijon mustard",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "condiments",
         "optional": false
@@ -7401,7 +7401,7 @@
       },
       {
         "name": "⅓ cup sour cream",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "dairy",
         "optional": false
@@ -7587,7 +7587,7 @@
     "ingredients": [
       {
         "name": "½ lb. ground beef",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "protein/meat",
         "optional": false
@@ -7623,14 +7623,14 @@
       },
       {
         "name": "½ tsp Italian seasoning blend",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "other",
         "optional": false
       },
       {
         "name": "black pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "freshly cracked",
         "category": "produce",
@@ -7638,7 +7638,7 @@
       },
       {
         "name": "salt",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "to taste",
         "category": "spices",
@@ -7707,9 +7707,9 @@
       },
       {
         "name": "175g/ 12 tbsp  cold unsalted butter",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
-        "preparation": ", cut into 1 cm / 1/2\" cubes",
+        "preparation": "cut into 1 cm / 1/2\" cubes",
         "category": "dairy",
         "optional": false
       },
@@ -7728,10 +7728,10 @@
         "optional": false
       },
       {
-        "name": "warm milk (",
+        "name": "warm milk",
         "quantity": 0.5,
         "unit": "cup",
-        "preparation": "full fat (30 sec microwave))",
+        "preparation": "full fat (30 sec microwave",
         "category": "dairy",
         "optional": false
       },
@@ -7746,7 +7746,7 @@
         "name": "onion",
         "quantity": 0.5,
         "unit": "",
-        "preparation": ", finely chopped",
+        "preparation": "finely chopped",
         "category": "produce",
         "optional": false
       },
@@ -7754,20 +7754,20 @@
         "name": "garlic cloves",
         "quantity": 1,
         "unit": "",
-        "preparation": ", minced",
+        "preparation": "minced",
         "category": "produce",
         "optional": false
       },
       {
-        "name": "300g/10 oz  beef mince ((ground beef))",
-        "quantity": null,
+        "name": "beef mince (ground beef)",
+        "quantity": 0,
         "unit": "",
         "category": "protein/meat",
         "optional": false
       },
       {
         "name": "120g/4 oz  chorizo",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "other",
         "optional": false
@@ -7783,7 +7783,7 @@
         "name": "fresh thyme",
         "quantity": 1,
         "unit": "tsp",
-        "preparation": ", finely chopped",
+        "preparation": "finely chopped",
         "category": "spices",
         "optional": false
       },
@@ -7813,22 +7813,22 @@
         "name": "chicken stock/broth",
         "quantity": 0.75,
         "unit": "cup",
-        "preparation": ", low sodium",
+        "preparation": "low sodium",
         "category": "protein/meat",
         "optional": false
       },
       {
-        "name": "tomato passata ((sub US tomato sauce or crushed tomato))",
+        "name": "tomato passata (sub US tomato sauce or crushed tomato)",
         "quantity": 0.5,
         "unit": "cup",
         "category": "produce",
         "optional": false
       },
       {
-        "name": "150g/5oz   potato (",
-        "quantity": null,
+        "name": "potato",
+        "quantity": 0,
         "unit": "",
-        "preparation": "peeled, cut into 8mm/ 1/3\" cubes (~1 cup))",
+        "preparation": "peeled, cut into 8mm/ 1/3\" cubes (~1 cup",
         "category": "produce",
         "optional": false
       },
@@ -7836,12 +7836,12 @@
         "name": "green onion",
         "quantity": 0.3333333333333333,
         "unit": "cup",
-        "preparation": ", finely sliced",
+        "preparation": "finely sliced",
         "category": "produce",
         "optional": false
       },
       {
-        "name": "hard boiled eggs ((9 minutes using this method))",
+        "name": "hard boiled eggs (9 minutes using this method)",
         "quantity": 2,
         "unit": "",
         "category": "pantry",
@@ -7851,30 +7851,30 @@
         "name": "green olives",
         "quantity": 0.25,
         "unit": "cup",
-        "preparation": ", roughly chopped",
+        "preparation": "roughly chopped",
         "category": "other",
         "optional": false
       },
       {
-        "name": "eggs (",
+        "name": "eggs",
         "quantity": 2,
         "unit": "",
-        "preparation": "separated, yolks whisked (for sealing and brushing pastry))",
+        "preparation": "separated, yolks whisked (for sealing and brushing pastry",
         "category": "other",
         "optional": false
       },
       {
         "name": "Empanada sauce",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "pantry",
         "optional": false
       },
       {
         "name": "Other options",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
-        "preparation": "- ketchup, ketchup + sriracha, pink sauce, taco sauce, salsa dip",
+        "preparation": "ketchup, ketchup + sriracha, pink sauce, taco sauce, salsa dip",
         "category": "other",
         "optional": false
       }
@@ -7930,7 +7930,7 @@
         "name": "garlic cloves",
         "quantity": 2,
         "unit": "",
-        "preparation": ", minced",
+        "preparation": "minced",
         "category": "produce",
         "optional": false
       },
@@ -7938,7 +7938,7 @@
         "name": "onion",
         "quantity": 1,
         "unit": "",
-        "preparation": ", finely chopped",
+        "preparation": "finely chopped",
         "category": "produce",
         "optional": false
       },
@@ -7946,7 +7946,7 @@
         "name": "carrot",
         "quantity": 1,
         "unit": "",
-        "preparation": ", finely chopped*",
+        "preparation": "finely chopped*",
         "category": "produce",
         "optional": false
       },
@@ -7954,20 +7954,20 @@
         "name": "celery",
         "quantity": 1,
         "unit": "",
-        "preparation": ", finely chopped*",
+        "preparation": "finely chopped*",
         "category": "produce",
         "optional": false
       },
       {
         "name": "750g / 1.5 lb   beef mince",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "ground beef",
         "category": "protein/meat",
         "optional": false
       },
       {
-        "name": "(40g)  flour ((plain / all purpose))",
+        "name": "(40g) flour (plain / all purpose)",
         "quantity": 0.25,
         "unit": "cup",
         "category": "pantry",
@@ -7984,7 +7984,7 @@
         "name": "(500 ml)  beef stock / broth",
         "quantity": 2,
         "unit": "cups",
-        "preparation": ", low sodium",
+        "preparation": "low sodium",
         "category": "protein/meat",
         "optional": false
       },
@@ -7997,10 +7997,10 @@
         "optional": false
       },
       {
-        "name": "beef bouillon cube (",
+        "name": "beef bouillon cube",
         "quantity": 1,
         "unit": "",
-        "preparation": "crumbled (stock cube, or 1 tsp stock powder))",
+        "preparation": "crumbled (stock cube, or 1 tsp stock powder",
         "category": "protein/meat",
         "optional": false
       },
@@ -8012,7 +8012,7 @@
         "optional": false
       },
       {
-        "name": "dried thyme ((or 3 sprigs fresh thyme))",
+        "name": "dried thyme (or 3 sprigs fresh thyme)",
         "quantity": 1,
         "unit": "tsp",
         "category": "spices",
@@ -8040,10 +8040,10 @@
         "optional": false
       },
       {
-        "name": "/ 2.5 lb   potatoes",
+        "name": "/ 2.5 lb potatoes",
         "quantity": 1.2,
         "unit": "kg",
-        "preparation": ", peeled and cut into 2.5cm / 1\" cubes",
+        "preparation": "peeled and cut into 2.5cm / 1\" cubes",
         "category": "produce",
         "optional": false
       },
@@ -8051,7 +8051,7 @@
         "name": "(165 ml)  milk",
         "quantity": 0.6666666666666666,
         "unit": "cup",
-        "preparation": ", warmed",
+        "preparation": "warmed",
         "category": "dairy",
         "optional": false
       },
@@ -8405,7 +8405,7 @@
       },
       {
         "name": "Pinch ground cloves",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "other",
         "optional": false
@@ -8419,7 +8419,7 @@
       },
       {
         "name": "Pinch cayenne pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -8543,7 +8543,7 @@
       },
       {
         "name": "Kosher salt and freshly ground black pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -8624,7 +8624,7 @@
       },
       {
         "name": "Warm corn tortillas",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "onions, cilantro, salsa, limes, and other condiments for serving",
         "category": "produce",
@@ -8653,7 +8653,8 @@
       "source": "imported"
     },
     "mealTypes": [
-      "dinner"
+      "dinner",
+      "lunch"
     ]
   },
   {
@@ -8673,7 +8674,7 @@
     },
     "ingredients": [
       {
-        "name": "to 12  crispy taco shells OR soft tortillas of choice)",
+        "name": "crispy taco shells OR soft tortillas of choice",
         "quantity": 10,
         "unit": "",
         "category": "bakery",
@@ -8690,7 +8691,7 @@
         "name": "garlic cloves",
         "quantity": 2,
         "unit": "",
-        "preparation": ", minced",
+        "preparation": "minced",
         "category": "produce",
         "optional": false
       },
@@ -8698,15 +8699,15 @@
         "name": "onion",
         "quantity": 1,
         "unit": "",
-        "preparation": ", finely chopped",
+        "preparation": "finely chopped",
         "category": "produce",
         "optional": false
       },
       {
-        "name": "g / 1 lb   beef (",
+        "name": "beef",
         "quantity": 500,
         "unit": "",
-        "preparation": "ground / mince (Note 2))",
+        "preparation": "ground / mince (Note 2",
         "category": "protein/meat",
         "optional": false
       },
@@ -8718,14 +8719,14 @@
         "optional": false
       },
       {
-        "name": "/ 65ml  water",
+        "name": "water",
         "quantity": 0.25,
         "unit": "cup",
         "category": "other",
         "optional": false
       },
       {
-        "name": "EACH garlic powder",
+        "name": "garlic powder",
         "quantity": 1,
         "unit": "tsp",
         "preparation": "onion powder, dried oregano",
@@ -8733,7 +8734,7 @@
         "optional": false
       },
       {
-        "name": "EACH cumin powder",
+        "name": "cumin powder",
         "quantity": 2,
         "unit": "tsp",
         "preparation": "paprika",
@@ -8741,10 +8742,10 @@
         "optional": false
       },
       {
-        "name": "cayenne pepper ((adjust spiciness to taste",
+        "name": "cayenne pepper (adjust spiciness to taste",
         "quantity": 0.25,
         "unit": "tsp",
-        "preparation": "can skip))",
+        "preparation": "can skip",
         "category": "produce",
         "optional": false
       },
@@ -8764,14 +8765,14 @@
       },
       {
         "name": "Shredded cheese",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "dairy",
         "optional": false
       },
       {
         "name": "Shredded iceberg lettuce",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -8780,7 +8781,7 @@
         "name": "tomatoes",
         "quantity": 2,
         "unit": "",
-        "preparation": ", chopped",
+        "preparation": "chopped",
         "category": "produce",
         "optional": false
       },
@@ -8788,29 +8789,29 @@
         "name": "red or white onion",
         "quantity": 0.5,
         "unit": "",
-        "preparation": ", chopped",
+        "preparation": "chopped",
         "category": "produce",
         "optional": false
       },
       {
         "name": "Sour cream",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "dairy",
         "optional": false
       },
       {
-        "name": "Taco sauce ((optional))",
-        "quantity": null,
+        "name": "Taco sauce (optional)",
+        "quantity": 0,
         "unit": "",
         "category": "pantry",
         "optional": false
       },
       {
         "name": "Other: coriander/cilantro",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
-        "preparation": ", jalapeño, hot sauce / chilli sauce, pickled chillies, salsa sauce, pico de gallo",
+        "preparation": "jalapeño, hot sauce / chilli sauce, pickled chillies, salsa sauce, pico de gallo",
         "category": "produce",
         "optional": false
       }
@@ -8854,7 +8855,8 @@
       "source": "imported"
     },
     "mealTypes": [
-      "dinner"
+      "dinner",
+      "lunch"
     ],
     "tags": [
       "beef-dish"
@@ -8887,7 +8889,7 @@
     "ingredients": [
       {
         "name": "homemade fajita seasoning",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "or use 1 tablespoon store-bought fajita seasoning",
         "category": "other",
@@ -8934,14 +8936,14 @@
       },
       {
         "name": "chopped fresh parsley or cilantro",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
       },
       {
         "name": "prepared Guacamole for serving",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "optional",
         "category": "other",
@@ -8970,7 +8972,8 @@
       "source": "imported"
     },
     "mealTypes": [
-      "snack"
+      "snack",
+      "dinner"
     ]
   },
   {
@@ -9198,7 +9201,7 @@
         "optional": false
       },
       {
-        "name": "to 5 dozen dried corn husks",
+        "name": "dozen dried corn husks",
         "quantity": 4,
         "unit": "",
         "category": "produce",
@@ -9235,7 +9238,7 @@
         "optional": false
       },
       {
-        "name": "to 4 cups reserved cooking liquid",
+        "name": "cups reserved cooking liquid",
         "quantity": 3,
         "unit": "",
         "category": "other",
@@ -9517,10 +9520,13 @@
       "lime crema",
       "dinner",
       "easy dinner",
-      "easy meal"
+      "easy meal",
+      "seafood",
+      "quick-easy"
     ],
     "mealTypes": [
-      "dinner"
+      "dinner",
+      "lunch"
     ],
     "cuisine": "Mexican",
     "ingredients": [
@@ -9654,7 +9660,7 @@
       },
       {
         "name": "lime wedges",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "optional",
         "category": "produce",
@@ -9714,7 +9720,8 @@
     },
     "tags": [
       "dinner",
-      "publisher-tested"
+      "publisher-tested",
+      "beef-dish"
     ],
     "mealTypes": [
       "dinner"
@@ -9899,7 +9906,8 @@
       "unit": "servings"
     },
     "tags": [
-      "main course"
+      "main course",
+      "vegetarian"
     ],
     "mealTypes": [
       "dinner"
@@ -9943,7 +9951,7 @@
       },
       {
         "name": "½ cup Quinoa",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "other",
         "optional": false
@@ -9971,7 +9979,7 @@
       },
       {
         "name": "½ cup Pepper Jack Cheese",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "dairy",
         "optional": false
@@ -9985,14 +9993,14 @@
       },
       {
         "name": "Salt",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "spices",
         "optional": false
       },
       {
         "name": "Pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -10037,7 +10045,8 @@
       "unit": "servings"
     },
     "tags": [
-      "main course"
+      "main course",
+      "beef-dish"
     ],
     "mealTypes": [
       "dinner"
@@ -10074,7 +10083,7 @@
       },
       {
         "name": "½ cup Quinoa",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "other",
         "optional": false
@@ -10109,7 +10118,7 @@
       },
       {
         "name": "½ cup Monterey Jack Cheese",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "dairy",
         "optional": false
@@ -10123,14 +10132,14 @@
       },
       {
         "name": "Salt",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "spices",
         "optional": false
       },
       {
         "name": "Pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -10263,7 +10272,10 @@
       "fat_g": 10.32,
       "fiber_g": 15.22,
       "source": "imported"
-    }
+    },
+    "tags": [
+      "vegetarian"
+    ]
   },
   {
     "id": "sourdough-pizza-crust-same-day-recipe-gbql",
@@ -10286,7 +10298,8 @@
     "tags": [
       "dinner",
       "pizza",
-      "sourdough"
+      "sourdough",
+      "vegetarian"
     ],
     "mealTypes": [
       "dinner"
@@ -10326,7 +10339,7 @@
       },
       {
         "name": "Rice flour or ground semolina",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "for dusting",
         "category": "pantry",
@@ -10334,7 +10347,7 @@
       },
       {
         "name": "Toppings of your choice",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "e.g., tomato sauce, mozzarella",
         "category": "other",
@@ -10389,7 +10402,8 @@
       "light and fluffy sourdough pancakes",
       "sourdough discard pancakes",
       "sourdough pancake recipe",
-      "sourdough pancakes"
+      "sourdough pancakes",
+      "vegetarian"
     ],
     "mealTypes": [
       "breakfast",
@@ -10479,7 +10493,7 @@
       },
       {
         "name": "butter for the pan",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "dairy",
         "optional": false
@@ -10523,7 +10537,8 @@
       "unit": "servings"
     },
     "tags": [
-      "main course"
+      "main course",
+      "beef-dish"
     ],
     "mealTypes": [
       "dinner"
@@ -10560,7 +10575,7 @@
       },
       {
         "name": "¼ cup Panko Breadcrumbs",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "bakery",
         "optional": false
@@ -10595,21 +10610,21 @@
       },
       {
         "name": "¼ cup Parmesan Cheese",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "dairy",
         "optional": false
       },
       {
         "name": "Salt",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "spices",
         "optional": false
       },
       {
         "name": "Pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -10726,7 +10741,7 @@
       },
       {
         "name": "¼ ounce Cilantro",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -10747,14 +10762,14 @@
       },
       {
         "name": "teaspoon (tsp) Salt",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "spices",
         "optional": false
       },
       {
         "name": "teaspoon (tsp) Black Pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -10799,7 +10814,8 @@
       "unit": "servings"
     },
     "tags": [
-      "main course"
+      "main course",
+      "vegetarian"
     ],
     "mealTypes": [
       "dinner"
@@ -10836,7 +10852,7 @@
       },
       {
         "name": "½ ounce Basil",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -10864,14 +10880,14 @@
       },
       {
         "name": "¼ cup Parmesan Cheese",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "dairy",
         "optional": false
       },
       {
         "name": "¼ cup Panko Breadcrumbs",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "bakery",
         "optional": false
@@ -10885,14 +10901,14 @@
       },
       {
         "name": "Salt",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "spices",
         "optional": false
       },
       {
         "name": "Pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -10937,7 +10953,9 @@
       "unit": "servings"
     },
     "tags": [
-      "main course"
+      "main course",
+      "vegetarian",
+      "grilled"
     ],
     "mealTypes": [
       "dinner"
@@ -10967,7 +10985,7 @@
       },
       {
         "name": "¼ ounce Cilantro",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -11023,14 +11041,14 @@
       },
       {
         "name": "Salt",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "spices",
         "optional": false
       },
       {
         "name": "Pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -11075,7 +11093,8 @@
       "unit": "servings"
     },
     "tags": [
-      "main course"
+      "main course",
+      "vegetarian"
     ],
     "mealTypes": [
       "dinner"
@@ -11133,7 +11152,7 @@
       },
       {
         "name": "½ cup Mexican Cheese Blend",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "dairy",
         "optional": false
@@ -11161,14 +11180,14 @@
       },
       {
         "name": "Salt",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "spices",
         "optional": false
       },
       {
         "name": "Pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -11213,7 +11232,8 @@
       "unit": "servings"
     },
     "tags": [
-      "main course"
+      "main course",
+      "seafood"
     ],
     "mealTypes": [
       "dinner"
@@ -11250,7 +11270,7 @@
       },
       {
         "name": "½ ounce Parsley",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -11292,14 +11312,14 @@
       },
       {
         "name": "unit Salt",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "spices",
         "optional": false
       },
       {
         "name": "unit Pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -11357,7 +11377,8 @@
       "pizza",
       "sauce",
       "tomato",
-      "tomatoes"
+      "tomatoes",
+      "vegetarian"
     ],
     "mealTypes": [
       "breakfast",
@@ -11445,7 +11466,7 @@
       },
       {
         "name": "non-stick cooking spray",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "other",
         "optional": false
@@ -11466,7 +11487,7 @@
         "optional": false
       },
       {
-        "name": "mozzarella cheese ((use fresh or a ball that you can tear or slice - no pre-shredded cheese!))",
+        "name": "mozzarella cheese (use fresh or a ball that you can tear or slice - no pre-shredded cheese!)",
         "quantity": 340,
         "unit": "grams",
         "category": "dairy",
@@ -11496,7 +11517,7 @@
       },
       {
         "name": "fresh basil leaves",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -11551,7 +11572,8 @@
       "unit": "servings"
     },
     "tags": [
-      "main course"
+      "main course",
+      "beef-dish"
     ],
     "mealTypes": [
       "dinner"
@@ -11588,7 +11610,7 @@
       },
       {
         "name": "½ cup White Cheddar Cheese",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "preparation": "shredded",
         "category": "dairy",
@@ -11645,7 +11667,7 @@
       },
       {
         "name": "¼ cup Milk*",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "dairy",
         "optional": false
@@ -11691,7 +11713,9 @@
       "unit": "servings"
     },
     "tags": [
-      "main course"
+      "main course",
+      "chicken-dish",
+      "grilled"
     ],
     "mealTypes": [
       "dinner"
@@ -11728,7 +11752,7 @@
       },
       {
         "name": "½ cup Mozzarella Cheese",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "dairy",
         "optional": false
@@ -11749,14 +11773,14 @@
       },
       {
         "name": "Salt",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "spices",
         "optional": false
       },
       {
         "name": "Pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -11770,14 +11794,14 @@
       },
       {
         "name": "½ cup Cheddar Cheese",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "dairy",
         "optional": false
       },
       {
         "name": "½ cup White Cheddar Cheese",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "dairy",
         "optional": false
@@ -11820,7 +11844,8 @@
       "unit": "servings"
     },
     "tags": [
-      "main course"
+      "main course",
+      "chicken-dish"
     ],
     "mealTypes": [
       "dinner"
@@ -11871,7 +11896,7 @@
       },
       {
         "name": "¼ ounce Parsley",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -11892,14 +11917,14 @@
       },
       {
         "name": "Salt",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "spices",
         "optional": false
       },
       {
         "name": "Pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -11965,7 +11990,8 @@
       "unit": "servings"
     },
     "tags": [
-      "main course"
+      "main course",
+      "vegetarian"
     ],
     "mealTypes": [
       "dinner"
@@ -12023,14 +12049,14 @@
       },
       {
         "name": "unit Salt",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "spices",
         "optional": false
       },
       {
         "name": "unit Pepper",
-        "quantity": null,
+        "quantity": 0,
         "unit": "",
         "category": "produce",
         "optional": false
@@ -12087,7 +12113,9 @@
       "dinner",
       "main course",
       "chilli",
-      "chilli con carne"
+      "chilli con carne",
+      "beef-dish",
+      "slow-cooker"
     ],
     "mealTypes": [
       "dinner"
@@ -12267,6 +12295,156 @@
       "carbs_g": 13,
       "fat_g": 8,
       "fiber_g": 3,
+      "source": "imported"
+    }
+  },
+  {
+    "id": "air-fryer-granola-recipe-fmh9",
+    "sourceUrl": "https://www.fooddolls.com/air-fryer-granola/",
+    "isCustom": false,
+    "createdAt": "2026-02-01",
+    "updatedAt": "2026-02-01",
+    "name": "Air Fryer Granola Recipe",
+    "description": "This air fryer granola is one snack we always keep on hand! Crisp, crunchy, sweet, and infused with warm spice, it's better than store-bought and perfect for sprinkling over yogurt, oatmeal, smoothies, and more!",
+    "author": "",
+    "imageUrl": "https://www.fooddolls.com/wp-content/uploads/2022/01/Food-Dolls_09_04_25_AirFryerGranola17127_Retouched_CROP_1200x1800px.jpg",
+    "prepTime": "PT5M",
+    "cookTime": "PT15M",
+    "totalTime": "PT20M",
+    "difficulty": "medium",
+    "servings": {
+      "default": 4,
+      "unit": "servings"
+    },
+    "tags": [
+      "breakfast",
+      "snack",
+      "air fryer granola",
+      "air fryer granola recipe",
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast",
+      "snack"
+    ],
+    "cuisine": "American",
+    "ingredients": [
+      {
+        "name": "old-fashioned rolled oats",
+        "quantity": 2,
+        "unit": "cups",
+        "category": "bakery",
+        "optional": false
+      },
+      {
+        "name": "½ cup nuts",
+        "quantity": 0,
+        "unit": "",
+        "preparation": "almonds, pecans, walnutschopped",
+        "category": "other",
+        "optional": false
+      },
+      {
+        "name": "¼ cup seeds",
+        "quantity": 0,
+        "unit": "",
+        "preparation": "pumpkin seeds, sunflower seeds, or chia",
+        "category": "other",
+        "optional": false
+      },
+      {
+        "name": "½ cup shredded coconut",
+        "quantity": 0,
+        "unit": "",
+        "preparation": "optional",
+        "category": "other",
+        "optional": false
+      },
+      {
+        "name": "cinnamon",
+        "quantity": 1,
+        "unit": "teaspoon",
+        "category": "spices",
+        "optional": false
+      },
+      {
+        "name": "Pinch of salt",
+        "quantity": 0,
+        "unit": "",
+        "category": "spices",
+        "optional": false
+      },
+      {
+        "name": "¼ cup honey or maple syrup",
+        "quantity": 0,
+        "unit": "",
+        "category": "pantry",
+        "optional": false
+      },
+      {
+        "name": "coconut oil",
+        "quantity": 3,
+        "unit": "tablespoons",
+        "preparation": "melted",
+        "category": "pantry",
+        "optional": false
+      },
+      {
+        "name": "vanilla extract",
+        "quantity": 1,
+        "unit": "teaspoon",
+        "category": "other",
+        "optional": false
+      },
+      {
+        "name": "½ cup dried fruit",
+        "quantity": 0,
+        "unit": "",
+        "preparation": "raisins, cranberries, cherries – added after cooking",
+        "category": "other",
+        "optional": false
+      }
+    ],
+    "instructions": [
+      {
+        "section": "Mix the base",
+        "steps": [
+          "In a large bowl, combine oats, nuts, seeds, coconut, cinnamon, and salt.",
+          "Stir in honey (or maple), coconut oil, and vanilla. Mix until oats are evenly coated."
+        ]
+      },
+      {
+        "section": "Preheat air fryer",
+        "steps": [
+          "Set to 300°F (150°C)."
+        ]
+      },
+      {
+        "section": "Cook",
+        "steps": [
+          "Spread granola mixture in a thin, even layer in the air fryer basket (use parchment paper with holes or an air fryer liner if needed).",
+          "Cook for 12–15 minutes, shaking or stirring every 4–5 minutes to prevent burning."
+        ]
+      },
+      {
+        "section": "Cool & finish",
+        "steps": [
+          "Let granola cool completely (it crisps up as it cools). Stir in dried fruit."
+        ]
+      },
+      {
+        "section": "Store",
+        "steps": [
+          "Keep in an airtight container at room temp for up to 2 weeks."
+        ]
+      }
+    ],
+    "nutrition": {
+      "calories": 269,
+      "protein_g": 6,
+      "carbs_g": 30,
+      "fat_g": 15,
+      "fiber_g": 4,
       "source": "imported"
     }
   }

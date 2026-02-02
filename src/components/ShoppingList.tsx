@@ -37,7 +37,7 @@ const getCategoryInfo = (category: string) => {
 
 // Format quantity for display - round to practical shopping amounts
 const formatQuantity = (qty: number, unit: string): string => {
-  if (qty === 0) return '';
+  if (qty === 0) return 'as needed';
 
   // Round to reasonable amounts
   let displayQty: string;
@@ -91,11 +91,12 @@ const ShoppingList = ({
     setIsLoadingInstacart(true);
 
     // Get items that still need to be purchased
+    // For 0-quantity items (e.g., "to taste"), include with quantity 1 if not marked as have
     const neededItems = shoppingList
-      .filter(item => item.haveQty < item.totalQty)
+      .filter(item => item.totalQty > 0 ? item.haveQty < item.totalQty : item.haveQty === 0)
       .map(item => ({
         name: item.name,
-        quantity: item.totalQty - item.haveQty,
+        quantity: item.totalQty > 0 ? item.totalQty - item.haveQty : 1,
         unit: item.unit || ''
       }));
 
@@ -157,7 +158,8 @@ const ShoppingList = ({
   // Stats
   const stats = useMemo(() => {
     const total = shoppingList.length;
-    const completed = shoppingList.filter(item => item.haveQty >= item.totalQty).length;
+    // Items with 0 total quantity (e.g., "to taste") should not count as auto-completed
+    const completed = shoppingList.filter(item => item.totalQty > 0 && item.haveQty >= item.totalQty).length;
     const pantryCount = shoppingList.filter(item => item.isPantryStaple).length;
     const needed = total - completed;
     return { total, completed, needed, pantryCount };
@@ -168,7 +170,7 @@ const ShoppingList = ({
     const lines: string[] = [];
 
     groupedItems.forEach(({ label, items }) => {
-      const neededItems = items.filter(item => item.haveQty < item.totalQty);
+      const neededItems = items.filter(item => item.totalQty > 0 ? item.haveQty < item.totalQty : item.haveQty === 0);
       if (neededItems.length === 0) return;
 
       lines.push(`## ${label}`);
@@ -408,12 +410,12 @@ const ShoppingList = ({
         <div className="space-y-6">
           {groupedItems.map(({ category, label, items }) => {
             const visibleItems = hideCompleted
-              ? items.filter(item => item.haveQty < item.totalQty)
+              ? items.filter(item => item.totalQty > 0 ? item.haveQty < item.totalQty : item.haveQty === 0)
               : items;
 
             if (visibleItems.length === 0) return null;
 
-            const categoryCompleted = items.filter(item => item.haveQty >= item.totalQty).length;
+            const categoryCompleted = items.filter(item => item.totalQty > 0 && item.haveQty >= item.totalQty).length;
 
             return (
               <div key={category} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 overflow-hidden">
@@ -425,7 +427,8 @@ const ShoppingList = ({
                 </div>
                 <ul className="divide-y divide-gray-100 dark:divide-gray-700">
                   {visibleItems.map((item) => {
-                    const isCompleted = item.haveQty >= item.totalQty;
+                    // Items with 0 total quantity (e.g., "to taste") should not auto-complete
+                    const isCompleted = item.totalQty > 0 && item.haveQty >= item.totalQty;
                     return (
                       <li key={item.key}>
                         <SwipeableShoppingItem

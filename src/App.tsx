@@ -906,7 +906,9 @@ function App() {
   const toggleHaveItem = (key: string, totalQty: number): void => {
     setShoppingAdjustments((prev) => {
       const current = prev[key] || { haveQty: 0 };
-      const newHave = current.haveQty > 0 ? 0 : totalQty;
+      // For items with 0 quantity (e.g., "to taste"), toggle between 0 and 1
+      const targetQty = totalQty > 0 ? totalQty : 1;
+      const newHave = current.haveQty > 0 ? 0 : targetQty;
       return {
         ...prev,
         [key]: { haveQty: newHave },
@@ -1031,7 +1033,10 @@ function App() {
   }, []);
 
   // Calculate shopping items needed count for badge
-  const shoppingNeededCount = shoppingListMemo.filter(item => item.haveQty < item.totalQty).length;
+  // Items with 0 total quantity (e.g., "to taste") count as needed unless manually marked
+  const shoppingNeededCount = shoppingListMemo.filter(item =>
+    item.totalQty > 0 ? item.haveQty < item.totalQty : item.haveQty === 0
+  ).length;
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">

@@ -52,14 +52,16 @@ const MEAL_TYPE_PATTERNS = [
     mealType: 'dessert',
   },
   {
-    patterns: [/\bsnack/, /\bappetizer/, /\bfinger\s+food/, /\bdip\b/, /\bnachos/, /\bpopcorn/, /\btrail\s+mix/, /\benergy\s+bites/, /\bhummus/, /\bguacamole/, /\bsalsa\b/, /\bbruschetta/, /\bcrostini/],
+    // Removed salsa - too common in main dishes like tacos
+    patterns: [/\bsnack/, /\bappetizer/, /\bfinger\s+food/, /\bdip\b/, /\bnachos/, /\bpopcorn/, /\btrail\s+mix/, /\benergy\s+bites/, /\bhummus/, /\bguacamole/, /\bbruschetta/, /\bcrostini/],
     mealType: 'snack',
   },
 ];
 
 // Snack indicators to prevent false dinner classification
+// Removed salsa - too common in main dishes like tacos
 const SNACK_INDICATORS = [
-  /\bguacamole/, /\bhummus/, /\bsalsa\b/, /\bdip\b/, /\bappetizer/, /\bnachos/,
+  /\bguacamole/, /\bhummus/, /\bdip\b/, /\bappetizer/, /\bnachos/,
   /\bbruschetta/, /\bcrostini/, /\bsnack/,
 ];
 
@@ -80,7 +82,8 @@ const MAIN_DISH_INDICATORS = [
 // These patterns are applied to recipe NAME and TAGS only (not ingredients) unless noted
 const TAG_PATTERNS = {
   // Protein-based tags - these check ingredients
-  'chicken-dish': { patterns: [/\bchicken\b/i], checkIngredients: true, nameOnly: false },
+  // Exclude chicken stock/broth/bouillon from chicken dish detection
+  'chicken-dish': { patterns: [/\bchicken\b(?!\s*(stock|broth|bouillon|base|concentrate))/i], checkIngredients: true, nameOnly: false },
   'beef-dish': { patterns: [/\bbeef\b/i, /\bsteak\b/i, /\bmeatloaf\b/i, /\bmeatball/i], checkIngredients: true, nameOnly: false },
   'pork-dish': { patterns: [/\bpork\b/i, /\bbacon\b/i, /\bham\b/i, /\bsausage\b/i], checkIngredients: true, nameOnly: false },
   'seafood': { patterns: [/\bshrimp\b/i, /\bfish\b/i, /\bsalmon\b/i, /\btuna\b/i, /\bcrab\b/i, /\blobster\b/i, /\bscallop/i, /\bseafood\b/i], checkIngredients: true, nameOnly: false },
@@ -111,7 +114,9 @@ const MEAT_INGREDIENTS = [
   /chicken/i, /beef/i, /pork/i, /lamb/i, /turkey/i, /duck/i,
   /bacon/i, /sausage/i, /ham/i, /prosciutto/i, /pepperoni/i, /salami/i,
   /fish/i, /salmon/i, /tuna/i, /shrimp/i, /lobster/i, /crab/i, /scallop/i, /clam/i, /mussel/i, /anchov/i,
-  /ground\s+meat/i, /mince/i, /steak/i, /ribs/i, /brisket/i,
+  /tilapia/i, /cod\b/i, /halibut/i, /trout/i, /bass\b/i, /catfish/i, /mahi/i, /snapper/i,
+  /ground\s+meat/i, /ground\s+chuck/i, /ground\s+sirloin/i, /ground\s+round/i, /mince/i, /steak/i, /ribs/i, /brisket/i,
+  /meatloaf/i, /meatball/i,
 ];
 
 /**
@@ -242,6 +247,10 @@ function analyzeRecipe(recipe) {
 
   for (const mt of inferredMealTypes) {
     if (!currentMealTypes.has(mt)) {
+      // Don't add "snack" to recipes that already have "dinner" unless name explicitly says "snack"
+      if (mt === 'snack' && currentMealTypes.has('dinner') && !/\bsnack\b/i.test(recipe.name || '')) {
+        continue;
+      }
       updates.mealTypes.suggested.push(mt);
     }
   }
