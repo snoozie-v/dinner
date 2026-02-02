@@ -12447,5 +12447,176 @@
       "fiber_g": 4,
       "source": "imported"
     }
+  },
+  {
+    "id": "quick-beef-chili-recipe-instant-pot-stov-zljc",
+    "sourceUrl": "https://www.skinnytaste.com/quick-beef-chili-recipe/",
+    "isCustom": false,
+    "createdAt": "2026-02-02",
+    "updatedAt": "2026-02-02",
+    "name": "Quick Beef Chili Recipe (Instant Pot, Stove or Slow Cooker)",
+    "description": "Made with both ground beef and beans, plus canned tomatoes and tomato sauce, and a homemade blend of chili seasonings, this is truly the Best Chili Recipe! Hearty, filling, and ready in under an hour, you can make this easy beef chili in the slow cooker or Instant Pot or on the stovetop.",
+    "author": "",
+    "imageUrl": "https://www.skinnytaste.com/wp-content/uploads/2017/10/Instant-Pot-Beef-and-Beer-Chili-1-10.jpg",
+    "prepTime": "PT10M",
+    "cookTime": "PT30M",
+    "totalTime": "PT40M",
+    "difficulty": "medium",
+    "servings": {
+      "default": 4,
+      "unit": "servings"
+    },
+    "tags": [
+      "dinner",
+      "lunch",
+      "beef chili recipe",
+      "best chili recipe",
+      "chili recipe"
+    ],
+    "mealTypes": [
+      "lunch",
+      "dinner"
+    ],
+    "cuisine": "American",
+    "ingredients": [
+      {
+        "name": "ground Beef",
+        "quantity": 1,
+        "unit": "pound",
+        "preparation": "93% lean",
+        "category": "protein/meat",
+        "optional": false
+      },
+      {
+        "name": "kosher salt",
+        "quantity": 1,
+        "unit": "teaspoon",
+        "preparation": "plus more to taste",
+        "category": "spices",
+        "optional": false
+      },
+      {
+        "name": "onion",
+        "quantity": 0.5,
+        "unit": "small",
+        "preparation": "chopped",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "red bell pepper",
+        "quantity": 1,
+        "unit": "medium",
+        "preparation": "chopped",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "can reduced-sodium black beans",
+        "quantity": 1,
+        "unit": "ounce",
+        "preparation": "rinsed, drained",
+        "category": "pantry",
+        "optional": false
+      },
+      {
+        "name": "can mild diced tomatoes with green chilies",
+        "quantity": 1,
+        "unit": "ounce",
+        "preparation": "drained",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "canned tomato sauce",
+        "quantity": 0.5,
+        "unit": "cup",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "light beer such as corona light (Or swap for 3/4 cups reduced-sodium beef broth (check labels for GF))",
+        "quantity": 0.75,
+        "unit": "cup",
+        "category": "protein/meat",
+        "optional": false
+      },
+      {
+        "name": "cumin",
+        "quantity": 1,
+        "unit": "teaspoon",
+        "category": "spices",
+        "optional": false
+      },
+      {
+        "name": "chili powder",
+        "quantity": 0.5,
+        "unit": "teaspoon",
+        "category": "spices",
+        "optional": false
+      },
+      {
+        "name": "paprika",
+        "quantity": 0.5,
+        "unit": "teaspoon",
+        "category": "spices",
+        "optional": false
+      },
+      {
+        "name": "garlic powder",
+        "quantity": 0.25,
+        "unit": "teaspoon",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "black pepper",
+        "quantity": null,
+        "unit": "",
+        "preparation": "to taste",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "chopped red onions",
+        "quantity": null,
+        "unit": "",
+        "preparation": "cilantro leaves, lime wedges, sour cream, cheddar, avocado",
+        "category": "produce",
+        "optional": false
+      }
+    ],
+    "instructions": [
+      {
+        "section": "Pressure cooker chili recipe",
+        "steps": [
+          "Press saute on the Instant Pot, brown the beef and season with salt. Cook breaking beef into 3/4-inch crumbles and stirring occasionally, 5 minutes.",
+          "Add the onion and bell pepper and cook 1 to 2 minutes. Add the beans, tomatoes, tomato sauce, beer and spices.",
+          "Cover and cook on high pressure 20 minutes to blend the flavors. Natural release. Taste for salt and adjust as needed, serve with toppings, as desired."
+        ]
+      },
+      {
+        "section": "Classic chili recipe (stove)",
+        "steps": [
+          "Heat a large pot on medium-high heat, brown the beef and season with salt. Cook breaking beef into 3/4-inch crumbles and stirring occasionally, 5 minutes.",
+          "Add the onion and bell pepper and cook 1 to 2 minutes. Add the beans, tomatoes, tomato sauce, beer and spices.",
+          "Cover and cook low heat at least 60 minutes to blend the flavors, stirring occasionally. Taste for salt and adjust as needed, serve with toppings, as desired."
+        ]
+      },
+      {
+        "section": "Slow Cooker Directions",
+        "steps": [
+          "Brown the meat then cook on low 8 hours. Taste for salt and adjust as needed, serve with toppings, as desired."
+        ]
+      }
+    ],
+    "nutrition": {
+      "calories": 312,
+      "protein_g": 31.5,
+      "carbs_g": 22.5,
+      "fat_g": 7,
+      "fiber_g": 8.5,
+      "source": "imported"
+    }
   }
 ]

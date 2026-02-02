@@ -68,7 +68,8 @@ const ALLOWED_DOMAINS = [
   'lordbyronskitchen.com',
   'hellofresh.ca',
   'bellyrumbles.com',
-  'Fooddolls.com',
+  'fooddolls.com',
+  'skinnytaste.com',
 ];
 
 // Domains that are known to block automated requests (Cloudflare, etc.)
