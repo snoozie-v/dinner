@@ -243,7 +243,7 @@ function parseIngredient(ingredientStr) {
   }
 
   // Without unit
-  const patternNoUnit = /^([\d\s\/\-\.]+)\s+(.+)$/;
+  const patternNoUnit = /^([\d\s/\-.]+)\s+(.+)$/;
   match = str.match(patternNoUnit);
   if (match) {
     const quantity = parseQuantity(match[1].trim());
