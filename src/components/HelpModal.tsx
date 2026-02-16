@@ -441,6 +441,18 @@ const TipsSection = () => (
         description="When creating recipes, click 'Paste Multiple Ingredients' to add many ingredients at once. Supports fractions like 1/2 cup."
       />
       <TipCard
+        title="Share Recipes"
+        description="Open any recipe and click 'Share' to generate a link you can send to friends or family. They can view the full recipe in their browser without needing the app. Links expire after 30 days."
+      />
+      <TipCard
+        title="Nutrition Information"
+        description="Many recipes include nutrition data (calories, protein, carbs, fat, fiber) shown per serving. View it at the bottom of any recipe's detail page."
+      />
+      <TipCard
+        title="Equipment Needed"
+        description="Recipes can list required equipment (like a Dutch oven or food processor). When creating recipes, add equipment in the Extras section of the recipe form."
+      />
+      <TipCard
         title="Backup & Restore"
         description="Click 'Backup & Restore' in the footer to access Data Settings. Export your data as a backup file, and import it later to restore everything."
       />
