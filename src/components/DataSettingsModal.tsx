@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from 'react';
 import type { ChangeEvent } from 'react';
 import type { Recipe, PlanItem, PantryStaple, MealPlanTemplate, UserPreferences, ShoppingAdjustments } from '../types';
+import { downloadFile } from '../utils/platform';
 
 interface ExportData {
   version: number;
@@ -77,15 +78,9 @@ const DataSettingsModal = ({
       },
     };
 
-    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `meal-planner-backup-${new Date().toISOString().split('T')[0]}.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    const filename = `meal-planner-backup-${new Date().toISOString().split('T')[0]}.json`;
+    const content = JSON.stringify(exportData, null, 2);
+    downloadFile(content, filename, 'application/json');
   };
 
   const handleFileSelect = (e: ChangeEvent<HTMLInputElement>) => {

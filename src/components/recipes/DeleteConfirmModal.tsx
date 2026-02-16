@@ -1,5 +1,6 @@
 // src/components/recipes/DeleteConfirmModal.tsx
 import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import type { Recipe } from '../../types';
 
 interface DeleteConfirmModalProps {
@@ -13,7 +14,7 @@ const DeleteConfirmModal = ({ recipe, onConfirm, onCancel }: DeleteConfirmModalP
     window.scrollTo(0, 0);
   }, []);
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-start justify-center z-50 p-4 pt-20 sm:pt-32 overflow-y-auto">
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-md w-full overflow-hidden">
         <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
@@ -57,7 +58,8 @@ const DeleteConfirmModal = ({ recipe, onConfirm, onCancel }: DeleteConfirmModalP
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

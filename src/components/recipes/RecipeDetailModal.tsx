@@ -3,8 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import type { Recipe } from '../../types';
 import { copyToClipboard, canNativeShare, shareText } from '../../utils/platform';
-
-const PROXY_URL = import.meta.env.VITE_PROXY_URL || 'http://localhost:3001';
+import { PROXY_URL } from '../../config';
 
 interface RecipeDetailModalProps {
   recipe: Recipe | null;

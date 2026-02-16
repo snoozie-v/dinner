@@ -1,4 +1,6 @@
 // src/components/ConfirmModal.tsx
+import { createPortal } from 'react-dom';
+
 interface ConfirmModalProps {
   isOpen: boolean;
   title: string;
@@ -27,7 +29,7 @@ const ConfirmModal = ({
       ? 'bg-red-600 text-white hover:bg-red-700'
       : 'bg-blue-600 text-white hover:bg-blue-700';
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[60] p-4">
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-sm w-full">
         <div className="p-6">
@@ -49,7 +51,8 @@ const ConfirmModal = ({
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

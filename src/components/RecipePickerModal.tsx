@@ -1,5 +1,6 @@
 // src/components/RecipePickerModal.tsx
 import { useEffect, useMemo, useState } from 'react';
+import { createPortal } from 'react-dom';
 import type { Recipe, MealType, MealTypeConfig, PlanItem, IngredientExclusion, IngredientFrequencyLimit, MealSlotTheme } from '../types';
 import { MEAL_TYPES, PREDEFINED_THEMES } from '../types';
 import {
@@ -151,7 +152,7 @@ const RecipePickerModal = ({
   const hasExclusions = ingredientExclusions.length > 0;
   const excludedCount = recipes.length - filterExcludedRecipes(recipes, ingredientExclusions).length;
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-start justify-center p-4 pt-4 sm:pt-8">
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-4xl w-full max-h-[calc(100vh-2rem)] sm:max-h-[calc(100vh-4rem)] flex flex-col overflow-hidden">
         {/* Header */}
@@ -368,7 +369,8 @@ const RecipePickerModal = ({
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

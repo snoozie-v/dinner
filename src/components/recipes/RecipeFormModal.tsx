@@ -1,5 +1,6 @@
 // src/components/recipes/RecipeFormModal.tsx
 import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import type { Recipe } from '../../types';
 import RecipeForm from './RecipeForm';
 
@@ -15,7 +16,7 @@ const RecipeFormModal = ({ recipe, onSubmit, onClose }: RecipeFormModalProps) =>
     window.scrollTo(0, 0);
   }, []);
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-start justify-center z-50 p-4 pt-4 sm:pt-8 overflow-y-auto">
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-3xl w-full flex flex-col mb-8">
         <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-700">
@@ -40,7 +41,8 @@ const RecipeFormModal = ({ recipe, onSubmit, onClose }: RecipeFormModalProps) =>
           />
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

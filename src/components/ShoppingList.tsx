@@ -3,9 +3,7 @@ import { useState, useMemo, useEffect } from 'react';
 import type { PlanItem, ShoppingItem } from '../types';
 import SwipeableShoppingItem from './SwipeableShoppingItem';
 import { openExternalUrl, copyToClipboard, shareText, canNativeShare } from '../utils/platform';
-
-// Proxy server URL for Instacart integration
-const PROXY_URL = import.meta.env.VITE_PROXY_URL || 'http://localhost:3001';
+import { PROXY_URL } from '../config';
 
 interface ShoppingListProps {
   plan: PlanItem[];

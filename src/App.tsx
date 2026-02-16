@@ -425,8 +425,9 @@ function App() {
                       { step: 6, title: 'Quick Recipe Access', desc: 'Favorites & recent recipes' },
                       { step: 7, title: 'Manage Recipes', desc: 'Browse, create & edit recipes' },
                       { step: 8, title: 'Import from URLs', desc: 'Import from recipe websites' },
-                      { step: 9, title: 'Backup & Restore', desc: 'Export/import your data' },
-                      { step: 10, title: 'Undo & Dark Mode', desc: 'Recovery & theme options' },
+                      { step: 9, title: 'Share Recipes', desc: 'Share recipes with anyone' },
+                      { step: 10, title: 'Backup & Restore', desc: 'Export/import your data' },
+                      { step: 11, title: 'Undo & Dark Mode', desc: 'Recovery & theme options' },
                     ].map(({ step, title, desc }) => (
                       <button
                         key={step}

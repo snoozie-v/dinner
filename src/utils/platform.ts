@@ -57,3 +57,35 @@ export const shareText = async (title: string, text: string): Promise<'shared' |
 export const canNativeShare = (): boolean => {
   return typeof navigator !== 'undefined' && !!navigator.share;
 };
+
+/**
+ * Download/export a file.
+ * On web: uses anchor element + Blob download.
+ * In Capacitor, replace with: Filesystem.writeFile() + Share.share({ url: fileUri })
+ */
+export const downloadFile = async (content: string, filename: string, mimeType: string): Promise<boolean> => {
+  try {
+    // On mobile browsers that support Web Share API with files, use that
+    if (typeof navigator !== 'undefined' && navigator.canShare) {
+      const file = new File([content], filename, { type: mimeType });
+      if (navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: filename });
+        return true;
+      }
+    }
+
+    // Fallback: anchor element download (works on desktop and most mobile browsers)
+    const blob = new Blob([content], { type: mimeType });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    return true;
+  } catch {
+    return false;
+  }
+};

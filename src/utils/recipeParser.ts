@@ -1,5 +1,6 @@
 // src/utils/recipeParser.ts
 import type { Recipe, Ingredient, InstructionSection, Nutrition, MealType } from '../types';
+import { PROXY_URL } from '../config';
 
 export interface ParseResult {
   success: boolean;
@@ -136,8 +137,6 @@ export async function parseRecipeFromUrl(url: string): Promise<ParseResult> {
  * Fetches HTML using proxy server if available, falls back to direct fetch
  */
 async function fetchRecipeHtml(url: string): Promise<{ html: string; finalUrl: string }> {
-  const PROXY_URL = import.meta.env.VITE_PROXY_URL || 'http://localhost:3001';
-
   // Try proxy first
   try {
     const proxyResponse = await fetch(`${PROXY_URL}/api/fetch-recipe`, {
