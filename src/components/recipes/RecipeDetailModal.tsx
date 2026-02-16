@@ -29,16 +29,23 @@ const RecipeDetailModal = ({ recipe, onClose, onEdit, isCustomRecipe }: RecipeDe
     setCopied(false);
   }, [recipe?.id]);
 
-  // Scroll modal to top and lock body scroll when recipe opens
+  // Lock body scroll when modal is open
+  const isOpen = recipe != null;
   useEffect(() => {
-    if (recipe) {
-      overlayRef.current?.scrollTo(0, 0);
+    if (isOpen) {
       document.body.style.overflow = 'hidden';
       return () => {
         document.body.style.overflow = '';
       };
     }
-  }, [recipe]);
+  }, [isOpen]);
+
+  // Scroll modal to top when recipe changes
+  useEffect(() => {
+    if (recipe?.id) {
+      overlayRef.current?.scrollTo(0, 0);
+    }
+  }, [recipe?.id]);
 
   if (!recipe) return null;
 
