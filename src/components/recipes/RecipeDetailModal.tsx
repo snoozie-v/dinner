@@ -1,5 +1,5 @@
 // src/components/recipes/RecipeDetailModal.tsx
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { Recipe } from '../../types';
 import { copyToClipboard, canNativeShare, shareText } from '../../utils/platform';
 
@@ -20,12 +20,25 @@ const RecipeDetailModal = ({ recipe, onClose, onEdit, isCustomRecipe }: RecipeDe
   const [shareError, setShareError] = useState('');
   const [copied, setCopied] = useState(false);
 
+  const overlayRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     setShareState('idle');
     setShareUrl('');
     setShareError('');
     setCopied(false);
   }, [recipe?.id]);
+
+  // Scroll modal to top and lock body scroll when recipe opens
+  useEffect(() => {
+    if (recipe) {
+      overlayRef.current?.scrollTo(0, 0);
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = '';
+      };
+    }
+  }, [recipe]);
 
   if (!recipe) return null;
 
@@ -78,7 +91,7 @@ const RecipeDetailModal = ({ recipe, onClose, onEdit, isCustomRecipe }: RecipeDe
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 overflow-y-auto">
+    <div ref={overlayRef} className="fixed inset-0 bg-black bg-opacity-50 z-50 overflow-y-auto">
       <div className="min-h-full flex items-start justify-center p-4 py-8">
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-3xl w-full overflow-hidden">
           {/* Header */}
