@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import type { PlanItem, ShoppingItem, ShoppingAdjustments, PantryStaple } from '../types';
-import { STORAGE_KEYS, getStoredValue } from '../utils/storage';
+import { STORAGE_KEYS, storage } from '../utils/storage';
+import { usePersistedState } from './usePersistedState';
 
 interface UseShoppingListParams {
   plan: PlanItem[];
@@ -9,18 +10,14 @@ interface UseShoppingListParams {
 }
 
 export const useShoppingList = ({ plan, pantryStaples, days }: UseShoppingListParams) => {
-  const [shoppingAdjustments, setShoppingAdjustments] = useState<ShoppingAdjustments>(() =>
-    getStoredValue(STORAGE_KEYS.SHOPPING_ADJUSTMENTS, {})
+  const [shoppingAdjustments, setShoppingAdjustments] = usePersistedState<ShoppingAdjustments>(
+    STORAGE_KEYS.SHOPPING_ADJUSTMENTS, {}
   );
 
   const [selectedShoppingDays, setSelectedShoppingDays] = useState<Set<number>>(() => {
-    const storedDays = getStoredValue<number>(STORAGE_KEYS.DAYS, 3);
+    const storedDays = storage.get<number>(STORAGE_KEYS.DAYS, 3);
     return new Set(Array.from({ length: storedDays }, (_, i) => i + 1));
   });
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.SHOPPING_ADJUSTMENTS, JSON.stringify(shoppingAdjustments));
-  }, [shoppingAdjustments]);
 
   // Update selected shopping days when total days changes
   useEffect(() => {

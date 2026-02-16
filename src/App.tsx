@@ -1,9 +1,10 @@
 import { useState, useCallback, useEffect } from 'react';
+import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import defaultRecipes from './recipes.json';
-import type { Recipe, PlanItem, LegacyPlanItem, ShoppingAdjustments, PantryStaple, MealPlanTemplate, LegacyMealPlanTemplate, UserPreferences, MealPlanSettings } from './types';
+import type { Recipe, PlanItem, LegacyPlanItem, ShoppingAdjustments, PantryStaple, MealPlanTemplate, LegacyMealPlanTemplate, UserPreferences, MealPlanSettings, ActiveTab } from './types';
 import { MEAL_TYPES } from './types';
 import { migrateLegacyPlan, migrateTemplates, isLegacyPlanItem, CURRENT_DATA_VERSION } from './utils/migration';
-import { STORAGE_KEYS, getStoredValue } from './utils/storage';
+import { STORAGE_KEYS, storage } from './utils/storage';
 
 import Controls from './components/Controls';
 import SearchBar from './components/SearchBar';
@@ -37,6 +38,13 @@ import { useTemplates } from './hooks/useTemplates';
 type Theme = 'light' | 'dark' | 'system';
 
 function App() {
+  // --- Derive activeTab from URL ---
+  const location = useLocation();
+  const navigate = useNavigate();
+  const activeTab: ActiveTab =
+    location.pathname === '/shop' ? 'shop' :
+    location.pathname === '/recipes' ? 'recipes' : 'planner';
+
   // --- Hook composition (dependency order) ---
   const undo = useUndo();
   const recipes = useRecipes(defaultRecipes as Recipe[]);
@@ -64,6 +72,7 @@ function App() {
 
   // --- Local UI state ---
   const [viewingRecipe, setViewingRecipe] = useState<Recipe | null>(null);
+  const [refreshMessage, setRefreshMessage] = useState<string | null>(null);
 
   const handleViewRecipe = (recipe: Recipe): void => {
     setViewingRecipe(recipe);
@@ -72,6 +81,25 @@ function App() {
   const handleCloseViewRecipe = (): void => {
     setViewingRecipe(null);
   };
+
+  // --- Pull-to-refresh (depends on activeTab from URL) ---
+  const handlePullRefresh = useCallback(async () => {
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    let message = '';
+    if (activeTab === 'planner') {
+      message = 'Meal plan is up to date!';
+    } else if (activeTab === 'shop') {
+      message = 'Shopping list refreshed!';
+    } else if (activeTab === 'recipes') {
+      message = 'Recipes are up to date!';
+    }
+
+    setRefreshMessage(message);
+    setTimeout(() => {
+      setRefreshMessage(null);
+    }, 2000);
+  }, [activeTab]);
 
   // --- Orchestration functions (cross-hook) ---
 
@@ -107,7 +135,7 @@ function App() {
 
   const clearAllData = (): void => {
     if (window.confirm('Clear all saved data? This will reset your meal plan and shopping list.')) {
-      Object.values(STORAGE_KEYS).forEach((key) => localStorage.removeItem(key));
+      storage.clearAll();
       mealPlan.setDays(3);
       mealPlan.setPlan([]);
       shopping.resetAdjustments();
@@ -175,10 +203,10 @@ function App() {
 
   // --- Migration (one-time on mount) ---
   useEffect(() => {
-    const storedVersion = getStoredValue<number | null>(STORAGE_KEYS.DATA_VERSION, null);
+    const storedVersion = storage.get<number | null>(STORAGE_KEYS.DATA_VERSION, null);
 
     if (storedVersion === null || storedVersion < CURRENT_DATA_VERSION) {
-      const storedPlan = getStoredValue<(PlanItem | LegacyPlanItem)[]>(STORAGE_KEYS.PLAN, []);
+      const storedPlan = storage.get<(PlanItem | LegacyPlanItem)[]>(STORAGE_KEYS.PLAN, []);
       if (storedPlan.length > 0 && isLegacyPlanItem(storedPlan[0])) {
         const migratedPlan = migrateLegacyPlan(
           storedPlan as LegacyPlanItem[],
@@ -187,7 +215,7 @@ function App() {
         mealPlan.setPlan(migratedPlan);
       }
 
-      const storedTemplates = getStoredValue<(MealPlanTemplate | LegacyMealPlanTemplate)[]>(
+      const storedTemplates = storage.get<(MealPlanTemplate | LegacyMealPlanTemplate)[]>(
         STORAGE_KEYS.TEMPLATES,
         []
       );
@@ -196,15 +224,142 @@ function App() {
         templates.setTemplates(migratedTemplates);
       }
 
-      localStorage.setItem(STORAGE_KEYS.DATA_VERSION, JSON.stringify(CURRENT_DATA_VERSION));
+      storage.set(STORAGE_KEYS.DATA_VERSION, CURRENT_DATA_VERSION);
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // --- Tab content ---
+  const plannerContent = (
+    <>
+      <Controls
+        days={mealPlan.days}
+        setDays={mealPlan.setDays}
+        generateRandomPlan={handleGenerateRandomPlan}
+        clearAllData={clearAllData}
+        onOpenTemplates={() => app.setShowTemplateModal(true)}
+        onOpenPantry={() => app.setShowPantryModal(true)}
+        onOpenMealSettings={() => app.setShowMealSettingsModal(true)}
+        hasTemplates={templates.templates.length > 0}
+      />
+
+      <QuickRecipes
+        favoriteRecipes={userPrefs.favoriteRecipes}
+        recentRecipes={userPrefs.recentRecipes}
+        onAssign={mealPlan.handleAssign}
+        onToggleFavorite={userPrefs.toggleFavorite}
+        isFavorite={userPrefs.isFavorite}
+        days={mealPlan.days}
+        mealTypes={MEAL_TYPES.filter(mt => mealSettingsHook.mealSettings.enabledMealTypes.includes(mt.id))}
+        onViewRecipe={handleViewRecipe}
+      />
+
+      <SearchBar
+        searchTerm={mealPlan.searchTerm}
+        setSearchTerm={mealPlan.setSearchTerm}
+        filteredRecipes={mealPlan.filteredRecipes}
+        onAssign={mealPlan.handleAssign}
+        days={mealPlan.days}
+        mealTypes={MEAL_TYPES.filter(mt => mealSettingsHook.mealSettings.enabledMealTypes.includes(mt.id))}
+        onToggleFavorite={userPrefs.toggleFavorite}
+        isFavorite={userPrefs.isFavorite}
+        onViewRecipe={handleViewRecipe}
+      />
+
+      <MealPlan
+        plan={mealPlan.plan}
+        mealTypes={MEAL_TYPES.filter(mt => mealSettingsHook.mealSettings.enabledMealTypes.includes(mt.id))}
+        onSelectRecipe={mealPlan.handleSelectRecipeSlot}
+        updateServings={mealPlan.updateServings}
+        updateNotes={mealPlan.updateNotes}
+        onReorderDays={mealPlan.handleReorderDays}
+        onRemoveRecipe={mealPlan.removeMealPlanRecipe}
+        onViewRecipe={handleViewRecipe}
+        mealSlotThemes={mealSettingsHook.mealSettings.mealSlotThemes}
+      />
+
+      <RecipePickerModal
+        selectedDay={mealPlan.selectedDayForPicker}
+        selectedMealType={mealPlan.selectedMealTypeForPicker}
+        onClose={mealPlan.handleCloseRecipePicker}
+        recipes={recipes.allRecipes}
+        assignRecipeToSlot={mealPlan.assignRecipeToSlot}
+        isCustomRecipe={recipes.isCustomRecipe}
+        onToggleFavorite={userPrefs.toggleFavorite}
+        isFavorite={userPrefs.isFavorite}
+        onViewRecipe={handleViewRecipe}
+        ingredientExclusions={mealSettingsHook.mealSettings.ingredientExclusions}
+        frequencyLimits={mealSettingsHook.mealSettings.frequencyLimits}
+        mealSlotThemes={mealSettingsHook.mealSettings.mealSlotThemes}
+        plan={mealPlan.plan}
+      />
+
+      <PantryModal
+        isOpen={app.showPantryModal}
+        onClose={() => app.setShowPantryModal(false)}
+        pantryStaples={pantry.pantryStaples}
+        onAddStaple={pantry.addPantryStaple}
+        onRemoveStaple={pantry.removePantryStaple}
+      />
+
+      <TemplateModal
+        isOpen={app.showTemplateModal}
+        onClose={() => app.setShowTemplateModal(false)}
+        templates={templates.templates}
+        onSaveTemplate={templates.saveTemplate}
+        onLoadTemplate={handleLoadTemplate}
+        onDeleteTemplate={templates.deleteTemplate}
+        currentPlanHasRecipes={mealPlan.plan.some(p => p.recipe !== null)}
+      />
+
+      <MealSettingsModal
+        isOpen={app.showMealSettingsModal}
+        onClose={() => app.setShowMealSettingsModal(false)}
+        settings={mealSettingsHook.mealSettings}
+        onSave={mealSettingsHook.handleSaveMealSettings}
+        plan={mealPlan.plan}
+        days={mealPlan.days}
+      />
+    </>
+  );
+
+  const shopContent = (
+    <>
+      <ShoppingList
+        plan={mealPlan.plan}
+        shoppingList={shopping.shoppingList}
+        toggleHaveItem={shopping.toggleHaveItem}
+        onOpenPantry={() => app.setShowPantryModal(true)}
+        totalDays={mealPlan.days}
+        selectedDays={shopping.selectedShoppingDays}
+        onSelectedDaysChange={shopping.setSelectedShoppingDays}
+      />
+
+      <PantryModal
+        isOpen={app.showPantryModal}
+        onClose={() => app.setShowPantryModal(false)}
+        pantryStaples={pantry.pantryStaples}
+        onAddStaple={pantry.addPantryStaple}
+        onRemoveStaple={pantry.removePantryStaple}
+      />
+    </>
+  );
+
+  const recipesContent = (
+    <ManageRecipes
+      recipes={recipes.allRecipes}
+      onAddRecipe={recipes.addRecipe}
+      onUpdateRecipe={recipes.updateRecipe}
+      onDeleteRecipe={deleteRecipeWithUndo}
+      onDuplicateRecipe={recipes.duplicateRecipe}
+      isCustomRecipe={recipes.isCustomRecipe}
+    />
+  );
 
   // --- Render ---
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <PullToRefresh
-        onRefresh={app.handlePullRefresh}
+        onRefresh={handlePullRefresh}
         pullText="Pull to refresh"
         releaseText="Release to refresh"
         refreshingText="Refreshing..."
@@ -283,7 +438,7 @@ function App() {
             )}
           </div>
           <h1 className="text-2xl sm:text-4xl font-bold text-gray-800 dark:text-gray-100 text-center">
-            {app.activeTab === 'shop' ? 'Shopping List' : app.activeTab === 'recipes' ? 'Recipes' : 'Meal Planner'}
+            {activeTab === 'shop' ? 'Shopping List' : activeTab === 'recipes' ? 'Recipes' : 'Meal Planner'}
           </h1>
           <div className="flex-1 flex justify-end">
             <button
@@ -308,9 +463,9 @@ function App() {
         <div className="hidden sm:flex justify-center mb-8">
           <div className="inline-flex rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-1 shadow-sm">
             <button
-              onClick={() => app.setActiveTab('planner')}
+              onClick={() => navigate('/plan')}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-medium transition-colors ${
-                app.activeTab === 'planner'
+                activeTab === 'planner'
                   ? 'bg-blue-600 text-white shadow-sm'
                   : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700'
               }`}
@@ -321,9 +476,9 @@ function App() {
               Plan
             </button>
             <button
-              onClick={() => app.setActiveTab('shop')}
+              onClick={() => navigate('/shop')}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-medium transition-colors relative ${
-                app.activeTab === 'shop'
+                activeTab === 'shop'
                   ? 'bg-blue-600 text-white shadow-sm'
                   : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700'
               }`}
@@ -334,16 +489,16 @@ function App() {
               Shop
               {shopping.shoppingNeededCount > 0 && (
                 <span className={`min-w-[20px] h-5 flex items-center justify-center text-xs font-bold rounded-full px-1.5 ${
-                  app.activeTab === 'shop' ? 'bg-white text-blue-600' : 'bg-red-500 text-white'
+                  activeTab === 'shop' ? 'bg-white text-blue-600' : 'bg-red-500 text-white'
                 }`}>
                   {shopping.shoppingNeededCount > 99 ? '99+' : shopping.shoppingNeededCount}
                 </span>
               )}
             </button>
             <button
-              onClick={() => app.setActiveTab('recipes')}
+              onClick={() => navigate('/recipes')}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-medium transition-colors ${
-                app.activeTab === 'recipes'
+                activeTab === 'recipes'
                   ? 'bg-blue-600 text-white shadow-sm'
                   : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700'
               }`}
@@ -356,134 +511,14 @@ function App() {
           </div>
         </div>
 
-        {/* Planner Tab Content */}
-        {app.activeTab === 'planner' && (
-          <>
-            <Controls
-              days={mealPlan.days}
-              setDays={mealPlan.setDays}
-              generateRandomPlan={handleGenerateRandomPlan}
-              clearAllData={clearAllData}
-              onOpenTemplates={() => app.setShowTemplateModal(true)}
-              onOpenPantry={() => app.setShowPantryModal(true)}
-              onOpenMealSettings={() => app.setShowMealSettingsModal(true)}
-              hasTemplates={templates.templates.length > 0}
-            />
-
-            <QuickRecipes
-              favoriteRecipes={userPrefs.favoriteRecipes}
-              recentRecipes={userPrefs.recentRecipes}
-              onAssign={mealPlan.handleAssign}
-              onToggleFavorite={userPrefs.toggleFavorite}
-              isFavorite={userPrefs.isFavorite}
-              days={mealPlan.days}
-              mealTypes={MEAL_TYPES.filter(mt => mealSettingsHook.mealSettings.enabledMealTypes.includes(mt.id))}
-              onViewRecipe={handleViewRecipe}
-            />
-
-            <SearchBar
-              searchTerm={mealPlan.searchTerm}
-              setSearchTerm={mealPlan.setSearchTerm}
-              filteredRecipes={mealPlan.filteredRecipes}
-              onAssign={mealPlan.handleAssign}
-              days={mealPlan.days}
-              mealTypes={MEAL_TYPES.filter(mt => mealSettingsHook.mealSettings.enabledMealTypes.includes(mt.id))}
-              onToggleFavorite={userPrefs.toggleFavorite}
-              isFavorite={userPrefs.isFavorite}
-              onViewRecipe={handleViewRecipe}
-            />
-
-            <MealPlan
-              plan={mealPlan.plan}
-              mealTypes={MEAL_TYPES.filter(mt => mealSettingsHook.mealSettings.enabledMealTypes.includes(mt.id))}
-              onSelectRecipe={mealPlan.handleSelectRecipeSlot}
-              updateServings={mealPlan.updateServings}
-              updateNotes={mealPlan.updateNotes}
-              onReorderDays={mealPlan.handleReorderDays}
-              onRemoveRecipe={mealPlan.removeMealPlanRecipe}
-              onViewRecipe={handleViewRecipe}
-              mealSlotThemes={mealSettingsHook.mealSettings.mealSlotThemes}
-            />
-
-            <RecipePickerModal
-              selectedDay={mealPlan.selectedDayForPicker}
-              selectedMealType={mealPlan.selectedMealTypeForPicker}
-              onClose={mealPlan.handleCloseRecipePicker}
-              recipes={recipes.allRecipes}
-              assignRecipeToSlot={mealPlan.assignRecipeToSlot}
-              isCustomRecipe={recipes.isCustomRecipe}
-              onToggleFavorite={userPrefs.toggleFavorite}
-              isFavorite={userPrefs.isFavorite}
-              onViewRecipe={handleViewRecipe}
-              ingredientExclusions={mealSettingsHook.mealSettings.ingredientExclusions}
-              frequencyLimits={mealSettingsHook.mealSettings.frequencyLimits}
-              mealSlotThemes={mealSettingsHook.mealSettings.mealSlotThemes}
-              plan={mealPlan.plan}
-            />
-
-            <PantryModal
-              isOpen={app.showPantryModal}
-              onClose={() => app.setShowPantryModal(false)}
-              pantryStaples={pantry.pantryStaples}
-              onAddStaple={pantry.addPantryStaple}
-              onRemoveStaple={pantry.removePantryStaple}
-            />
-
-            <TemplateModal
-              isOpen={app.showTemplateModal}
-              onClose={() => app.setShowTemplateModal(false)}
-              templates={templates.templates}
-              onSaveTemplate={templates.saveTemplate}
-              onLoadTemplate={handleLoadTemplate}
-              onDeleteTemplate={templates.deleteTemplate}
-              currentPlanHasRecipes={mealPlan.plan.some(p => p.recipe !== null)}
-            />
-
-            <MealSettingsModal
-              isOpen={app.showMealSettingsModal}
-              onClose={() => app.setShowMealSettingsModal(false)}
-              settings={mealSettingsHook.mealSettings}
-              onSave={mealSettingsHook.handleSaveMealSettings}
-              plan={mealPlan.plan}
-              days={mealPlan.days}
-            />
-          </>
-        )}
-
-        {/* Shop Tab Content */}
-        {app.activeTab === 'shop' && (
-          <>
-            <ShoppingList
-              plan={mealPlan.plan}
-              shoppingList={shopping.shoppingList}
-              toggleHaveItem={shopping.toggleHaveItem}
-              onOpenPantry={() => app.setShowPantryModal(true)}
-              totalDays={mealPlan.days}
-              selectedDays={shopping.selectedShoppingDays}
-              onSelectedDaysChange={shopping.setSelectedShoppingDays}
-            />
-
-            <PantryModal
-              isOpen={app.showPantryModal}
-              onClose={() => app.setShowPantryModal(false)}
-              pantryStaples={pantry.pantryStaples}
-              onAddStaple={pantry.addPantryStaple}
-              onRemoveStaple={pantry.removePantryStaple}
-            />
-          </>
-        )}
-
-        {/* Recipes Tab Content */}
-        {app.activeTab === 'recipes' && (
-          <ManageRecipes
-            recipes={recipes.allRecipes}
-            onAddRecipe={recipes.addRecipe}
-            onUpdateRecipe={recipes.updateRecipe}
-            onDeleteRecipe={deleteRecipeWithUndo}
-            onDuplicateRecipe={recipes.duplicateRecipe}
-            isCustomRecipe={recipes.isCustomRecipe}
-          />
-        )}
+        {/* Tab Content via Routes */}
+        <Routes>
+          <Route path="/" element={plannerContent} />
+          <Route path="/plan" element={plannerContent} />
+          <Route path="/shop" element={shopContent} />
+          <Route path="/recipes" element={recipesContent} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
 
         {/* Footer */}
         <footer className="mt-12 pt-6 border-t border-gray-200 dark:border-gray-700">
@@ -519,21 +554,19 @@ function App() {
       </PullToRefresh>
 
       {/* Refresh Message Toast */}
-      {app.refreshMessage && (
+      {refreshMessage && (
         <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 animate-fade-in">
           <div className="bg-green-600 text-white px-4 py-2.5 rounded-lg shadow-lg flex items-center gap-2">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
-            <span className="text-sm font-medium">{app.refreshMessage}</span>
+            <span className="text-sm font-medium">{refreshMessage}</span>
           </div>
         </div>
       )}
 
       {/* Bottom Navigation - Mobile only */}
       <BottomNav
-        activeTab={app.activeTab}
-        setActiveTab={app.setActiveTab}
         shoppingCount={shopping.shoppingNeededCount}
       />
 

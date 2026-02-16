@@ -9,14 +9,37 @@ export const STORAGE_KEYS = {
   DATA_VERSION: 'dinner-planner-data-version',
   THEME: 'dinner-planner-theme',
   ONBOARDING_SEEN: 'dinner-planner-onboarding-seen',
-  ACTIVE_TAB: 'dinner-planner-active-tab',
+  CUSTOM_RECIPES: 'dinner-planner-custom-recipes',
 } as const;
 
-export function getStoredValue<T>(key: string, defaultValue: T): T {
-  try {
-    const stored = localStorage.getItem(key);
-    return stored ? JSON.parse(stored) : defaultValue;
-  } catch {
-    return defaultValue;
-  }
-}
+export type StorageKey = typeof STORAGE_KEYS[keyof typeof STORAGE_KEYS];
+
+export const storage = {
+  get<T>(key: StorageKey, defaultValue: T): T {
+    try {
+      const stored = localStorage.getItem(key);
+      if (stored === null) return defaultValue;
+      return JSON.parse(stored) as T;
+    } catch {
+      return defaultValue;
+    }
+  },
+
+  set<T>(key: StorageKey, value: T): void {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch {
+      // Storage quota exceeded or unavailable
+    }
+  },
+
+  remove(key: StorageKey): void {
+    localStorage.removeItem(key);
+  },
+
+  clearAll(): void {
+    Object.values(STORAGE_KEYS).forEach((key) => {
+      localStorage.removeItem(key);
+    });
+  },
+};

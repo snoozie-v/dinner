@@ -12747,5 +12747,217 @@
       "fiber_g": 3,
       "source": "imported"
     }
+  },
+  {
+    "id": "the-best-chili-recipe-award-winning-b296",
+    "sourceUrl": "https://sugarspunrun.com/best-chili-recipe/",
+    "isCustom": false,
+    "createdAt": "2026-02-16",
+    "updatedAt": "2026-02-16",
+    "name": "The Best Chili Recipe (Award Winning!)",
+    "description": "This is the BEST Chili Recipe! Made with bacon (and the option to omit if necessary) and ground beef and  simmered on the stove for just 30 minutes, this is my family's go-to cold weather comfort food. It's even better when paired with a side of buttermilk cornbread!",
+    "author": "",
+    "imageUrl": "https://sugarspunrun.com/wp-content/uploads/2019/09/The-Best-Chili-Recipe-1-of-1.jpg",
+    "prepTime": "PT10M",
+    "cookTime": "PT20M",
+    "totalTime": "PT30M",
+    "difficulty": "medium",
+    "servings": {
+      "default": 4,
+      "unit": "servings"
+    },
+    "tags": [
+      "main course",
+      "best chili recipe",
+      "chili",
+      "chili recipe",
+      "fall recipes"
+    ],
+    "mealTypes": [
+      "dinner"
+    ],
+    "cuisine": "American",
+    "ingredients": [
+      {
+        "name": "strips uncooked bacon",
+        "quantity": 5,
+        "unit": "",
+        "preparation": "chopped¹",
+        "category": "protein/meat",
+        "optional": false
+      },
+      {
+        "name": "yellow onion (diced (about 1 cup))",
+        "quantity": 1,
+        "unit": "large",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "red bell pepper",
+        "quantity": 1,
+        "unit": "",
+        "preparation": "diced",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "garlic (minced (about 1 Tablespoon))",
+        "quantity": 3,
+        "unit": "cloves",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "ground beef ((455g) (I use 90% but any will work))",
+        "quantity": 1,
+        "unit": "lb",
+        "category": "protein/meat",
+        "optional": false
+      },
+      {
+        "name": "brown sugar",
+        "quantity": 1,
+        "unit": "tablespoon",
+        "category": "pantry",
+        "optional": false
+      },
+      {
+        "name": "chili powder²",
+        "quantity": 1,
+        "unit": "tablespoon",
+        "category": "spices",
+        "optional": false
+      },
+      {
+        "name": "ancho chili powder²",
+        "quantity": 1,
+        "unit": "tablespoon",
+        "category": "spices",
+        "optional": false
+      },
+      {
+        "name": "½ teaspoons smoked paprika",
+        "quantity": 1,
+        "unit": "",
+        "category": "spices",
+        "optional": false
+      },
+      {
+        "name": "cumin",
+        "quantity": 1,
+        "unit": "teaspoon",
+        "category": "spices",
+        "optional": false
+      },
+      {
+        "name": "onion powder",
+        "quantity": 1,
+        "unit": "teaspoon",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "¾ teaspoons ground black pepper",
+        "quantity": null,
+        "unit": "",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "½ teaspoon salt",
+        "quantity": null,
+        "unit": "",
+        "category": "spices",
+        "optional": false
+      },
+      {
+        "name": "⅛ teaspoon cayenne pepper³",
+        "quantity": null,
+        "unit": "",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "¼ cup beef broth ((295ml))",
+        "quantity": 1,
+        "unit": "",
+        "category": "protein/meat",
+        "optional": false
+      },
+      {
+        "name": "can dark red kidney beans (lightly rinsed and drained (425g))",
+        "quantity": 15,
+        "unit": "oz",
+        "category": "pantry",
+        "optional": false
+      },
+      {
+        "name": "can black beans (lightly rinsed and drained (425))",
+        "quantity": 15,
+        "unit": "oz",
+        "category": "pantry",
+        "optional": false
+      },
+      {
+        "name": "can diced fire roasted tomatoes (undrained (411g))",
+        "quantity": 14.5,
+        "unit": "oz",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "can fire roasted green chilis ((198g))",
+        "quantity": 7,
+        "unit": "oz",
+        "category": "other",
+        "optional": false
+      },
+      {
+        "name": "¼ cup tomato paste ((66g))",
+        "quantity": null,
+        "unit": "",
+        "category": "produce",
+        "optional": false
+      },
+      {
+        "name": "Worcestershire sauce",
+        "quantity": 1,
+        "unit": "tablespoon",
+        "category": "pantry",
+        "optional": false
+      },
+      {
+        "name": "Preferred toppings",
+        "quantity": null,
+        "unit": "",
+        "preparation": "particularly sour cream, shredded cheddar cheese, and corn chips",
+        "category": "other",
+        "optional": false
+      }
+    ],
+    "instructions": [
+      {
+        "section": "Instructions",
+        "steps": [
+          "Place chopped (uncooked) bacon in a large pot or Dutch oven and cook over medium heat until crisp and cooked through. Remove bacon to a paper towel lined plate and drain all but 1 ½ Tablespoons of grease.",
+          "Add onion and pepper and cook until softened, about 3-5 minutes.",
+          "Add garlic and cook until fragrant (about 30 seconds).",
+          "Add beef, breaking apart with a spatula as you cook. Once meat is partially (about 50%) browned, add sugar and all spices (chili powders, paprika, cumin, onion powder, black pepper, salt, cayenne pepper) and stir well.",
+          "Add all remaining ingredients -- beef broth, beans, tomatoes, tomato paste, chilis, and Worcestershire sauce -- and your cooked bacon and stir well.",
+          "Bring to a boil and cook 1-2 minutes, stirring frequently.",
+          "Reduce heat and simmer, uncovered, stirring occasionally. Simmer for 30 minutes to allow flavor to really develop.",
+          "Serve with preferred toppings (sour cream, shredded cheddar cheese, and corn chips are a must!)"
+        ]
+      }
+    ],
+    "nutrition": {
+      "calories": 611,
+      "protein_g": 40,
+      "carbs_g": 72,
+      "fat_g": 19,
+      "fiber_g": 11,
+      "source": "imported"
+    }
   }
 ]

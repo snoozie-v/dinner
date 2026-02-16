@@ -1,5 +1,5 @@
 // src/hooks/useRecipes.ts
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useEffect, useCallback, useMemo } from 'react';
 import type { Recipe, RecipeOperationResult } from '../types';
 import {
   isCustomRecipe,
@@ -7,20 +7,8 @@ import {
   createBlankRecipe,
   validateRecipe
 } from '../utils/recipeValidation';
-
-const STORAGE_KEY = 'dinner-planner-custom-recipes';
-
-/**
- * Helper to safely parse JSON from localStorage
- */
-const getStoredRecipes = (): Recipe[] => {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    return stored ? JSON.parse(stored) : [];
-  } catch {
-    return [];
-  }
-};
+import { STORAGE_KEYS } from '../utils/storage';
+import { usePersistedState } from './usePersistedState';
 
 export interface UseRecipesReturn {
   customRecipes: Recipe[];
@@ -39,12 +27,9 @@ export interface UseRecipesReturn {
  * Custom hook for managing recipes with CRUD operations
  */
 export const useRecipes = (defaultRecipes: Recipe[] = []): UseRecipesReturn => {
-  const [customRecipes, setCustomRecipes] = useState<Recipe[]>(() => getStoredRecipes());
-
-  // Persist custom recipes to localStorage
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(customRecipes));
-  }, [customRecipes]);
+  const [customRecipes, setCustomRecipes] = usePersistedState<Recipe[]>(
+    STORAGE_KEYS.CUSTOM_RECIPES, []
+  );
 
   // Merge default and custom recipes
   const allRecipes = useMemo<Recipe[]>(() => {

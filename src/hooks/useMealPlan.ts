@@ -3,7 +3,8 @@ import { arrayMove } from '@dnd-kit/sortable';
 import type { Recipe, PlanItem, MealType } from '../types';
 import { MEAL_TYPES } from '../types';
 import type { UndoAction } from '../components/UndoToast';
-import { STORAGE_KEYS, getStoredValue } from '../utils/storage';
+import { STORAGE_KEYS } from '../utils/storage';
+import { usePersistedState } from './usePersistedState';
 
 interface UseMealPlanParams {
   allRecipes: Recipe[];
@@ -18,20 +19,11 @@ export const useMealPlan = ({
   addToRecent,
   setUndoAction,
 }: UseMealPlanParams) => {
-  const [days, setDays] = useState<number>(() => getStoredValue(STORAGE_KEYS.DAYS, 3));
-  const [plan, setPlan] = useState<PlanItem[]>(() => getStoredValue(STORAGE_KEYS.PLAN, []));
+  const [days, setDays] = usePersistedState<number>(STORAGE_KEYS.DAYS, 3);
+  const [plan, setPlan] = usePersistedState<PlanItem[]>(STORAGE_KEYS.PLAN, []);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedDayForPicker, setSelectedDayForPicker] = useState<number | null>(null);
   const [selectedMealTypeForPicker, setSelectedMealTypeForPicker] = useState<MealType | null>(null);
-
-  // Persist
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.DAYS, JSON.stringify(days));
-  }, [days]);
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.PLAN, JSON.stringify(plan));
-  }, [plan]);
 
   // Filter recipes by search term
   const filteredRecipes = useMemo<Recipe[]>(() => {

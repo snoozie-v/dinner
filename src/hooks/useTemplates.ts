@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
 import type { Recipe, PlanItem, MealPlanTemplate, MealPlanSettings, MealType } from '../types';
 import type { UndoAction } from '../components/UndoToast';
-import { STORAGE_KEYS, getStoredValue } from '../utils/storage';
+import { STORAGE_KEYS } from '../utils/storage';
+import { usePersistedState } from './usePersistedState';
 
 interface UseTemplatesParams {
   plan: PlanItem[];
@@ -22,13 +22,9 @@ export const useTemplates = ({
   allRecipes,
   setUndoAction,
 }: UseTemplatesParams) => {
-  const [templates, setTemplates] = useState<MealPlanTemplate[]>(() =>
-    getStoredValue(STORAGE_KEYS.TEMPLATES, [])
+  const [templates, setTemplates] = usePersistedState<MealPlanTemplate[]>(
+    STORAGE_KEYS.TEMPLATES, []
   );
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.TEMPLATES, JSON.stringify(templates));
-  }, [templates]);
 
   const saveTemplate = (name: string): void => {
     const maxDay = Math.max(...plan.map(p => p.day), 0);

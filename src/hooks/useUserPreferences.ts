@@ -1,15 +1,12 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import type { Recipe, UserPreferences } from '../types';
-import { STORAGE_KEYS, getStoredValue } from '../utils/storage';
+import { STORAGE_KEYS } from '../utils/storage';
+import { usePersistedState } from './usePersistedState';
 
 export const useUserPreferences = (allRecipes: Recipe[]) => {
-  const [userPrefs, setUserPrefs] = useState<UserPreferences>(() =>
-    getStoredValue(STORAGE_KEYS.USER_PREFS, { favoriteRecipeIds: [], recentRecipeIds: [] })
+  const [userPrefs, setUserPrefs] = usePersistedState<UserPreferences>(
+    STORAGE_KEYS.USER_PREFS, { favoriteRecipeIds: [], recentRecipeIds: [] }
   );
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.USER_PREFS, JSON.stringify(userPrefs));
-  }, [userPrefs]);
 
   const toggleFavorite = (recipeId: string): void => {
     setUserPrefs(prev => {

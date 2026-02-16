@@ -1,18 +1,14 @@
-import { useState, useEffect } from 'react';
 import type { PantryStaple } from '../types';
 import type { UndoAction } from '../components/UndoToast';
-import { STORAGE_KEYS, getStoredValue } from '../utils/storage';
+import { STORAGE_KEYS } from '../utils/storage';
+import { usePersistedState } from './usePersistedState';
 
 export const usePantryStaples = (
   setUndoAction: (action: UndoAction | null) => void,
 ) => {
-  const [pantryStaples, setPantryStaples] = useState<PantryStaple[]>(() =>
-    getStoredValue(STORAGE_KEYS.PANTRY_STAPLES, [])
+  const [pantryStaples, setPantryStaples] = usePersistedState<PantryStaple[]>(
+    STORAGE_KEYS.PANTRY_STAPLES, []
   );
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.PANTRY_STAPLES, JSON.stringify(pantryStaples));
-  }, [pantryStaples]);
 
   const addPantryStaple = (name: string, unit: string): void => {
     const key = `${name.toLowerCase()}|${unit.toLowerCase()}`;

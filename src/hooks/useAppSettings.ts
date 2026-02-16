@@ -1,23 +1,16 @@
-import { useState, useEffect, useCallback } from 'react';
-import type { ActiveTab } from '../types';
-import { STORAGE_KEYS, getStoredValue } from '../utils/storage';
+import { useState, useEffect } from 'react';
+import { usePersistedState } from './usePersistedState';
+import { STORAGE_KEYS } from '../utils/storage';
 
 type Theme = 'light' | 'dark' | 'system';
 
 export const useAppSettings = () => {
-  // Tab state
-  const [activeTab, setActiveTab] = useState<ActiveTab>(() =>
-    getStoredValue(STORAGE_KEYS.ACTIVE_TAB, 'planner')
-  );
+  // Persisted state
+  const [theme, setTheme] = usePersistedState<Theme>(STORAGE_KEYS.THEME, 'system');
+  const [onboardingSeen, setOnboardingSeen] = usePersistedState<boolean>(STORAGE_KEYS.ONBOARDING_SEEN, false);
 
-  // Theme state
-  const [theme, setTheme] = useState<Theme>(() => getStoredValue(STORAGE_KEYS.THEME, 'system'));
-
-  // Onboarding state
-  const [showOnboarding, setShowOnboarding] = useState<boolean>(() => {
-    const seen = localStorage.getItem(STORAGE_KEYS.ONBOARDING_SEEN);
-    return !seen;
-  });
+  // Local UI state
+  const [showOnboarding, setShowOnboarding] = useState<boolean>(!onboardingSeen);
   const [onboardingInitialStep, setOnboardingInitialStep] = useState(0);
   const [showTutorialDropdown, setShowTutorialDropdown] = useState(false);
 
@@ -28,9 +21,6 @@ export const useAppSettings = () => {
   const [showMealSettingsModal, setShowMealSettingsModal] = useState(false);
   const [showPantryModal, setShowPantryModal] = useState(false);
   const [showTemplateModal, setShowTemplateModal] = useState(false);
-
-  // Pull-to-refresh feedback
-  const [refreshMessage, setRefreshMessage] = useState<string | null>(null);
 
   // Apply dark mode class to <html>
   useEffect(() => {
@@ -50,16 +40,6 @@ export const useAppSettings = () => {
     }
   }, [theme]);
 
-  // Persist theme
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.THEME, JSON.stringify(theme));
-  }, [theme]);
-
-  // Persist activeTab
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.ACTIVE_TAB, JSON.stringify(activeTab));
-  }, [activeTab]);
-
   const toggleTheme = () => {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark');
   };
@@ -67,7 +47,7 @@ export const useAppSettings = () => {
   const isDarkMode = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
   const handleOnboardingComplete = () => {
-    localStorage.setItem(STORAGE_KEYS.ONBOARDING_SEEN, 'true');
+    setOnboardingSeen(true);
     setShowOnboarding(false);
     setOnboardingInitialStep(0);
   };
@@ -78,27 +58,8 @@ export const useAppSettings = () => {
     setShowTutorialDropdown(false);
   };
 
-  const handlePullRefresh = useCallback(async () => {
-    await new Promise(resolve => setTimeout(resolve, 300));
-
-    let message = '';
-    if (activeTab === 'planner') {
-      message = 'Meal plan is up to date!';
-    } else if (activeTab === 'shop') {
-      message = 'Shopping list refreshed!';
-    } else if (activeTab === 'recipes') {
-      message = 'Recipes are up to date!';
-    }
-
-    setRefreshMessage(message);
-    setTimeout(() => {
-      setRefreshMessage(null);
-    }, 2000);
-  }, [activeTab]);
-
   return {
     theme, setTheme, toggleTheme, isDarkMode,
-    activeTab, setActiveTab,
     showOnboarding, onboardingInitialStep, handleOnboardingComplete, handleShowOnboarding,
     showTutorialDropdown, setShowTutorialDropdown,
     showPrivacyPolicy, setShowPrivacyPolicy,
@@ -107,6 +68,5 @@ export const useAppSettings = () => {
     showMealSettingsModal, setShowMealSettingsModal,
     showPantryModal, setShowPantryModal,
     showTemplateModal, setShowTemplateModal,
-    refreshMessage, handlePullRefresh,
   };
 };
