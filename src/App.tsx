@@ -24,6 +24,7 @@ import RecipeDetailModal from './components/recipes/RecipeDetailModal';
 import DataSettingsModal from './components/DataSettingsModal';
 import HelpModal from './components/HelpModal';
 import MealSettingsModal from './components/MealSettingsModal';
+import ConfirmModal from './components/ConfirmModal';
 
 import { useRecipes } from './hooks/useRecipes';
 import { useUndo } from './hooks/useUndo';
@@ -73,6 +74,7 @@ function App() {
   // --- Local UI state ---
   const [viewingRecipe, setViewingRecipe] = useState<Recipe | null>(null);
   const [refreshMessage, setRefreshMessage] = useState<string | null>(null);
+  const [showClearDataConfirm, setShowClearDataConfirm] = useState(false);
 
   const handleViewRecipe = (recipe: Recipe): void => {
     setViewingRecipe(recipe);
@@ -134,13 +136,16 @@ function App() {
   };
 
   const clearAllData = (): void => {
-    if (window.confirm('Clear all saved data? This will reset your meal plan and shopping list.')) {
-      storage.clearAll();
-      mealPlan.setDays(3);
-      mealPlan.setPlan([]);
-      shopping.resetAdjustments();
-      mealPlan.setSearchTerm('');
-    }
+    setShowClearDataConfirm(true);
+  };
+
+  const confirmClearAllData = (): void => {
+    storage.clearAll();
+    mealPlan.setDays(3);
+    mealPlan.setPlan([]);
+    shopping.resetAdjustments();
+    mealPlan.setSearchTerm('');
+    setShowClearDataConfirm(false);
   };
 
   const handleImportData = useCallback((data: {
@@ -612,6 +617,17 @@ function App() {
       <HelpModal
         isOpen={app.showHelpModal}
         onClose={() => app.setShowHelpModal(false)}
+      />
+
+      {/* Clear Data Confirmation */}
+      <ConfirmModal
+        isOpen={showClearDataConfirm}
+        title="Clear All Data"
+        message="This will reset your meal plan and shopping list. This action cannot be undone."
+        confirmLabel="Clear Data"
+        variant="danger"
+        onConfirm={confirmClearAllData}
+        onCancel={() => setShowClearDataConfirm(false)}
       />
     </div>
   );

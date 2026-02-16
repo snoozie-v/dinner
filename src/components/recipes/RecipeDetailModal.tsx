@@ -1,5 +1,9 @@
 // src/components/recipes/RecipeDetailModal.tsx
+import { useState, useEffect } from 'react';
 import type { Recipe } from '../../types';
+import { copyToClipboard, canNativeShare, shareText } from '../../utils/platform';
+
+const PROXY_URL = import.meta.env.VITE_PROXY_URL || 'http://localhost:3001';
 
 interface RecipeDetailModalProps {
   recipe: Recipe | null;
@@ -8,7 +12,21 @@ interface RecipeDetailModalProps {
   isCustomRecipe: (recipe: Recipe | null | undefined) => boolean;
 }
 
+type ShareState = 'idle' | 'sharing' | 'success' | 'error';
+
 const RecipeDetailModal = ({ recipe, onClose, onEdit, isCustomRecipe }: RecipeDetailModalProps) => {
+  const [shareState, setShareState] = useState<ShareState>('idle');
+  const [shareUrl, setShareUrl] = useState('');
+  const [shareError, setShareError] = useState('');
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    setShareState('idle');
+    setShareUrl('');
+    setShareError('');
+    setCopied(false);
+  }, [recipe?.id]);
+
   if (!recipe) return null;
 
   const formatTime = (time?: string): string => {
@@ -24,6 +42,39 @@ const RecipeDetailModal = ({ recipe, onClose, onEdit, isCustomRecipe }: RecipeDe
     if (hours > 0) parts.push(`${hours} hr`);
     if (minutes > 0) parts.push(`${minutes} min`);
     return parts.join(' ') || '—';
+  };
+
+  const handleShare = async () => {
+    setShareState('sharing');
+    setShareError('');
+    try {
+      const response = await fetch(`${PROXY_URL}/api/share`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ recipe }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to share recipe');
+      }
+      setShareUrl(data.shareUrl);
+      setShareState('success');
+    } catch (err) {
+      setShareError(err instanceof Error ? err.message : 'Failed to share recipe');
+      setShareState('error');
+    }
+  };
+
+  const handleCopyLink = async () => {
+    const success = await copyToClipboard(shareUrl);
+    if (success) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  const handleNativeShare = async () => {
+    await shareText(recipe.name, shareUrl);
   };
 
   return (
@@ -295,20 +346,71 @@ const RecipeDetailModal = ({ recipe, onClose, onEdit, isCustomRecipe }: RecipeDe
           </div>
 
           {/* Footer Actions */}
-          <div className="px-6 sm:px-8 py-4 bg-gray-50 dark:bg-gray-700 border-t border-gray-200 dark:border-gray-600 flex justify-between items-center">
-            <button
-              onClick={onClose}
-              className="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 font-medium transition-colors"
-            >
-              Close
-            </button>
-            {onEdit && isCustomRecipe(recipe) && (
-              <button
-                onClick={() => onEdit(recipe)}
-                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-colors"
-              >
-                Edit Recipe
-              </button>
+          <div className="px-6 sm:px-8 py-4 bg-gray-50 dark:bg-gray-700 border-t border-gray-200 dark:border-gray-600">
+            {shareState === 'success' ? (
+              <div className="space-y-3">
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    readOnly
+                    value={shareUrl}
+                    className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm text-gray-900 dark:text-gray-100 select-all"
+                    onClick={(e) => e.currentTarget.select()}
+                  />
+                  <button
+                    onClick={handleCopyLink}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-colors text-sm whitespace-nowrap"
+                  >
+                    {copied ? 'Copied!' : 'Copy Link'}
+                  </button>
+                  {canNativeShare() && (
+                    <button
+                      onClick={handleNativeShare}
+                      className="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500 font-medium transition-colors text-sm"
+                      aria-label="Share"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                      </svg>
+                    </button>
+                  )}
+                </div>
+                <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+                  This link expires in 30 days
+                </p>
+              </div>
+            ) : (
+              <div className="flex justify-between items-center">
+                <button
+                  onClick={onClose}
+                  className="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 font-medium transition-colors"
+                >
+                  Close
+                </button>
+                <div className="flex items-center gap-3">
+                  {shareState === 'error' && (
+                    <span className="text-sm text-red-600 dark:text-red-400">{shareError}</span>
+                  )}
+                  <button
+                    onClick={handleShare}
+                    disabled={shareState === 'sharing'}
+                    className="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500 font-medium transition-colors disabled:opacity-50 flex items-center gap-2"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                    </svg>
+                    {shareState === 'sharing' ? 'Sharing...' : 'Share'}
+                  </button>
+                  {onEdit && isCustomRecipe(recipe) && (
+                    <button
+                      onClick={() => onEdit(recipe)}
+                      className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-colors"
+                    >
+                      Edit Recipe
+                    </button>
+                  )}
+                </div>
+              </div>
             )}
           </div>
         </div>

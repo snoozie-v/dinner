@@ -2,6 +2,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import type { PlanItem, ShoppingItem } from '../types';
 import SwipeableShoppingItem from './SwipeableShoppingItem';
+import { openExternalUrl, copyToClipboard, shareText, canNativeShare } from '../utils/platform';
 
 // Proxy server URL for Instacart integration
 const PROXY_URL = import.meta.env.VITE_PROXY_URL || 'http://localhost:3001';
@@ -120,8 +121,7 @@ const ShoppingList = ({
       const data = await response.json();
 
       if (data.success && data.instacartUrl) {
-        // Open Instacart in new tab
-        window.open(data.instacartUrl, '_blank');
+        openExternalUrl(data.instacartUrl);
       } else {
         alert(data.error || 'Failed to create Instacart list. Please try again.');
       }
@@ -185,37 +185,21 @@ const ShoppingList = ({
     return lines.join('\n').trim() || 'All items collected!';
   };
 
-  const handleCopy = () => {
+  const handleCopy = async () => {
     const text = generateCopyText();
-    navigator.clipboard.writeText(text)
-      .then(() => alert('Shopping list copied!'))
-      .catch(() => alert('Failed to copy. Please try manually.'));
+    const success = await copyToClipboard(text);
+    alert(success ? 'Shopping list copied!' : 'Failed to copy. Please try manually.');
   };
 
   const handleShare = async () => {
     const text = generateCopyText();
-
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: 'Shopping List',
-          text: text,
-        });
-      } catch (err) {
-        // User cancelled or share failed - silently ignore
-        if ((err as Error).name !== 'AbortError') {
-          // Fall back to copy
-          handleCopy();
-        }
-      }
-    } else {
-      // Fallback for browsers without Web Share API
-      handleCopy();
+    const result = await shareText('Shopping List', text);
+    if (result === 'copied') {
+      alert('Shopping list copied!');
     }
   };
 
-  // Check if Web Share API is available
-  const canShare = typeof navigator !== 'undefined' && !!navigator.share;
+  const canShare = canNativeShare();
 
   if (plan.length === 0) return null;
 

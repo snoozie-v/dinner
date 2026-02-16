@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import type { FormEvent } from 'react';
 import type { MealPlanTemplate } from '../types';
+import ConfirmModal from './ConfirmModal';
 
 interface TemplateModalProps {
   isOpen: boolean;
@@ -24,6 +25,7 @@ const TemplateModal = ({
 }: TemplateModalProps) => {
   const [newTemplateName, setNewTemplateName] = useState('');
   const [activeTab, setActiveTab] = useState<'load' | 'save'>('load');
+  const [templateToLoad, setTemplateToLoad] = useState<MealPlanTemplate | null>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -43,8 +45,13 @@ const TemplateModal = ({
   };
 
   const handleLoad = (template: MealPlanTemplate) => {
-    if (window.confirm(`Load "${template.name}"? This will replace your current meal plan.`)) {
-      onLoadTemplate(template);
+    setTemplateToLoad(template);
+  };
+
+  const confirmLoad = () => {
+    if (templateToLoad) {
+      onLoadTemplate(templateToLoad);
+      setTemplateToLoad(null);
     }
   };
 
@@ -206,6 +213,15 @@ const TemplateModal = ({
           </button>
         </div>
       </div>
+
+      <ConfirmModal
+        isOpen={templateToLoad !== null}
+        title="Load Template"
+        message={`Load "${templateToLoad?.name}"? This will replace your current meal plan.`}
+        confirmLabel="Load"
+        onConfirm={confirmLoad}
+        onCancel={() => setTemplateToLoad(null)}
+      />
     </div>
   );
 };
