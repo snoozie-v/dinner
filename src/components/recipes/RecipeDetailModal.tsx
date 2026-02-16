@@ -1,5 +1,6 @@
 // src/components/recipes/RecipeDetailModal.tsx
 import { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import type { Recipe } from '../../types';
 import { copyToClipboard, canNativeShare, shareText } from '../../utils/platform';
 
@@ -97,7 +98,7 @@ const RecipeDetailModal = ({ recipe, onClose, onEdit, isCustomRecipe }: RecipeDe
     await shareText(recipe.name, shareUrl);
   };
 
-  return (
+  return createPortal(
     <div ref={overlayRef} className="fixed inset-0 bg-black bg-opacity-50 z-50 overflow-y-auto">
       <div className="min-h-full flex items-start justify-center p-4 py-8">
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-3xl w-full overflow-hidden">
@@ -435,7 +436,8 @@ const RecipeDetailModal = ({ recipe, onClose, onEdit, isCustomRecipe }: RecipeDe
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 
