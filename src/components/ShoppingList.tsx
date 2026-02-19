@@ -157,7 +157,7 @@ const ShoppingList = ({
   const stats = useMemo(() => {
     const total = shoppingList.length;
     // Items with 0 total quantity (e.g., "to taste") should not count as auto-completed
-    const completed = shoppingList.filter(item => item.totalQty > 0 && item.haveQty >= item.totalQty).length;
+    const completed = shoppingList.filter(item => item.totalQty > 0 ? item.haveQty >= item.totalQty : item.haveQty > 0).length;
     const pantryCount = shoppingList.filter(item => item.isPantryStaple).length;
     const needed = total - completed;
     return { total, completed, needed, pantryCount };
@@ -397,7 +397,7 @@ const ShoppingList = ({
 
             if (visibleItems.length === 0) return null;
 
-            const categoryCompleted = items.filter(item => item.totalQty > 0 && item.haveQty >= item.totalQty).length;
+            const categoryCompleted = items.filter(item => item.totalQty > 0 ? item.haveQty >= item.totalQty : item.haveQty > 0).length;
 
             return (
               <div key={category} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 overflow-hidden">
@@ -409,8 +409,7 @@ const ShoppingList = ({
                 </div>
                 <ul className="divide-y divide-gray-100 dark:divide-gray-700">
                   {visibleItems.map((item) => {
-                    // Items with 0 total quantity (e.g., "to taste") should not auto-complete
-                    const isCompleted = item.totalQty > 0 && item.haveQty >= item.totalQty;
+                    const isCompleted = item.totalQty > 0 ? item.haveQty >= item.totalQty : item.haveQty > 0;
                     return (
                       <li key={item.key}>
                         <SwipeableShoppingItem
