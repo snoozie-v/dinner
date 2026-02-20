@@ -55,7 +55,7 @@ export const useShoppingList = ({ plan, pantryStaples, days }: UseShoppingListPa
 
       recipe?.ingredients?.forEach((ing) => {
         if (!ing?.name) return;
-        const key = `${ing.name}|${ing.unit || 'unit'}`;
+        const key = `${ing.name.toLowerCase()}|${(ing.unit || '').toLowerCase()}`;
         const qty = (ing.quantity || 0) * (servingsMultiplier || 1);
 
         if (!map.has(key)) {

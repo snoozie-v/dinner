@@ -393,7 +393,7 @@ const OnboardingModal = ({
             <div className="mb-4 text-left">
               <div className="flex flex-wrap gap-2 mb-3">
                 {COMMON_STAPLES.map(({ name, unit }) => {
-                  const isAdded = pantryStaples.some(s => s.key === `${name}|${unit}`);
+                  const isAdded = pantryStaples.some(s => s.key === `${name.toLowerCase()}|${unit.toLowerCase()}`);
                   return (
                     <button
                       key={`${name}|${unit}`}
