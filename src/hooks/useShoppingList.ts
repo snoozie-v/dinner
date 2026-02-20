@@ -43,8 +43,14 @@ for (const family of INGREDIENT_FAMILIES) {
   }
 }
 
+// Strip parenthetical annotations baked into ingredient names, e.g.
+// "cayenne pepper (adjust spiciness to taste)" → "cayenne pepper"
+function stripParenthetical(name: string): string {
+  return name.replace(/\s*\([^)]*\)/g, '').trim().toLowerCase();
+}
+
 function isCoveredByPantry(itemName: string, pantryNames: Set<string>): boolean {
-  const lower = itemName.toLowerCase();
+  const lower = stripParenthetical(itemName);
   if (pantryNames.has(lower)) return true;
   const family = FAMILY_LOOKUP.get(lower);
   if (!family) return false;
@@ -106,6 +112,8 @@ export const useShoppingList = ({ plan, pantryStaples, days }: UseShoppingListPa
 
       recipe?.ingredients?.forEach((ing) => {
         if (!ing?.name) return;
+        // Skip "Other: ..." annotation lines — these are recipe notes, not real ingredients
+        if (ing.name.trim().toLowerCase().startsWith('other:')) return;
         const key = `${ing.name.toLowerCase()}|${(ing.unit || '').toLowerCase()}`;
         const qty = (ing.quantity || 0) * (servingsMultiplier || 1);
 
