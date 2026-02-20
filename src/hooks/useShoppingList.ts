@@ -76,7 +76,7 @@ export const useShoppingList = ({ plan, pantryStaples, days }: UseShoppingListPa
       });
     });
 
-    const pantryKeys = new Set(pantryStaples.map(s => s.key));
+    const pantryNames = new Set(pantryStaples.map(s => s.name.toLowerCase()));
 
     return Array.from(map.values())
       .sort((a, b) => {
@@ -85,7 +85,7 @@ export const useShoppingList = ({ plan, pantryStaples, days }: UseShoppingListPa
       })
       .map((item) => {
         const adj = shoppingAdjustments[item.key] || { haveQty: 0 };
-        const isPantryStaple = pantryKeys.has(item.key);
+        const isPantryStaple = pantryNames.has(item.name.toLowerCase());
         const haveQty = isPantryStaple ? item.totalQty : adj.haveQty;
         const neededQty = Math.max(0, item.totalQty - haveQty);
         return {
