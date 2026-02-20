@@ -45,8 +45,9 @@ for (const family of INGREDIENT_FAMILIES) {
 
 // Strip parenthetical annotations baked into ingredient names, e.g.
 // "cayenne pepper (adjust spiciness to taste)" → "cayenne pepper"
+// Also handles unclosed parens: "cayenne pepper (adjust spiciness to taste"
 function stripParenthetical(name: string): string {
-  return name.replace(/\s*\([^)]*\)/g, '').trim().toLowerCase();
+  return name.replace(/\s*\([^)]*\)?/g, '').trim().toLowerCase();
 }
 
 function isCoveredByPantry(itemName: string, pantryNames: Set<string>): boolean {
