@@ -3,6 +3,57 @@ import type { PlanItem, ShoppingItem, ShoppingAdjustments, PantryStaple } from '
 import { STORAGE_KEYS, storage } from '../utils/storage';
 import { usePersistedState } from './usePersistedState';
 
+// Ingredient families: any pantry member covers any other member in the same group.
+// Keep groups to truly interchangeable ingredients to avoid false positives.
+const INGREDIENT_FAMILIES: string[][] = [
+  // Cooking oils
+  ['oil', 'cooking oil', 'vegetable oil', 'canola oil', 'sunflower oil', 'corn oil',
+   'olive oil', 'extra virgin olive oil', 'light olive oil', 'avocado oil',
+   'coconut oil', 'grapeseed oil'],
+  // Butter
+  ['butter', 'unsalted butter', 'salted butter'],
+  // All-purpose flour
+  ['flour', 'all-purpose flour', 'plain flour'],
+  // White/granulated sugar
+  ['sugar', 'white sugar', 'granulated sugar', 'cane sugar'],
+  // Dairy milk
+  ['milk', 'whole milk', 'full-fat milk', '2% milk', 'skim milk', 'dairy milk'],
+  // Salt
+  ['salt', 'sea salt', 'table salt', 'kosher salt', 'rock salt', 'fine salt'],
+  // Black pepper
+  ['pepper', 'black pepper', 'ground pepper', 'ground black pepper', 'white pepper'],
+  // Garlic
+  ['garlic', 'garlic cloves', 'fresh garlic'],
+  // Yellow/white/brown onion (not red, which has a distinct flavour)
+  ['onion', 'yellow onion', 'white onion', 'brown onion', 'sweet onion'],
+  // Generic broth / stock (generic terms only — chicken vs vegetable are distinct)
+  ['broth', 'stock'],
+  // Soy sauce
+  ['soy sauce', 'light soy sauce'],
+  // Vinegar (generic / white)
+  ['vinegar', 'white vinegar'],
+];
+
+// Pre-build a lookup: lowercase name → Set of all family members
+const FAMILY_LOOKUP = new Map<string, Set<string>>();
+for (const family of INGREDIENT_FAMILIES) {
+  const familySet = new Set(family);
+  for (const member of family) {
+    FAMILY_LOOKUP.set(member, familySet);
+  }
+}
+
+function isCoveredByPantry(itemName: string, pantryNames: Set<string>): boolean {
+  const lower = itemName.toLowerCase();
+  if (pantryNames.has(lower)) return true;
+  const family = FAMILY_LOOKUP.get(lower);
+  if (!family) return false;
+  for (const member of family) {
+    if (pantryNames.has(member)) return true;
+  }
+  return false;
+}
+
 interface UseShoppingListParams {
   plan: PlanItem[];
   pantryStaples: PantryStaple[];
@@ -85,7 +136,7 @@ export const useShoppingList = ({ plan, pantryStaples, days }: UseShoppingListPa
       })
       .map((item) => {
         const adj = shoppingAdjustments[item.key] || { haveQty: 0 };
-        const isPantryStaple = pantryNames.has(item.name.toLowerCase());
+        const isPantryStaple = isCoveredByPantry(item.name, pantryNames);
         const haveQty = isPantryStaple ? item.totalQty : adj.haveQty;
         const neededQty = Math.max(0, item.totalQty - haveQty);
         return {
