@@ -135,7 +135,7 @@ export const useShoppingList = ({ plan, pantryStaples, days }: UseShoppingListPa
       });
     });
 
-    const pantryNames = new Set(pantryStaples.map(s => s.name.toLowerCase()));
+    const pantryNames = new Set(pantryStaples.map(s => stripParenthetical(s.name)));
 
     return Array.from(map.values())
       .sort((a, b) => {
