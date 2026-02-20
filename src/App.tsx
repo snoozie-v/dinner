@@ -584,6 +584,10 @@ function App() {
         isOpen={app.showOnboarding}
         onComplete={app.handleOnboardingComplete}
         initialStep={app.onboardingInitialStep}
+        mealSettings={mealSettingsHook.mealSettings}
+        onSaveMealSettings={mealSettingsHook.handleSaveMealSettings}
+        pantryStaples={pantry.pantryStaples}
+        onAddPantryStaple={pantry.addPantryStaple}
       />
 
       {/* Privacy Policy Modal */}

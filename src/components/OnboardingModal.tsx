@@ -1,10 +1,16 @@
 // src/components/OnboardingModal.tsx
 import { useState, useRef, useEffect } from 'react';
+import type { MealPlanSettings, MealType, PantryStaple } from '../types';
+import { COMMON_EXCLUSIONS } from '../utils/dietaryPreferences';
 
 interface OnboardingModalProps {
   isOpen: boolean;
   onComplete: () => void;
   initialStep?: number;
+  mealSettings: MealPlanSettings;
+  onSaveMealSettings: (settings: MealPlanSettings) => void;
+  pantryStaples: PantryStaple[];
+  onAddPantryStaple: (name: string, unit: string) => void;
 }
 
 interface OnboardingStep {
@@ -12,7 +18,32 @@ interface OnboardingStep {
   description: string;
   icon: JSX.Element;
   tip?: string;
+  interactiveType?: 'mealTypes' | 'pantryStaples' | 'exclusions';
 }
+
+const MEAL_TYPE_OPTIONS: { type: MealType; label: string; icon: string }[] = [
+  { type: 'breakfast', label: 'Breakfast', icon: '🌅' },
+  { type: 'lunch', label: 'Lunch', icon: '☀️' },
+  { type: 'dinner', label: 'Dinner', icon: '🍽️' },
+  { type: 'dessert', label: 'Dessert', icon: '🍰' },
+  { type: 'snack', label: 'Snack', icon: '🍎' },
+];
+
+const COMMON_STAPLES = [
+  { name: 'Salt', unit: '' },
+  { name: 'Pepper', unit: '' },
+  { name: 'Olive Oil', unit: '' },
+  { name: 'Vegetable Oil', unit: '' },
+  { name: 'Butter', unit: '' },
+  { name: 'Garlic', unit: 'cloves' },
+  { name: 'Onion', unit: '' },
+  { name: 'Sugar', unit: '' },
+  { name: 'Flour', unit: '' },
+  { name: 'Eggs', unit: '' },
+  { name: 'Milk', unit: '' },
+  { name: 'Soy Sauce', unit: '' },
+  { name: 'Chicken Broth', unit: '' },
+];
 
 const ONBOARDING_STEPS: OnboardingStep[] = [
   {
@@ -23,6 +54,36 @@ const ONBOARDING_STEPS: OnboardingStep[] = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
       </svg>
     ),
+  },
+  {
+    title: 'Set Up Your Meal Types',
+    description: 'Which meals do you plan for? Toggle on the ones that fit your household. You can always change these later in Meal Settings.',
+    icon: (
+      <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+      </svg>
+    ),
+    interactiveType: 'mealTypes',
+  },
+  {
+    title: 'Stock Your Pantry',
+    description: 'What ingredients do you always have at home? Tap to add them — they\'ll automatically be checked off your shopping list.',
+    icon: (
+      <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+      </svg>
+    ),
+    interactiveType: 'pantryStaples',
+  },
+  {
+    title: 'Foods to Avoid',
+    description: 'Any allergies or ingredients you never eat? Add them here and recipes containing those ingredients will be hidden from your plan.',
+    icon: (
+      <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+      </svg>
+    ),
+    interactiveType: 'exclusions',
   },
   {
     title: 'Plan Your Meals',
@@ -63,7 +124,7 @@ const ONBOARDING_STEPS: OnboardingStep[] = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
       </svg>
     ),
-    tip: 'Click "Pantry Staples" on the Plan tab to manage your list.',
+    tip: 'You can manage your full pantry staples list anytime from the \'Pantry Staples\' button on the Plan tab.',
   },
   {
     title: 'Save Templates',
@@ -146,8 +207,17 @@ const ONBOARDING_STEPS: OnboardingStep[] = [
   },
 ];
 
-const OnboardingModal = ({ isOpen, onComplete, initialStep = 0 }: OnboardingModalProps) => {
+const OnboardingModal = ({
+  isOpen,
+  onComplete,
+  initialStep = 0,
+  mealSettings,
+  onSaveMealSettings,
+  pantryStaples,
+  onAddPantryStaple,
+}: OnboardingModalProps) => {
   const [currentStep, setCurrentStep] = useState(initialStep);
+  const [newExclusion, setNewExclusion] = useState('');
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
 
@@ -155,9 +225,36 @@ const OnboardingModal = ({ isOpen, onComplete, initialStep = 0 }: OnboardingModa
   useEffect(() => {
     if (isOpen) {
       setCurrentStep(initialStep);
+      setNewExclusion('');
       window.scrollTo(0, 0);
     }
   }, [isOpen, initialStep]);
+
+  const currentExclusions = mealSettings.ingredientExclusions ?? [];
+
+  const addExclusion = (ingredientName: string, displayName: string) => {
+    const normalized = ingredientName.toLowerCase().trim();
+    if (!normalized) return;
+    if (currentExclusions.some(e => e.ingredientName === normalized)) return;
+    onSaveMealSettings({
+      ...mealSettings,
+      ingredientExclusions: [...currentExclusions, { ingredientName: normalized, displayName }],
+    });
+  };
+
+  const removeExclusion = (ingredientName: string) => {
+    onSaveMealSettings({
+      ...mealSettings,
+      ingredientExclusions: currentExclusions.filter(e => e.ingredientName !== ingredientName),
+    });
+  };
+
+  const handleAddCustomExclusion = () => {
+    if (newExclusion.trim()) {
+      addExclusion(newExclusion.trim(), newExclusion.trim());
+      setNewExclusion('');
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -253,6 +350,142 @@ const OnboardingModal = ({ isOpen, onComplete, initialStep = 0 }: OnboardingModa
               <p className="text-sm text-amber-800 dark:text-amber-200">
                 <span className="font-semibold">Tip:</span> {step.tip}
               </p>
+            </div>
+          )}
+
+          {/* Interactive: Meal Types */}
+          {step.interactiveType === 'mealTypes' && (
+            <div className="space-y-2 text-left mb-4">
+              {MEAL_TYPE_OPTIONS.map(({ type, label, icon }) => {
+                const isEnabled = mealSettings.enabledMealTypes.includes(type);
+                const isOnlyOne = mealSettings.enabledMealTypes.length === 1 && isEnabled;
+                return (
+                  <button
+                    key={type}
+                    disabled={isOnlyOne}
+                    onClick={() => {
+                      const next = isEnabled
+                        ? mealSettings.enabledMealTypes.filter(t => t !== type)
+                        : [...mealSettings.enabledMealTypes, type];
+                      onSaveMealSettings({ ...mealSettings, enabledMealTypes: next });
+                    }}
+                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg border transition-colors touch-manipulation min-h-[44px]
+                      ${isEnabled
+                        ? 'bg-blue-50 dark:bg-blue-900/30 border-blue-200 dark:border-blue-700 text-blue-700 dark:text-blue-300'
+                        : 'bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-600 text-gray-500 dark:text-gray-400'
+                      } ${isOnlyOne ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  >
+                    <span className="text-xl">{icon}</span>
+                    <span className="flex-1 font-medium">{label}</span>
+                    {isEnabled && (
+                      <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {/* Interactive: Pantry Staples */}
+          {step.interactiveType === 'pantryStaples' && (
+            <div className="mb-4 text-left">
+              <div className="flex flex-wrap gap-2 mb-3">
+                {COMMON_STAPLES.map(({ name, unit }) => {
+                  const isAdded = pantryStaples.some(s => s.key === `${name}|${unit}`);
+                  return (
+                    <button
+                      key={`${name}|${unit}`}
+                      onClick={() => !isAdded && onAddPantryStaple(name, unit)}
+                      className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors touch-manipulation
+                        ${isAdded
+                          ? 'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 border border-green-300 dark:border-green-700'
+                          : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-600'
+                        }`}
+                    >
+                      {isAdded ? '✓ ' : '+ '}{name}
+                    </button>
+                  );
+                })}
+              </div>
+              {pantryStaples.length > 0 && (
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {pantryStaples.length} staple{pantryStaples.length !== 1 ? 's' : ''} added
+                </p>
+              )}
+            </div>
+          )}
+
+          {/* Interactive: Foods to Avoid */}
+          {step.interactiveType === 'exclusions' && (
+            <div className="mb-4 text-left">
+              {/* Custom input */}
+              <div className="flex gap-2 mb-3">
+                <input
+                  type="text"
+                  value={newExclusion}
+                  onChange={e => setNewExclusion(e.target.value)}
+                  onKeyDown={e => e.key === 'Enter' && handleAddCustomExclusion()}
+                  placeholder="e.g. peanuts, shellfish…"
+                  className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 text-sm"
+                />
+                <button
+                  onClick={handleAddCustomExclusion}
+                  disabled={!newExclusion.trim()}
+                  className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-40 disabled:cursor-not-allowed text-sm font-medium transition-colors"
+                >
+                  Add
+                </button>
+              </div>
+
+              {/* Quick-add chips */}
+              <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">Common allergens & restrictions:</p>
+              <div className="flex flex-wrap gap-2 mb-3">
+                {COMMON_EXCLUSIONS.map(({ ingredientName, displayName }) => {
+                  const isAdded = currentExclusions.some(e => e.ingredientName === ingredientName);
+                  return (
+                    <button
+                      key={ingredientName}
+                      onClick={() => !isAdded && addExclusion(ingredientName, displayName)}
+                      disabled={isAdded}
+                      className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors touch-manipulation
+                        ${isAdded
+                          ? 'bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 border border-red-300 dark:border-red-700 cursor-default'
+                          : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-700 dark:hover:text-red-400 hover:border-red-200'
+                        }`}
+                    >
+                      {isAdded ? '🚫 ' : '+ '}{displayName}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Added exclusions as removable tags */}
+              {currentExclusions.length > 0 && (
+                <div>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">Excluded ({currentExclusions.length}):</p>
+                  <div className="flex flex-wrap gap-2">
+                    {currentExclusions.map(exclusion => (
+                      <span
+                        key={exclusion.ingredientName}
+                        className="inline-flex items-center gap-1 pl-3 pr-1.5 py-1 bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 border border-red-300 dark:border-red-700 rounded-full text-sm font-medium"
+                      >
+                        🚫 {exclusion.displayName}
+                        <button
+                          onClick={() => removeExclusion(exclusion.ingredientName)}
+                          className="ml-0.5 w-4 h-4 flex items-center justify-center rounded-full hover:bg-red-200 dark:hover:bg-red-800 transition-colors"
+                          aria-label={`Remove ${exclusion.displayName}`}
+                        >
+                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
