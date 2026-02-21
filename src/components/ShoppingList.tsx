@@ -460,6 +460,11 @@ const ShoppingList = ({
                                   </span>
                                 )}
                               </div>
+                              {/^[\d\/]/.test(item.name) && item.sources.length > 0 && (
+                                <div className="text-xs text-amber-500 dark:text-amber-400 mt-0.5">
+                                  from: {item.sources.join(' · ')}
+                                </div>
+                              )}
                             </div>
                           </div>
                         </SwipeableShoppingItem>

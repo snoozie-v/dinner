@@ -214,13 +214,30 @@ export const INGREDIENT_CATEGORIES: string[] = [
   'other'
 ];
 
+// Map of Unicode fraction characters to their ASCII equivalents
+const UNICODE_FRACTIONS: Record<string, string> = {
+  '½': '1/2', '¼': '1/4', '¾': '3/4',
+  '⅓': '1/3', '⅔': '2/3',
+  '⅛': '1/8', '⅜': '3/8', '⅝': '5/8', '⅞': '7/8',
+  '⅙': '1/6', '⅚': '5/6', '⅕': '1/5', '⅖': '2/5', '⅗': '3/5', '⅘': '4/5',
+};
+const UNICODE_FRACTION_RE = /[½¼¾⅓⅔⅛⅜⅝⅞⅙⅚⅕⅖⅗⅘]/g;
+
+// Replace Unicode fraction characters with ASCII equivalents.
+// "1½" → "1 1/2", "½" → "1/2"
+function normalizeUnicodeFractions(s: string): string {
+  return s
+    .replace(/(\d)([½¼¾⅓⅔⅛⅜⅝⅞⅙⅚⅕⅖⅗⅘])/g, (_, d, f) => `${d} ${UNICODE_FRACTIONS[f]}`)
+    .replace(UNICODE_FRACTION_RE, f => UNICODE_FRACTIONS[f] ?? f);
+}
+
 /**
  * Parse a fraction string like "1/2" or "1 1/2" to a decimal
  */
 export const parseFraction = (str: string): number | null => {
   if (!str || !str.trim()) return null;
 
-  const cleaned = str.trim();
+  const cleaned = normalizeUnicodeFractions(str.trim());
 
   // Handle pure decimal
   if (/^\d+\.?\d*$/.test(cleaned)) {
@@ -295,11 +312,13 @@ export const formatQuantity = (num: number | null): string => {
 export const parseIngredientLine = (line: string): Partial<Ingredient> | null => {
   if (!line || !line.trim()) return null;
 
-  const cleaned = line.trim()
+  const cleaned = normalizeUnicodeFractions(line.trim()
     // Remove leading bullet points, dashes, asterisks
     .replace(/^[\-\*\•]\s*/, '')
     // Remove leading numbers with periods (1. 2. etc)
-    .replace(/^\d+\.\s*/, '');
+    .replace(/^\d+\.\s*/, '')
+    // Strip spurious leading slash (import artifact: "/ 2.5 lb potato" → "2.5 lb potato")
+    .replace(/^\/\s*/, ''));
 
   if (!cleaned) return null;
 

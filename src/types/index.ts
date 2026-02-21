@@ -116,6 +116,7 @@ export interface ShoppingItem {
   preparation: string;
   category: string;
   key: string;
+  sources: string[];
   haveQty: number;
   ordered: boolean;
   neededQty: number;

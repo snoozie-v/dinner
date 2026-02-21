@@ -2482,9 +2482,9 @@
         "optional": false
       },
       {
-        "name": "28oz. can diced tomatoes",
+        "name": "diced tomatoes",
         "quantity": 1,
-        "unit": "",
+        "unit": "28 oz can",
         "category": "produce",
         "optional": false
       },
@@ -5868,9 +5868,9 @@
         "optional": false
       },
       {
-        "name": "12oz. jar banana pepper rings",
-        "quantity": 0.5,
-        "unit": "",
+        "name": "banana pepper rings",
+        "quantity": 1,
+        "unit": "12 oz jar",
         "category": "produce",
         "optional": false
       },

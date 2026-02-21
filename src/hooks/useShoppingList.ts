@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from 'react';
 import type { PlanItem, ShoppingItem, ShoppingAdjustments, PantryStaple } from '../types';
 import { STORAGE_KEYS, storage } from '../utils/storage';
 import { usePersistedState } from './usePersistedState';
+import { parseIngredientLine } from '../utils/recipeValidation';
 
 // Ingredient families: any pantry member covers any other member in the same group.
 // Keep groups to truly interchangeable ingredients to avoid false positives.
@@ -131,6 +132,21 @@ const UNIT_ALIASES: Record<string, string> = {
   'pints': 'pint',
   'quarts': 'quart',
   'gallons': 'gallon',
+  // Container/count units — normalize to '' so they share a count key
+  'can': '',
+  'cans': '',
+  'jar': '',
+  'jars': '',
+  'bag': '',
+  'bags': '',
+  'box': '',
+  'boxes': '',
+  'bottle': '',
+  'bottles': '',
+  'package': '',
+  'packages': '',
+  'pkg': '',
+  'pkgs': '',
   // Size qualifiers and "unit" — all mean "whole item / count", use '' so they share a key
   'unit': '',
   'whole': '',
@@ -204,33 +220,6 @@ function normalizeShoppingName(name: string): string {
   return SHOPPING_NAME_ALIASES[dep] ?? dep;
 }
 
-// Detects ingredient names that have the quantity and unit baked in, e.g.
-// "1/2 teaspoon black pepper" or "2 tablespoons olive oil" — a common artefact
-// of recipe importers that fail to parse structured quantity fields.
-const EMBEDDED_QTY_RE = /^(\d+(?:\s+\d+\/\d+|\/\d+)?|\d+\.\d*)\s+(teaspoons?|tablespoons?|tsps?|tbsps?|cups?|ounces?|oz|pounds?|lbs?|grams?|g|kg|mls?|liters?|litres?|fluid\s+ounces?|pints?|quarts?|gallons?|pinch(?:es)?)\s+(.+)$/i;
-
-function parseEmbeddedQty(name: string): { name: string; qty: number; unit: string } | null {
-  const match = name.match(EMBEDDED_QTY_RE);
-  if (!match) return null;
-  const [, rawQty, rawUnit, rawName] = match;
-  let qty: number;
-  const trimmed = rawQty.trim();
-  if (trimmed.includes('/')) {
-    const parts = trimmed.split(/\s+/);
-    if (parts.length === 2) {
-      // Mixed number: "1 1/2"
-      const [num, den] = parts[1].split('/');
-      qty = parseInt(parts[0], 10) + parseInt(num, 10) / parseInt(den, 10);
-    } else {
-      const [num, den] = parts[0].split('/');
-      qty = parseInt(num, 10) / parseInt(den, 10);
-    }
-  } else {
-    qty = parseFloat(trimmed);
-  }
-  return { name: rawName.trim(), qty, unit: rawUnit };
-}
-
 function isCoveredByPantry(itemName: string, pantryNames: Set<string>): boolean {
   const lower = normalizeShoppingName(itemName);
   if (pantryNames.has(lower)) return true;
@@ -285,6 +274,7 @@ export const useShoppingList = ({ plan, pantryStaples, days }: UseShoppingListPa
       preparation: string;
       category: string;
       key: string;
+      sources: string[];
     }>();
 
     const filteredPlan = plan.filter(item => selectedShoppingDays.has(item.day));
@@ -302,8 +292,31 @@ export const useShoppingList = ({ plan, pantryStaples, days }: UseShoppingListPa
         let ingQty = ing.quantity || 0;
         let ingUnit = ing.unit || '';
         if (!ingQty || ingUnit.toLowerCase() === 'as needed') {
-          const embedded = parseEmbeddedQty(ingName);
-          if (embedded) { ingName = embedded.name; ingQty = embedded.qty; ingUnit = embedded.unit; }
+          const parsed = parseIngredientLine(ingName);
+          if (parsed && parsed.quantity != null && parsed.name !== ingName && parsed.name) {
+            ingName = parsed.name;
+            ingQty = parsed.quantity;
+            ingUnit = parsed.unit || '';
+          }
+        } else if (/^\//.test(ingName)) {
+          // Name has a spurious leading slash (import artifact) even though quantity/unit are set.
+          // Try to strip it by re-parsing; keep existing qty/unit if parse produces none.
+          const parsed = parseIngredientLine(ingName);
+          if (parsed && parsed.name && parsed.name !== ingName) {
+            ingName = parsed.name;
+            if (parsed.quantity != null) { ingQty = parsed.quantity; ingUnit = parsed.unit || ''; }
+          }
+        }
+
+        // Strip leading container/count descriptor words baked into names by importers,
+        // e.g. "can tomato paste" → name="tomato paste", qty implied 1
+        // "cans canned tomato sauce" → name="canned tomato sauce"
+        // Note: "canned" is intentionally NOT stripped — it's an adjective, not a unit.
+        const COUNT_PREFIX_RE = /^(cans?|jars?|bags?|bottles?|boxes?|packages?|pkgs?)\s+/i;
+        const countPrefix = ingName.match(COUNT_PREFIX_RE);
+        if (countPrefix) {
+          if (!ingQty) ingQty = 1;
+          ingName = ingName.slice(countPrefix[0].length).trim();
         }
 
         const normalizedName = normalizeShoppingName(ingName);
@@ -320,12 +333,16 @@ export const useShoppingList = ({ plan, pantryStaples, days }: UseShoppingListPa
             preparation: ing.preparation || '',
             category: ing.category || 'other',
             key,
+            sources: [],
           });
         }
 
         const item = map.get(key)!;
         item.totalQty += qty;
         item.count += 1;
+        if (recipe.name && !item.sources.includes(recipe.name)) {
+          item.sources.push(recipe.name);
+        }
       });
     });
 
@@ -352,8 +369,13 @@ export const useShoppingList = ({ plan, pantryStaples, days }: UseShoppingListPa
         totalCount += item.count;
       }
 
-      // Keep only the first volume entry, delete the rest
+      // Keep only the first volume entry, merge sources, delete the rest
       const primaryKey = volKeys[0];
+      const mergedSources = new Set(map.get(primaryKey)!.sources);
+      for (const k of volKeys.slice(1)) {
+        map.get(k)?.sources.forEach(s => mergedSources.add(s));
+      }
+      map.get(primaryKey)!.sources = Array.from(mergedSources);
       for (const k of volKeys.slice(1)) map.delete(k);
 
       const { qty, unit } = tspToUnit(totalTsp);
@@ -390,7 +412,9 @@ export const useShoppingList = ({ plan, pantryStaples, days }: UseShoppingListPa
       const primaryKey = keys[0];
       const primary = map.get(primaryKey)!;
       for (const k of keys.slice(1)) {
-        primary.count += map.get(k)!.count;
+        const sec = map.get(k)!;
+        primary.count += sec.count;
+        sec.sources.forEach(s => { if (!primary.sources.includes(s)) primary.sources.push(s); });
         map.delete(k);
       }
     }
