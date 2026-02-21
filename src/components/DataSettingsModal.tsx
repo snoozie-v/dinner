@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import type { ChangeEvent } from 'react';
 import type { Recipe, PlanItem, PantryStaple, MealPlanTemplate, UserPreferences, ShoppingAdjustments } from '../types';
 import { downloadFile } from '../utils/platform';
+import { fixIngredientData } from '../utils/fixIngredientData';
 
 interface ExportData {
   version: number;
@@ -33,6 +34,7 @@ interface DataSettingsModalProps {
   theme: string;
   // Setters for import
   onImportData: (data: ExportData, mode: 'overwrite' | 'merge') => void;
+  onFixIngredientData: (fixedRecipes: Recipe[], fixedPlan: PlanItem[]) => void;
 }
 
 const DataSettingsModal = ({
@@ -47,11 +49,13 @@ const DataSettingsModal = ({
   userPrefs,
   theme,
   onImportData,
+  onFixIngredientData,
 }: DataSettingsModalProps) => {
   const [importMode, setImportMode] = useState<'overwrite' | 'merge'>('merge');
   const [importPreview, setImportPreview] = useState<ExportData | null>(null);
   const [importError, setImportError] = useState<string | null>(null);
   const [showImportConfirm, setShowImportConfirm] = useState(false);
+  const [fixResult, setFixResult] = useState<{ ingredientsFixed: number } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -133,6 +137,12 @@ const DataSettingsModal = ({
     setImportPreview(null);
     setShowImportConfirm(false);
     setImportError(null);
+  };
+
+  const handleFixIngredientData = () => {
+    const { fixedRecipes, fixedPlan, ingredientsFixed } = fixIngredientData(customRecipes, plan);
+    onFixIngredientData(fixedRecipes, fixedPlan);
+    setFixResult({ ingredientsFixed });
   };
 
   const formatDate = (dateString: string) => {
@@ -266,6 +276,39 @@ const DataSettingsModal = ({
               <div className="mt-3 p-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg text-sm text-red-700 dark:text-red-300">
                 {importError}
               </div>
+            )}
+          </div>
+
+          {/* Divider */}
+          <hr className="border-gray-200 dark:border-gray-700" />
+
+          {/* Fix Ingredient Data Section */}
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
+              Fix Ingredient Data
+            </h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+              Some recipe importers write the quantity and unit into the ingredient name instead of the correct fields (e.g. <span className="font-mono text-xs bg-gray-100 dark:bg-gray-700 px-1 rounded">1/2 teaspoon black pepper</span> as the name with no quantity). This scans your recipe library and meal plan and fixes those ingredients in place.
+            </p>
+            <button
+              onClick={handleFixIngredientData}
+              className="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-3 bg-amber-600 text-white rounded-lg hover:bg-amber-700 active:bg-amber-800 transition font-medium touch-manipulation"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Scan & Fix Ingredients
+            </button>
+            {fixResult && (
+              fixResult.ingredientsFixed > 0 ? (
+                <div className="mt-3 p-3 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-lg text-sm text-green-700 dark:text-green-300">
+                  Fixed {fixResult.ingredientsFixed} ingredient{fixResult.ingredientsFixed !== 1 ? 's' : ''} across your recipe library and meal plan.
+                </div>
+              ) : (
+                <div className="mt-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg text-sm text-gray-600 dark:text-gray-400">
+                  No issues found — all ingredient data looks correct.
+                </div>
+              )
             )}
           </div>
         </div>

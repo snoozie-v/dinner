@@ -616,6 +616,10 @@ function App() {
         userPrefs={userPrefs.userPrefs}
         theme={app.theme}
         onImportData={handleImportData}
+        onFixIngredientData={(fixedRecipes, fixedPlan) => {
+          recipes.importRecipes(fixedRecipes, 'overwrite');
+          mealPlan.setPlan(fixedPlan);
+        }}
       />
 
       {/* Help Modal - User Guide */}

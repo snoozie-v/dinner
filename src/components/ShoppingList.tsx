@@ -452,8 +452,13 @@ const ShoppingList = ({
                                   </span>
                                 )}
                               </div>
-                              <div className="text-sm text-gray-500 dark:text-gray-400">
-                                {formatQuantity(item.totalQty, item.unit)}
+                              <div className="text-sm text-gray-500 dark:text-gray-400 flex items-baseline gap-2 flex-wrap">
+                                <span>{formatQuantity(item.totalQty, item.unit)}</span>
+                                {item.count > 1 && (
+                                  <span className="text-xs text-gray-400 dark:text-gray-500">
+                                    used in {item.count} recipes
+                                  </span>
+                                )}
                               </div>
                             </div>
                           </div>

@@ -3138,7 +3138,7 @@
     "sourceUrl": "https://www.seriouseats.com/the-best-slow-cooked-bolognese-sauce-recipe",
     "isCustom": false,
     "createdAt": "2026-01-26",
-    "updatedAt": "2026-01-26",
+    "updatedAt": "2026-02-21T16:00:00.270Z",
     "name": "Slow Cooked Bolognese Sauce",
     "description": "The oven technique for this ragù Bolognese recipe develops rich flavors and a tender, silky texture. This is the Bolognese that will leave you and your loved ones weak in the knees.",
     "author": "",
@@ -3178,10 +3178,10 @@
         "optional": false
       },
       {
-        "name": "1/2 ounces powdered gelatin (4 to 6 packets; 30 to 45g), such as Knox",
-        "quantity": 1,
-        "unit": "",
-        "preparation": "see note",
+        "name": "powdered gelatin (4 to 6 packets; 30 to 45g)",
+        "quantity": 0.5,
+        "unit": "ounces",
+        "preparation": "such as Knox",
         "category": "other",
         "optional": false
       },
@@ -4221,7 +4221,7 @@
     "sourceUrl": "https://www.recipetineats.com/beef-stroganoff/",
     "isCustom": false,
     "createdAt": "2026-01-26",
-    "updatedAt": "2026-01-26",
+    "updatedAt": "2026-02-21T16:00:00.272Z",
     "name": "Beef Stroganoff",
     "description": "RECIPE VIDEO ABOVE. Juicy strips of beef smothered in a sour cream mushroom gravy - a quick dinner everyone will love! KEY STEPS: Sear beef super quickly for maximum juiciness and use a large skillet (for quick sear + fast sauce reduction). Stroganoff calls for good beef but if you only have a budget cut, use this easy Chinese method to tenderise the beef (it's called \"velveting\"). It's life changing - and perfect for Stroganoff.",
     "author": "",
@@ -4317,11 +4317,12 @@
         "optional": false
       },
       {
-        "name": "10 oz pasta or egg noodles of choice",
-        "quantity": 275,
-        "unit": "",
+        "name": "pasta or egg noodles of choice",
+        "quantity": 10,
+        "unit": "oz",
         "category": "pantry",
-        "optional": false
+        "optional": false,
+        "preparation": ""
       },
       {
         "name": "Chopped chives",
