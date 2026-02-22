@@ -107,6 +107,110 @@ const SHOPPING_NAME_ALIASES: Record<string, string> = {
   'stalk celery': 'celery',
   'rib celery': 'celery',
   'stick celery': 'celery',
+
+  // Basil leaf forms
+  'basil leave': 'basil',
+  'dried basil leave': 'dried basil',
+
+  // Bay leaf forms
+  'bay leave': 'bay leaf',
+  'dried bay leave': 'dried bay leaf',
+
+  // Corn
+  'corn kernel': 'corn',
+
+  // Parmesan
+  'parmesan cheese': 'parmesan',
+  'shaved parmesan': 'parmesan',
+
+  // Mozzarella
+  'mozzarella cheese': 'mozzarella',
+  'firm mozzarella cheese': 'mozzarella',
+  'soft mozzarella cheese': 'mozzarella',
+
+  // Jalapeño spelling variants
+  'jalapeno': 'jalapeño',
+  'jalapeño pepper': 'jalapeño',
+  'jalapeno pepper': 'jalapeño',
+
+  // Ground beef
+  'lean ground beef': 'ground beef',
+
+  // Italian sausage
+  'sweet italian sausage': 'italian sausage',
+
+  // Cooking spray
+  'non-stick cooking spray': 'cooking spray',
+  'nonstick cooking spray': 'cooking spray',
+  'oil spray': 'cooking spray',
+
+  // Ground beef variants
+  'beef mince': 'ground beef',
+  'beef mince (ground beef)': 'ground beef',
+  'ground chuck': 'ground beef',
+  'ground beef chuck': 'ground beef',
+  'minced beef': 'ground beef',
+
+  // Ground pork
+  'pork mince': 'ground pork',
+  'minced pork': 'ground pork',
+
+  // Cumin
+  'cumin powder': 'ground cumin',
+
+  // Cayenne
+  'cayenne powder': 'cayenne pepper',
+  'cayenne': 'cayenne pepper',
+
+  // Paprika
+  'smoky paprika': 'smoked paprika',
+
+  // Scallions / green onions
+  'scallion': 'green onion',
+  'scallions': 'green onion',
+  'spring onion': 'green onion',
+  'spring onions': 'green onion',
+
+  // Sesame oil
+  'toasted sesame oil': 'sesame oil',
+
+  // Cornstarch
+  'cornflour': 'cornstarch',
+  'corn starch': 'cornstarch',
+  'corn flour': 'cornstarch',
+
+  // Heavy cream
+  'heavy whipping cream': 'heavy cream',
+  'whipping cream': 'heavy cream',
+  'double cream': 'heavy cream',
+
+  // Chicken thigh / breast variants
+  'boneless chicken breast': 'chicken breast',
+  'boneless skinless chicken breast': 'chicken breast',
+  'chicken breasts': 'chicken breast',
+  'boneless chicken thigh': 'chicken thigh',
+  'boneless skinless chicken thigh': 'chicken thigh',
+  'chicken thighs': 'chicken thigh',
+
+  // Broth / stock (specific proteins)
+  'chicken stock': 'chicken broth',
+  // (already in table above, but ensure parity for beef/veg)
+
+  // Red pepper / capsicum
+  'red capsicum': 'red bell pepper',
+  'green capsicum': 'green bell pepper',
+  'yellow capsicum': 'yellow bell pepper',
+  'capsicum': 'bell pepper',
+
+  // Dried chili
+  'dried ground chilli': 'chili powder',
+  'dried ground chili': 'chili powder',
+  'chilli powder': 'chili powder',
+
+  // Sundry
+  'shallot': 'shallots',
+  'romano bean': 'kidney bean',
+  'romano beans': 'kidney beans',
 };
 
 const UNIT_ALIASES: Record<string, string> = {
@@ -155,6 +259,29 @@ const UNIT_ALIASES: Record<string, string> = {
   'small': '',
   'extra large': '',
   'xl': '',
+  // Metric abbreviations not otherwise covered
+  'g': 'gram',
+  'ml': 'milliliter',
+  'kg': 'kilogram',
+  // Botanical / produce count units — normalize to '' so they share a count key
+  'bunch': '',
+  'bunches': '',
+  'stalk': '',
+  'stalks': '',
+  'sprig': '',
+  'sprigs': '',
+  'head': '',
+  'heads': '',
+  'slice': '',
+  'slices': '',
+  'clove': '',
+  'cloves': '',
+  'dash': '',
+  'dashes': '',
+  'pinch': '',
+  'pinches': '',
+  'strip': '',
+  'strips': '',
 };
 
 const WEIGHT_UNITS = new Set(['gram', 'kilogram', 'ounce', 'pound']);
@@ -190,9 +317,12 @@ for (const family of INGREDIENT_FAMILIES) {
 
 // Strip parenthetical annotations baked into ingredient names, e.g.
 // "cayenne pepper (adjust spiciness to taste)" → "cayenne pepper"
-// Also handles unclosed parens: "cayenne pepper (adjust spiciness to taste"
+// Also handles unclosed parens and trailing orphan ")" from import artifacts.
 function stripParenthetical(name: string): string {
-  return name.replace(/\s*\([^)]*\)?/g, '').trim().toLowerCase();
+  return name
+    .replace(/\s*\([^)]*\)?/g, '')  // remove (text) and unclosed (text
+    .replace(/\)+$/, '')             // remove trailing orphan )
+    .trim().toLowerCase();
 }
 
 // Conservative whole-string depluralization for ingredient names.
@@ -211,9 +341,47 @@ function normalizeUnit(unit: string): string {
   return UNIT_ALIASES[lower] ?? lower;
 }
 
+// Step 1: strip optional adverb/adjective modifiers + a prep verb + optional trailing "fresh"
+// Handles: "freshly chopped basil", "finely minced garlic", "lightly packed fresh cilantro", etc.
+const PREP_VERB_PREFIX_RE = /^(?:(?:fresh(?:ly)?|finely|roughly|coarsely|thinly|lightly|well)\s+)*(?:chopped|minced|diced|sliced|torn|snipped|shredded|halved|grated|packed|peeled)(?:\s+fresh(?:ly)?)?\s+/i;
+// Step 2: strip bare state/freshness prefixes not caught by step 1
+const MODIFIER_PREFIX_RE = /^(?:fresh(?:ly)?|melted|softened)\s+/i;
+
 function normalizeShoppingName(name: string): string {
   let n = stripParenthetical(name);
   n = n.replace(/\s+/g, ' ');
+  // Strip trailing footnote markers: "lean ground beef***" → "lean ground beef"
+  n = n.replace(/\*+$/, '').trim();
+  // Strip trailing punctuation artifacts: "bread for mopping!" → "bread for mopping"
+  n = n.replace(/!+$/, '').trim();
+  // Strip trailing superscript digit artifacts: "cayenne pepper³" → "cayenne pepper"
+  n = n.replace(/[\u00B2\u00B3\u00B9\u2070-\u2079]+$/, '').trim();
+  // Strip trailing "to taste": "black pepper to taste" → "black pepper"
+  n = n.replace(/\s+to\s+taste$/, '').trim();
+  // Strip preparation descriptors after a comma: "yellow onion, diced" → "yellow onion"
+  const commaIdx = n.indexOf(',');
+  if (commaIdx !== -1) {
+    n = n.slice(0, commaIdx).trim();
+  }
+  // Strip leading "of " artifact: "of mozzarella cheese" → "mozzarella cheese"
+  n = n.replace(/^of\s+/, '').trim();
+  // Collapse "or" alternatives: keep only the primary option.
+  // "lime juice or 1 tablespoon sherry vinegar" → "lime juice"
+  // "broccoli or 1 small head of cauliflower" → "broccoli"
+  // Special case: if the part before "or" is a lone color/size modifier (not a real ingredient),
+  // take the part after "or" instead — "red or white onion" → "white onion" → alias → "onion"
+  const orIdx = n.indexOf(' or ');
+  if (orIdx !== -1) {
+    const before = n.slice(0, orIdx).trim();
+    const after = n.slice(orIdx + 4).trim();
+    const isBareModifier = /^(red|green|yellow|white|brown|dark|light|black|orange|purple|fresh|dried|dry)$/i.test(before);
+    // Strip any leading quantity+unit from the "after" part before using it
+    const afterClean = after.replace(/^\d[\d\s/.]*(tablespoons?|teaspoons?|cups?|ounces?|pounds?|grams?|tbsp|tsp|oz|lbs?|cups?)\.?\s+/i, '').trim();
+    n = isBareModifier ? afterClean : before;
+  }
+  // Strip leading preparation descriptors: "fresh chopped basil" → "basil"
+  n = n.replace(PREP_VERB_PREFIX_RE, '').trim();
+  n = n.replace(MODIFIER_PREFIX_RE, '').trim();
   if (SHOPPING_NAME_ALIASES[n]) return SHOPPING_NAME_ALIASES[n];
   // Try depluralized form (carrots→carrot, celery stalks→celery stalk→alias)
   const dep = depluralizeName(n);
@@ -275,6 +443,7 @@ export const useShoppingList = ({ plan, pantryStaples, days }: UseShoppingListPa
       category: string;
       key: string;
       sources: string[];
+      recipeBreakdown: Array<{ recipeName: string; qty: number; unit: string }>;
     }>();
 
     const filteredPlan = plan.filter(item => selectedShoppingDays.has(item.day));
@@ -284,39 +453,48 @@ export const useShoppingList = ({ plan, pantryStaples, days }: UseShoppingListPa
 
       recipe?.ingredients?.forEach((ing) => {
         if (!ing?.name) return;
-        // Skip "Other: ..." annotation lines — these are recipe notes, not real ingredients
-        if (ing.name.trim().toLowerCase().startsWith('other:')) return;
+        // Skip annotation lines that are recipe notes, not real ingredients
+        const ingNameLower = ing.name.trim().toLowerCase();
+        if (ingNameLower.startsWith('other:')) return;
+        if (ingNameLower.startsWith('suggested garnishes:')) return;
 
-        // Recover quantity/unit embedded in the name when the recipe data has none
+        // Always attempt to extract a clean ingredient name from the name field —
+        // importers often bake quantity/unit strings into it (e.g. "⅓ tsp cayenne pepper",
+        // "/ 2.5 lb potato").  Only adopt the parsed qty/unit when the recipe data has none.
         let ingName = ing.name;
         let ingQty = ing.quantity || 0;
         let ingUnit = ing.unit || '';
-        if (!ingQty || ingUnit.toLowerCase() === 'as needed') {
-          const parsed = parseIngredientLine(ingName);
-          if (parsed && parsed.quantity != null && parsed.name !== ingName && parsed.name) {
-            ingName = parsed.name;
+        const parsed = parseIngredientLine(ingName);
+        if (parsed && parsed.name && parsed.name !== ingName) {
+          if ((!ingQty || ingUnit.toLowerCase() === 'as needed') && parsed.quantity != null) {
             ingQty = parsed.quantity;
             ingUnit = parsed.unit || '';
           }
-        } else if (/^\//.test(ingName)) {
-          // Name has a spurious leading slash (import artifact) even though quantity/unit are set.
-          // Try to strip it by re-parsing; keep existing qty/unit if parse produces none.
-          const parsed = parseIngredientLine(ingName);
-          if (parsed && parsed.name && parsed.name !== ingName) {
-            ingName = parsed.name;
-            if (parsed.quantity != null) { ingQty = parsed.quantity; ingUnit = parsed.unit || ''; }
-          }
+          ingName = parsed.name;
         }
 
-        // Strip leading container/count descriptor words baked into names by importers,
-        // e.g. "can tomato paste" → name="tomato paste", qty implied 1
-        // "cans canned tomato sauce" → name="canned tomato sauce"
-        // Note: "canned" is intentionally NOT stripped — it's an adjective, not a unit.
-        const COUNT_PREFIX_RE = /^(cans?|jars?|bags?|bottles?|boxes?|packages?|pkgs?)\s+/i;
+        // Strip leading container/count/unit descriptor words baked into names by importers.
+        // "can tomato paste" → "tomato paste" (qty implied 1)
+        // "cloves garlic" → "garlic" | "pinch of salt" → "salt" | "unit lemon" → "lemon"
+        // Note: "canned" is intentionally NOT in this list — it's an adjective, not a unit.
+        const COUNT_PREFIX_RE = /^(cans?|jars?|bags?|bottles?|boxes?|packages?|pkgs?|cloves?|pinch(?:es)?(?:\s+of)?|handful(?:s)?(?:\s+of)?|unit)\s+/i;
         const countPrefix = ingName.match(COUNT_PREFIX_RE);
         if (countPrefix) {
           if (!ingQty) ingQty = 1;
           ingName = ingName.slice(countPrefix[0].length).trim();
+        }
+
+        // Strip leading volume/weight unit words when they're baked into the name field
+        // but the quantity is already stored separately.
+        // "tablespoons lemon juice" + qty=5, unit="" → name="lemon juice", unit="tablespoon"
+        // "ounces baby spinach" + qty=10, unit="" → name="baby spinach", unit="ounce"
+        const UNIT_WORD_PREFIX_RE = /^(tablespoons?|teaspoons?|ounces?|pounds?|cups?|grams?|kg|ml|g|tbsps?|tsps?|ozs?|lbs?)\s+/i;
+        const unitWordPrefix = ingName.match(UNIT_WORD_PREFIX_RE);
+        if (unitWordPrefix) {
+          if (!ingUnit || ingUnit.toLowerCase() === 'as needed') {
+            ingUnit = normalizeUnit(unitWordPrefix[1]);
+          }
+          ingName = ingName.slice(unitWordPrefix[0].length).trim();
         }
 
         const normalizedName = normalizeShoppingName(ingName);
@@ -334,6 +512,7 @@ export const useShoppingList = ({ plan, pantryStaples, days }: UseShoppingListPa
             category: ing.category || 'other',
             key,
             sources: [],
+            recipeBreakdown: [],
           });
         }
 
@@ -342,6 +521,13 @@ export const useShoppingList = ({ plan, pantryStaples, days }: UseShoppingListPa
         item.count += 1;
         if (recipe.name && !item.sources.includes(recipe.name)) {
           item.sources.push(recipe.name);
+        }
+        const recipeName = recipe.name || 'Unknown';
+        const bdEntry = item.recipeBreakdown.find(b => b.recipeName === recipeName);
+        if (bdEntry) {
+          bdEntry.qty += qty;
+        } else {
+          item.recipeBreakdown.push({ recipeName, qty, unit: normalizedUnit || 'unit' });
         }
       });
     });
@@ -376,6 +562,15 @@ export const useShoppingList = ({ plan, pantryStaples, days }: UseShoppingListPa
         map.get(k)?.sources.forEach(s => mergedSources.add(s));
       }
       map.get(primaryKey)!.sources = Array.from(mergedSources);
+      const mergedBreakdown = [...map.get(primaryKey)!.recipeBreakdown];
+      for (const k of volKeys.slice(1)) {
+        for (const entry of map.get(k)!.recipeBreakdown) {
+          const ex = mergedBreakdown.find(b => b.recipeName === entry.recipeName);
+          if (ex) ex.qty += entry.qty;
+          else mergedBreakdown.push({ ...entry });
+        }
+      }
+      map.get(primaryKey)!.recipeBreakdown = mergedBreakdown;
       for (const k of volKeys.slice(1)) map.delete(k);
 
       const { qty, unit } = tspToUnit(totalTsp);
@@ -415,6 +610,11 @@ export const useShoppingList = ({ plan, pantryStaples, days }: UseShoppingListPa
         const sec = map.get(k)!;
         primary.count += sec.count;
         sec.sources.forEach(s => { if (!primary.sources.includes(s)) primary.sources.push(s); });
+        for (const entry of sec.recipeBreakdown) {
+          const ex = primary.recipeBreakdown.find(b => b.recipeName === entry.recipeName);
+          if (ex) ex.qty += entry.qty;
+          else primary.recipeBreakdown.push({ ...entry });
+        }
         map.delete(k);
       }
     }

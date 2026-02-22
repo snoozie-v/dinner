@@ -123,6 +123,7 @@ export interface ShoppingItem {
   displayNeeded: string | number;
   displayTotal: string | number;
   isPantryStaple?: boolean;
+  recipeBreakdown: Array<{ recipeName: string; qty: number; unit: string }>;
 }
 
 export interface ShoppingAdjustment {

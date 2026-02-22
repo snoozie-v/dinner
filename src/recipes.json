@@ -63,7 +63,7 @@
         "name": "baking powder",
         "quantity": 4,
         "unit": "teaspoons",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
@@ -77,14 +77,14 @@
         "name": "vanilla extract",
         "quantity": 0.5,
         "unit": "teaspoon",
-        "category": "other",
+        "category": "pantry",
         "optional": false
       },
       {
         "name": "nonstick cooking spray",
         "quantity": 0,
         "unit": "",
-        "category": "other",
+        "category": "pantry",
         "optional": false
       }
     ],
@@ -174,17 +174,26 @@
         "optional": false
       },
       {
-        "name": "salt and pepper to taste",
+        "name": "salt",
         "quantity": 0,
         "unit": "",
-        "category": "produce",
-        "optional": false
+        "category": "spices",
+        "optional": false,
+        "preparation": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "quantity": 0,
+        "unit": "",
+        "category": "spices",
+        "optional": false,
+        "preparation": "to taste"
       },
       {
         "name": "ketchup",
         "quantity": 0.33,
         "unit": "cup",
-        "category": "condiments",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -261,7 +270,7 @@
         "name": "lemon juice",
         "quantity": 0.25,
         "unit": "cup",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -290,21 +299,21 @@
         "name": "ground mustard",
         "quantity": 1,
         "unit": "teaspoon",
-        "category": "condiments",
+        "category": "spices",
         "optional": false
       },
       {
         "name": "ground ginger",
         "quantity": 1,
         "unit": "teaspoon",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
         "name": "garlic powder",
         "quantity": 0.25,
         "unit": "teaspoon",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -490,11 +499,12 @@
     "cuisine": "Mexican",
     "ingredients": [
       {
-        "name": "ripe avocados",
+        "name": "avocados",
         "quantity": 2,
         "unit": "",
         "category": "produce",
-        "optional": false
+        "optional": false,
+        "preparation": "ripe"
       },
       {
         "name": "salt",
@@ -542,10 +552,10 @@
         "optional": false
       },
       {
-        "name": "ripe tomato, chopped",
+        "name": "tomato",
         "quantity": 0.5,
         "unit": "",
-        "preparation": "optional",
+        "preparation": "ripe, chopped, optional",
         "category": "produce",
         "optional": false
       },
@@ -672,7 +682,7 @@
         "quantity": 0,
         "unit": "",
         "preparation": "to help slide the pizza onto the pizza stone",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -680,7 +690,7 @@
         "quantity": 0,
         "unit": "",
         "preparation": "smooth, or puréed",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -781,7 +791,7 @@
         "name": "Pesto",
         "quantity": 0,
         "unit": "",
-        "category": "other",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -922,14 +932,14 @@
         "name": "Italian seasoning",
         "quantity": 1,
         "unit": "tablespoon",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
         "name": "red pepper flakes",
         "quantity": 0.5,
         "unit": "teaspoon",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -940,11 +950,20 @@
         "optional": false
       },
       {
-        "name": "Salt and pepper to taste",
+        "name": "salt",
         "quantity": 0,
         "unit": "",
-        "category": "produce",
-        "optional": false
+        "category": "spices",
+        "optional": false,
+        "preparation": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "quantity": 0,
+        "unit": "",
+        "category": "spices",
+        "optional": false,
+        "preparation": "to taste"
       },
       {
         "name": "of mozzarella cheese",
@@ -1052,17 +1071,26 @@
         "optional": false
       },
       {
-        "name": "Salt and freshly ground black pepper",
+        "name": "salt",
         "quantity": 0,
         "unit": "",
-        "category": "produce",
-        "optional": false
+        "category": "spices",
+        "optional": false,
+        "preparation": "to taste"
       },
       {
-        "name": "½ cup uncooked quinoa, rinsed",
+        "name": "black pepper",
         "quantity": 0,
         "unit": "",
-        "preparation": "or 1 ½ cups cooked quinoa",
+        "category": "spices",
+        "optional": false,
+        "preparation": "to taste"
+      },
+      {
+        "name": "½ cup uncooked quinoa",
+        "quantity": 0,
+        "unit": "",
+        "preparation": "or 1 ½ cups cooked quinoa, rinsed",
         "category": "other",
         "optional": false
       },
@@ -1074,10 +1102,10 @@
         "optional": false
       },
       {
-        "name": "tablespoons lemon juice, to taste",
+        "name": "tablespoons lemon juice",
         "quantity": 2,
         "unit": "",
-        "preparation": "about 1 medium lemon",
+        "preparation": "about 1 medium lemon, to taste",
         "category": "produce",
         "optional": false
       },
@@ -1098,18 +1126,18 @@
         "optional": false
       },
       {
-        "name": "⅔ ounce fresh basil leaves, chopped",
+        "name": "⅔ ounce fresh basil leaves",
         "quantity": 0,
         "unit": "",
-        "preparation": "about ⅓ cup",
+        "preparation": "about ⅓ cup, chopped",
         "category": "produce",
         "optional": false
       },
       {
-        "name": "⅔ ounce fresh mint leaves, chopped",
+        "name": "⅔ ounce fresh mint leaves",
         "quantity": 0,
         "unit": "",
-        "preparation": "about ⅓ cup",
+        "preparation": "about ⅓ cup, chopped",
         "category": "other",
         "optional": false
       },
@@ -1198,10 +1226,10 @@
         "optional": false
       },
       {
-        "name": "cornflour / corn starch",
+        "name": "cornstarch",
         "quantity": 1,
         "unit": "tbsp",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -1213,14 +1241,14 @@
         "optional": false
       },
       {
-        "name": "Oyster Sauce ",
+        "name": "Oyster Sauce",
         "quantity": 1,
         "unit": "tbsp",
         "category": "pantry",
         "optional": false
       },
       {
-        "name": "Chinese Cooking Wine (OR Mirin ",
+        "name": "Chinese Cooking Wine (OR Mirin",
         "quantity": 1,
         "unit": "tbsp",
         "category": "other",
@@ -1360,14 +1388,23 @@
         "optional": false
       },
       {
-        "name": "Salt and pepper",
+        "name": "salt",
         "quantity": 0,
         "unit": "",
-        "category": "produce",
-        "optional": false
+        "category": "spices",
+        "optional": false,
+        "preparation": "to taste"
       },
       {
-        "name": "flour ",
+        "name": "black pepper",
+        "quantity": 0,
+        "unit": "",
+        "category": "spices",
+        "optional": false,
+        "preparation": "to taste"
+      },
+      {
+        "name": "flour",
         "quantity": 0.25,
         "unit": "cup",
         "category": "pantry",
@@ -1525,7 +1562,7 @@
         "name": "black pepper",
         "quantity": 0.25,
         "unit": "teaspoon",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -1539,7 +1576,7 @@
         "name": "chicken broth",
         "quantity": 1.75,
         "unit": "cups",
-        "category": "protein/meat",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -1706,11 +1743,20 @@
         "optional": false
       },
       {
-        "name": "salt and freshly ground black pepper to taste",
+        "name": "salt",
         "quantity": 0,
         "unit": "",
-        "category": "produce",
-        "optional": false
+        "category": "spices",
+        "optional": false,
+        "preparation": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "quantity": 0,
+        "unit": "",
+        "category": "spices",
+        "optional": false,
+        "preparation": "to taste"
       },
       {
         "name": "eggs",
@@ -1869,28 +1915,28 @@
         "name": "garlic powder",
         "quantity": 0.5,
         "unit": "tsp",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
         "name": "onion powder",
         "quantity": 0.5,
         "unit": "tsp",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
         "name": "cayenne pepper",
         "quantity": 0.25,
         "unit": "tsp",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
         "name": "black pepper",
         "quantity": 0.25,
         "unit": "tsp",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -1915,18 +1961,20 @@
         "optional": false
       },
       {
-        "name": "boneless, skinless chicken breast",
+        "name": "boneless",
         "quantity": 1,
         "unit": "lb",
         "category": "protein/meat",
-        "optional": false
+        "optional": false,
+        "preparation": "skinless chicken breast"
       },
       {
-        "name": "yellow onion, diced",
+        "name": "yellow onion",
         "quantity": 1,
         "unit": "",
         "category": "produce",
-        "optional": false
+        "optional": false,
+        "preparation": "diced"
       },
       {
         "name": "penne pasta (uncooked)",
@@ -1946,7 +1994,7 @@
         "name": "chicken broth",
         "quantity": 2,
         "unit": "cups",
-        "category": "protein/meat",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -1957,11 +2005,12 @@
         "optional": false
       },
       {
-        "name": "green onions, sliced",
+        "name": "green onions",
         "quantity": 3,
         "unit": "",
         "category": "produce",
-        "optional": false
+        "optional": false,
+        "preparation": "sliced"
       }
     ],
     "instructions": [
@@ -2055,22 +2104,24 @@
         "name": "beef broth",
         "quantity": 2,
         "unit": "cups",
-        "category": "protein/meat",
-        "optional": false
-      },
-      {
-        "name": "pasta shells, uncooked",
-        "quantity": 0.5,
-        "unit": "lb",
         "category": "pantry",
         "optional": false
       },
       {
-        "name": "cheddar cheese, shredded",
+        "name": "pasta shells",
+        "quantity": 0.5,
+        "unit": "lb",
+        "category": "pantry",
+        "optional": false,
+        "preparation": "uncooked"
+      },
+      {
+        "name": "cheddar cheese",
         "quantity": 4,
         "unit": "oz",
         "category": "dairy",
-        "optional": false
+        "optional": false,
+        "preparation": "shredded"
       },
       {
         "name": "hot dog relish",
@@ -2080,11 +2131,12 @@
         "optional": false
       },
       {
-        "name": "green onions, sliced (optional)",
+        "name": "green onions",
         "quantity": 2,
         "unit": "",
         "category": "produce",
-        "optional": false
+        "optional": false,
+        "preparation": "sliced"
       }
     ],
     "instructions": [
@@ -2183,14 +2235,14 @@
         "name": "dried basil",
         "quantity": 1,
         "unit": "tsp",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
         "name": "dried parsley",
         "quantity": 1,
         "unit": "tbsp",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -2204,7 +2256,7 @@
         "name": "bay leaf",
         "quantity": 1,
         "unit": "",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
@@ -2334,7 +2386,7 @@
         "quantity": 14.5,
         "unit": "oz",
         "preparation": "1 can",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -2376,7 +2428,7 @@
         "name": "tomato paste",
         "quantity": 2,
         "unit": "tbsp",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -2471,7 +2523,7 @@
         "name": "fettuccine",
         "quantity": 12,
         "unit": "oz",
-        "category": "other",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -2483,30 +2535,32 @@
       },
       {
         "name": "diced tomatoes",
-        "quantity": 1,
-        "unit": "28 oz can",
-        "category": "produce",
+        "quantity": 28,
+        "unit": "oz",
+        "category": "pantry",
         "optional": false
       },
       {
-        "name": "yellow onion, sliced",
+        "name": "yellow onion",
         "quantity": 1,
         "unit": "",
         "category": "produce",
-        "optional": false
+        "optional": false,
+        "preparation": "sliced"
       },
       {
-        "name": "garlic, sliced",
+        "name": "garlic",
         "quantity": 4,
         "unit": "cloves",
         "category": "produce",
-        "optional": false
+        "optional": false,
+        "preparation": "sliced"
       },
       {
         "name": "dried basil",
         "quantity": 0.5,
         "unit": "tbsp",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -2520,7 +2574,7 @@
         "name": "crushed red pepper",
         "quantity": 0.25,
         "unit": "tsp",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -2670,14 +2724,14 @@
         "name": "beef broth",
         "quantity": 2,
         "unit": "cups",
-        "category": "protein/meat",
+        "category": "pantry",
         "optional": false
       },
       {
         "name": "Dijon mustard",
         "quantity": 2,
         "unit": "tbsp",
-        "category": "condiments",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -2793,7 +2847,7 @@
         "optional": false
       },
       {
-        "name": "toasted sesame oil",
+        "name": "sesame oil",
         "quantity": 1,
         "unit": "tsp",
         "category": "pantry",
@@ -2914,10 +2968,10 @@
         "optional": false
       },
       {
-        "name": "celery stalk, finely chopped",
+        "name": "celery stalk",
         "quantity": 1,
         "unit": "",
-        "preparation": "about 1/2 cup",
+        "preparation": "about 1/2 cup, finely chopped",
         "category": "produce",
         "optional": false
       },
@@ -2925,14 +2979,14 @@
         "name": "capers",
         "quantity": 1,
         "unit": "tablespoon",
-        "category": "other",
+        "category": "pantry",
         "optional": false
       },
       {
         "name": "lemon juice",
         "quantity": 1,
         "unit": "tablespoon",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -2955,7 +3009,7 @@
         "name": "Dijon mustard",
         "quantity": 1,
         "unit": "teaspoon",
-        "category": "condiments",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -3050,7 +3104,7 @@
         "quantity": 1,
         "unit": "",
         "preparation": "preferably a day old, thinly sliced",
-        "category": "other",
+        "category": "bakery",
         "optional": false
       },
       {
@@ -3074,7 +3128,7 @@
         "quantity": 1,
         "unit": "teaspoon",
         "preparation": "or 1-2 anchovies, minced",
-        "category": "other",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -3224,7 +3278,7 @@
         "optional": false
       },
       {
-        "name": "(450g) ground lamb shoulder",
+        "name": "ground lamb",
         "quantity": 1,
         "unit": "pound",
         "preparation": "about 20% fat",
@@ -3232,11 +3286,20 @@
         "optional": false
       },
       {
-        "name": "Kosher salt and freshly ground black pepper",
+        "name": "salt",
         "quantity": 0,
         "unit": "",
-        "category": "produce",
-        "optional": false
+        "category": "spices",
+        "optional": false,
+        "preparation": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "quantity": 0,
+        "unit": "",
+        "category": "spices",
+        "optional": false,
+        "preparation": "to taste"
       },
       {
         "name": "(60g) unsalted butter",
@@ -3253,26 +3316,26 @@
         "optional": false
       },
       {
-        "name": "onion, finely minced",
+        "name": "onion",
         "quantity": 1,
         "unit": "large",
-        "preparation": "about 8 ounces; 225g",
+        "preparation": "about 8 ounces; 225g, finely minced",
         "category": "produce",
         "optional": false
       },
       {
-        "name": "carrots, finely chopped",
+        "name": "carrots",
         "quantity": 2,
         "unit": "",
-        "preparation": "about 8 ounces; 225g",
+        "preparation": "about 8 ounces; 225g, finely chopped",
         "category": "produce",
         "optional": false
       },
       {
-        "name": "ribs celery, finely chopped",
+        "name": "ribs celery",
         "quantity": 4,
         "unit": "",
-        "preparation": "about 8 ounces; 225g",
+        "preparation": "about 8 ounces; 225g, finely chopped",
         "category": "produce",
         "optional": false
       },
@@ -3317,7 +3380,7 @@
         "name": "bay leaves",
         "quantity": 2,
         "unit": "",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
@@ -3437,18 +3500,18 @@
         "optional": false
       },
       {
-        "name": "Red pepper flakes, to taste",
+        "name": "Red pepper flakes",
         "quantity": 0,
         "unit": "",
-        "preparation": "optional",
-        "category": "produce",
+        "preparation": "optional, to taste",
+        "category": "spices",
         "optional": false
       },
       {
-        "name": "Minced flat-leaf parsley, for serving",
+        "name": "Minced flat-leaf parsley",
         "quantity": 0,
         "unit": "",
-        "preparation": "optional",
+        "preparation": "optional, for serving",
         "category": "produce",
         "optional": false
       }
@@ -3544,7 +3607,7 @@
         "name": "curry powder",
         "quantity": 1,
         "unit": "teaspoon",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
@@ -3792,7 +3855,7 @@
         "name": "bay leaf",
         "quantity": 1,
         "unit": "",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
@@ -3804,18 +3867,10 @@
         "optional": false
       },
       {
-        "name": "teaspoons sherry vinegar or red wine vinegar or lime juice",
+        "name": "lime juice or red wine vinegar or lime juice",
         "quantity": 1,
-        "unit": "",
+        "unit": "teaspoons",
         "preparation": "to taste",
-        "category": "produce",
-        "optional": false
-      },
-      {
-        "name": "Garnishes: chopped cilantro",
-        "quantity": 0,
-        "unit": "",
-        "preparation": "sliced avocado, tortilla chips, sour cream or crème fraîche, grated cheddar cheese, etc.",
         "category": "produce",
         "optional": false
       }
@@ -3940,14 +3995,6 @@
         "unit": "tablespoon",
         "category": "pantry",
         "optional": false
-      },
-      {
-        "name": "Any of the following garnishes:  drizzle of olive oil or zhoug sauce",
-        "quantity": 0,
-        "unit": "",
-        "preparation": "sprinkle of ground sumac or paprika, chopped fresh parsley",
-        "category": "pantry",
-        "optional": false
       }
     ],
     "instructions": [
@@ -4069,10 +4116,10 @@
         "optional": false
       },
       {
-        "name": "black beans, rinsed and drained",
+        "name": "black beans",
         "quantity": 2,
         "unit": "cans",
-        "preparation": "or 3 cups cooked black beans",
+        "preparation": "or 3 cups cooked black beans, rinsed and drained",
         "category": "pantry",
         "optional": false
       },
@@ -4084,10 +4131,10 @@
         "optional": false
       },
       {
-        "name": "sherry vinegar or lime juice",
+        "name": "lime juice",
         "quantity": 1,
         "unit": "teaspoon",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -4122,10 +4169,10 @@
         "optional": false
       },
       {
-        "name": "jalapeño, seeded and roughly chopped, or ¼ teaspoon red pepper flakes",
+        "name": "jalapeño",
         "quantity": 1,
         "unit": "small",
-        "preparation": "go easy if sensitive to spice",
+        "preparation": "go easy if sensitive to spice, seeded and roughly chopped, or ¼ teaspoon red pepper flakes",
         "category": "produce",
         "optional": false
       },
@@ -4138,7 +4185,7 @@
         "optional": false
       },
       {
-        "name": "lime juice (about 1 medium lime) or 1 tablespoon sherry vinegar",
+        "name": "lime juice (about 1 medium lime)",
         "quantity": 2,
         "unit": "tablespoons",
         "category": "produce",
@@ -4178,14 +4225,6 @@
         "quantity": 0,
         "unit": "",
         "category": "other",
-        "optional": false
-      },
-      {
-        "name": "Suggested garnishes: Pickled jalapeños or pickled radishes or pickled red onions",
-        "quantity": 0,
-        "unit": "",
-        "preparation": "torn cilantro, hot sauce, etc.",
-        "category": "produce",
         "optional": false
       }
     ],
@@ -4243,7 +4282,7 @@
     "cuisine": "Russian",
     "ingredients": [
       {
-        "name": "scotch fillet steak / boneless rib eye",
+        "name": "boneless rib eye steak",
         "quantity": 600,
         "unit": "",
         "category": "protein/meat",
@@ -4281,7 +4320,7 @@
         "optional": false
       },
       {
-        "name": "flour ",
+        "name": "flour",
         "quantity": 2,
         "unit": "tbsp",
         "category": "pantry",
@@ -4292,14 +4331,14 @@
         "quantity": 2,
         "unit": "cups",
         "preparation": "preferably salt reduced",
-        "category": "protein/meat",
+        "category": "pantry",
         "optional": false
       },
       {
         "name": "Dijon mustard",
         "quantity": 1,
         "unit": "tbsp",
-        "category": "condiments",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -4310,11 +4349,20 @@
         "optional": false
       },
       {
-        "name": "Salt and pepper",
+        "name": "salt",
         "quantity": 0,
         "unit": "",
-        "category": "produce",
-        "optional": false
+        "category": "spices",
+        "optional": false,
+        "preparation": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "quantity": 0,
+        "unit": "",
+        "category": "spices",
+        "optional": false,
+        "preparation": "to taste"
       },
       {
         "name": "pasta or egg noodles of choice",
@@ -4390,7 +4438,7 @@
     "cuisine": "Western",
     "ingredients": [
       {
-        "name": "chicken drumsticks ",
+        "name": "chicken drumsticks",
         "quantity": 12,
         "unit": "",
         "category": "protein/meat",
@@ -4414,14 +4462,14 @@
         "name": "garlic powder",
         "quantity": 3,
         "unit": "tsp",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
         "name": "onion powder",
         "quantity": 3,
         "unit": "tsp",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -4435,7 +4483,7 @@
         "name": "black pepper",
         "quantity": 2,
         "unit": "tsp",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -4544,14 +4592,14 @@
         "name": "vanilla extract",
         "quantity": 2,
         "unit": "teaspoons",
-        "category": "other",
+        "category": "pantry",
         "optional": false
       },
       {
         "name": "baking soda",
         "quantity": 1,
         "unit": "teaspoon",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
@@ -4720,7 +4768,7 @@
         "name": "dried basil leaves",
         "quantity": 1.5,
         "unit": "teaspoons",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -4735,21 +4783,21 @@
         "name": "Italian seasoning",
         "quantity": 1,
         "unit": "teaspoon",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
         "name": "fennel seeds",
         "quantity": 0.5,
         "unit": "teaspoon",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
         "name": "ground black pepper",
         "quantity": 0.25,
         "unit": "teaspoon",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -4869,7 +4917,7 @@
         "name": "vanilla extract",
         "quantity": 2,
         "unit": "teaspoons",
-        "category": "other",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -4883,7 +4931,7 @@
         "name": "baking powder",
         "quantity": 1.75,
         "unit": "teaspoons",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
@@ -4961,7 +5009,7 @@
         "name": "baking soda",
         "quantity": 0.5,
         "unit": "teaspoon",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
@@ -5011,7 +5059,7 @@
         "name": "vanilla extract",
         "quantity": 1,
         "unit": "tablespoon",
-        "category": "other",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -5085,7 +5133,7 @@
         "name": "baking powder",
         "quantity": 3.5,
         "unit": "teaspoons",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
@@ -5238,7 +5286,7 @@
         "name": "dried basil",
         "quantity": 2,
         "unit": "teaspoons",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -5252,7 +5300,7 @@
         "name": "ground black pepper",
         "quantity": 0.5,
         "unit": "teaspoon",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       }
     ],
@@ -5399,7 +5447,7 @@
         "name": "sriracha",
         "quantity": 1,
         "unit": "tbsp",
-        "category": "condiments",
+        "category": "pantry",
         "optional": false
       }
     ],
@@ -5470,7 +5518,7 @@
         "name": "lemon juice",
         "quantity": 1,
         "unit": "tbsp",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -5492,7 +5540,7 @@
         "quantity": 0.25,
         "unit": "tsp",
         "preparation": "freshly cracked",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -5621,14 +5669,14 @@
         "name": "onion powder",
         "quantity": 0.5,
         "unit": "tsp",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
         "name": "garlic powder",
         "quantity": 0.25,
         "unit": "tsp",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -5642,7 +5690,7 @@
         "name": "cayenne pepper",
         "quantity": 0.13,
         "unit": "tsp",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -5668,11 +5716,12 @@
         "optional": false
       },
       {
-        "name": "bell peppers, any color",
+        "name": "bell peppers",
         "quantity": 3,
         "unit": "",
         "category": "produce",
-        "optional": false
+        "optional": false,
+        "preparation": "any color"
       },
       {
         "name": "chicken breast",
@@ -5794,21 +5843,21 @@
         "name": "Dijon mustard",
         "quantity": 1,
         "unit": "tsp",
-        "category": "condiments",
+        "category": "pantry",
         "optional": false
       },
       {
         "name": "garlic powder",
         "quantity": 0.25,
         "unit": "tsp",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
         "name": "Italian seasoning",
         "quantity": 1,
         "unit": "tbsp",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
@@ -5877,7 +5926,7 @@
       {
         "name": "4oz. can sliced black olives",
         "quantity": 0.5,
-        "unit": "",
+        "unit": "4 oz",
         "category": "other",
         "optional": false
       }
@@ -5966,14 +6015,14 @@
         "name": "dijon mustard",
         "quantity": 1,
         "unit": "tbsp",
-        "category": "condiments",
+        "category": "pantry",
         "optional": false
       },
       {
         "name": "apple cider vinegar",
         "quantity": 0.5,
         "unit": "tsp",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -5987,7 +6036,7 @@
         "name": "garlic powder",
         "quantity": 0.13,
         "unit": "tsp",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -6060,7 +6109,7 @@
         "optional": false
       },
       {
-        "name": "cooking/koshfer salt",
+        "name": "salt",
         "quantity": 0.5,
         "unit": "tsp",
         "category": "spices",
@@ -6070,7 +6119,7 @@
         "name": "black pepper",
         "quantity": 0.5,
         "unit": "tsp",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -6097,7 +6146,7 @@
         "optional": false
       },
       {
-        "name": "chardonnay or other dry white wine ",
+        "name": "chardonnay or other dry white wine",
         "quantity": 0.25,
         "unit": "cup",
         "category": "other",
@@ -6107,7 +6156,7 @@
         "name": "lemon juice",
         "quantity": 1,
         "unit": "tbsp",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -6115,7 +6164,7 @@
         "quantity": 1,
         "unit": "tbsp",
         "preparation": "finely chopped ((garnish",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -6123,14 +6172,8 @@
         "quantity": 0,
         "unit": "",
         "category": "produce",
-        "optional": false
-      },
-      {
-        "name": "Bread for mopping!",
-        "quantity": 0,
-        "unit": "",
-        "category": "bakery",
-        "optional": false
+        "optional": true,
+        "preparation": "for serving"
       }
     ],
     "instructions": [
@@ -6361,7 +6404,7 @@
         "name": "chicken broth",
         "quantity": 2,
         "unit": "cups",
-        "category": "protein/meat",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -6375,7 +6418,7 @@
         "name": "fettuccine",
         "quantity": 8,
         "unit": "oz",
-        "category": "other",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -6640,28 +6683,28 @@
         "name": "tomato paste",
         "quantity": 2,
         "unit": "tablespoons",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
         "name": "red wine",
         "quantity": 1,
         "unit": "cup",
-        "category": "other",
+        "category": "pantry",
         "optional": false
       },
       {
         "name": "beef stock",
         "quantity": 2,
         "unit": "cups",
-        "category": "protein/meat",
+        "category": "pantry",
         "optional": false
       },
       {
         "name": "diced tomatoes",
         "quantity": 28,
         "unit": "oz",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -6682,7 +6725,7 @@
         "name": "bay leaf",
         "quantity": 1,
         "unit": "",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
@@ -6741,7 +6784,7 @@
     "cuisine": "American",
     "ingredients": [
       {
-        "name": "ground beef chuck",
+        "name": "ground beef",
         "quantity": 2,
         "unit": "pounds",
         "category": "protein/meat",
@@ -6841,7 +6884,7 @@
         "name": "beer",
         "quantity": 0.5,
         "unit": "cup",
-        "category": "other",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -6885,21 +6928,21 @@
         "quantity": 2,
         "unit": "teaspoons",
         "preparation": "such as Tabasco®",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
         "name": "dried basil",
         "quantity": 1,
         "unit": "teaspoon",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
         "name": "cayenne pepper",
         "quantity": 1,
         "unit": "teaspoon",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -6929,7 +6972,7 @@
         "quantity": 1,
         "unit": "teaspoon",
         "preparation": "or more to taste",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -7005,11 +7048,12 @@
         "optional": false
       },
       {
-        "name": "cubed beef stew meat",
+        "name": "beef stew meat",
         "quantity": 2,
         "unit": "pounds",
         "category": "protein/meat",
-        "optional": false
+        "optional": false,
+        "preparation": "cubed"
       },
       {
         "name": "cubes beef bouillon",
@@ -7037,14 +7081,14 @@
         "name": "dried parsley",
         "quantity": 1,
         "unit": "teaspoon",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
         "name": "ground black pepper",
         "quantity": 0.5,
         "unit": "teaspoon",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -7083,7 +7127,7 @@
         "name": "cornstarch",
         "quantity": 2,
         "unit": "teaspoons",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -7376,7 +7420,7 @@
         "name": "beef broth",
         "quantity": 2,
         "unit": "cups",
-        "category": "protein/meat",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -7472,9 +7516,9 @@
     ],
     "ingredients": [
       {
-        "name": "15oz.can black beans",
-        "quantity": 1,
-        "unit": "",
+        "name": "black beans",
+        "quantity": 15,
+        "unit": "oz",
         "category": "pantry",
         "optional": false
       },
@@ -7634,7 +7678,7 @@
         "quantity": 0,
         "unit": "",
         "preparation": "freshly cracked",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -7707,9 +7751,9 @@
         "optional": false
       },
       {
-        "name": "175g/ 12 tbsp  cold unsalted butter",
-        "quantity": 0,
-        "unit": "",
+        "name": "cold unsalted butter",
+        "quantity": 12,
+        "unit": "tbsp",
         "preparation": "cut into 1 cm / 1/2\" cubes",
         "category": "dairy",
         "optional": false
@@ -7760,16 +7804,16 @@
         "optional": false
       },
       {
-        "name": "beef mince (ground beef)",
+        "name": "ground beef",
         "quantity": 0,
         "unit": "",
         "category": "protein/meat",
         "optional": false
       },
       {
-        "name": "120g/4 oz  chorizo",
-        "quantity": 0,
-        "unit": "",
+        "name": "chorizo",
+        "quantity": 4,
+        "unit": "oz",
         "category": "other",
         "optional": false
       },
@@ -7777,7 +7821,7 @@
         "name": "tomato paste",
         "quantity": 2,
         "unit": "tsp",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -7800,7 +7844,7 @@
         "name": "cayenne pepper",
         "quantity": 0.25,
         "unit": "tsp",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -7811,11 +7855,11 @@
         "optional": false
       },
       {
-        "name": "chicken stock/broth",
+        "name": "chicken broth",
         "quantity": 0.75,
         "unit": "cup",
         "preparation": "low sodium",
-        "category": "protein/meat",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -7861,21 +7905,6 @@
         "quantity": 2,
         "unit": "",
         "preparation": "separated, yolks whisked (for sealing and brushing pastry",
-        "category": "other",
-        "optional": false
-      },
-      {
-        "name": "Empanada sauce",
-        "quantity": 0,
-        "unit": "",
-        "category": "pantry",
-        "optional": false
-      },
-      {
-        "name": "Other options",
-        "quantity": 0,
-        "unit": "",
-        "preparation": "ketchup, ketchup + sriracha, pink sauce, taco sauce, salsa dip",
         "category": "other",
         "optional": false
       }
@@ -7960,7 +7989,7 @@
         "optional": false
       },
       {
-        "name": "750g / 1.5 lb   beef mince",
+        "name": "ground beef",
         "quantity": 0,
         "unit": "",
         "preparation": "ground beef",
@@ -8002,7 +8031,7 @@
         "quantity": 1,
         "unit": "",
         "preparation": "crumbled (stock cube, or 1 tsp stock powder",
-        "category": "protein/meat",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -8023,7 +8052,7 @@
         "name": "dried bay leaves",
         "quantity": 2,
         "unit": "",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
@@ -8037,7 +8066,7 @@
         "name": "black pepper",
         "quantity": 0.5,
         "unit": "tsp",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -8158,7 +8187,7 @@
         "name": "garlic powder",
         "quantity": 2,
         "unit": "teaspoons",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -8194,14 +8223,14 @@
         "name": "bay leaf",
         "quantity": 1,
         "unit": "",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
         "name": "red wine",
         "quantity": 0.75,
         "unit": "cup",
-        "category": "other",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -8215,7 +8244,7 @@
         "name": "beef stock",
         "quantity": 2,
         "unit": "cups",
-        "category": "protein/meat",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -8254,7 +8283,7 @@
         "name": "cornstarch",
         "quantity": 2,
         "unit": "tablespoons",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       }
     ],
@@ -8372,7 +8401,7 @@
         "name": "ketchup",
         "quantity": 0.5,
         "unit": "cup",
-        "category": "condiments",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -8380,7 +8409,7 @@
         "quantity": 2,
         "unit": "cups",
         "preparation": "or 1 15-ounce can whole tomatoes, puréed",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -8436,7 +8465,7 @@
         "name": "hamburger buns",
         "quantity": 4,
         "unit": "",
-        "category": "protein/meat",
+        "category": "bakery",
         "optional": false
       }
     ],
@@ -8496,26 +8525,26 @@
     "cuisine": "Mexican",
     "ingredients": [
       {
-        "name": "dried New Mexico, costeño , or choricero chili, seeds and stem removed",
+        "name": "dried New Mexico",
         "quantity": 1,
         "unit": "whole",
-        "preparation": "see note",
+        "preparation": "see note, costeño , or choricero chili, seeds and stem removed",
         "category": "pantry",
         "optional": false
       },
       {
-        "name": "chile ancho or pasilla , seeds and stem removed",
+        "name": "chile ancho or pasilla",
         "quantity": 1,
         "unit": "whole",
-        "preparation": "see note",
+        "preparation": "see note, seeds and stem removed",
         "category": "other",
         "optional": false
       },
       {
-        "name": "chile negro , seeds and stem removed",
+        "name": "chile negro",
         "quantity": 1,
         "unit": "whole",
-        "preparation": "see note",
+        "preparation": "see note, seeds and stem removed",
         "category": "other",
         "optional": false
       },
@@ -8543,11 +8572,20 @@
         "optional": false
       },
       {
-        "name": "Kosher salt and freshly ground black pepper",
+        "name": "salt",
         "quantity": 0,
         "unit": "",
-        "category": "produce",
-        "optional": false
+        "category": "spices",
+        "optional": false,
+        "preparation": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "quantity": 0,
+        "unit": "",
+        "category": "spices",
+        "optional": false,
+        "preparation": "to taste"
       },
       {
         "name": "onion",
@@ -8598,14 +8636,14 @@
         "name": "apple cider vinegar",
         "quantity": 0.25,
         "unit": "cup",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
         "name": "fish sauce",
         "quantity": 2,
         "unit": "teaspoons",
-        "category": "protein/seafood",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -8620,7 +8658,7 @@
         "name": "bay leaves",
         "quantity": 2,
         "unit": "whole",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
@@ -8716,7 +8754,7 @@
         "name": "tomato paste",
         "quantity": 2,
         "unit": "tbsp",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -8731,11 +8769,11 @@
         "quantity": 1,
         "unit": "tsp",
         "preparation": "onion powder, dried oregano",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
-        "name": "cumin powder",
+        "name": "ground cumin",
         "quantity": 2,
         "unit": "tsp",
         "preparation": "paprika",
@@ -8761,7 +8799,7 @@
         "name": "black pepper",
         "quantity": 0.25,
         "unit": "tsp",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -9012,7 +9050,7 @@
         "name": "baking powder",
         "quantity": 4,
         "unit": "tsp",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
@@ -9131,21 +9169,21 @@
         "name": "garlic powder",
         "quantity": 1,
         "unit": "tablespoon",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
         "name": "onion powder",
         "quantity": 1,
         "unit": "tablespoon",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
         "name": "cayenne pepper",
         "quantity": 2.5,
         "unit": "teaspoons",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -9213,7 +9251,7 @@
         "quantity": 2,
         "unit": "pounds",
         "preparation": "approximately 6 cups",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -9227,7 +9265,7 @@
         "name": "baking powder",
         "quantity": 1,
         "unit": "tablespoon",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
@@ -9362,21 +9400,21 @@
         "name": "dried basil",
         "quantity": 1.5,
         "unit": "teaspoons",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
         "name": "Italian seasoning",
         "quantity": 1,
         "unit": "teaspoon",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
         "name": "fennel seed",
         "quantity": 0.5,
         "unit": "teaspoon",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
@@ -9390,7 +9428,7 @@
         "name": "ground black pepper",
         "quantity": 0.25,
         "unit": "teaspoon",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       }
     ],
@@ -9575,7 +9613,7 @@
         "quantity": 1,
         "unit": "tablespoon",
         "preparation": "freshly squeezed",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -9605,11 +9643,11 @@
         "quantity": 1,
         "unit": "teaspoon",
         "preparation": "approximately juice from 1/4 lime",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
-        "name": "cumin powder",
+        "name": "ground cumin",
         "quantity": 1,
         "unit": "teaspoon",
         "category": "spices",
@@ -9619,7 +9657,7 @@
         "name": "garlic powder",
         "quantity": 0.5,
         "unit": "teaspoon",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -9630,7 +9668,7 @@
         "optional": false
       },
       {
-        "name": "cayenne powder",
+        "name": "cayenne pepper",
         "quantity": 0.13,
         "unit": "teaspoon",
         "preparation": "or more or less, to taste",
@@ -9778,10 +9816,10 @@
         "optional": false
       },
       {
-        "name": "ground chuck",
+        "name": "ground beef",
         "quantity": 2.5,
         "unit": "pounds",
-        "category": "other",
+        "category": "protein/meat",
         "optional": false
       },
       {
@@ -9817,14 +9855,14 @@
         "name": "ground black pepper",
         "quantity": 1,
         "unit": "teaspoon",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
         "name": "cayenne pepper",
         "quantity": 0.5,
         "unit": "teaspoon",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -9845,14 +9883,14 @@
         "name": "ketchup",
         "quantity": 2,
         "unit": "tablespoons",
-        "category": "condiments",
+        "category": "pantry",
         "optional": false
       },
       {
         "name": "Dijon mustard",
         "quantity": 2,
         "unit": "tablespoons",
-        "category": "condiments",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -10114,7 +10152,7 @@
         "name": "Crushed Tomatoes",
         "quantity": 13.76,
         "unit": "ounce",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -10206,9 +10244,9 @@
         "optional": false
       },
       {
-        "name": "15oz. cans black beans",
-        "quantity": 2,
-        "unit": "",
+        "name": "black beans",
+        "quantity": 30,
+        "unit": "oz",
         "category": "pantry",
         "optional": false
       },
@@ -10223,13 +10261,13 @@
         "name": "garlic powder",
         "quantity": 0.25,
         "unit": "tsp",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
-        "name": "16oz. jar salsa",
+        "name": "salsa",
         "quantity": 1,
-        "unit": "",
+        "unit": "16 oz jar",
         "category": "condiments",
         "optional": false
       },
@@ -10449,7 +10487,7 @@
         "quantity": 4,
         "unit": "grams",
         "preparation": "about 1 teaspoon",
-        "category": "other",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -10473,7 +10511,7 @@
         "quantity": 6,
         "unit": "grams",
         "preparation": "about 1 teaspoon",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
@@ -10481,7 +10519,7 @@
         "quantity": 5,
         "unit": "grams",
         "preparation": "about 1 teaspoon",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
@@ -10585,7 +10623,7 @@
         "name": "Italian Seasoning",
         "quantity": 1,
         "unit": "tablespoon",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
@@ -11252,7 +11290,7 @@
         "name": "Linguine",
         "quantity": 12,
         "unit": "ounce",
-        "category": "other",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -11294,7 +11332,7 @@
         "name": "Chili Flakes",
         "quantity": 1,
         "unit": "teaspoon",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
@@ -11388,7 +11426,7 @@
     "cuisine": "Italian",
     "ingredients": [
       {
-        "name": "warm tap water,",
+        "name": "warm water",
         "quantity": 0.75,
         "unit": "cup",
         "preparation": "110 degrees",
@@ -11434,7 +11472,7 @@
         "name": "dried basil",
         "quantity": 0.5,
         "unit": "teaspoon",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -11448,14 +11486,14 @@
         "name": "onion powder",
         "quantity": 0.5,
         "unit": "teaspoon",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
         "name": "garlic powder",
         "quantity": 0.25,
         "unit": "teaspoon",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -11469,7 +11507,7 @@
         "name": "non-stick cooking spray",
         "quantity": 0,
         "unit": "",
-        "category": "other",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -11480,7 +11518,7 @@
         "optional": false
       },
       {
-        "name": "garlic,",
+        "name": "garlic",
         "quantity": 2,
         "unit": "cloves",
         "preparation": "minced",
@@ -11495,7 +11533,7 @@
         "optional": false
       },
       {
-        "name": "tomatoes,",
+        "name": "tomatoes",
         "quantity": 7,
         "unit": "small",
         "preparation": "slices 1/4 inch thick",
@@ -11513,7 +11551,7 @@
         "name": "ground black pepper",
         "quantity": 0.25,
         "unit": "teaspoon",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -11906,7 +11944,7 @@
         "name": "Chili Flakes",
         "quantity": 1,
         "unit": "teaspoon",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
@@ -12024,7 +12062,7 @@
         "name": "Pesto",
         "quantity": 2,
         "unit": "ounce",
-        "category": "other",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -12045,7 +12083,7 @@
         "name": "Sun-Dried Tomatoes",
         "quantity": 1.5,
         "unit": "ounce",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -12131,7 +12169,7 @@
         "optional": false
       },
       {
-        "name": "(1 lb) beef mince/ground beef",
+        "name": "ground beef",
         "quantity": 500,
         "unit": "grams",
         "category": "protein/meat",
@@ -12154,7 +12192,7 @@
         "optional": false
       },
       {
-        "name": "red capsicum/red pepper",
+        "name": "red bell pepper",
         "quantity": 1,
         "unit": "",
         "preparation": "| diced",
@@ -12162,7 +12200,7 @@
         "optional": false
       },
       {
-        "name": "sticks celery",
+        "name": "celery",
         "quantity": 2,
         "unit": "",
         "preparation": "| diced",
@@ -12188,7 +12226,7 @@
         "name": "tomato paste",
         "quantity": 2,
         "unit": "tablespoons",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -12199,11 +12237,11 @@
         "optional": false
       },
       {
-        "name": "beef stock cube/bouillon cube",
+        "name": "beef bouillon cube",
         "quantity": 1,
         "unit": "",
         "preparation": "| *see note 1",
-        "category": "protein/meat",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -12231,19 +12269,19 @@
         "name": "ground coriander",
         "quantity": 1,
         "unit": "teaspoon",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
-        "name": "dried ground chilli",
+        "name": "chili powder",
         "quantity": 1,
         "unit": "tablespoon",
         "preparation": "| *see note 2",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
-        "name": "smoky paprika",
+        "name": "smoked paprika",
         "quantity": 2,
         "unit": "teaspoons",
         "category": "spices",
@@ -12260,14 +12298,14 @@
         "name": "onion powder",
         "quantity": 1,
         "unit": "teaspoon",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
         "name": "garlic powder",
         "quantity": 1,
         "unit": "teaspoon",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -12334,7 +12372,7 @@
         "name": "old-fashioned rolled oats",
         "quantity": 2,
         "unit": "cups",
-        "category": "bakery",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -12394,7 +12432,7 @@
         "name": "vanilla extract",
         "quantity": 1,
         "unit": "teaspoon",
-        "category": "other",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -12567,7 +12605,7 @@
         "name": "garlic powder",
         "quantity": 0.25,
         "unit": "teaspoon",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -12575,7 +12613,7 @@
         "quantity": 0,
         "unit": "",
         "preparation": "to taste",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -12705,7 +12743,7 @@
         "optional": false
       },
       {
-        "name": "4% cottage cheese",
+        "name": "cottage cheese",
         "quantity": 2,
         "unit": "cups",
         "category": "dairy",
@@ -12855,7 +12893,7 @@
         "name": "onion powder",
         "quantity": 1,
         "unit": "teaspoon",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -12926,14 +12964,6 @@
         "quantity": 1,
         "unit": "tablespoon",
         "category": "pantry",
-        "optional": false
-      },
-      {
-        "name": "Preferred toppings",
-        "quantity": null,
-        "unit": "",
-        "preparation": "particularly sour cream, shredded cheddar cheese, and corn chips",
-        "category": "other",
         "optional": false
       }
     ],

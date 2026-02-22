@@ -70,6 +70,8 @@ const ShoppingList = ({
   const [hideCompleted, setHideCompleted] = useState(false);
   const [instacartEnabled, setInstacartEnabled] = useState(false);
   const [isLoadingInstacart, setIsLoadingInstacart] = useState(false);
+  const [hoveredKey, setHoveredKey] = useState<string | null>(null);
+  const [expandedKey, setExpandedKey] = useState<string | null>(null);
 
   // Check if Instacart integration is enabled
   useEffect(() => {
@@ -411,18 +413,23 @@ const ShoppingList = ({
                   {visibleItems.map((item) => {
                     const isCompleted = item.totalQty > 0 ? item.haveQty >= item.totalQty : item.haveQty > 0;
                     return (
-                      <li key={item.key}>
+                      <li
+                        key={item.key}
+                        onMouseEnter={() => setHoveredKey(item.key)}
+                        onMouseLeave={() => setHoveredKey(null)}
+                      >
                         <SwipeableShoppingItem
                           onSwipeComplete={() => toggleHaveItem(item.key, item.totalQty)}
                           isCompleted={isCompleted}
                         >
                           <div
-                            className={`flex items-center gap-3 px-4 py-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${
+                            className={`flex items-center gap-3 px-4 py-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer ${
                               isCompleted ? 'bg-green-50 dark:bg-green-900/20' : ''
                             }`}
+                            onClick={() => setExpandedKey(prev => prev === item.key ? null : item.key)}
                           >
                             <button
-                              onClick={() => toggleHaveItem(item.key, item.totalQty)}
+                              onClick={(e) => { e.stopPropagation(); toggleHaveItem(item.key, item.totalQty); }}
                               className={`flex-shrink-0 w-8 h-8 rounded-full border-2 flex items-center justify-center transition-colors touch-manipulation ${
                                 isCompleted
                                   ? 'bg-green-500 border-green-500 text-white'
@@ -454,9 +461,9 @@ const ShoppingList = ({
                               </div>
                               <div className="text-sm text-gray-500 dark:text-gray-400 flex items-baseline gap-2 flex-wrap">
                                 <span>{formatQuantity(item.totalQty, item.unit)}</span>
-                                {item.count > 1 && (
+                                {item.recipeBreakdown.length > 1 && (
                                   <span className="text-xs text-gray-400 dark:text-gray-500">
-                                    used in {item.count} recipes
+                                    used in {item.recipeBreakdown.length} recipes
                                   </span>
                                 )}
                               </div>
@@ -468,6 +475,26 @@ const ShoppingList = ({
                             </div>
                           </div>
                         </SwipeableShoppingItem>
+                        {(hoveredKey === item.key || expandedKey === item.key) &&
+                          item.recipeBreakdown.length > 0 && (
+                          <div className="px-4 py-3 bg-blue-50 dark:bg-blue-900/20 border-t border-blue-100 dark:border-blue-800">
+                            <p className="text-xs font-semibold text-blue-700 dark:text-blue-300 mb-2">Used in:</p>
+                            <ul className="space-y-1">
+                              {[...item.recipeBreakdown]
+                                .sort((a, b) => b.qty - a.qty)
+                                .map((entry, i) => (
+                                  <li key={i} className="flex items-center justify-between text-xs">
+                                    <span className="text-blue-800 dark:text-blue-200 truncate mr-3">
+                                      {entry.recipeName}
+                                    </span>
+                                    <span className="text-blue-600 dark:text-blue-400 whitespace-nowrap tabular-nums">
+                                      {entry.qty > 0 ? formatQuantity(entry.qty, entry.unit) : 'as needed'}
+                                    </span>
+                                  </li>
+                                ))}
+                            </ul>
+                          </div>
+                        )}
                       </li>
                     );
                   })}
