@@ -2094,9 +2094,9 @@
         "optional": false
       },
       {
-        "name": "8oz. can tomato sauce",
-        "quantity": 1,
-        "unit": "",
+        "name": "tomato sauce",
+        "quantity": 8,
+        "unit": "oz",
         "category": "pantry",
         "optional": false
       },

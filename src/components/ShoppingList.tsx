@@ -39,28 +39,59 @@ const getCategoryInfo = (category: string) => {
   return CATEGORY_ORDER[category] || { label: category, order: 50 };
 };
 
+// Format a raw quantity number as a readable fraction or decimal string.
+const formatQtyNumber = (qty: number): string => {
+  if (qty < 1) {
+    if (qty <= 0.125) return '⅛';
+    if (qty <= 0.25)  return '¼';
+    if (qty <= 0.33)  return '⅓';
+    if (qty <= 0.5)   return '½';
+    if (qty <= 0.67)  return '⅔';
+    if (qty <= 0.75)  return '¾';
+    return '1';
+  }
+  if (qty % 1 === 0) return String(qty);
+  // Try mixed-number fractions for common cases (e.g. 1.5 → "1½")
+  const whole = Math.floor(qty);
+  const frac = qty - whole;
+  const fracStr = frac <= 0.125 ? '⅛' : frac <= 0.25 ? '¼' : frac <= 0.33 ? '⅓'
+    : frac <= 0.5 ? '½' : frac <= 0.67 ? '⅔' : frac <= 0.75 ? '¾' : null;
+  if (whole >= 1 && fracStr) return `${whole}${fracStr}`;
+  // Fall back to nearest 0.5
+  return String(Math.ceil(qty * 2) / 2);
+};
+
 // Format quantity for display - round to practical shopping amounts
 const formatQuantity = (qty: number, unit: string): string => {
   if (qty === 0) return 'as needed';
 
-  // Round to reasonable amounts
-  let displayQty: string;
-  if (qty < 1) {
-    // Show fractions for small amounts
-    if (qty <= 0.25) displayQty = '¼';
-    else if (qty <= 0.33) displayQty = '⅓';
-    else if (qty <= 0.5) displayQty = '½';
-    else if (qty <= 0.67) displayQty = '⅔';
-    else if (qty <= 0.75) displayQty = '¾';
-    else displayQty = '1';
-  } else if (qty % 1 === 0) {
-    displayQty = String(qty);
-  } else {
-    // Round to nearest 0.5 for larger quantities
-    displayQty = String(Math.ceil(qty * 2) / 2);
+  // Suppress the "unit" label — show bare count for countable items
+  if (unit === 'unit' || unit === '') return formatQtyNumber(qty);
+
+  // Convert large tablespoon quantities to cups for readability
+  // 16 tablespoons = 1 cup;  butter - 17 tablespoon → "1 cup + 1 tablespoon"
+  if (unit === 'tablespoon' && qty >= 4) {
+    const cups = Math.floor(qty / 16);
+    const remTbsp = Math.round(qty % 16);
+    if (cups >= 1) {
+      const cupStr = formatQtyNumber(cups);
+      if (remTbsp === 0) return `${cupStr} cup`;
+      return `${cupStr} cup + ${remTbsp} tablespoon`;
+    }
   }
 
-  return `${displayQty} ${unit}`.trim();
+  return `${formatQtyNumber(qty)} ${unit}`.trim();
+};
+
+// For canned pantry items measured in ounces, show an approximate can count hint.
+// Assumes a standard 15oz can; skips when qty < 14 (less than one can).
+const canHint = (qty: number, unit: string, name: string): string | null => {
+  if (unit !== 'ounce') return null;
+  if (qty < 14) return null;
+  const CANNED_WORDS = /bean|tomato|corn|pea|pumpkin|lentil|chickpea|artichoke|coconut milk/i;
+  if (!CANNED_WORDS.test(name)) return null;
+  const cans = Math.round(qty / 15);
+  return cans >= 1 ? `≈ ${cans} can${cans !== 1 ? 's' : ''}` : null;
 };
 
 const ShoppingList = ({
@@ -478,6 +509,11 @@ const ShoppingList = ({
                               </div>
                               <div className="text-sm text-gray-500 dark:text-gray-400 flex items-baseline gap-2 flex-wrap">
                                 <span>{formatQuantity(item.totalQty, item.unit)}</span>
+                                {canHint(item.totalQty, item.unit, item.name) && (
+                                  <span className="text-xs text-gray-400 dark:text-gray-500">
+                                    {canHint(item.totalQty, item.unit, item.name)}
+                                  </span>
+                                )}
                                 {item.recipeBreakdown.length > 1 && (
                                   <span className="text-xs text-gray-400 dark:text-gray-500">
                                     used in {item.recipeBreakdown.length} recipes

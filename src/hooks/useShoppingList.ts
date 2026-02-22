@@ -342,6 +342,27 @@ const SHOPPING_NAME_ALIASES: Record<string, string> = {
 
   // Bacon / sausage word-order fixes (after COUNT_PREFIX_RE strips "strips"/"links")
   'uncooked bacon': 'bacon',
+
+  // Flour (bare "flour" → all-purpose flour for consolidation)
+  'flour': 'all-purpose flour',
+
+  // Pepper — cracked without "black" qualifier
+  'cracked pepper': 'black pepper',
+  'freshly cracked pepper': 'black pepper',
+
+  // Mozzarella fat-content variants
+  'part-skim mozzarella': 'mozzarella',
+  'part-skim mozzarella cheese': 'mozzarella',
+  'fresh mozzarella': 'mozzarella',
+  'fresh mozzarella cheese': 'mozzarella',
+  'low-moisture mozzarella': 'mozzarella',
+
+  // Cheddar fat-content / style variants
+  'mild cheddar': 'cheddar cheese',
+  'mild cheddar cheese': 'cheddar cheese',
+
+  // Vanilla (bare name → vanilla extract for consolidation)
+  'vanilla': 'vanilla extract',
 };
 
 const UNIT_ALIASES: Record<string, string> = {
@@ -545,6 +566,14 @@ const CATEGORY_OVERRIDES: Record<string, string> = {
   'frozen pea': 'frozen',
   'frozen peas': 'frozen',
   'frozen spinach': 'frozen',
+  // Produce — dried fruit / misc
+  'cranberry': 'produce',
+  'dried cranberry': 'pantry',
+  'raisin': 'pantry',
+  'dried fruit': 'pantry',
+  // Lemon / lime juice (produce section in stores)
+  'lemon juice': 'produce',
+  'lime juice': 'produce',
 };
 
 const WEIGHT_UNITS = new Set(['gram', 'kilogram', 'ounce', 'pound']);
@@ -616,6 +645,10 @@ const MODIFIER_PREFIX_RE = /^(?:fresh(?:ly)?|melted|softened|warm(?:ed)?|cold|fr
 // Strip known supermarket / brand name prefixes baked into ingredient names by importers.
 const BRAND_PREFIX_RE = /^(?:kroger|great\s+value|store\s+brand|generic|kirkland|signature\s+select|best\s+choice|trader\s+joe'?s)\s+/i;
 
+// Strip subjective quality descriptors that add no shopping information.
+// "high quality extra virgin olive oil" → "extra virgin olive oil" → alias → "olive oil"
+const QUALITY_PREFIX_RE = /^(?:high[-\s]quality|good[-\s]quality|premium|finest|best[-\s]quality|top[-\s]quality|restaurant[-\s]quality)\s+/i;
+
 function normalizeShoppingName(name: string): string {
   let n = stripParenthetical(name);
   n = n.replace(/\s+/g, ' ');
@@ -636,6 +669,8 @@ function normalizeShoppingName(name: string): string {
   n = n.replace(/^of\s+/, '').trim();
   // Strip leading brand names: "kroger beef chuck roast" → "beef chuck roast"
   n = n.replace(BRAND_PREFIX_RE, '').trim();
+  // Strip leading quality descriptors: "high quality extra virgin olive oil" → "extra virgin olive oil"
+  n = n.replace(QUALITY_PREFIX_RE, '').trim();
   // Collapse "or" alternatives: keep only the primary option.
   // "lime juice or 1 tablespoon sherry vinegar" → "lime juice"
   // "broccoli or 1 small head of cauliflower" → "broccoli"
@@ -669,6 +704,7 @@ const VAGUE_INGREDIENT_NAMES = new Set([
   'fruit', 'nut', 'seed', 'produce', 'vegetable', 'item', 'ingredient', 'other',
   'misc', 'topping', 'toppings', 'garnish', 'accompaniment',
   'homemade', 'store-bought',  // leftover fragments after OR-collapse
+  'water', 'tap water',        // never purchased for cooking
 ]);
 
 function isCoveredByPantry(itemName: string, pantryNames: Set<string>): boolean {
@@ -772,7 +808,7 @@ export const useShoppingList = ({ plan, allRecipes, pantryStaples, days }: UseSh
         // "can tomato paste" → "tomato paste" (qty implied 1)
         // "cloves garlic" → "garlic" | "pinch of salt" → "salt" | "unit lemon" → "lemon"
         // Note: "canned" is intentionally NOT in this list — it's an adjective, not a unit.
-        const COUNT_PREFIX_RE = /^(cans?|jars?|bags?|bottles?|boxes?|packages?|pkgs?|cloves?|pinch(?:es)?(?:\s+of)?|handful(?:s)?(?:\s+of)?|unit|strips?|links?)\s+/i;
+        const COUNT_PREFIX_RE = /^(cans?|jars?|bags?|bottles?|boxes?|packages?|packets?|pkgs?|cloves?|pinch(?:es)?(?:\s+of)?|handful(?:s)?(?:\s+of)?|heads?\s+of\s+|unit|strips?|links?)\s*/i;
         const countPrefix = ingName.match(COUNT_PREFIX_RE);
         if (countPrefix) {
           if (!ingQty) ingQty = 1;
@@ -791,6 +827,11 @@ export const useShoppingList = ({ plan, allRecipes, pantryStaples, days }: UseSh
           }
           ingName = ingName.slice(unitWordPrefix[0].length).trim();
         }
+
+        // Strip leading size annotations baked into the name field by importers.
+        // "8oz. can tomato sauce" → "tomato sauce"  |  "(16 ounce) can tomato sauce" → "tomato sauce"
+        const SIZE_IN_NAME_RE = /^\(?\d+\.?\d*\s*(?:oz|ounce|ounces|fl\.?\s*oz|ml|g|gram|lb|pound)\.?\)?\s*(?:cans?|jars?|bags?|boxes?|pouches?|containers?)?\s*/i;
+        ingName = ingName.replace(SIZE_IN_NAME_RE, '').trim() || ingName;
 
         const normalizedName = normalizeShoppingName(ingName);
         // Skip entries that normalized to nothing (e.g. "homemade" alone after modifier stripping)
@@ -920,6 +961,24 @@ export const useShoppingList = ({ plan, allRecipes, pantryStaples, days }: UseSh
         }
         map.delete(k);
       }
+    }
+
+    // Fourth pass: convert large tablespoon totals to cups so the display unit
+    // is more practical for shopping.  16 tablespoons = 1 cup.
+    // Snapshot keys first to avoid mutating the map during iteration.
+    const tbspKeys = Array.from(map.keys()).filter(k => map.get(k)!.unit === 'tablespoon' && map.get(k)!.totalQty >= 4);
+    for (const oldKey of tbspKeys) {
+      const item = map.get(oldKey);
+      if (!item) continue;
+      const cups = item.totalQty / 16;
+      if (cups < 1) continue;
+      item.totalQty = cups;
+      item.unit = 'cup';
+      const newKey = `${item.name}|cup`;
+      item.key = newKey;
+      item.recipeBreakdown.forEach(b => { b.unit = 'cup'; b.qty = b.qty / 16; });
+      map.delete(oldKey);
+      map.set(newKey, item);
     }
 
     const pantryNames = new Set(pantryStaples.map(s => normalizeShoppingName(s.name)));
