@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
-import type { PlanItem, ShoppingItem, ShoppingAdjustments, PantryStaple } from '../types';
+import type { PlanItem, Recipe, ShoppingItem, ShoppingAdjustments, PantryStaple } from '../types';
 import { STORAGE_KEYS, storage } from '../utils/storage';
 import { usePersistedState } from './usePersistedState';
 import { parseIngredientLine } from '../utils/recipeValidation';
@@ -191,10 +191,6 @@ const SHOPPING_NAME_ALIASES: Record<string, string> = {
   'boneless chicken thigh': 'chicken thigh',
   'boneless skinless chicken thigh': 'chicken thigh',
   'chicken thighs': 'chicken thigh',
-
-  // Broth / stock (specific proteins)
-  'chicken stock': 'chicken broth',
-  // (already in table above, but ensure parity for beef/veg)
 
   // Red pepper / capsicum
   'red capsicum': 'red bell pepper',
@@ -401,11 +397,12 @@ function isCoveredByPantry(itemName: string, pantryNames: Set<string>): boolean 
 
 interface UseShoppingListParams {
   plan: PlanItem[];
+  allRecipes: Recipe[];
   pantryStaples: PantryStaple[];
   days: number;
 }
 
-export const useShoppingList = ({ plan, pantryStaples, days }: UseShoppingListParams) => {
+export const useShoppingList = ({ plan, allRecipes, pantryStaples, days }: UseShoppingListParams) => {
   const [shoppingAdjustments, setShoppingAdjustments] = usePersistedState<ShoppingAdjustments>(
     STORAGE_KEYS.SHOPPING_ADJUSTMENTS, {}
   );
@@ -434,6 +431,10 @@ export const useShoppingList = ({ plan, pantryStaples, days }: UseShoppingListPa
   }, [days]);
 
   const shoppingList = useMemo<ShoppingItem[]>(() => {
+    // Build a lookup map so the shopping list always uses the latest recipe
+    // data from the bundle, even when a plan item has a stale embedded recipe.
+    const liveRecipeMap = new Map<string, Recipe>(allRecipes.map(r => [r.id, r]));
+
     const map = new Map<string, {
       name: string;
       unit: string;
@@ -448,7 +449,10 @@ export const useShoppingList = ({ plan, pantryStaples, days }: UseShoppingListPa
 
     const filteredPlan = plan.filter(item => selectedShoppingDays.has(item.day));
 
-    filteredPlan.forEach(({ recipe, servingsMultiplier }) => {
+    filteredPlan.forEach(({ id, recipe: embeddedRecipe, servingsMultiplier }) => {
+      // Prefer the live recipe from the current bundle; fall back to the
+      // embedded copy (covers custom recipes not in the default set).
+      const recipe = liveRecipeMap.get(id) ?? embeddedRecipe;
       if (!recipe) return;
 
       recipe?.ingredients?.forEach((ing) => {
@@ -641,7 +645,7 @@ export const useShoppingList = ({ plan, pantryStaples, days }: UseShoppingListPa
           isPantryStaple,
         };
       });
-  }, [plan, shoppingAdjustments, pantryStaples, selectedShoppingDays]);
+  }, [plan, allRecipes, shoppingAdjustments, pantryStaples, selectedShoppingDays]);
 
   const shoppingNeededCount = shoppingList.filter(item =>
     item.totalQty > 0 ? item.haveQty < item.totalQty : item.haveQty === 0

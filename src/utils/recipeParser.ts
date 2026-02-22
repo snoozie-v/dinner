@@ -477,8 +477,11 @@ function parseRecipeSchema(schema: SchemaOrgRecipe, sourceUrl: string): Partial<
   // Ingredients
   if (schema.recipeIngredient && Array.isArray(schema.recipeIngredient)) {
     recipe.ingredients = schema.recipeIngredient
-      .map(ing => parseIngredient(ing))
-      .filter((ing): ing is Ingredient => ing !== null);
+      .flatMap(ing => {
+        const result = parseIngredient(ing);
+        if (!result) return [];
+        return Array.isArray(result) ? result : [result];
+      });
   }
 
   // Instructions
@@ -590,6 +593,73 @@ function inferMealTypes(
   return Array.from(mealTypes);
 }
 
+// ── Unicode fraction normalization ───────────────────────────────────────────
+const UNICODE_FRACTIONS: Record<string, string> = {
+  '½': '1/2', '¼': '1/4', '¾': '3/4',
+  '⅓': '1/3', '⅔': '2/3',
+  '⅛': '1/8', '⅜': '3/8', '⅝': '5/8', '⅞': '7/8',
+  '⅕': '1/5', '⅖': '2/5', '⅗': '3/5', '⅘': '4/5',
+  '⅙': '1/6', '⅚': '5/6',
+};
+
+function normalizeUnicodeFractions(str: string): string {
+  let s = str;
+  for (const [frac, ascii] of Object.entries(UNICODE_FRACTIONS)) {
+    // "1½" → "1 1/2"  (digit immediately before fraction char)
+    s = s.replace(new RegExp(`(\\d)${frac}`, 'g'), `$1 ${ascii}`);
+    s = s.replace(new RegExp(frac, 'g'), ascii);
+  }
+  return s;
+}
+
+// ── Category guesser ──────────────────────────────────────────────────────────
+function guessCategory(name: string): string {
+  const n = name.toLowerCase();
+  if (/\b(chicken|beef|pork|lamb|turkey|duck|veal|bison|venison|bacon|sausage|ham|steak|ground meat|mince|meatball|salami|pepperoni|prosciutto|pancetta|lardons?|lard|suet|tallow|chicken liver|chicken thigh|chicken breast|chicken drum|chicken wing|rotisserie)\b/.test(n)) return 'protein/meat';
+  if (/\b(shrimp|prawn|salmon|tuna|cod|tilapia|halibut|bass|trout|catfish|fish|crab|lobster|scallop|mussel|clam|oyster|anchov|calamari|squid|octopus|mahi|swordfish|sea bass)\b/.test(n)) return 'protein/seafood';
+  if (/\b(milk|cream|cheese|butter|yogurt|yoghurt|sour cream|crème fraîche|creme fraiche|parmesan|mozzarella|cheddar|ricotta|mascarpone|brie|gouda|feta|gruyère|gruyere|colby|provolone|jack cheese|cream cheese|cottage cheese|ghee)\b/.test(n)) return 'dairy';
+  if (/\b(bread|bun|roll|tortilla|pita|naan|flatbread|croissant|baguette|loaf|sourdough|brioche|ciabatta|focaccia|panini|cracker|pretzel|english muffin)\b/.test(n)) return 'bakery';
+  if (/\b(canned|can of)\b/.test(n) || /^canned /.test(n)) return 'canned goods';
+  if (/\b(frozen pea|frozen corn|frozen broccoli|frozen spinach|frozen edamame|ice cream|frozen meal|frozen pizza)\b/.test(n)) return 'frozen';
+  if (/\b(salt|pepper|paprika|cumin|oregano|thyme|rosemary|cinnamon|nutmeg|cayenne|chili powder|chilli powder|garlic powder|onion powder|turmeric|coriander|cardamom|allspice|cloves|bay leaf|bay leaves|dill|fennel|ginger powder|mustard powder|curry powder|garam masala|five spice|old bay|taco seasoning|italian seasoning|baking soda|baking powder|cream of tartar|vanilla extract|smoked paprika|chipotle powder|ancho|dried basil|dried oregano|dried thyme|dried parsley|dried rosemary|dried sage|dried dill|dried cilantro|dried mint|seasoned salt|celery salt|garlic salt|red pepper flakes|crushed red pepper)\b/.test(n)) return 'spices';
+  if (/\b(oil|vinegar|soy sauce|fish sauce|oyster sauce|worcestershire|hot sauce|sriracha|hoisin|ketchup|mustard|mayo|mayonnaise|salsa|relish|honey|maple syrup|molasses|tahini|pesto|tomato paste|tomato sauce|diced tomatoes|crushed tomatoes|pasta sauce|marinara|stock|broth|bouillon|cornstarch|cornflour|flour|sugar|rice|pasta|noodle|lentil|chickpea|black bean|kidney bean|pinto bean|navy bean|cannellini|coconut milk|coconut cream|chocolate chip|cocoa|condensed milk|evaporated milk|dried fruit|nut|seed|oat|grain|quinoa|couscous|bulgur|barley|cereal|cracker|panko|breadcrumb|sprinkle|extract|coloring|food color|raisin|cranberry|dried cranberry|cooking spray|non-stick|parchment)\b/.test(n)) return 'pantry';
+  if (/\b(onion|garlic|tomato|pepper|carrot|celery|lettuce|spinach|kale|broccoli|potato|mushroom|zucchini|cucumber|avocado|lemon|lime|orange|apple|berry|banana|cilantro|parsley|basil|cabbage|corn|asparagus|bean sprout|bok choy|brussels|cauliflower|eggplant|aubergine|beet|radish|leek|shallot|scallion|green onion|spring onion|arugula|rocket|watercress|endive|fennel bulb|artichoke|squash|sweet potato|yam|turnip|parsnip|rutabaga|kohlrabi|jicama|tomatillo|jalapeño|jalapeno|habanero|serrano|anaheim|poblano|chipotle pepper|bell pepper|capsicum|ginger|turmeric root|herb|mint|sage|dill|chive|thyme|rosemary|oregano|tarragon|bay|sorrel|purslane|mango|papaya|pineapple|peach|plum|pear|grape|cherry|strawberry|blueberry|raspberry|blackberry|watermelon|melon|cantaloupe|fig|date|kiwi|pomegranate|persimmon|dragon fruit|passion fruit|lychee|jackfruit)\b/.test(n)) return 'produce';
+  return 'other';
+}
+
+// ── Non-ingredient detection ──────────────────────────────────────────────────
+const NON_INGREDIENT_RE = /^(other:|suggested\s+garnish|garnish[es]*:|for\s+garnish|preferred\s+topping|any\s+combination\s+of|any\s+of\s+the\s+following|bread\s+for\s+mopping|empanada\s+sauce$)/i;
+
+// ── Salt-and-pepper combined entry ────────────────────────────────────────────
+const SALT_AND_PEPPER_RE = /^(kosher\s+)?salt\s+and\s+(freshly\s+)?(ground\s+)?(black\s+)?pepper(\s+to\s+taste)?$/i;
+
+// ── Prep verb set — only split on comma if text after comma starts with these ─
+const PREP_VERBS = new Set([
+  'diced', 'chopped', 'minced', 'sliced', 'shredded', 'grated', 'mashed',
+  'julienned', 'halved', 'quartered', 'crushed', 'peeled', 'pitted', 'seeded',
+  'deveined', 'trimmed', 'thawed', 'drained', 'rinsed', 'cooked', 'uncooked',
+  'sifted', 'softened', 'melted', 'beaten', 'divided', 'crumbled', 'torn',
+  'toasted', 'roasted', 'optional', 'for serving', 'for garnish', 'to taste',
+  'packed', 'lightly packed', 'heaping', 'room temperature',
+]);
+
+function smartCommaPrep(raw: string): { name: string; preparation: string } {
+  const commaIdx = raw.indexOf(',');
+  if (commaIdx === -1) return { name: raw.trim(), preparation: '' };
+
+  const beforeComma = raw.slice(0, commaIdx).trim();
+  const afterComma = raw.slice(commaIdx + 1).trim().toLowerCase();
+
+  // Only split if the part after the comma starts with a known preparation verb
+  const firstWord = afterComma.split(/\s+/)[0];
+  if (PREP_VERBS.has(firstWord) || PREP_VERBS.has(afterComma.split(',')[0].trim())) {
+    return { name: beforeComma, preparation: raw.slice(commaIdx + 1).trim() };
+  }
+
+  // Not a prep verb — keep the whole thing as the name
+  return { name: raw.trim(), preparation: '' };
+}
+
 /**
  * Known cooking units - must be followed by a space to match
  * Listed from longest to shortest to match longer units first
@@ -626,11 +696,11 @@ const KNOWN_UNITS = [
 ];
 
 /**
- * Helper to extract name and preparation from ingredient rest
- * Handles both comma separation and parentheses: "chicken, diced" or "cabbage (shredded)"
+ * Helper to extract name and preparation from ingredient rest.
+ * Only splits on comma when the text after the comma is clearly a prep verb.
  */
 function extractNameAndPrep(rest: string): { name: string; preparation: string } {
-  // Check for parentheses first: "cabbage (shredded)"
+  // Check for trailing parentheses: "cabbage (shredded)"
   const parenMatch = rest.match(/^(.+?)\s*\(([^)]+)\)\s*$/);
   if (parenMatch) {
     return {
@@ -639,31 +709,66 @@ function extractNameAndPrep(rest: string): { name: string; preparation: string }
     };
   }
 
-  // Otherwise split on comma: "chicken breast, diced"
-  const commaIndex = rest.indexOf(',');
-  if (commaIndex !== -1) {
-    return {
-      name: rest.substring(0, commaIndex).trim(),
-      preparation: rest.substring(commaIndex + 1).trim(),
-    };
-  }
-
-  return { name: rest.trim(), preparation: '' };
+  // Smart comma split — only when text after comma is a preparation verb
+  return smartCommaPrep(rest);
 }
 
 /**
- * Parses an ingredient string into structured format
+ * Parses an ingredient string into one or more structured Ingredient objects.
+ * Returns null to skip, a single Ingredient, or an array (e.g. salt+pepper split).
  */
-function parseIngredient(ingredientStr: string): Ingredient | null {
-  if (!ingredientStr || ingredientStr.trim() === '') {
-    return null;
+function parseIngredient(ingredientStr: string): Ingredient | Ingredient[] | null {
+  if (!ingredientStr || ingredientStr.trim() === '') return null;
+
+  // Decode HTML entities and normalise unicode fractions
+  let str = decodeHtmlEntities(ingredientStr.trim());
+  str = normalizeUnicodeFractions(str);
+
+  // ── Skip non-ingredient annotation lines ──────────────────────────────────
+  if (NON_INGREDIENT_RE.test(str)) return null;
+  if (/^(other:|suggested garnishes?:|garnishes?:)/i.test(str)) return null;
+
+  // ── Split "salt and pepper" into two entries ──────────────────────────────
+  const saltPepperTest = str.replace(/\s+to\s+taste$/i, '').trim();
+  if (SALT_AND_PEPPER_RE.test(saltPepperTest)) {
+    return [
+      { name: 'salt', quantity: 0, unit: '', preparation: 'to taste', category: 'spices' },
+      { name: 'black pepper', quantity: 0, unit: '', preparation: 'to taste', category: 'spices' },
+    ];
   }
 
-  // Decode HTML entities first
-  const str = decodeHtmlEntities(ingredientStr.trim());
+  // ── Strip leading parenthetical quantity: "(50g) butter", "(2 1/4 tsp) yeast"
+  const leadingParenQty = str.match(
+    /^\(\s*(?:about\s+)?([\d\s./]+)\s*(g|ml|kg|oz|ounces?|grams?|milliliters?|millilitres?|liters?|litres?|cups?|tablespoons?|tbsp|teaspoons?|tsp|pounds?|lbs?|lb)\s*\)\s*/i
+  );
+  let prefixQty: number | null = null;
+  let prefixUnit = '';
+  if (leadingParenQty) {
+    prefixQty = parseQuantity(leadingParenQty[1].trim());
+    prefixUnit = leadingParenQty[2].toLowerCase().replace(/s$/, '').replace(/\.$/, '');
+    str = str.slice(leadingParenQty[0].length);
+  }
 
-  // Build pattern with known units - unit must be followed by space
+  // ── Strip leading slash-prefixed quantities: "/ 2.5 lb potatoes" ─────────
+  const leadingSlashQty = str.match(/^\/\s*([\d\s./]+)\s*(g|ml|kg|oz|ounces?|grams?|pounds?|lbs?|lb|cups?|tablespoons?|tbsp|teaspoons?|tsp)\s+/i);
+  if (leadingSlashQty && prefixQty === null) {
+    prefixQty = parseQuantity(leadingSlashQty[1].trim());
+    prefixUnit = leadingSlashQty[2].toLowerCase().replace(/s$/, '').replace(/\.$/, '');
+    str = str.slice(leadingSlashQty[0].length);
+  }
+
+  // ── Strip size-only annotations that don't carry quantity info ────────────
+  // e.g. "(9 inch)" in "(9 inch) unbaked pie crust"
+  str = str.replace(/^\(\s*\d[\d\s./]*\s*inch(?:es)?\s*\)\s*/i, '').trim();
+
+  // Build pattern with known units
   const unitPattern = KNOWN_UNITS.join('|');
+
+  // Pattern: number immediately adjacent to unit — "200g butter", "500ml stock"
+  const patternAdjacentUnit = new RegExp(
+    `^(\\d+(?:\\.\\d+)?)\\s*(g|ml|kg)\\s+(.+)$`,
+    'i'
+  );
 
   // Pattern WITH a known unit: "2 cups flour, sifted"
   const patternWithUnit = new RegExp(
@@ -671,46 +776,47 @@ function parseIngredient(ingredientStr: string): Ingredient | null {
     'i'
   );
 
-  let match = str.match(patternWithUnit);
-  if (match) {
-    const [, qtyStr, unit, rest] = match;
-    const quantity = parseQuantity(qtyStr.trim());
-    const { name, preparation } = extractNameAndPrep(rest);
-
-    return {
-      name,
-      quantity,
-      unit: unit.toLowerCase().replace(/\.$/, ''),
-      preparation: preparation || undefined,
-      category: 'other',
-    };
-  }
-
   // Pattern WITHOUT a unit: "1 cabbage" or "2 onions, diced"
   const patternNoUnit = /^([\d\s\/\-\.]+)\s+(.+)$/;
-  match = str.match(patternNoUnit);
-  if (match) {
-    const [, qtyStr, rest] = match;
-    const quantity = parseQuantity(qtyStr.trim());
-    const { name, preparation } = extractNameAndPrep(rest);
 
-    return {
-      name,
-      quantity,
-      unit: '',
-      preparation: preparation || undefined,
-      category: 'other',
-    };
+  let quantity: number | null = prefixQty;
+  let unit = prefixUnit;
+  let rest = str;
+
+  if (prefixQty === null) {
+    // Try adjacent-unit pattern first ("200g butter")
+    let match = str.match(patternAdjacentUnit);
+    if (match) {
+      quantity = parseQuantity(match[1]);
+      unit = match[2].toLowerCase();
+      rest = match[3];
+    } else {
+      // Try standard with-unit pattern
+      match = str.match(patternWithUnit);
+      if (match) {
+        quantity = parseQuantity(match[1].trim());
+        unit = match[2].toLowerCase().replace(/\.$/, '');
+        rest = match[3];
+      } else {
+        // Try no-unit pattern
+        match = str.match(patternNoUnit);
+        if (match) {
+          quantity = parseQuantity(match[1].trim());
+          rest = match[2];
+        }
+        // else: no quantity — rest = str, quantity = null
+      }
+    }
   }
 
-  // No quantity found - treat entire string as ingredient name
-  const { name, preparation } = extractNameAndPrep(str);
+  const { name, preparation } = extractNameAndPrep(rest);
+
   return {
-    name,
-    quantity: null,
-    unit: '',
+    name: name.trim(),
+    quantity,
+    unit,
     preparation: preparation || undefined,
-    category: 'other',
+    category: guessCategory(name),
   };
 }
 

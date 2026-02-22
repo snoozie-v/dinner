@@ -61,6 +61,7 @@ function App() {
   });
   const shopping = useShoppingList({
     plan: mealPlan.plan,
+    allRecipes: recipes.allRecipes,
     pantryStaples: pantry.pantryStaples,
     days: mealPlan.days,
   });

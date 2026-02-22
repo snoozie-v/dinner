@@ -1502,10 +1502,10 @@
     "cuisine": "American",
     "ingredients": [
       {
-        "name": "skinless",
+        "name": "chicken breast",
         "quantity": 1,
         "unit": "pound",
-        "preparation": "boneless chicken breast halves - cubed",
+        "preparation": "boneless, skinless, cubed",
         "category": "other",
         "optional": false
       },
@@ -1677,10 +1677,10 @@
         "optional": false
       },
       {
-        "name": "skinless",
+        "name": "chicken breast",
         "quantity": 4,
         "unit": "",
-        "preparation": "boneless chicken breast halves",
+        "preparation": "boneless, skinless",
         "category": "other",
         "optional": false
       }
@@ -1735,10 +1735,10 @@
     "cuisine": "Italian Inspired",
     "ingredients": [
       {
-        "name": "skinless",
+        "name": "chicken breast",
         "quantity": 4,
         "unit": "",
-        "preparation": "boneless chicken breast halves",
+        "preparation": "boneless, skinless",
         "category": "other",
         "optional": false
       },
@@ -1961,12 +1961,12 @@
         "optional": false
       },
       {
-        "name": "boneless",
+        "name": "chicken breast",
         "quantity": 1,
         "unit": "lb",
         "category": "protein/meat",
         "optional": false,
-        "preparation": "skinless chicken breast"
+        "preparation": "boneless, skinless"
       },
       {
         "name": "yellow onion",
@@ -8525,10 +8525,10 @@
     "cuisine": "Mexican",
     "ingredients": [
       {
-        "name": "dried New Mexico",
+        "name": "dried chili peppers",
         "quantity": 1,
         "unit": "whole",
-        "preparation": "see note, costeño , or choricero chili, seeds and stem removed",
+        "preparation": "such as New Mexico, ancho, or pasilla; seeds and stem removed",
         "category": "pantry",
         "optional": false
       },
