@@ -36,7 +36,8 @@ const INGREDIENT_FAMILIES: string[][] = [
 ];
 
 const SHOPPING_NAME_ALIASES: Record<string, string> = {
-  // Black pepper
+  // Black pepper (bare "pepper" with no qualifier → black pepper for shopping)
+  'pepper': 'black pepper',
   'ground black pepper': 'black pepper',
   'freshly ground black pepper': 'black pepper',
   'fresh ground black pepper': 'black pepper',
@@ -88,6 +89,13 @@ const SHOPPING_NAME_ALIASES: Record<string, string> = {
   // Olive oil
   'extra virgin olive oil': 'olive oil',
   'light olive oil': 'olive oil',
+
+  // Generic neutral oils → consolidate under 'oil'
+  'vegetable oil': 'oil',
+  'cooking oil': 'oil',
+  'canola oil': 'oil',
+  'sunflower oil': 'oil',
+  'corn oil': 'oil',
 
   // Broth / stock
   'chicken stock': 'chicken broth',
@@ -162,7 +170,8 @@ const SHOPPING_NAME_ALIASES: Record<string, string> = {
   'cayenne powder': 'cayenne pepper',
   'cayenne': 'cayenne pepper',
 
-  // Paprika
+  // Paprika (sweet = regular for shopping; smoky = smoked)
+  'sweet paprika': 'paprika',
   'smoky paprika': 'smoked paprika',
 
   // Scallions / green onions
@@ -198,10 +207,18 @@ const SHOPPING_NAME_ALIASES: Record<string, string> = {
   'yellow capsicum': 'yellow bell pepper',
   'capsicum': 'bell pepper',
 
-  // Dried chili
+  // Dried chili / chili flakes
   'dried ground chilli': 'chili powder',
   'dried ground chili': 'chili powder',
   'chilli powder': 'chili powder',
+  'chili flake': 'red pepper flake',
+  'chili flakes': 'red pepper flake',
+  'chilli flake': 'red pepper flake',
+  'chilli flakes': 'red pepper flake',
+  'crushed red pepper flake': 'red pepper flake',
+
+  // Coriander (ground = standard spice form)
+  'ground coriander': 'coriander',
 
   // Sundry
   'shallot': 'shallots',
@@ -270,6 +287,12 @@ const SHOPPING_NAME_ALIASES: Record<string, string> = {
   'wheat tortillas': 'flour tortilla',
   'small flour tortilla': 'flour tortilla',
   'large flour tortilla': 'flour tortilla',
+  '6-inch tortilla': 'flour tortilla',
+  '6 inch tortilla': 'flour tortilla',
+  '8-inch tortilla': 'flour tortilla',
+  '8 inch tortilla': 'flour tortilla',
+  '10-inch tortilla': 'flour tortilla',
+  '10 inch tortilla': 'flour tortilla',
 
   // Taco seasoning
   'batch taco seasoning': 'taco seasoning',
@@ -277,6 +300,28 @@ const SHOPPING_NAME_ALIASES: Record<string, string> = {
 
   // Tomato sauce
   'canned tomato sauce': 'tomato sauce',
+  'prepared tomato sauce': 'tomato sauce',
+
+  // Bread crumbs — consolidate format variants under canonical names
+  'panko bread crumb': 'panko',
+  'panko bread crumbs': 'panko',
+  'panko breadcrumb': 'panko',
+  'panko breadcrumbs': 'panko',
+  'italian-seasoned bread crumb': 'italian seasoned breadcrumb',
+  'italian-seasoned bread crumbs': 'italian seasoned breadcrumb',
+  'italian seasoned bread crumb': 'italian seasoned breadcrumb',
+  'seasoned bread crumb': 'italian seasoned breadcrumb',
+  'plain bread crumb': 'breadcrumb',
+  'plain breadcrumb': 'breadcrumb',
+
+  // Oats
+  'old-fashioned rolled oat': 'rolled oat',
+  'old fashioned rolled oat': 'rolled oat',
+  'old-fashioned oat': 'rolled oat',
+
+  // Banana pepper — strip descriptor suffix for category to apply
+  'banana pepper ring': 'banana pepper',
+  'banana pepper rings': 'banana pepper',
 
   // Quinoa
   'uncooked quinoa': 'quinoa',
@@ -534,6 +579,13 @@ const CATEGORY_OVERRIDES: Record<string, string> = {
   // Condiments
   'pepperoncini': 'condiments',
   'banana pepper': 'condiments',
+  'dijon mustard': 'condiments',
+  'whole grain mustard': 'condiments',
+  'yellow mustard': 'condiments',
+  'taco sauce': 'condiments',
+  'oyster sauce': 'condiments',
+  'hoisin sauce': 'condiments',
+  'teriyaki sauce': 'condiments',
   'fish sauce': 'condiments',
   'ranch dressing': 'condiments',
   'hot sauce': 'condiments',
@@ -545,23 +597,39 @@ const CATEGORY_OVERRIDES: Record<string, string> = {
   // Bakery
   'corn tortilla': 'bakery',
   'flour tortilla': 'bakery',
+  'sourdough discard': 'bakery',
+  'crispy taco shell': 'bakery',
   // Pantry — broths (override wrong 'protein/meat' category from some recipe imports)
   'chicken broth': 'pantry',
   'beef broth': 'pantry',
   'vegetable broth': 'pantry',
-  // Pantry — dried chiles & canned goods
+  // Pantry — dried chiles & canned/jarred goods
   'ancho chile': 'pantry',
   'negro chile': 'pantry',
   'chipotle chilis packed in adobo': 'pantry',
   'chipotle chili': 'pantry',
   'fire roasted green chili': 'pantry',
   'fire roasted tomato': 'pantry',
+  'crushed tomato': 'pantry',
+  'diced tomato': 'pantry',
+  'stewed tomato': 'pantry',
+  'whole peeled tomato': 'pantry',
+  'mild diced tomato with green chili': 'pantry',
+  'mild diced tomato with green chily': 'pantry',
   'olive': 'pantry',
   'black olive': 'pantry',
   'kalamata olive': 'pantry',
   'green olive': 'pantry',
   'enchilada sauce': 'pantry',
+  // Pantry — pasta & grains
+  'lasagna noodle': 'pantry',
+  'lasagna': 'pantry',
+  'rolled oat': 'pantry',
+  'italian seasoned breadcrumb': 'pantry',
   // Spices — additional
+  'fennel seed': 'spices',
+  'caraway seed': 'spices',
+  'mustard seed': 'spices',
   'ancho chili powder': 'spices',
   'ground clove': 'spices',
   'southwest spice blend': 'spices',
@@ -650,7 +718,7 @@ function normalizeUnit(unit: string): string {
 // Handles: "freshly chopped basil", "finely minced garlic", "lightly packed fresh cilantro", etc.
 const PREP_VERB_PREFIX_RE = /^(?:(?:fresh(?:ly)?|finely|roughly|coarsely|thinly|lightly|well)\s+)*(?:chopped|minced|diced|sliced|torn|snipped|shredded|halved|grated|packed|peeled)(?:\s+fresh(?:ly)?)?\s+/i;
 // Step 2: strip bare state/freshness/source prefixes (applied twice for chained modifiers)
-const MODIFIER_PREFIX_RE = /^(?:fresh(?:ly)?|melted|softened|warm(?:ed)?|cold|frozen|dry|dried|canned|uncooked|cooked|raw|ripe|homemade|store-bought|low-sodium|reduced-sodium)\s+/i;
+const MODIFIER_PREFIX_RE = /^(?:fresh(?:ly)?|melted|softened|warm(?:ed)?|cold|frozen|dry|dried|canned|uncooked|cooked|raw|ripe|homemade|store-bought|low-sodium|reduced-sodium|prepared)\s+/i;
 
 // Strip known supermarket / brand name prefixes baked into ingredient names by importers.
 const BRAND_PREFIX_RE = /^(?:kroger|great\s+value|store\s+brand|generic|kirkland|signature\s+select|best\s+choice|trader\s+joe'?s)\s+/i;
@@ -674,6 +742,8 @@ function normalizeShoppingName(name: string): string {
   n = n.replace(/\s+such\s+as\s+.+$/, '').trim();
   // Strip trailing "like X" brand suggestions: "beer like corona" → "beer"
   n = n.replace(/\s+like\s+[a-z].+$/, '').trim();
+  // Strip trailing cooking-purpose notes: "olive oil for frying" → "olive oil"
+  n = n.replace(/\s+for\s+(?:frying|saut[eé]ing|drizzling|greasing|brushing|baking|cooking|finishing|serving|the\s+pan|the\s+skillet|the\s+grill)\b.*/i, '').trim();
   // Strip preparation descriptors after a comma: "yellow onion, diced" → "yellow onion"
   const commaIdx = n.indexOf(',');
   if (commaIdx !== -1) {
@@ -728,6 +798,7 @@ const VAGUE_INGREDIENT_NAMES = new Set([
   'misc', 'topping', 'toppings', 'garnish', 'accompaniment',
   'homemade', 'store-bought',  // leftover fragments after OR-collapse
   'water', 'tap water',        // never purchased for cooking
+  'cheese',                    // too vague without a qualifier
 ]);
 
 function isCoveredByPantry(itemName: string, pantryNames: Set<string>): boolean {
@@ -860,6 +931,9 @@ export const useShoppingList = ({ plan, allRecipes, pantryStaples, days }: UseSh
         // Skip entries that normalized to nothing (e.g. "homemade" alone after modifier stripping)
         // or bare vague generic words that aren't actionable shopping items.
         if (!normalizedName || VAGUE_INGREDIENT_NAMES.has(normalizedName)) return;
+        // Skip parser artifacts like "to 3" that result from range quantities ("2 to 3 cups")
+        // being partially extracted with the first number consumed as the quantity.
+        if (/^to\s+[\d\s½¼¾⅓⅔.\/]+$/.test(normalizedName)) return;
         const normalizedUnit = normalizeUnit(ingUnit);
         const key = `${normalizedName}|${normalizedUnit}`;
         const qty = ingQty * (servingsMultiplier || 1);
