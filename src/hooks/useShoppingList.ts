@@ -348,7 +348,6 @@ const SHOPPING_NAME_ALIASES: Record<string, string> = {
 
   // Pepper — cracked without "black" qualifier
   'cracked pepper': 'black pepper',
-  'freshly cracked pepper': 'black pepper',
 
   // Mozzarella fat-content variants
   'part-skim mozzarella': 'mozzarella',
@@ -501,6 +500,9 @@ const CATEGORY_OVERRIDES: Record<string, string> = {
   'cauliflower': 'produce',
   'green onion': 'produce',
   'celery': 'produce',
+  'arugula': 'produce',
+  'baby arugula': 'produce',
+  'pepper': 'spices',
   // Dairy
   'egg': 'dairy',
   'eggs': 'dairy',
@@ -514,17 +516,24 @@ const CATEGORY_OVERRIDES: Record<string, string> = {
   'quinoa': 'pantry',
   'rice': 'pantry',
   'pasta': 'pantry',
-  'almonds': 'pantry',
-  'walnuts': 'pantry',
-  'pecans': 'pantry',
-  'peanuts': 'pantry',
+  'almond': 'pantry',
+  'walnut': 'pantry',
+  'pecan': 'pantry',
+  'peanut': 'pantry',
+  'cashew': 'pantry',
   'pine nut': 'pantry',
   'sesame seed': 'pantry',
   'coconut': 'pantry',
   'breadcrumb': 'pantry',
   'panko': 'pantry',
   'tomato sauce': 'pantry',
+  'chicken stock concentrate': 'pantry',
+  'beer': 'pantry',
+  'light beer': 'pantry',
+  'sourdough starter': 'bakery',
   // Condiments
+  'pepperoncini': 'condiments',
+  'banana pepper': 'condiments',
   'fish sauce': 'condiments',
   'ranch dressing': 'condiments',
   'hot sauce': 'condiments',
@@ -547,11 +556,12 @@ const CATEGORY_OVERRIDES: Record<string, string> = {
   'chipotle chili': 'pantry',
   'fire roasted green chili': 'pantry',
   'fire roasted tomato': 'pantry',
+  'olive': 'pantry',
+  'black olive': 'pantry',
+  'kalamata olive': 'pantry',
+  'green olive': 'pantry',
   'enchilada sauce': 'pantry',
   // Spices — additional
-  'ground cumin': 'spices',    // ensure after alias consolidation
-  'ground cinnamon': 'spices', // ensure after alias consolidation
-  'dried oregano': 'spices',   // ensure after alias consolidation
   'ancho chili powder': 'spices',
   'ground clove': 'spices',
   'southwest spice blend': 'spices',
@@ -660,11 +670,22 @@ function normalizeShoppingName(name: string): string {
   n = n.replace(/[\u00B2\u00B3\u00B9\u2070-\u2079]+$/, '').trim();
   // Strip trailing "to taste": "black pepper to taste" → "black pepper"
   n = n.replace(/\s+to\s+taste$/, '').trim();
+  // Strip trailing brand suggestions: "light beer such as corona light" → "light beer"
+  n = n.replace(/\s+such\s+as\s+.+$/, '').trim();
+  // Strip trailing "like X" brand suggestions: "beer like corona" → "beer"
+  n = n.replace(/\s+like\s+[a-z].+$/, '').trim();
   // Strip preparation descriptors after a comma: "yellow onion, diced" → "yellow onion"
   const commaIdx = n.indexOf(',');
   if (commaIdx !== -1) {
     n = n.slice(0, commaIdx).trim();
   }
+  // Treat "/" as an alternative separator: "squash/zucchini" → "squash"
+  const slashIdx = n.indexOf('/');
+  if (slashIdx !== -1) {
+    n = n.slice(0, slashIdx).trim();
+  }
+  // Strip leading "to <quantity> <unit>" range prefix: "to 3/4 cup crumbled feta" → "crumbled feta"
+  n = n.replace(/^to\s+\d[\d\s/.]*(?:tablespoons?|teaspoons?|cups?|ounces?|pounds?|grams?|tbsp|tsp|oz|lbs?)\s+/i, '').trim();
   // Strip leading "of " artifact: "of mozzarella cheese" → "mozzarella cheese"
   n = n.replace(/^of\s+/, '').trim();
   // Strip leading brand names: "kroger beef chuck roast" → "beef chuck roast"
@@ -686,6 +707,8 @@ function normalizeShoppingName(name: string): string {
     const afterClean = after.replace(/^\d[\d\s/.]*(tablespoons?|teaspoons?|cups?|ounces?|pounds?|grams?|tbsp|tsp|oz|lbs?|cups?)\.?\s+/i, '').trim();
     n = isBareModifier ? afterClean : before;
   }
+  // Strip leading size-range descriptors: "medium-to-large yellow squash" → "yellow squash"
+  n = n.replace(/^(?:medium[-\s]to[-\s]large|small[-\s]to[-\s]medium|small[-\s]to[-\s]large|extra[-\s]large)\s+/i, '').trim();
   // Strip leading preparation descriptors: "fresh chopped basil" → "basil"
   n = n.replace(PREP_VERB_PREFIX_RE, '').trim();
   // Apply MODIFIER_PREFIX_RE twice to handle chained modifiers like "homemade low-sodium broth"
@@ -808,7 +831,7 @@ export const useShoppingList = ({ plan, allRecipes, pantryStaples, days }: UseSh
         // "can tomato paste" → "tomato paste" (qty implied 1)
         // "cloves garlic" → "garlic" | "pinch of salt" → "salt" | "unit lemon" → "lemon"
         // Note: "canned" is intentionally NOT in this list — it's an adjective, not a unit.
-        const COUNT_PREFIX_RE = /^(cans?|jars?|bags?|bottles?|boxes?|packages?|packets?|pkgs?|cloves?|pinch(?:es)?(?:\s+of)?|handful(?:s)?(?:\s+of)?|heads?\s+of\s+|unit|strips?|links?)\s*/i;
+        const COUNT_PREFIX_RE = /^(cans?|jars?|bags?|bottles?|boxes?|packages?|packets?|pkgs?|cloves?|pinch(?:es)?(?:\s+of)?|handful(?:s)?(?:\s+of)?|heads?\s+of|unit|strips?|links?)\s+/i;
         const countPrefix = ingName.match(COUNT_PREFIX_RE);
         if (countPrefix) {
           if (!ingQty) ingQty = 1;
