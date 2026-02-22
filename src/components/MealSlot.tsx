@@ -39,9 +39,9 @@ const MealSlot = ({
   const mealLabel = mealTypeConfig?.label || mealType;
   const mealIcon = mealTypeConfig?.icon || '🍽️';
 
-  // Show rating prompt when first marked as cooked; auto-dismiss after 4s
+  // Show rating prompt when first marked as cooked (no prior rating); auto-dismiss after 4s
   useEffect(() => {
-    if (isCooked && !ratingDismissed && recipe?.rating == null) {
+    if (isCooked && !ratingDismissed && localRating == null && recipe?.rating == null) {
       setShowRating(true);
       const timer = setTimeout(() => {
         setShowRating(false);
@@ -50,6 +50,14 @@ const MealSlot = ({
       return () => clearTimeout(timer);
     }
   }, [isCooked]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Auto-dismiss when re-opened for editing (4s timeout)
+  useEffect(() => {
+    if (showRating && ratingDismissed) {
+      const timer = setTimeout(() => setShowRating(false), 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [showRating, ratingDismissed]);
 
   const handleMarkCooked = () => {
     if (onMarkCooked) onMarkCooked(id);
@@ -133,10 +141,14 @@ const MealSlot = ({
               const displayRating = localRating ?? recipe.rating!;
               const rounded = Math.round(displayRating);
               return (
-                <span className="text-sm text-amber-500" title={`Rated ${displayRating} stars`}>
+                <button
+                  onClick={() => { setShowRating(true); setRatingDismissed(false); }}
+                  className="text-sm text-amber-500 hover:opacity-70 transition-opacity"
+                  title="Tap to update rating"
+                >
                   {'★'.repeat(rounded)}
                   <span className="text-gray-300 dark:text-gray-600">{'★'.repeat(5 - rounded)}</span>
-                </span>
+                </button>
               );
             })()}
           </div>
