@@ -1,7 +1,7 @@
 // src/components/recipes/ManageRecipes.tsx
 import { useState, useMemo } from 'react';
 import type { ChangeEvent } from 'react';
-import type { Recipe, RecipeOperationResult, FilterType, MealType } from '../../types';
+import type { Recipe, RecipeOperationResult, FilterType, MealType, PlanItem } from '../../types';
 import { MEAL_TYPES } from '../../types';
 import RecipeList from './RecipeList';
 import RecipeFormModal from './RecipeFormModal';
@@ -10,6 +10,8 @@ import ImportUrlModal from './ImportUrlModal';
 import DeleteConfirmModal from './DeleteConfirmModal';
 import { parseRecipeFromUrl } from '../../utils/recipeParser';
 
+type SortOption = 'default' | 'untried';
+
 interface ManageRecipesProps {
   recipes: Recipe[];
   onAddRecipe: (recipeData: Partial<Recipe>) => RecipeOperationResult;
@@ -17,6 +19,7 @@ interface ManageRecipesProps {
   onDeleteRecipe: (recipeId: string) => { success: boolean; errors?: string[] };
   onDuplicateRecipe: (recipeId: string) => RecipeOperationResult;
   isCustomRecipe: (recipe: Recipe | null | undefined) => boolean;
+  plan?: PlanItem[];
 }
 
 const ManageRecipes = ({
@@ -25,11 +28,14 @@ const ManageRecipes = ({
   onUpdateRecipe,
   onDeleteRecipe,
   onDuplicateRecipe,
-  isCustomRecipe
+  isCustomRecipe,
+  plan = [],
 }: ManageRecipesProps) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [filterType, setFilterType] = useState<FilterType>('all');
   const [mealTypeFilter, setMealTypeFilter] = useState<MealType | null>(null);
+  const [sortOption, setSortOption] = useState<SortOption>('default');
+  const [showRecentlyCooked, setShowRecentlyCooked] = useState(false);
   const [showFormModal, setShowFormModal] = useState<boolean>(false);
   const [editingRecipe, setEditingRecipe] = useState<Recipe | null>(null);
   const [showImportModal, setShowImportModal] = useState<boolean>(false);
@@ -54,6 +60,24 @@ const ManageRecipes = ({
     });
     return counts;
   }, [recipes]);
+
+  // Recently cooked: collect cooked plan items sorted newest-first, deduplicated by recipe
+  const recentlyCooked = useMemo(() => {
+    const cookedItems = plan
+      .filter(p => p.recipe && p.cookedAt)
+      .sort((a, b) => (b.cookedAt || '').localeCompare(a.cookedAt || ''));
+    const seen = new Set<string>();
+    const result: Array<{ recipe: NonNullable<PlanItem['recipe']>; cookedAt: string; rating?: number | null }> = [];
+    for (const item of cookedItems) {
+      if (!item.recipe || seen.has(item.recipe.id)) continue;
+      seen.add(item.recipe.id);
+      result.push({ recipe: item.recipe, cookedAt: item.cookedAt!, rating: item.recipe.rating });
+      if (result.length >= 20) break;
+    }
+    return result;
+  }, [plan]);
+
+  const triedCount = useMemo(() => recipes.filter(r => (r.timesUsed ?? 0) > 0).length, [recipes]);
 
   const filteredRecipes = useMemo<Recipe[]>(() => {
     let filtered = recipes;
@@ -84,8 +108,17 @@ const ManageRecipes = ({
       );
     }
 
+    // Sort: untried first
+    if (sortOption === 'untried') {
+      filtered = [...filtered].sort((a, b) => {
+        const aUntried = (a.timesUsed ?? 0) === 0 ? 0 : 1;
+        const bUntried = (b.timesUsed ?? 0) === 0 ? 0 : 1;
+        return aUntried - bUntried;
+      });
+    }
+
     return filtered;
-  }, [recipes, searchTerm, filterType, mealTypeFilter, isCustomRecipe]);
+  }, [recipes, searchTerm, filterType, mealTypeFilter, isCustomRecipe, sortOption]);
 
   const handleAddNew = (): void => {
     setEditingRecipe(null);
@@ -187,6 +220,22 @@ const ManageRecipes = ({
           <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
             {recipes.length} recipes ({defaultCount} default, {customCount} custom)
           </p>
+          {/* Discovery progress pill */}
+          <div className="mt-2 flex items-center gap-3">
+            <span className="inline-flex items-center gap-1.5 text-xs bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 px-3 py-1 rounded-full border border-emerald-200 dark:border-emerald-800">
+              <span>✓</span>
+              <span className="font-medium">{triedCount} tried</span>
+              <span className="text-emerald-500 dark:text-emerald-500">·</span>
+              <span>{recipes.length - triedCount} to discover</span>
+            </span>
+            {/* Thin progress bar */}
+            <div className="flex-1 max-w-[120px] h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-emerald-500 rounded-full transition-all"
+                style={{ width: `${recipes.length > 0 ? (triedCount / recipes.length) * 100 : 0}%` }}
+              />
+            </div>
+          </div>
         </div>
         <div className="flex gap-3">
           {import.meta.env.VITE_PROXY_URL && (
@@ -211,6 +260,43 @@ const ManageRecipes = ({
           </button>
         </div>
       </div>
+
+      {/* Recently Cooked collapsible section */}
+      {recentlyCooked.length > 0 && (
+        <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl overflow-hidden">
+          <button
+            onClick={() => setShowRecentlyCooked(!showRecentlyCooked)}
+            className="w-full flex items-center justify-between px-4 py-3 hover:bg-amber-100 dark:hover:bg-amber-900/30 transition-colors"
+          >
+            <span className="font-medium text-amber-800 dark:text-amber-200 text-sm">
+              🍳 Recently Cooked ({recentlyCooked.length})
+            </span>
+            <svg
+              className={`w-4 h-4 text-amber-600 dark:text-amber-400 transition-transform ${showRecentlyCooked ? 'rotate-180' : ''}`}
+              fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          {showRecentlyCooked && (
+            <div className="px-4 pb-4 space-y-2">
+              {recentlyCooked.map(({ recipe, cookedAt, rating }) => (
+                <div key={recipe.id} className="flex items-center justify-between py-2 border-t border-amber-100 dark:border-amber-800">
+                  <div>
+                    <p className="text-sm font-medium text-gray-900 dark:text-gray-100">{recipe.name}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      {new Date(cookedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </p>
+                  </div>
+                  {rating != null && (
+                    <span className="text-sm text-amber-500">{'★'.repeat(Math.round(rating))}<span className="text-gray-300 dark:text-gray-600">{'★'.repeat(5 - Math.round(rating))}</span></span>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="flex-1 relative">
@@ -276,6 +362,33 @@ const ManageRecipes = ({
             }`}
           >
             Custom
+          </button>
+        </div>
+      </div>
+
+      {/* Sort option */}
+      <div className="flex items-center gap-2">
+        <span className="text-sm text-gray-500 dark:text-gray-400">Sort:</span>
+        <div className="flex rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 overflow-hidden text-sm">
+          <button
+            onClick={() => setSortOption('default')}
+            className={`px-3 py-1.5 font-medium transition-colors ${
+              sortOption === 'default'
+                ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100'
+                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
+            }`}
+          >
+            Default
+          </button>
+          <button
+            onClick={() => setSortOption('untried')}
+            className={`px-3 py-1.5 font-medium border-l border-gray-300 dark:border-gray-600 transition-colors ${
+              sortOption === 'untried'
+                ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100'
+                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
+            }`}
+          >
+            Untried first
           </button>
         </div>
       </div>

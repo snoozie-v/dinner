@@ -16,6 +16,9 @@ interface DayCardProps {
   onRemoveRecipe: (day: number, mealType: MealType) => void;
   onViewRecipe: (recipe: Recipe) => void;
   mealSlotThemes?: MealSlotTheme[];
+  isToday?: boolean;
+  onMarkCooked?: (planItemId: string) => void;
+  onRateRecipe?: (recipeId: string, rating: number) => void;
 }
 
 const DayCard = ({
@@ -28,6 +31,9 @@ const DayCard = ({
   onRemoveRecipe,
   onViewRecipe,
   mealSlotThemes = [],
+  isToday = false,
+  onMarkCooked,
+  onRateRecipe,
 }: DayCardProps) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
@@ -63,9 +69,9 @@ const DayCard = ({
 
   return (
     <div ref={setNodeRef} style={style} className="relative">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border dark:border-gray-700 overflow-hidden">
+      <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-md border overflow-hidden ${isToday ? 'border-blue-400 dark:border-blue-500 ring-2 ring-blue-200 dark:ring-blue-900' : 'dark:border-gray-700'}`}>
         {/* Day Header */}
-        <div className="flex items-center bg-gray-50 dark:bg-gray-700 border-b dark:border-gray-600">
+        <div className={`flex items-center border-b dark:border-gray-600 ${isToday ? 'bg-blue-50 dark:bg-blue-900/30' : 'bg-gray-50 dark:bg-gray-700'}`}>
           {/* Drag Handle */}
           <div
             {...attributes}
@@ -91,9 +97,16 @@ const DayCard = ({
           {/* Day title and collapse toggle */}
           <div className="flex-1 flex items-center justify-between px-4 py-3">
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                Day {day}
-              </h3>
+              <div className="flex items-center gap-2">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                  Day {day}
+                </h3>
+                {isToday && (
+                  <span className="text-xs bg-blue-600 text-white px-2 py-0.5 rounded-full font-medium">
+                    Today
+                  </span>
+                )}
+              </div>
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 {filledSlots} of {totalSlots} meals planned
               </p>
@@ -149,6 +162,8 @@ const DayCard = ({
                   onRemoveRecipe={onRemoveRecipe}
                   onViewRecipe={onViewRecipe}
                   slotTheme={getThemeForSlot(day, mealTypeConfig.id, mealSlotThemes)}
+                  onMarkCooked={onMarkCooked}
+                  onRateRecipe={onRateRecipe}
                 />
               );
             })}

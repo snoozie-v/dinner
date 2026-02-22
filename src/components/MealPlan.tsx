@@ -30,6 +30,9 @@ interface MealPlanProps {
   onRemoveRecipe: (day: number, mealType: MealType) => void;
   onViewRecipe: (recipe: Recipe) => void;
   mealSlotThemes?: MealSlotTheme[];
+  todayPlanDay?: number | null;
+  onMarkCooked?: (planItemId: string) => void;
+  onRateRecipe?: (recipeId: string, rating: number) => void;
 }
 
 const MealPlan = ({
@@ -42,6 +45,9 @@ const MealPlan = ({
   onRemoveRecipe,
   onViewRecipe,
   mealSlotThemes = [],
+  todayPlanDay,
+  onMarkCooked,
+  onRateRecipe,
 }: MealPlanProps) => {
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -112,18 +118,22 @@ const MealPlan = ({
           >
             <div className="space-y-6">
               {sortedDays.map((day) => (
-                <DayCard
-                  key={`day-${day}`}
-                  day={day}
-                  slots={dayGroups[day]}
-                  mealTypes={mealTypes}
-                  onSelectRecipe={onSelectRecipe}
-                  updateServings={updateServings}
-                  updateNotes={updateNotes}
-                  onRemoveRecipe={onRemoveRecipe}
-                  onViewRecipe={onViewRecipe}
-                  mealSlotThemes={mealSlotThemes}
-                />
+                <div key={`day-${day}`} id={`day-card-${day}`}>
+                  <DayCard
+                    day={day}
+                    slots={dayGroups[day]}
+                    mealTypes={mealTypes}
+                    onSelectRecipe={onSelectRecipe}
+                    updateServings={updateServings}
+                    updateNotes={updateNotes}
+                    onRemoveRecipe={onRemoveRecipe}
+                    onViewRecipe={onViewRecipe}
+                    mealSlotThemes={mealSlotThemes}
+                    isToday={day === todayPlanDay}
+                    onMarkCooked={onMarkCooked}
+                    onRateRecipe={onRateRecipe}
+                  />
+                </div>
               ))}
             </div>
           </SortableContext>

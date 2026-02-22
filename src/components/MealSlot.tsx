@@ -1,5 +1,5 @@
 // src/components/MealSlot.tsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { PlanItem as PlanItemType, Recipe, MealType } from '../types';
 import { MEAL_TYPES, PREDEFINED_THEMES } from '../types';
 
@@ -11,6 +11,8 @@ interface MealSlotProps {
   onRemoveRecipe: (day: number, mealType: MealType) => void;
   onViewRecipe: (recipe: Recipe) => void;
   slotTheme?: string | null;
+  onMarkCooked?: (planItemId: string) => void;
+  onRateRecipe?: (recipeId: string, rating: number) => void;
 }
 
 const MealSlot = ({
@@ -21,8 +23,14 @@ const MealSlot = ({
   onRemoveRecipe,
   onViewRecipe,
   slotTheme,
+  onMarkCooked,
+  onRateRecipe,
 }: MealSlotProps) => {
-  const { recipe, servingsMultiplier = 1, day, mealType, id, notes = '' } = planItem;
+  const { recipe, servingsMultiplier = 1, day, mealType, id, notes = '', cookedAt } = planItem;
+  const isCooked = !!cookedAt;
+  const [showRating, setShowRating] = useState(false);
+  const [ratingDismissed, setRatingDismissed] = useState(false);
+  const [localRating, setLocalRating] = useState<number | null>(null);
   const themeConfig = slotTheme ? PREDEFINED_THEMES.find(t => t.id === slotTheme) : null;
   const [isEditingNotes, setIsEditingNotes] = useState(false);
   const [notesDraft, setNotesDraft] = useState(notes);
@@ -30,6 +38,31 @@ const MealSlot = ({
   const mealTypeConfig = MEAL_TYPES.find(mt => mt.id === mealType);
   const mealLabel = mealTypeConfig?.label || mealType;
   const mealIcon = mealTypeConfig?.icon || '🍽️';
+
+  // Show rating prompt when first marked as cooked; auto-dismiss after 4s
+  useEffect(() => {
+    if (isCooked && !ratingDismissed && recipe?.rating == null) {
+      setShowRating(true);
+      const timer = setTimeout(() => {
+        setShowRating(false);
+        setRatingDismissed(true);
+      }, 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [isCooked]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const handleMarkCooked = () => {
+    if (onMarkCooked) onMarkCooked(id);
+  };
+
+  const handleRate = (star: number) => {
+    if (recipe?.id && onRateRecipe) {
+      onRateRecipe(recipe.id, star);
+    }
+    setLocalRating(star);
+    setShowRating(false);
+    setRatingDismissed(true);
+  };
 
   const handleSaveNotes = () => {
     updateNotes(id, notesDraft);
@@ -72,7 +105,11 @@ const MealSlot = ({
 
   // Filled slot
   return (
-    <div className="py-3 px-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600">
+    <div className={`py-3 px-4 rounded-lg border transition-colors ${
+      isCooked
+        ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
+        : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-600'
+    }`}>
       {/* Header row */}
       <div className="flex items-start gap-3">
         <span className="text-xl mt-0.5" title={mealLabel}>{mealIcon}</span>
@@ -87,6 +124,21 @@ const MealSlot = ({
                 {themeConfig.icon} {themeConfig.label}
               </span>
             )}
+            {isCooked && (
+              <span className="text-xs bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 px-2 py-0.5 rounded-full">
+                ✓ Cooked
+              </span>
+            )}
+            {(localRating != null || recipe.rating != null) && (() => {
+              const displayRating = localRating ?? recipe.rating!;
+              const rounded = Math.round(displayRating);
+              return (
+                <span className="text-sm text-amber-500" title={`Rated ${displayRating} stars`}>
+                  {'★'.repeat(rounded)}
+                  <span className="text-gray-300 dark:text-gray-600">{'★'.repeat(5 - rounded)}</span>
+                </span>
+              );
+            })()}
           </div>
           <h4 className="font-semibold text-gray-900 dark:text-gray-100 sm:truncate">
             {recipe.name}
@@ -103,6 +155,21 @@ const MealSlot = ({
 
         {/* Action buttons - min 44px tap targets for accessibility */}
         <div className="flex items-center gap-0.5 sm:gap-1 -mr-1">
+          {onMarkCooked && (
+            <button
+              onClick={handleMarkCooked}
+              className={`p-2.5 sm:p-2 rounded-lg transition touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center ${
+                isCooked
+                  ? 'text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/30 hover:bg-green-200 dark:hover:bg-green-900/50'
+                  : 'text-gray-400 dark:text-gray-500 hover:text-green-600 dark:hover:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20'
+              }`}
+              title={isCooked ? 'Mark as not cooked' : 'Mark as cooked'}
+            >
+              <svg className="w-5 h-5 sm:w-4 sm:h-4" fill={isCooked ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </button>
+          )}
           <button
             onClick={() => onViewRecipe(recipe)}
             className="p-2.5 sm:p-2 text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/30 rounded-lg transition touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
@@ -133,6 +200,31 @@ const MealSlot = ({
           </button>
         </div>
       </div>
+
+      {/* Inline rating prompt after marking cooked */}
+      {showRating && onRateRecipe && (
+        <div className="mt-2 flex items-center gap-2 bg-amber-50 dark:bg-amber-900/20 rounded-lg px-3 py-2">
+          <span className="text-xs text-amber-700 dark:text-amber-300 font-medium">How was it?</span>
+          <div className="flex gap-0.5">
+            {[1, 2, 3, 4, 5].map(star => (
+              <button
+                key={star}
+                onClick={() => handleRate(star)}
+                className="text-lg text-amber-300 hover:text-amber-500 transition-colors"
+                title={`${star} star${star !== 1 ? 's' : ''}`}
+              >
+                ★
+              </button>
+            ))}
+          </div>
+          <button
+            onClick={() => { setShowRating(false); setRatingDismissed(true); }}
+            className="text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 ml-auto"
+          >
+            Skip
+          </button>
+        </div>
+      )}
 
       {/* Servings row */}
       <div className="mt-2 flex items-center gap-2 flex-wrap">

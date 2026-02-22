@@ -200,11 +200,21 @@ const RecipeCard = ({
           </div>
         )}
 
-        <div className="mt-3 pt-3 border-t border-gray-100 dark:border-gray-700">
+        <div className="mt-3 pt-3 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between gap-2">
           <p className="text-xs text-gray-500 dark:text-gray-400">
             {recipe.ingredients?.length || 0} ingredients
             {totalSteps > 0 && ` • ${totalSteps} steps`}
           </p>
+          <div className="flex items-center gap-2 flex-shrink-0">
+            {recipe.rating != null && (
+              <span className="text-xs text-amber-500 font-medium">★ {recipe.rating.toFixed(1)}</span>
+            )}
+            {(recipe.timesUsed ?? 0) > 0 && (
+              <span className="text-xs text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 px-1.5 py-0.5 rounded">
+                Made {recipe.timesUsed}×
+              </span>
+            )}
+          </div>
         </div>
       </div>
     </div>

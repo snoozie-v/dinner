@@ -25,6 +25,8 @@ import DataSettingsModal from './components/DataSettingsModal';
 import HelpModal from './components/HelpModal';
 import MealSettingsModal from './components/MealSettingsModal';
 import ConfirmModal from './components/ConfirmModal';
+import NutritionSummary from './components/NutritionSummary';
+import TodayHero from './components/TodayHero';
 
 import { useRecipes } from './hooks/useRecipes';
 import { useUndo } from './hooks/useUndo';
@@ -58,6 +60,7 @@ function App() {
     sortedEnabledMealTypes: mealSettingsHook.sortedEnabledMealTypes,
     addToRecent: userPrefs.addToRecent,
     setUndoAction: undo.setUndoAction,
+    incrementTimesUsed: recipes.incrementTimesUsed,
   });
   const shopping = useShoppingList({
     plan: mealPlan.plan,
@@ -76,6 +79,23 @@ function App() {
   const [viewingRecipe, setViewingRecipe] = useState<Recipe | null>(null);
   const [refreshMessage, setRefreshMessage] = useState<string | null>(null);
   const [showClearDataConfirm, setShowClearDataConfirm] = useState(false);
+
+  // Compute which plan day maps to today (for TodayHero + DayCard)
+  const todayPlanDay = (() => {
+    if (!mealPlan.planStartDate) return null;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const start = new Date(mealPlan.planStartDate + 'T00:00:00');
+    const diff = Math.floor((today.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
+    const dayNum = diff + 1;
+    if (dayNum < 1 || dayNum > mealPlan.days) return null;
+    return dayNum;
+  })();
+
+  const handleScrollToDay = (day: number): void => {
+    const el = document.getElementById(`day-card-${day}`);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   const handleViewRecipe = (recipe: Recipe): void => {
     setViewingRecipe(recipe);
@@ -240,6 +260,8 @@ function App() {
       <Controls
         days={mealPlan.days}
         setDays={mealPlan.setDays}
+        planStartDate={mealPlan.planStartDate}
+        setPlanStartDate={mealPlan.setPlanStartDate}
         generateRandomPlan={handleGenerateRandomPlan}
         clearAllData={clearAllData}
         onOpenTemplates={() => app.setShowTemplateModal(true)}
@@ -248,9 +270,19 @@ function App() {
         hasTemplates={templates.templates.length > 0}
       />
 
+      <TodayHero
+        plan={mealPlan.plan}
+        planStartDate={mealPlan.planStartDate}
+        days={mealPlan.days}
+        mealTypes={MEAL_TYPES.filter(mt => mealSettingsHook.mealSettings.enabledMealTypes.includes(mt.id))}
+        onScrollToDay={handleScrollToDay}
+        onViewRecipe={handleViewRecipe}
+      />
+
       <QuickRecipes
         favoriteRecipes={userPrefs.favoriteRecipes}
         recentRecipes={userPrefs.recentRecipes}
+        allRecipes={recipes.allRecipes}
         onAssign={mealPlan.handleAssign}
         onToggleFavorite={userPrefs.toggleFavorite}
         isFavorite={userPrefs.isFavorite}
@@ -271,6 +303,8 @@ function App() {
         onViewRecipe={handleViewRecipe}
       />
 
+      <NutritionSummary plan={mealPlan.plan} />
+
       <MealPlan
         plan={mealPlan.plan}
         mealTypes={MEAL_TYPES.filter(mt => mealSettingsHook.mealSettings.enabledMealTypes.includes(mt.id))}
@@ -281,6 +315,12 @@ function App() {
         onRemoveRecipe={mealPlan.removeMealPlanRecipe}
         onViewRecipe={handleViewRecipe}
         mealSlotThemes={mealSettingsHook.mealSettings.mealSlotThemes}
+        todayPlanDay={todayPlanDay}
+        onMarkCooked={mealPlan.markCooked}
+        onRateRecipe={(recipeId, rating) => {
+          recipes.rateRecipe(recipeId, rating);
+          mealPlan.updateRecipeRatingInPlan(recipeId, rating);
+        }}
       />
 
       <RecipePickerModal
@@ -360,6 +400,7 @@ function App() {
       onDeleteRecipe={deleteRecipeWithUndo}
       onDuplicateRecipe={recipes.duplicateRecipe}
       isCustomRecipe={recipes.isCustomRecipe}
+      plan={mealPlan.plan}
     />
   );
 

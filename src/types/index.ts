@@ -97,6 +97,7 @@ export interface PlanItem {
   recipe: Recipe | null;
   servingsMultiplier: number;
   notes?: string;
+  cookedAt?: string;    // ISO timestamp when marked as cooked
 }
 
 // Legacy PlanItem for migration (v1 format - single meal per day)

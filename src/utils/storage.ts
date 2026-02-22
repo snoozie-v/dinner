@@ -10,6 +10,8 @@ export const STORAGE_KEYS = {
   THEME: 'dinner-planner-theme',
   ONBOARDING_SEEN: 'dinner-planner-onboarding-seen',
   CUSTOM_RECIPES: 'dinner-planner-custom-recipes',
+  PLAN_START_DATE: 'dinner-planner-start-date',
+  RECIPE_METADATA: 'dinner-planner-recipe-metadata',
 } as const;
 
 export type StorageKey = typeof STORAGE_KEYS[keyof typeof STORAGE_KEYS];

@@ -4,6 +4,8 @@ import type { ChangeEvent } from 'react';
 interface ControlsProps {
   days: number;
   setDays: (days: number) => void;
+  planStartDate: string | null;
+  setPlanStartDate: (date: string | null) => void;
   generateRandomPlan: () => void;
   clearAllData: () => void;
   onOpenTemplates: () => void;
@@ -15,6 +17,8 @@ interface ControlsProps {
 const Controls = ({
   days,
   setDays,
+  planStartDate,
+  setPlanStartDate,
   generateRandomPlan,
   clearAllData,
   onOpenTemplates,
@@ -32,11 +36,15 @@ const Controls = ({
     }
   };
 
+  const handleStartDateChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setPlanStartDate(e.target.value || null);
+  };
+
   return (
     <div className="mb-6 bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-sm border dark:border-gray-700">
       {/* Main controls row */}
       <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-4 mb-4">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-wrap justify-center">
           <label className="text-gray-700 dark:text-gray-300 font-medium">Plan for</label>
           <input
             type="number"
@@ -47,6 +55,22 @@ const Controls = ({
             className="w-20 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-lg px-3 py-3 text-center focus:ring-2 focus:ring-blue-500 text-lg touch-manipulation"
           />
           <span className="text-gray-700 dark:text-gray-300 font-medium">days</span>
+          <span className="text-gray-500 dark:text-gray-400 text-sm">starting</span>
+          <input
+            type="date"
+            value={planStartDate || ''}
+            onChange={handleStartDateChange}
+            className="border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-lg px-3 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 touch-manipulation"
+          />
+          {planStartDate && (
+            <button
+              onClick={() => setPlanStartDate(null)}
+              className="text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+              title="Clear start date"
+            >
+              ✕
+            </button>
+          )}
         </div>
 
         <button

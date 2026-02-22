@@ -11,6 +11,7 @@ interface UseMealPlanParams {
   sortedEnabledMealTypes: MealType[];
   addToRecent: (recipeId: string) => void;
   setUndoAction: (action: UndoAction | null) => void;
+  incrementTimesUsed?: (recipeId: string) => void;
 }
 
 export const useMealPlan = ({
@@ -18,9 +19,11 @@ export const useMealPlan = ({
   sortedEnabledMealTypes,
   addToRecent,
   setUndoAction,
+  incrementTimesUsed,
 }: UseMealPlanParams) => {
   const [days, setDays] = usePersistedState<number>(STORAGE_KEYS.DAYS, 3);
   const [plan, setPlan] = usePersistedState<PlanItem[]>(STORAGE_KEYS.PLAN, []);
+  const [planStartDate, setPlanStartDate] = usePersistedState<string | null>(STORAGE_KEYS.PLAN_START_DATE, null);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedDayForPicker, setSelectedDayForPicker] = useState<number | null>(null);
   const [selectedMealTypeForPicker, setSelectedMealTypeForPicker] = useState<MealType | null>(null);
@@ -54,24 +57,92 @@ export const useMealPlan = ({
     return matchingRecipes.length > 0 ? matchingRecipes : allRecipes;
   };
 
+  /**
+   * Weighted reservoir sampling: pick the top-N recipes by score.
+   * Score = Math.random() ** (1 / weight). Higher weight → higher score on average.
+   */
+  const weightedSample = (recipes: Recipe[], n: number, weights: Map<string, number>): Recipe[] => {
+    const scored = recipes.map(r => ({
+      recipe: r,
+      score: Math.random() ** (1 / Math.max(0.001, weights.get(r.id) ?? 1)),
+    }));
+    scored.sort((a, b) => b.score - a.score);
+    return scored.slice(0, n).map(s => s.recipe);
+  };
+
   const generateRandomPlan = (): void => {
     const newPlan: PlanItem[] = [];
     const numDays = days || 7;
+    const now = Date.now();
 
-    for (let day = 1; day <= numDays; day++) {
-      for (const mealType of sortedEnabledMealTypes) {
-        const recipesForMeal = getRecipesForMealType(mealType);
-        const randomIndex = Math.floor(Math.random() * recipesForMeal.length);
-        const recipe = recipesForMeal[randomIndex];
+    // Build recency info from existing plan's cookedAt timestamps
+    const recencyMap = new Map<string, number>(); // recipeId → most recent cookedAt ms
+    for (const item of plan) {
+      if (item.recipe?.id && item.cookedAt) {
+        const ts = new Date(item.cookedAt).getTime();
+        const existing = recencyMap.get(item.recipe.id);
+        if (existing === undefined || ts > existing) {
+          recencyMap.set(item.recipe.id, ts);
+        }
+      }
+    }
+
+    // Track recipes already placed in this new plan (no repeats)
+    const placedIds = new Set<string>();
+
+    for (const mealType of sortedEnabledMealTypes) {
+      const recipesForMeal = getRecipesForMealType(mealType);
+      const numNeeded = numDays;
+
+      // Build weight map for this meal type's recipes
+      const weights = new Map<string, number>();
+      for (const r of recipesForMeal) {
+        const cookedAt = recencyMap.get(r.id);
+        const ageDays = cookedAt ? (now - cookedAt) / (1000 * 60 * 60 * 24) : Infinity;
+
+        // Recency penalty
+        let w = 1.0;
+        if (ageDays < 7) w = 0; // exclude
+        else if (ageDays < 14) w = 0.1;
+
+        // Rating boost
+        if (r.rating != null) {
+          if (r.rating >= 4) w *= 2.0;
+          else if (r.rating <= 2) w *= 0.3;
+        }
+
+        weights.set(r.id, w);
+      }
+
+      // Filter out excluded recipes and already-placed ones
+      const eligible = recipesForMeal.filter(r => (weights.get(r.id) ?? 0) > 0 && !placedIds.has(r.id));
+      // Fallback to all if not enough eligible
+      const pool = eligible.length >= numNeeded ? eligible : recipesForMeal.filter(r => !placedIds.has(r.id));
+      // Final fallback: use all if still not enough
+      const finalPool = pool.length > 0 ? pool : recipesForMeal;
+
+      const selected = weightedSample(finalPool, numNeeded, weights);
+
+      for (let i = 0; i < numDays; i++) {
+        const recipe = selected[i % selected.length];
+        placedIds.add(recipe.id);
         newPlan.push({
-          day,
+          day: i + 1,
           mealType,
-          id: `day-${day}-${mealType}-${recipe.id || Math.random().toString(36).slice(2)}`,
+          id: `day-${i + 1}-${mealType}-${recipe.id || Math.random().toString(36).slice(2)}`,
           recipe: { ...recipe },
           servingsMultiplier: 1,
         });
       }
     }
+
+    // Sort by day then meal type order
+    newPlan.sort((a, b) => {
+      if (a.day !== b.day) return a.day - b.day;
+      const aOrder = MEAL_TYPES.find(mt => mt.id === a.mealType)?.order ?? 99;
+      const bOrder = MEAL_TYPES.find(mt => mt.id === b.mealType)?.order ?? 99;
+      return aOrder - bOrder;
+    });
 
     setPlan(newPlan);
     setSearchTerm('');
@@ -226,6 +297,30 @@ export const useMealPlan = ({
     });
   }, []);
 
+  const updateRecipeRatingInPlan = (recipeId: string, rating: number): void => {
+    setPlan(prev => prev.map(item =>
+      item.recipe?.id === recipeId
+        ? { ...item, recipe: { ...item.recipe!, rating } }
+        : item
+    ));
+  };
+
+  const markCooked = (planItemId: string): void => {
+    setPlan(prev => prev.map(item => {
+      if (item.id !== planItemId) return item;
+      if (item.cookedAt) {
+        // Un-mark cooked
+        const { cookedAt: _, ...rest } = item;
+        return rest as PlanItem;
+      }
+      // Mark cooked for the first time → increment timesUsed
+      if (item.recipe?.id && incrementTimesUsed) {
+        incrementTimesUsed(item.recipe.id);
+      }
+      return { ...item, cookedAt: new Date().toISOString() };
+    }));
+  };
+
   const handleSelectRecipeSlot = (day: number, mealType: MealType): void => {
     setSelectedDayForPicker(day);
     setSelectedMealTypeForPicker(mealType);
@@ -247,6 +342,9 @@ export const useMealPlan = ({
 
   return {
     plan, days, setDays,
+    planStartDate, setPlanStartDate,
+    markCooked,
+    updateRecipeRatingInPlan,
     searchTerm, setSearchTerm,
     selectedDayForPicker, selectedMealTypeForPicker,
     filteredRecipes,
