@@ -1,15 +1,17 @@
 // src/components/ShoppingList.tsx
 import { useState, useMemo, useEffect } from 'react';
-import type { PlanItem, ShoppingItem } from '../types';
+import type { PlanItem, Recipe, ShoppingItem } from '../types';
 import SwipeableShoppingItem from './SwipeableShoppingItem';
 import { openExternalUrl, copyToClipboard, shareText, canNativeShare } from '../utils/platform';
 import { PROXY_URL } from '../config';
 
 interface ShoppingListProps {
   plan: PlanItem[];
+  allRecipes: Recipe[];
   shoppingList: ShoppingItem[];
   toggleHaveItem: (key: string, totalQty: number) => void;
   onOpenPantry: () => void;
+  onViewRecipe: (recipe: Recipe) => void;
   totalDays: number;
   selectedDays: Set<number>;
   onSelectedDaysChange: (days: Set<number>) => void;
@@ -60,14 +62,26 @@ const formatQuantity = (qty: number, unit: string): string => {
 
 const ShoppingList = ({
   plan,
+  allRecipes,
   shoppingList,
   toggleHaveItem,
   onOpenPantry,
+  onViewRecipe,
   totalDays,
   selectedDays,
   onSelectedDaysChange,
 }: ShoppingListProps) => {
   const [hideCompleted, setHideCompleted] = useState(false);
+
+  // Build name → recipe lookup for breakdown navigation
+  const recipeByName = useMemo(() => {
+    const map = new Map<string, Recipe>();
+    for (const r of allRecipes) {
+      if (r.name) map.set(r.name, r);
+    }
+    return map;
+  }, [allRecipes]);
+
   const [instacartEnabled, setInstacartEnabled] = useState(false);
   const [isLoadingInstacart, setIsLoadingInstacart] = useState(false);
   const [hoveredKey, setHoveredKey] = useState<string | null>(null);
@@ -482,16 +496,28 @@ const ShoppingList = ({
                             <ul className="space-y-1">
                               {[...item.recipeBreakdown]
                                 .sort((a, b) => b.qty - a.qty)
-                                .map((entry, i) => (
-                                  <li key={i} className="flex items-center justify-between text-xs">
-                                    <span className="text-blue-800 dark:text-blue-200 truncate mr-3">
-                                      {entry.recipeName}
-                                    </span>
-                                    <span className="text-blue-600 dark:text-blue-400 whitespace-nowrap tabular-nums">
-                                      {entry.qty > 0 ? formatQuantity(entry.qty, entry.unit) : 'as needed'}
-                                    </span>
-                                  </li>
-                                ))}
+                                .map((entry, i) => {
+                                  const recipe = recipeByName.get(entry.recipeName);
+                                  return (
+                                    <li key={i} className="flex items-center justify-between text-xs">
+                                      {recipe ? (
+                                        <button
+                                          className="text-blue-700 dark:text-blue-300 truncate mr-3 underline underline-offset-2 hover:text-blue-900 dark:hover:text-blue-100 text-left"
+                                          onClick={(e) => { e.stopPropagation(); onViewRecipe(recipe); }}
+                                        >
+                                          {entry.recipeName}
+                                        </button>
+                                      ) : (
+                                        <span className="text-blue-800 dark:text-blue-200 truncate mr-3">
+                                          {entry.recipeName}
+                                        </span>
+                                      )}
+                                      <span className="text-blue-600 dark:text-blue-400 whitespace-nowrap tabular-nums">
+                                        {entry.qty > 0 ? formatQuantity(entry.qty, entry.unit) : 'as needed'}
+                                      </span>
+                                    </li>
+                                  );
+                                })}
                             </ul>
                           </div>
                         )}

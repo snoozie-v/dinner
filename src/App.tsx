@@ -332,9 +332,11 @@ function App() {
     <>
       <ShoppingList
         plan={mealPlan.plan}
+        allRecipes={recipes.allRecipes}
         shoppingList={shopping.shoppingList}
         toggleHaveItem={shopping.toggleHaveItem}
         onOpenPantry={() => app.setShowPantryModal(true)}
+        onViewRecipe={handleViewRecipe}
         totalDays={mealPlan.days}
         selectedDays={shopping.selectedShoppingDays}
         onSelectedDaysChange={shopping.setSelectedShoppingDays}
