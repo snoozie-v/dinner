@@ -260,10 +260,6 @@ const SHOPPING_NAME_ALIASES: Record<string, string> = {
   'dry white': 'white wine',
   'dry red': 'red wine',
 
-  // Broth fragments (imported as garbage when recipe text says "homemade or store-bought")
-  'homemade': 'chicken broth',
-  'low sodium store-bought': 'chicken broth',
-
   // Fish sauce alias
   'vietnamese': 'fish sauce',
 
@@ -324,6 +320,28 @@ const SHOPPING_NAME_ALIASES: Record<string, string> = {
   // Medium-to-large garlic
   'medium-to-large clove garlic': 'garlic',
   'medium to large clove garlic': 'garlic',
+
+  // Cumin / cinnamon (standalone name = ground form for shopping purposes)
+  'cumin': 'ground cumin',
+  'cinnamon': 'ground cinnamon',
+
+  // Oregano
+  'oregano': 'dried oregano',
+
+  // Chile pepper categories — normalize variant spellings to one canonical name
+  'chile ancho': 'ancho chile',
+  'ancho chili': 'ancho chile',
+  'pasilla chile': 'ancho chile',    // close enough for shopping
+  'chile negro': 'negro chile',
+
+  // Oxtail spelling
+  'oxtails': 'oxtail',
+
+  // Enchilada sauce (strip homemade/store-bought prefix via MODIFIER_PREFIX_RE; alias result)
+  'enchilada sauce': 'enchilada sauce',  // identity — category override handles the rest
+
+  // Bacon / sausage word-order fixes (after COUNT_PREFIX_RE strips "strips"/"links")
+  'uncooked bacon': 'bacon',
 };
 
 const UNIT_ALIASES: Record<string, string> = {
@@ -420,11 +438,19 @@ const CATEGORY_OVERRIDES: Record<string, string> = {
   'onion powder': 'spices',
   'dried parsley': 'spices',
   // Meat
-  'pepperoni': 'meat',
-  'oxtail': 'meat',
-  'pancetta': 'meat',
-  'prosciutto': 'meat',
-  'chorizo': 'meat',
+  'chicken breast': 'protein/meat',
+  'chuck-eye roast': 'protein/meat',
+  'chuck eye roast': 'protein/meat',
+  'pepperoni': 'protein/meat',
+  'oxtail': 'protein/meat',
+  'pancetta': 'protein/meat',
+  'prosciutto': 'protein/meat',
+  'chorizo': 'protein/meat',
+  'bacon': 'protein/meat',
+  'pork sausage': 'protein/meat',
+  'italian sausage': 'protein/meat',
+  'ground turkey': 'protein/meat',
+  'ground pork': 'protein/meat',
   // Produce
   'eggplant': 'produce',
   'jalapeño': 'produce',
@@ -482,9 +508,38 @@ const CATEGORY_OVERRIDES: Record<string, string> = {
   'ranch dressing': 'condiments',
   'hot sauce': 'condiments',
   'worcestershire sauce': 'condiments',
+  'mayonnaise': 'condiments',
+  'mustard': 'condiments',
+  'ketchup': 'condiments',
+  'soy sauce': 'condiments',
   // Bakery
   'corn tortilla': 'bakery',
   'flour tortilla': 'bakery',
+  // Pantry — broths (override wrong 'protein/meat' category from some recipe imports)
+  'chicken broth': 'pantry',
+  'beef broth': 'pantry',
+  'vegetable broth': 'pantry',
+  // Pantry — dried chiles & canned goods
+  'ancho chile': 'pantry',
+  'negro chile': 'pantry',
+  'chipotle chilis packed in adobo': 'pantry',
+  'chipotle chili': 'pantry',
+  'fire roasted green chili': 'pantry',
+  'fire roasted tomato': 'pantry',
+  'enchilada sauce': 'pantry',
+  // Spices — additional
+  'ground cumin': 'spices',    // ensure after alias consolidation
+  'ground cinnamon': 'spices', // ensure after alias consolidation
+  'dried oregano': 'spices',   // ensure after alias consolidation
+  'ancho chili powder': 'spices',
+  'ground clove': 'spices',
+  'southwest spice blend': 'spices',
+  'spice blend': 'spices',
+  'bay leaf': 'spices',
+  'red pepper flake': 'spices',
+  'crushed red pepper': 'spices',
+  'black pepper': 'spices',
+  'salt': 'spices',
   // Frozen
   'frozen corn': 'frozen',
   'frozen pea': 'frozen',
@@ -555,8 +610,11 @@ function normalizeUnit(unit: string): string {
 // Step 1: strip optional adverb/adjective modifiers + a prep verb + optional trailing "fresh"
 // Handles: "freshly chopped basil", "finely minced garlic", "lightly packed fresh cilantro", etc.
 const PREP_VERB_PREFIX_RE = /^(?:(?:fresh(?:ly)?|finely|roughly|coarsely|thinly|lightly|well)\s+)*(?:chopped|minced|diced|sliced|torn|snipped|shredded|halved|grated|packed|peeled)(?:\s+fresh(?:ly)?)?\s+/i;
-// Step 2: strip bare state/freshness prefixes not caught by step 1 (applied twice for chained modifiers)
-const MODIFIER_PREFIX_RE = /^(?:fresh(?:ly)?|melted|softened|warm|warm(?:ed)?|cold|frozen|dry|dried|canned|uncooked|cooked|raw|ripe)\s+/i;
+// Step 2: strip bare state/freshness/source prefixes (applied twice for chained modifiers)
+const MODIFIER_PREFIX_RE = /^(?:fresh(?:ly)?|melted|softened|warm(?:ed)?|cold|frozen|dry|dried|canned|uncooked|cooked|raw|ripe|homemade|store-bought|low-sodium|reduced-sodium)\s+/i;
+
+// Strip known supermarket / brand name prefixes baked into ingredient names by importers.
+const BRAND_PREFIX_RE = /^(?:kroger|great\s+value|store\s+brand|generic|kirkland|signature\s+select|best\s+choice|trader\s+joe'?s)\s+/i;
 
 function normalizeShoppingName(name: string): string {
   let n = stripParenthetical(name);
@@ -576,23 +634,26 @@ function normalizeShoppingName(name: string): string {
   }
   // Strip leading "of " artifact: "of mozzarella cheese" → "mozzarella cheese"
   n = n.replace(/^of\s+/, '').trim();
+  // Strip leading brand names: "kroger beef chuck roast" → "beef chuck roast"
+  n = n.replace(BRAND_PREFIX_RE, '').trim();
   // Collapse "or" alternatives: keep only the primary option.
   // "lime juice or 1 tablespoon sherry vinegar" → "lime juice"
   // "broccoli or 1 small head of cauliflower" → "broccoli"
-  // Special case: if the part before "or" is a lone color/size modifier (not a real ingredient),
-  // take the part after "or" instead — "red or white onion" → "white onion" → alias → "onion"
+  // Special case: if the part before "or" is a lone color/size/source modifier (not a real
+  // ingredient on its own), take the part after "or" instead.
+  // "red or white onion" → "white onion" | "vegetable or canola oil" → "canola oil" → "oil"
   const orIdx = n.indexOf(' or ');
   if (orIdx !== -1) {
     const before = n.slice(0, orIdx).trim();
     const after = n.slice(orIdx + 4).trim();
-    const isBareModifier = /^(red|green|yellow|white|brown|dark|light|black|orange|purple|fresh|dried|dry|homemade|store-bought|low-sodium|warm)$/i.test(before);
+    const isBareModifier = /^(red|green|yellow|white|brown|dark|light|black|orange|purple|fresh|dried|dry|homemade|store-bought|low-sodium|warm|vegetable|canola|sunflower|avocado|grapeseed|peanut|coconut)$/i.test(before);
     // Strip any leading quantity+unit from the "after" part before using it
     const afterClean = after.replace(/^\d[\d\s/.]*(tablespoons?|teaspoons?|cups?|ounces?|pounds?|grams?|tbsp|tsp|oz|lbs?|cups?)\.?\s+/i, '').trim();
     n = isBareModifier ? afterClean : before;
   }
   // Strip leading preparation descriptors: "fresh chopped basil" → "basil"
   n = n.replace(PREP_VERB_PREFIX_RE, '').trim();
-  // Apply MODIFIER_PREFIX_RE twice to handle chained modifiers like "dry uncooked quinoa"
+  // Apply MODIFIER_PREFIX_RE twice to handle chained modifiers like "homemade low-sodium broth"
   n = n.replace(MODIFIER_PREFIX_RE, '').trim();
   n = n.replace(MODIFIER_PREFIX_RE, '').trim();
   if (SHOPPING_NAME_ALIASES[n]) return SHOPPING_NAME_ALIASES[n];
@@ -600,6 +661,15 @@ function normalizeShoppingName(name: string): string {
   const dep = depluralizeName(n);
   return SHOPPING_NAME_ALIASES[dep] ?? dep;
 }
+
+// Bare single-word names that are too vague to be actionable shopping items.
+// These arise from importer edge-cases ("vegetable or canola oil" → "canola oil" → fine,
+// but "vegetable" alone from "vegetable, divided" notes, or "fruit"/"nut"/"seed" catch-alls).
+const VAGUE_INGREDIENT_NAMES = new Set([
+  'fruit', 'nut', 'seed', 'produce', 'vegetable', 'item', 'ingredient', 'other',
+  'misc', 'topping', 'toppings', 'garnish', 'accompaniment',
+  'homemade', 'store-bought',  // leftover fragments after OR-collapse
+]);
 
 function isCoveredByPantry(itemName: string, pantryNames: Set<string>): boolean {
   const lower = normalizeShoppingName(itemName);
@@ -679,6 +749,9 @@ export const useShoppingList = ({ plan, allRecipes, pantryStaples, days }: UseSh
         if (ingNameLower.startsWith('other:')) return;
         if (ingNameLower.startsWith('suggested garnishes:')) return;
         if (/^(toppings? of your choice|optional toppings?|garnish|for garnish|for serving|to serve|as needed|a pinch|turns? of|your favorite|preferred|any of the following)/i.test(ingNameLower)) return;
+        // Skip ingredients that are clearly serving suggestions (qty=0, preparation says "for serving")
+        const prepLower = (ing.preparation || '').toLowerCase();
+        if (!ing.quantity && /\bfor serving\b|\bto serve\b|\bcooked.*serving\b/.test(prepLower)) return;
 
         // Always attempt to extract a clean ingredient name from the name field —
         // importers often bake quantity/unit strings into it (e.g. "⅓ tsp cayenne pepper",
@@ -699,7 +772,7 @@ export const useShoppingList = ({ plan, allRecipes, pantryStaples, days }: UseSh
         // "can tomato paste" → "tomato paste" (qty implied 1)
         // "cloves garlic" → "garlic" | "pinch of salt" → "salt" | "unit lemon" → "lemon"
         // Note: "canned" is intentionally NOT in this list — it's an adjective, not a unit.
-        const COUNT_PREFIX_RE = /^(cans?|jars?|bags?|bottles?|boxes?|packages?|pkgs?|cloves?|pinch(?:es)?(?:\s+of)?|handful(?:s)?(?:\s+of)?|unit)\s+/i;
+        const COUNT_PREFIX_RE = /^(cans?|jars?|bags?|bottles?|boxes?|packages?|pkgs?|cloves?|pinch(?:es)?(?:\s+of)?|handful(?:s)?(?:\s+of)?|unit|strips?|links?)\s+/i;
         const countPrefix = ingName.match(COUNT_PREFIX_RE);
         if (countPrefix) {
           if (!ingQty) ingQty = 1;
@@ -720,12 +793,19 @@ export const useShoppingList = ({ plan, allRecipes, pantryStaples, days }: UseSh
         }
 
         const normalizedName = normalizeShoppingName(ingName);
+        // Skip entries that normalized to nothing (e.g. "homemade" alone after modifier stripping)
+        // or bare vague generic words that aren't actionable shopping items.
+        if (!normalizedName || VAGUE_INGREDIENT_NAMES.has(normalizedName)) return;
         const normalizedUnit = normalizeUnit(ingUnit);
         const key = `${normalizedName}|${normalizedUnit}`;
         const qty = ingQty * (servingsMultiplier || 1);
 
         if (!map.has(key)) {
-          const overriddenCategory = CATEGORY_OVERRIDES[normalizedName] ?? ing.category ?? 'other';
+          // Normalise non-standard raw category strings from recipe imports.
+          const rawCategory = ing.category === 'meat' ? 'protein/meat'
+            : ing.category === 'seafood' ? 'protein/seafood'
+            : ing.category ?? 'other';
+          const overriddenCategory = CATEGORY_OVERRIDES[normalizedName] ?? rawCategory;
           map.set(key, {
             name: normalizedName,
             unit: normalizedUnit || 'unit',

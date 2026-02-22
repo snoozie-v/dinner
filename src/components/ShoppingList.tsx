@@ -23,12 +23,15 @@ const CATEGORY_ORDER: Record<string, { label: string; order: number }> = {
   'bakery': { label: 'Bakery', order: 2 },
   'dairy': { label: 'Dairy', order: 3 },
   'protein/meat': { label: 'Meat', order: 4 },
+  'meat': { label: 'Meat', order: 4 },            // alias for non-standard category value
   'protein/seafood': { label: 'Seafood', order: 5 },
+  'seafood': { label: 'Seafood', order: 5 },       // alias for non-standard category value
   'frozen': { label: 'Frozen', order: 6 },
   'canned goods': { label: 'Canned Goods', order: 7 },
   'pasta/grains': { label: 'Pasta & Grains', order: 8 },
   'spices': { label: 'Spices & Seasonings', order: 9 },
   'pantry': { label: 'Pantry', order: 10 },
+  'condiments': { label: 'Condiments', order: 11 },
   'other': { label: 'Other', order: 99 },
 };
 

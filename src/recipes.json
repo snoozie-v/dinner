@@ -292,7 +292,7 @@
         "name": "sesame seeds",
         "quantity": 1,
         "unit": "tablespoon",
-        "category": "other",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -438,7 +438,7 @@
         "quantity": 2,
         "unit": "tablespoons",
         "preparation": "toasted",
-        "category": "other",
+        "category": "pantry",
         "optional": false
       }
     ],
@@ -1569,7 +1569,7 @@
         "name": "celery seed",
         "quantity": 0.25,
         "unit": "teaspoon",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
@@ -2277,7 +2277,7 @@
         "name": "wide egg noodles",
         "quantity": 6,
         "unit": "oz",
-        "category": "other",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -4790,7 +4790,7 @@
         "name": "fennel seeds",
         "quantity": 0.5,
         "unit": "teaspoon",
-        "category": "spices",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -5440,7 +5440,7 @@
         "name": "sesame seeds",
         "quantity": 1,
         "unit": "tbsp",
-        "category": "other",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -6619,7 +6619,7 @@
     "cuisine": "European",
     "ingredients": [
       {
-        "name": "kroger beef chuck roast",
+        "name": "beef chuck roast",
         "quantity": 2,
         "unit": "lb",
         "category": "protein/meat",
@@ -6733,7 +6733,7 @@
         "quantity": 0,
         "unit": "",
         "preparation": "cooked, for serving",
-        "category": "other",
+        "category": "pantry",
         "optional": false
       }
     ],
@@ -7441,7 +7441,7 @@
         "name": "wide egg noodles",
         "quantity": 8,
         "unit": "oz",
-        "category": "other",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -8538,7 +8538,7 @@
         "quantity": 1,
         "unit": "whole",
         "preparation": "see note, seeds and stem removed",
-        "category": "other",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -8546,7 +8546,7 @@
         "quantity": 1,
         "unit": "whole",
         "preparation": "see note, seeds and stem removed",
-        "category": "other",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -8566,10 +8566,10 @@
         "optional": false
       },
       {
-        "name": "oxtails",
+        "name": "oxtail",
         "quantity": 1,
         "unit": "pound",
-        "category": "other",
+        "category": "protein/meat",
         "optional": false
       },
       {
@@ -8615,7 +8615,7 @@
         "name": "ground cloves",
         "quantity": 0.5,
         "unit": "teaspoon",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
@@ -8630,7 +8630,7 @@
         "quantity": 4,
         "unit": "",
         "preparation": "roughly chopped, with 2 tablespoons adobo sauce",
-        "category": "other",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -9439,7 +9439,7 @@
         "name": "fennel seed",
         "quantity": 0.5,
         "unit": "teaspoon",
-        "category": "spices",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -9507,7 +9507,7 @@
     "cuisine": "American",
     "ingredients": [
       {
-        "name": "links pork sausage",
+        "name": "pork sausage",
         "quantity": 6,
         "unit": "",
         "category": "protein/meat",
@@ -10038,7 +10038,7 @@
         "name": "Southwest Spice Blend",
         "quantity": 1,
         "unit": "tablespoon",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
@@ -10163,7 +10163,7 @@
         "name": "Southwest Spice Blend",
         "quantity": 1,
         "unit": "tablespoon",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
@@ -10800,7 +10800,7 @@
         "name": "Southwest Spice Blend",
         "quantity": 1,
         "unit": "tablespoon",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
@@ -11197,7 +11197,7 @@
         "name": "Southwest Spice Blend",
         "quantity": 1,
         "unit": "tablespoon",
-        "category": "other",
+        "category": "spices",
         "optional": false
       },
       {
