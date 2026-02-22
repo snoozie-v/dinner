@@ -166,6 +166,7 @@ const ALLOWED_DOMAINS = [
   'skinnytaste.com',
   'tasteofhome.com',
   'sugarspunrun.com',
+  'ourzestylife.com',
 ];
 
 // Domains that are known to block automated requests (Cloudflare, etc.)
