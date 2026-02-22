@@ -207,6 +207,123 @@ const SHOPPING_NAME_ALIASES: Record<string, string> = {
   'shallot': 'shallots',
   'romano bean': 'kidney bean',
   'romano beans': 'kidney beans',
+
+  // Olive oil (hyphenated variant)
+  'extra-virgin olive oil': 'olive oil',
+
+  // Parsley
+  'flat-leaf parsley': 'parsley',
+  'parsley leave': 'parsley',
+  'parsley leaves': 'parsley',
+  'flat leaf parsley': 'parsley',
+  'italian flat-leaf parsley': 'parsley',
+  'italian flat leaf parsley': 'parsley',
+
+  // Mint
+  'mint leave': 'mint',
+  'mint leaves': 'mint',
+  'fresh mint leave': 'mint',
+  'fresh mint leaves': 'mint',
+
+  // Sage
+  'sage leave': 'sage',
+  'sage leaves': 'sage',
+  'fresh sage leave': 'sage',
+  'fresh sage leaves': 'sage',
+
+  // Cilantro
+  'cilantro leave': 'cilantro',
+  'cilantro leaves': 'cilantro',
+
+  // Cheese
+  'sharp cheddar': 'cheddar cheese',
+  'sharp cheddar cheese': 'cheddar cheese',
+  'white cheddar': 'cheddar cheese',
+  'white cheddar cheese': 'cheddar cheese',
+  'extra sharp cheddar': 'cheddar cheese',
+  'shredded cheddar': 'cheddar cheese',
+  'shredded cheddar cheese': 'cheddar cheese',
+  'shredded mozzarella': 'mozzarella',
+  'shredded mozzarella cheese': 'mozzarella',
+
+  // Sugar
+  'caster sugar': 'sugar',
+  'powdered sugar': 'powdered sugar',
+
+  // Celery (rib count variant — 'rib celery' is already defined above)
+  'ribs celery': 'celery',
+  'celery ribs': 'celery',
+
+  // Wine
+  'dry white wine': 'white wine',
+  'dry red wine': 'red wine',
+  'dry white': 'white wine',
+  'dry red': 'red wine',
+
+  // Broth fragments (imported as garbage when recipe text says "homemade or store-bought")
+  'homemade': 'chicken broth',
+  'low sodium store-bought': 'chicken broth',
+
+  // Fish sauce alias
+  'vietnamese': 'fish sauce',
+
+  // Tortillas
+  'warm corn tortilla': 'corn tortilla',
+  'warm corn tortillas': 'corn tortilla',
+  'wheat tortilla': 'flour tortilla',
+  'wheat tortillas': 'flour tortilla',
+  'small flour tortilla': 'flour tortilla',
+  'large flour tortilla': 'flour tortilla',
+
+  // Taco seasoning
+  'batch taco seasoning': 'taco seasoning',
+  'homemade taco seasoning': 'taco seasoning',
+
+  // Tomato sauce
+  'canned tomato sauce': 'tomato sauce',
+
+  // Quinoa
+  'uncooked quinoa': 'quinoa',
+
+  // Chicken variants
+  'chicken breast strip': 'chicken breast',
+  'chicken breast strips': 'chicken breast',
+  'split chicken breast': 'chicken breast',
+
+  // Broccoli
+  'baby broccoli': 'broccoli',
+  'broccoli floret': 'broccoli',
+  'broccoli florets': 'broccoli',
+
+  // Cabbage
+  'green cabbage': 'cabbage',
+
+  // Mushrooms
+  'white mushroom': 'mushroom',
+  'cremini mushroom': 'mushroom',
+  'cremini mushrooms': 'mushroom',
+  'baby bella mushroom': 'mushroom',
+  'baby bella mushrooms': 'mushroom',
+  'button mushroom': 'mushroom',
+  'button mushrooms': 'mushroom',
+
+  // Egg noodles
+  'wide egg noodle': 'egg noodles',
+  'wide egg noodles': 'egg noodles',
+
+  // Butter (serving context)
+  'butter for the pan': 'butter',
+
+  // Italian seasoning
+  'dried italian herb': 'italian seasoning',
+  'dried italian herbs': 'italian seasoning',
+
+  // Spaghetti
+  'dried spaghetti': 'spaghetti',
+
+  // Medium-to-large garlic
+  'medium-to-large clove garlic': 'garlic',
+  'medium to large clove garlic': 'garlic',
 };
 
 const UNIT_ALIASES: Record<string, string> = {
@@ -280,6 +397,101 @@ const UNIT_ALIASES: Record<string, string> = {
   'strips': '',
 };
 
+// Category overrides: applied after name normalization to fix systematic mis-categorisation.
+// Map normalized ingredient name → correct category.
+const CATEGORY_OVERRIDES: Record<string, string> = {
+  // Spices
+  'cayenne pepper': 'spices',
+  'ground cumin': 'spices',
+  'ground cinnamon': 'spices',
+  'smoked paprika': 'spices',
+  'chili powder': 'spices',
+  'paprika': 'spices',
+  'taco seasoning': 'spices',
+  'italian seasoning': 'spices',
+  'dried oregano': 'spices',
+  'dried basil': 'spices',
+  'dried thyme': 'spices',
+  'dried rosemary': 'spices',
+  'cumin': 'spices',
+  'coriander': 'spices',
+  'turmeric': 'spices',
+  'garlic powder': 'spices',
+  'onion powder': 'spices',
+  'dried parsley': 'spices',
+  // Meat
+  'pepperoni': 'meat',
+  'oxtail': 'meat',
+  'pancetta': 'meat',
+  'prosciutto': 'meat',
+  'chorizo': 'meat',
+  // Produce
+  'eggplant': 'produce',
+  'jalapeño': 'produce',
+  'ginger': 'produce',
+  'mint': 'produce',
+  'sage': 'produce',
+  'shallots': 'produce',
+  'cilantro': 'produce',
+  'parsley': 'produce',
+  'basil': 'produce',
+  'thyme': 'produce',
+  'rosemary': 'produce',
+  'chives': 'produce',
+  'dill': 'produce',
+  'leek': 'produce',
+  'leeks': 'produce',
+  'corn': 'produce',
+  'avocado': 'produce',
+  'zucchini': 'produce',
+  'asparagus': 'produce',
+  'beet': 'produce',
+  'beets': 'produce',
+  'radish': 'produce',
+  'turnip': 'produce',
+  'cabbage': 'produce',
+  'broccoli': 'produce',
+  'cauliflower': 'produce',
+  'green onion': 'produce',
+  'celery': 'produce',
+  // Dairy
+  'egg': 'dairy',
+  'eggs': 'dairy',
+  // Pantry
+  'active dry yeast': 'pantry',
+  'tahini': 'pantry',
+  'vanilla extract': 'pantry',
+  'vanilla': 'pantry',
+  'spaghetti': 'pantry',
+  'egg noodles': 'pantry',
+  'quinoa': 'pantry',
+  'rice': 'pantry',
+  'pasta': 'pantry',
+  'almonds': 'pantry',
+  'walnuts': 'pantry',
+  'pecans': 'pantry',
+  'peanuts': 'pantry',
+  'pine nut': 'pantry',
+  'sesame seed': 'pantry',
+  'coconut': 'pantry',
+  'breadcrumb': 'pantry',
+  'panko': 'pantry',
+  'tomato sauce': 'pantry',
+  // Condiments
+  'fish sauce': 'condiments',
+  'ranch dressing': 'condiments',
+  'hot sauce': 'condiments',
+  'worcestershire sauce': 'condiments',
+  // Bakery
+  'corn tortilla': 'bakery',
+  'flour tortilla': 'bakery',
+  // Frozen
+  'frozen corn': 'frozen',
+  'frozen pea': 'frozen',
+  'frozen peas': 'frozen',
+  'frozen spinach': 'frozen',
+};
+
 const WEIGHT_UNITS = new Set(['gram', 'kilogram', 'ounce', 'pound']);
 
 // Volume unit conversion: teaspoon as the common base
@@ -333,15 +545,18 @@ function depluralizeName(name: string): string {
 }
 
 function normalizeUnit(unit: string): string {
-  const lower = unit.toLowerCase().trim();
+  let lower = unit.toLowerCase().trim();
+  // Strip leading size annotations baked into unit strings by importers.
+  // "12 oz jar" → "jar", "16 oz can" → "can", "4 oz" → "4 oz" (stays for alias lookup)
+  lower = lower.replace(/^\d+\s*(?:oz|fl oz|ml|g|lb)\s+/, '');
   return UNIT_ALIASES[lower] ?? lower;
 }
 
 // Step 1: strip optional adverb/adjective modifiers + a prep verb + optional trailing "fresh"
 // Handles: "freshly chopped basil", "finely minced garlic", "lightly packed fresh cilantro", etc.
 const PREP_VERB_PREFIX_RE = /^(?:(?:fresh(?:ly)?|finely|roughly|coarsely|thinly|lightly|well)\s+)*(?:chopped|minced|diced|sliced|torn|snipped|shredded|halved|grated|packed|peeled)(?:\s+fresh(?:ly)?)?\s+/i;
-// Step 2: strip bare state/freshness prefixes not caught by step 1
-const MODIFIER_PREFIX_RE = /^(?:fresh(?:ly)?|melted|softened)\s+/i;
+// Step 2: strip bare state/freshness prefixes not caught by step 1 (applied twice for chained modifiers)
+const MODIFIER_PREFIX_RE = /^(?:fresh(?:ly)?|melted|softened|warm|warm(?:ed)?|cold|frozen|dry|dried|canned|uncooked|cooked|raw|ripe)\s+/i;
 
 function normalizeShoppingName(name: string): string {
   let n = stripParenthetical(name);
@@ -370,13 +585,15 @@ function normalizeShoppingName(name: string): string {
   if (orIdx !== -1) {
     const before = n.slice(0, orIdx).trim();
     const after = n.slice(orIdx + 4).trim();
-    const isBareModifier = /^(red|green|yellow|white|brown|dark|light|black|orange|purple|fresh|dried|dry)$/i.test(before);
+    const isBareModifier = /^(red|green|yellow|white|brown|dark|light|black|orange|purple|fresh|dried|dry|homemade|store-bought|low-sodium|warm)$/i.test(before);
     // Strip any leading quantity+unit from the "after" part before using it
     const afterClean = after.replace(/^\d[\d\s/.]*(tablespoons?|teaspoons?|cups?|ounces?|pounds?|grams?|tbsp|tsp|oz|lbs?|cups?)\.?\s+/i, '').trim();
     n = isBareModifier ? afterClean : before;
   }
   // Strip leading preparation descriptors: "fresh chopped basil" → "basil"
   n = n.replace(PREP_VERB_PREFIX_RE, '').trim();
+  // Apply MODIFIER_PREFIX_RE twice to handle chained modifiers like "dry uncooked quinoa"
+  n = n.replace(MODIFIER_PREFIX_RE, '').trim();
   n = n.replace(MODIFIER_PREFIX_RE, '').trim();
   if (SHOPPING_NAME_ALIASES[n]) return SHOPPING_NAME_ALIASES[n];
   // Try depluralized form (carrots→carrot, celery stalks→celery stalk→alias)
@@ -461,6 +678,7 @@ export const useShoppingList = ({ plan, allRecipes, pantryStaples, days }: UseSh
         const ingNameLower = ing.name.trim().toLowerCase();
         if (ingNameLower.startsWith('other:')) return;
         if (ingNameLower.startsWith('suggested garnishes:')) return;
+        if (/^(toppings? of your choice|optional toppings?|garnish|for garnish|for serving|to serve|as needed|a pinch|turns? of|your favorite|preferred|any of the following)/i.test(ingNameLower)) return;
 
         // Always attempt to extract a clean ingredient name from the name field —
         // importers often bake quantity/unit strings into it (e.g. "⅓ tsp cayenne pepper",
@@ -507,13 +725,14 @@ export const useShoppingList = ({ plan, allRecipes, pantryStaples, days }: UseSh
         const qty = ingQty * (servingsMultiplier || 1);
 
         if (!map.has(key)) {
+          const overriddenCategory = CATEGORY_OVERRIDES[normalizedName] ?? ing.category ?? 'other';
           map.set(key, {
             name: normalizedName,
             unit: normalizedUnit || 'unit',
             totalQty: 0,
             count: 0,
             preparation: ing.preparation || '',
-            category: ing.category || 'other',
+            category: overriddenCategory,
             key,
             sources: [],
             recipeBreakdown: [],

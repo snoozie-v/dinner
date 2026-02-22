@@ -946,7 +946,7 @@
         "name": "jar of marinara sauce (about 32 ounces) or make your own tomato sauce",
         "quantity": 1,
         "unit": "large",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -1801,7 +1801,7 @@
         "name": "prepared tomato sauce",
         "quantity": 0.5,
         "unit": "cup",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -2097,7 +2097,7 @@
         "name": "8oz. can tomato sauce",
         "quantity": 1,
         "unit": "",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -4732,7 +4732,7 @@
         "name": "(6.5 ounce) cans canned tomato sauce",
         "quantity": 2,
         "unit": "",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -5265,7 +5265,7 @@
         "name": "(16 ounce) can tomato sauce",
         "quantity": 1,
         "unit": "",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -5918,15 +5918,15 @@
       },
       {
         "name": "banana pepper rings",
-        "quantity": 1,
-        "unit": "12 oz jar",
+        "quantity": 12,
+        "unit": "oz",
         "category": "produce",
         "optional": false
       },
       {
-        "name": "4oz. can sliced black olives",
-        "quantity": 0.5,
-        "unit": "4 oz",
+        "name": "sliced black olives",
+        "quantity": 4,
+        "unit": "oz",
         "category": "other",
         "optional": false
       }
@@ -7866,7 +7866,7 @@
         "name": "tomato passata (sub US tomato sauce or crushed tomato)",
         "quantity": 0.5,
         "unit": "cup",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -8448,18 +8448,19 @@
         "optional": false
       },
       {
-        "name": "Pinch cayenne pepper",
+        "name": "cayenne pepper",
         "quantity": 0,
         "unit": "",
-        "category": "produce",
+        "category": "spices",
         "optional": false
       },
       {
-        "name": "turns of freshly ground black pepper",
+        "name": "black pepper",
         "quantity": 2,
         "unit": "",
-        "category": "produce",
-        "optional": false
+        "category": "spices",
+        "optional": false,
+        "preparation": ""
       },
       {
         "name": "hamburger buns",
@@ -8743,10 +8744,10 @@
         "optional": false
       },
       {
-        "name": "beef",
+        "name": "ground beef",
         "quantity": 500,
-        "unit": "",
-        "preparation": "ground / mince (Note 2",
+        "unit": "gram",
+        "preparation": "ground",
         "category": "protein/meat",
         "optional": false
       },
@@ -8768,7 +8769,23 @@
         "name": "garlic powder",
         "quantity": 1,
         "unit": "tsp",
-        "preparation": "onion powder, dried oregano",
+        "preparation": "",
+        "category": "spices",
+        "optional": false
+      },
+      {
+        "name": "onion powder",
+        "quantity": 1,
+        "unit": "tsp",
+        "preparation": "",
+        "category": "spices",
+        "optional": false
+      },
+      {
+        "name": "dried oregano",
+        "quantity": 1,
+        "unit": "tsp",
+        "preparation": "",
         "category": "spices",
         "optional": false
       },
@@ -8776,7 +8793,15 @@
         "name": "ground cumin",
         "quantity": 2,
         "unit": "tsp",
-        "preparation": "paprika",
+        "preparation": "",
+        "category": "spices",
+        "optional": false
+      },
+      {
+        "name": "paprika",
+        "quantity": 2,
+        "unit": "tsp",
+        "preparation": "",
         "category": "spices",
         "optional": false
       },
@@ -9372,7 +9397,7 @@
         "name": "(6.5 ounce) cans tomato sauce",
         "quantity": 2,
         "unit": "",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
@@ -12570,7 +12595,7 @@
         "name": "canned tomato sauce",
         "quantity": 0.5,
         "unit": "cup",
-        "category": "produce",
+        "category": "pantry",
         "optional": false
       },
       {
