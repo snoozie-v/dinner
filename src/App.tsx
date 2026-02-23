@@ -316,6 +316,7 @@ function App() {
         onViewRecipe={handleViewRecipe}
         mealSlotThemes={mealSettingsHook.mealSettings.mealSlotThemes}
         todayPlanDay={todayPlanDay}
+        planStartDate={mealPlan.planStartDate}
         onMarkCooked={mealPlan.markCooked}
         onRateRecipe={(recipeId, rating) => {
           recipes.rateRecipe(recipeId, rating);

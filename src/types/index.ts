@@ -23,6 +23,14 @@ export interface Nutrition {
   source?: string;
 }
 
+export interface NutritionTargets {
+  calories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+  fiber: number;
+}
+
 export interface CostEstimate {
   total: number;
   currency: string;
