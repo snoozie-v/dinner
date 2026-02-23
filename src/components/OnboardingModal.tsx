@@ -96,6 +96,16 @@ const ONBOARDING_STEPS: OnboardingStep[] = [
     tip: 'Click "Meal Settings" to enable snack or dessert slots, or disable meals you don\'t need.',
   },
   {
+    title: 'Today Dashboard',
+    description: 'Set a start date for your plan and today\'s meals will be highlighted at the top every time you open the app — your daily hook for stress-free cooking.',
+    icon: (
+      <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m8.66-9h-1M4.34 12h-1m15.07-6.07-.71.71M6.34 17.66l-.71.71m12.02 0-.71-.71M6.34 6.34l-.71-.71M12 7a5 5 0 100 10A5 5 0 0012 7z" />
+      </svg>
+    ),
+    tip: 'Tap the "Mark cooked" ✓ button on a meal after cooking — then rate it with stars for smarter future randomization.',
+  },
+  {
     title: 'View Recipes & Add Notes',
     description: 'Click "View" on any planned meal to open the full recipe while cooking. Add prep notes to remind yourself of tasks like "marinate overnight" or "thaw chicken".',
     icon: (
@@ -114,17 +124,7 @@ const ONBOARDING_STEPS: OnboardingStep[] = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
       </svg>
     ),
-    tip: 'Planning for 30 days? Use the day range selector to shop for just days 1-7, then switch to days 8-14 next week.',
-  },
-  {
-    title: 'Pantry Staples',
-    description: 'Mark items you always have on hand (like salt, oil, garlic). These will automatically be checked off in your shopping list so you know what you actually need to buy.',
-    icon: (
-      <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-      </svg>
-    ),
-    tip: 'You can manage your full pantry staples list anytime from the \'Pantry Staples\' button on the Plan tab.',
+    tip: 'Swipe any item right to mark it collected while shopping. Tap an item to see which recipes need it.',
   },
   {
     title: 'Save Templates',
@@ -148,7 +148,7 @@ const ONBOARDING_STEPS: OnboardingStep[] = [
   },
   {
     title: 'Manage Your Recipes',
-    description: 'Browse the recipe library with 75+ built-in recipes, or create your own. Use bulk paste to quickly add ingredients and instructions.',
+    description: 'Browse the recipe library with 86 built-in recipes, or create your own. Use bulk paste to quickly add ingredients and instructions.',
     icon: (
       <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -165,16 +165,6 @@ const ONBOARDING_STEPS: OnboardingStep[] = [
       </svg>
     ),
     tip: 'Supported sites include AllRecipes, Budget Bytes, Serious Eats, and more!',
-  },
-  {
-    title: 'Share Recipes',
-    description: 'Found a recipe your friends or family need to try? Click "Share" on any recipe to generate a shareable link. Anyone with the link can view the full recipe — no app needed.',
-    icon: (
-      <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-      </svg>
-    ),
-    tip: 'Shared links expire after 30 days. You can share any recipe — built-in or custom.',
   },
   {
     title: 'Backup & Restore',

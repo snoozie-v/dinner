@@ -461,17 +461,16 @@ function App() {
                   <div className="py-1 max-h-80 overflow-y-auto">
                     {[
                       { step: 0, title: 'Welcome', desc: 'Introduction to the app' },
-                      { step: 1, title: 'Plan Your Meals', desc: 'Create & organize meal plans' },
-                      { step: 2, title: 'View & Prep Notes', desc: 'View recipes, add prep reminders' },
-                      { step: 3, title: 'Shopping List', desc: 'Auto-generated, shareable lists' },
-                      { step: 4, title: 'Pantry Staples', desc: 'Mark items you always have' },
-                      { step: 5, title: 'Save Templates', desc: 'Reuse meal plans' },
-                      { step: 6, title: 'Quick Recipe Access', desc: 'Favorites & recent recipes' },
-                      { step: 7, title: 'Manage Recipes', desc: 'Browse, create & edit recipes' },
-                      { step: 8, title: 'Import from URLs', desc: 'Import from recipe websites' },
-                      { step: 9, title: 'Share Recipes', desc: 'Share recipes with anyone' },
-                      { step: 10, title: 'Backup & Restore', desc: 'Export/import your data' },
-                      { step: 11, title: 'Undo & Dark Mode', desc: 'Recovery & theme options' },
+                      { step: 4, title: 'Plan Your Meals', desc: 'Create & organize meal plans' },
+                      { step: 5, title: 'Today Dashboard', desc: 'Daily hook & cook tracking' },
+                      { step: 6, title: 'View & Prep Notes', desc: 'View recipes, add prep reminders' },
+                      { step: 7, title: 'Shopping List', desc: 'Auto-generated, shareable lists' },
+                      { step: 8, title: 'Save Templates', desc: 'Reuse meal plans' },
+                      { step: 9, title: 'Quick Recipe Access', desc: 'Favorites & recent recipes' },
+                      { step: 10, title: 'Manage Recipes', desc: 'Browse, create & edit recipes' },
+                      { step: 11, title: 'Import from URLs', desc: 'Import from recipe websites' },
+                      { step: 12, title: 'Backup & Restore', desc: 'Export/import your data' },
+                      { step: 13, title: 'Undo & Dark Mode', desc: 'Recovery & theme options' },
                     ].map(({ step, title, desc }) => (
                       <button
                         key={step}

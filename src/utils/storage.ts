@@ -12,6 +12,8 @@ export const STORAGE_KEYS = {
   CUSTOM_RECIPES: 'dinner-planner-custom-recipes',
   PLAN_START_DATE: 'dinner-planner-start-date',
   RECIPE_METADATA: 'dinner-planner-recipe-metadata',
+  HIDE_COMPLETED_SHOPPING: 'dinner-planner-hide-completed',
+  SWIPE_HINT_SEEN: 'dinner-planner-swipe-hint-seen',
 } as const;
 
 export type StorageKey = typeof STORAGE_KEYS[keyof typeof STORAGE_KEYS];

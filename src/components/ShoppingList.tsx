@@ -1,9 +1,11 @@
 // src/components/ShoppingList.tsx
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import type { PlanItem, Recipe, ShoppingItem } from '../types';
 import SwipeableShoppingItem from './SwipeableShoppingItem';
 import { openExternalUrl, copyToClipboard, shareText, canNativeShare } from '../utils/platform';
 import { PROXY_URL } from '../config';
+import { usePersistedState } from '../hooks/usePersistedState';
+import { STORAGE_KEYS } from '../utils/storage';
 
 interface ShoppingListProps {
   plan: PlanItem[];
@@ -105,7 +107,14 @@ const ShoppingList = ({
   selectedDays,
   onSelectedDaysChange,
 }: ShoppingListProps) => {
-  const [hideCompleted, setHideCompleted] = useState(false);
+  const [hideCompleted, setHideCompleted] = usePersistedState<boolean>(STORAGE_KEYS.HIDE_COMPLETED_SHOPPING, false);
+  const [swipeHintSeen, setSwipeHintSeen] = usePersistedState<boolean>(STORAGE_KEYS.SWIPE_HINT_SEEN, false);
+  const [copyToast, setCopyToast] = useState<string | null>(null);
+
+  const showToast = useCallback((msg: string) => {
+    setCopyToast(msg);
+    setTimeout(() => setCopyToast(null), 3000);
+  }, []);
 
   // Build name → recipe lookup for breakdown navigation
   const recipeByName = useMemo(() => {
@@ -150,7 +159,7 @@ const ShoppingList = ({
       }));
 
     if (neededItems.length === 0) {
-      alert('All items are already collected!');
+      showToast('All items are already collected!');
       setIsLoadingInstacart(false);
       return;
     }
@@ -171,11 +180,11 @@ const ShoppingList = ({
       if (data.success && data.instacartUrl) {
         openExternalUrl(data.instacartUrl);
       } else {
-        alert(data.error || 'Failed to create Instacart list. Please try again.');
+        showToast(data.error || 'Failed to create Instacart list. Please try again.');
       }
     } catch (error) {
       console.error('Instacart error:', error);
-      alert('Failed to connect to Instacart. Please try again.');
+      showToast('Failed to connect to Instacart. Please try again.');
     } finally {
       setIsLoadingInstacart(false);
     }
@@ -236,14 +245,14 @@ const ShoppingList = ({
   const handleCopy = async () => {
     const text = generateCopyText();
     const success = await copyToClipboard(text);
-    alert(success ? 'Shopping list copied!' : 'Failed to copy. Please try manually.');
+    showToast(success ? 'Shopping list copied!' : 'Failed to copy. Please try manually.');
   };
 
   const handleShare = async () => {
     const text = generateCopyText();
     const result = await shareText('Shopping List', text);
     if (result === 'copied') {
-      alert('Shopping list copied!');
+      showToast('Shopping list copied!');
     }
   };
 
@@ -281,6 +290,13 @@ const ShoppingList = ({
 
   return (
     <section>
+      {/* Copy/action toast */}
+      {copyToast && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-sm rounded-full shadow-lg pointer-events-none animate-fade-in">
+          {copyToast}
+        </div>
+      )}
+
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
         <div>
           <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">Shopping List</h2>
@@ -431,6 +447,25 @@ const ShoppingList = ({
               Showing ingredients for {isContiguousRange ? `days ${rangeStart}-${rangeEnd}` : `${selectedDays.size} selected days`} ({selectedDays.size} of {totalDays} days)
             </p>
           )}
+        </div>
+      )}
+
+      {/* One-time swipe discovery hint */}
+      {!swipeHintSeen && shoppingList.length > 0 && (
+        <div className="mb-4 flex items-center gap-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl px-4 py-3">
+          <span className="text-blue-500 dark:text-blue-400 text-lg">👆</span>
+          <p className="flex-1 text-sm text-blue-700 dark:text-blue-300">
+            <span className="font-medium">Tip:</span> Swipe an item right to mark it collected
+          </p>
+          <button
+            onClick={() => setSwipeHintSeen(true)}
+            className="text-blue-400 dark:text-blue-500 hover:text-blue-600 dark:hover:text-blue-300 p-1"
+            aria-label="Dismiss tip"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         </div>
       )}
 
